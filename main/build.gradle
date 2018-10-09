@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':profile')
+    compile project(':weather')
+    compile project(':finance')
+}
+
+
+
+

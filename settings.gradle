@@ -1,0 +1,10 @@
+rootProject.name="app"
+
+include ':main'
+project(':main').projectDir = file('main')
+include ':profile'
+project(':profile').projectDir = file('profile')
+include ':weather'
+project(':weather').projectDir = file('weather')
+include ':finance'
+project(':finance').projectDir = file('finance')
