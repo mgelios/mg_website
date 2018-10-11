@@ -1,13 +1,9 @@
 package mg.weather.services;
 
+import mg.utils.JSONConsumer;
 import mg.weather.WeatherConfiguration;
 import mg.weather.models.CurrentWeather;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,28 +13,36 @@ public class BasicWeatherService implements WeatherService {
     @Autowired
     WeatherConfiguration weatherConfiguration;
 
+    @Autowired
+    JSONConsumer jsonConsumer;
+
+
     @Override
     public CurrentWeather getDefaultWeatherInfo() {
         CurrentWeather weather = new CurrentWeather();
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet get = new HttpGet(
-                weatherConfiguration.getBaseUrl() +
-                        weatherConfiguration.getWeatherSuffix() +
-                        "?q=minsk&appid=" +
-                        weatherConfiguration.getApiKey() +
-                        "&units=" +
-                        weatherConfiguration.getUnits() +
-                        "&lang=" +
-                        weatherConfiguration.getLang());
-        try {
-            HttpResponse response = client.execute(get);
-            String body = EntityUtils.toString(response.getEntity());
-            body.length();
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
+        JSONObject json = jsonConsumer.getJson(buildCurrentDefaultWeatherUrl());
         return weather;
     }
+
+    private String buildCurrentDefaultWeatherUrl(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getBaseUrl())
+                .append(weatherConfiguration.getWeatherSuffix())
+                .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append("=")
+                .append(weatherConfiguration.getDefaultCity())
+                .append(weatherConfiguration.getQueryDelimiter())
+                .append("appid=")
+                .append(weatherConfiguration.getApiKey())
+                .append(weatherConfiguration.getQueryDelimiter())
+                .append("units=")
+                .append(weatherConfiguration.getUnits())
+                .append(weatherConfiguration.getQueryDelimiter())
+                .append("lang=")
+                .append(weatherConfiguration.getLang());
+        return builder.toString();
+    }
+
 
 }

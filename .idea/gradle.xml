@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/finance" />
             <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/profile" />
+            <option value="$PROJECT_DIR$/utils" />
             <option value="$PROJECT_DIR$/weather" />
           </set>
         </option>

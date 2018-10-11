@@ -2,6 +2,8 @@ rootProject.name="app"
 
 include ':main'
 project(':main').projectDir = file('main')
+include ':utils'
+project(':utils').projectDir = file('utils')
 include ':profile'
 project(':profile').projectDir = file('profile')
 include ':weather'

@@ -1,4 +1,5 @@
 dependencies {
+    compile project(':utils')
     compile project(':profile')
     compile project(':weather')
     compile project(':finance')

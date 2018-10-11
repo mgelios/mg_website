@@ -1,6 +1,7 @@
 package mg.weather;
 
 import lombok.Data;
+import mg.utils.JSONConsumer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -17,5 +18,8 @@ public class WeatherConfiguration{
     public String apiKey;
     public String units;
     public String lang;
+    public String defaultCity;
+    public String firstQueryDelimiter;
+    public String queryDelimiter;
 
 }
