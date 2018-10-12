@@ -15,11 +15,19 @@ public class WeatherConfiguration{
     public String baseUrl;
     public String weatherSuffix;
     public String forecastSuffix;
+
     public String apiKey;
     public String units;
     public String lang;
     public String defaultCity;
+
     public String firstQueryDelimiter;
     public String queryDelimiter;
+    public String equalitySymbol;
+
+    public String apiKeyVariable;
+    public String unitsVariable;
+    public String langVariable;
+
 
 }
