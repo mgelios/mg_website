@@ -24,6 +24,49 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
+    @Override
+    public String buildCurrentWeatherUrl(String city){
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getBaseUrl())
+                .append(weatherConfiguration.getWeatherSuffix())
+                .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getEqualitySymbol())
+                .append(city)
+                .append(getApiKeyPart())
+                .append(getUnitsPart())
+                .append(getLangPart());
+        return builder.toString();
+    }
+
+    @Override
+    public String buildForecastDefaultUrl(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getBaseUrl())
+                .append(weatherConfiguration.getForecastSuffix())
+                .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getEqualitySymbol())
+                .append(weatherConfiguration.getDefaultCity())
+                .append(getApiKeyPart())
+                .append(getUnitsPart())
+                .append(getLangPart());
+        return builder.toString();
+    }
+
+    @Override
+    public String buildForecastUrl(String city){
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getBaseUrl())
+                .append(weatherConfiguration.getForecastSuffix())
+                .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getEqualitySymbol())
+                .append(city)
+                .append(getApiKeyPart())
+                .append(getUnitsPart())
+                .append(getLangPart());
+        return builder.toString();
+    }
+
+
     private String getApiKeyPart(){
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getQueryDelimiter())
