@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/user/login").permitAll()
                     .antMatchers("/user/registration").permitAll()
                     .antMatchers("/weather/current").permitAll()
+                    .antMatchers("/currency/values").permitAll()
                     .antMatchers("/user/details").authenticated()
                     .antMatchers("/user/list").hasAuthority("ADMIN")
                     .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()

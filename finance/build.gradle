@@ -9,3 +9,7 @@ bootRun {
 jar {
     enabled = true
 }
+
+dependencies {
+    compile project(":utils")
+}

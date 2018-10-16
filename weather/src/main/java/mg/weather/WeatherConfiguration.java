@@ -12,22 +12,22 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 public class WeatherConfiguration{
 
-    public String baseUrl;
-    public String weatherSuffix;
-    public String forecastSuffix;
+    private String baseUrl;
+    private String weatherSuffix;
+    private String forecastSuffix;
 
-    public String apiKey;
-    public String units;
-    public String lang;
-    public String defaultCity;
+    private String apiKey;
+    private String units;
+    private String lang;
+    private String defaultCity;
 
-    public String firstQueryDelimiter;
-    public String queryDelimiter;
-    public String equalitySymbol;
+    private String firstQueryDelimiter;
+    private String queryDelimiter;
+    private String equalitySymbol;
 
-    public String apiKeyVariable;
-    public String unitsVariable;
-    public String langVariable;
+    private String apiKeyVariable;
+    private String unitsVariable;
+    private String langVariable;
 
 
 }
