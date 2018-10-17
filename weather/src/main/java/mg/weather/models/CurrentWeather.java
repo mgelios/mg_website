@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 
 public class CurrentWeather {
 
+    private Long id;
+
+    private LocalDateTime time;
+
+    private String cityName;
+
     private double longitude;
     private double latitude;
 
@@ -25,6 +31,30 @@ public class CurrentWeather {
     private LocalDateTime sunset;
 
     private double uvi;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
     public double getLongitude() {
         return longitude;

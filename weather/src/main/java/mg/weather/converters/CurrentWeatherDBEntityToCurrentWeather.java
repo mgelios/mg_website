@@ -5,16 +5,14 @@ import mg.weather.models.CurrentWeather;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-
 @Component
-public class CurrentWeatherToCurrentWeatherDBEntity implements Converter<CurrentWeather, CurrentWeatherDBEntity> {
+public class CurrentWeatherDBEntityToCurrentWeather implements Converter<CurrentWeatherDBEntity, CurrentWeather> {
 
     @Override
-    public CurrentWeatherDBEntity convert(CurrentWeather source){
-        CurrentWeatherDBEntity target = new CurrentWeatherDBEntity();
+    public CurrentWeather convert(CurrentWeatherDBEntity source){
+        CurrentWeather target = new CurrentWeather();
         target.setId(source.getId());
-        target.setTime(Timestamp.valueOf(source.getTime()));
+        target.setTime(source.getTime().toLocalDateTime());
         target.setCityName(source.getCityName());
         target.setLongitude(source.getLongitude());
         target.setLatitude(source.getLatitude());
@@ -29,8 +27,8 @@ public class CurrentWeatherToCurrentWeatherDBEntity implements Converter<Current
         target.setVisibility(source.getVisibility());
         target.setWindSpeed(source.getWindSpeed());
         target.setWindDegree(source.getWindDegree());
-        target.setSunrise(Timestamp.valueOf(source.getSunrise()));
-        target.setSunset(Timestamp.valueOf(source.getSunset()));
+        target.setSunrise(source.getSunrise().toLocalDateTime());
+        target.setSunset(source.getSunset().toLocalDateTime());
         target.setUvi(source.getUvi());
         return target;
     }
