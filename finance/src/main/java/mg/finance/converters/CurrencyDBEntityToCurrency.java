@@ -5,8 +5,6 @@ import mg.finance.models.Currency;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-
 @Component
 public class CurrencyDBEntityToCurrency implements Converter<CurrencyDBEntity, Currency> {
 

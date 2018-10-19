@@ -17,7 +17,7 @@ public class CurrencyStatisticsDBEntity {
     private Long id;
 
     private Timestamp date;
-    private Currency currency;
+    private CurrencyDBEntity currency;
     private double rate;
 
 }
