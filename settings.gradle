@@ -10,3 +10,5 @@ include ':weather'
 project(':weather').projectDir = file('weather')
 include ':finance'
 project(':finance').projectDir = file('finance')
+include ':news'
+project(':news').projectDir = file('news')
