@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-@Table(name="mg_currency_conversion")
+@Table(name="mg_currency_statistics")
 public class CurrencyStatisticsDBEntity {
 
     @Id

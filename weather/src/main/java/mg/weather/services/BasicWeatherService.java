@@ -32,16 +32,19 @@ public class BasicWeatherService implements WeatherService {
     public CurrentWeather getDefaultWeatherInfo() {
         CurrentWeather weather = new CurrentWeather();
         CurrentWeatherDBEntity actualDBEntity = null;
-        if (currentWeatherRepository.findByCityName().isPresent()) {
-            actualDBEntity = currentWeatherRepository.findByCityName().get();
-            int dbCurrentWeatherHours = actualDBEntity.getTime().toLocalDateTime().getHour() / 2;
-            int currentTimeHours = LocalDateTime.now().getHour() / 2;
-            if (currentTimeHours != dbCurrentWeatherHours) {
-
-            }
-        } else {
-            JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildCurrentDefaultWeatherUrl());
-        }
+//        if (currentWeatherRepository.findByCityName().isPresent()) {
+//            actualDBEntity = currentWeatherRepository.findByCityName().get();
+//            int dbCurrentWeatherHours = actualDBEntity.getTime().toLocalDateTime().getHour() / 2;
+//            int currentTimeHours = LocalDateTime.now().getHour() / 2;
+//            if (currentTimeHours != dbCurrentWeatherHours) {
+//
+//            }
+//        } else {
+//            JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildCurrentDefaultWeatherUrl());
+//        }
+        weather.setCityName("Minsk");
+        weather.setId(2L);
+        weather.setHumidity(200);
         return weather;
     }
 

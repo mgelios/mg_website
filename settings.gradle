@@ -12,3 +12,9 @@ include ':finance'
 project(':finance').projectDir = file('finance')
 include ':news'
 project(':news').projectDir = file('news')
+
+
+
+
+include ':webui'
+project(':webui').projectDir = file('webui')

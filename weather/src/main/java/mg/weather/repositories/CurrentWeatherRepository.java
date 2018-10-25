@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CurrentWeatherRepository extends CrudRepository<CurrentWeatherDBEntity, Long> {
 
-    Optional<CurrentWeatherDBEntity> findByCityName();
+    //Optional<CurrentWeatherDBEntity> findByCityName();
 
 }
