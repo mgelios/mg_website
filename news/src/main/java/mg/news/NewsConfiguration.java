@@ -10,4 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "mg.news")
 @Data
 public class NewsConfiguration {
+
+    private String radiotApiUrl;
+    private String radiotArticlesSuffix;
+
 }
