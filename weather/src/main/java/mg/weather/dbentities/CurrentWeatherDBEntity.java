@@ -16,10 +16,10 @@ public class CurrentWeatherDBEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "time")
     private Timestamp time;
 
-    @Column
+    @Column(name = "city_name")
     private String cityName;
 
     @Column(name = "longitude")
