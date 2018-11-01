@@ -2,7 +2,7 @@ drop table if exists mg_current_weather;
 drop table if exists mg_weather_forecast;
 
 create table mg_current_weather (
-  id integer,
+  id integer not null auto_increment,
   time timestamp not null,
   city_name varchar(200) not null,
   longitude double not null,
@@ -25,7 +25,7 @@ create table mg_current_weather (
 );
 
 create table mg_weather_forecast (
-  id integer,
+  id integer not null auto_increment,
   time timestamp not null,
   temperature double not null,
   min_temp double not null,
