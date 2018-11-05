@@ -44,4 +44,11 @@ public class WeatherForecastDBEntity {
     private double windSpeed;
     @Column(name = "wind_degree")
     private double windDegree;
+
+    @Column(name = "city_name")
+    private String cityName;
+
+    @Column(name = "update_time")
+    private Timestamp updateTime;
+
 }

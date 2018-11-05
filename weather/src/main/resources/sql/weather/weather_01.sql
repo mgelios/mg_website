@@ -39,5 +39,7 @@ create table mg_weather_forecast (
   icon varchar(200) not null,
   wind_speed double not null,
   wind_degree double not null,
+  city_name varchar(200) not null,
+  update_time timestamp not null,
   primary key(id)
 );

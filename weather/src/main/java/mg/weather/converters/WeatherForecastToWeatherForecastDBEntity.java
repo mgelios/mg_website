@@ -27,6 +27,7 @@ public class WeatherForecastToWeatherForecastDBEntity implements Converter<Weath
         target.setIcon(source.getIcon());
         target.setWindDegree(source.getWindDegree());
         target.setWindSpeed(source.getWindSpeed());
+        target.setCityName(source.getCityName());
         return target;
     }
 

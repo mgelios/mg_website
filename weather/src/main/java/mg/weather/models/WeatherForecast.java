@@ -23,6 +23,10 @@ public class WeatherForecast {
     private double windSpeed;
     private double windDegree;
 
+    private String cityName;
+
+    private LocalDateTime updateTime;
+
     public Long getId() {
         return id;
     }
@@ -133,5 +137,21 @@ public class WeatherForecast {
 
     public void setWindDegree(double windDegree) {
         this.windDegree = windDegree;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
     }
 }

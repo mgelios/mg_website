@@ -6,6 +6,7 @@ import mg.weather.converters.CurrentWeatherDBEntityToCurrentWeather;
 import mg.weather.converters.CurrentWeatherToCurrentWeatherDBEntity;
 import mg.weather.dbentities.CurrentWeatherDBEntity;
 import mg.weather.models.CurrentWeather;
+import mg.weather.models.WeatherForecast;
 import mg.weather.repositories.CurrentWeatherRepository;
 import mg.weather.utils.WeatherUrlBuilder;
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BasicWeatherService implements WeatherService {
@@ -44,6 +47,11 @@ public class BasicWeatherService implements WeatherService {
         return getWeatherInfo(weatherConfiguration.getDefaultCity());
     }
 
+    @Override
+    public List<WeatherForecast> getDefaultWeatherForecast(){
+        return getWeatherForecast(weatherConfiguration.getDefaultCity());
+    }
+
     public CurrentWeather getWeatherInfo(String cityName) {
         CurrentWeatherDBEntity dbEntity = null;
         if (currentWeatherRepository.findByCityName(cityName).isPresent()) {
@@ -60,6 +68,12 @@ public class BasicWeatherService implements WeatherService {
             dbEntity = currentWeatherRepository.findByCityName("minsk").get();
         }
         return currentWeatherDBEntityToCurrentWeather.convert(dbEntity);
+    }
+
+    public List<WeatherForecast> getWeatherForecast(String cityName){
+        List<WeatherForecast> forecastRecords = new ArrayList<>();
+        weatherUrlBuilder.buildForecastDefaultUrl();
+        return null;
     }
 
     private CurrentWeatherDBEntity writeCurrentWeatherToDB(String cityName){

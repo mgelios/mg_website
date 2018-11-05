@@ -18,6 +18,7 @@ public class WeatherController {
     @RequestMapping("/current")
     ModelAndView getCurrentWeather(){
         CurrentWeather currentWeather = weatherService.getDefaultWeatherInfo();
+        weatherService.getDefaultWeatherForecast();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("weather", currentWeather);
         modelAndView.setViewName("weather");
