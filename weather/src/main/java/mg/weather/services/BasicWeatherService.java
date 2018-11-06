@@ -5,6 +5,7 @@ import mg.weather.WeatherConfiguration;
 import mg.weather.converters.CurrentWeatherDBEntityToCurrentWeather;
 import mg.weather.converters.CurrentWeatherToCurrentWeatherDBEntity;
 import mg.weather.dbentities.CurrentWeatherDBEntity;
+import mg.weather.dbentities.WeatherForecastDBEntity;
 import mg.weather.models.CurrentWeather;
 import mg.weather.models.WeatherForecast;
 import mg.weather.repositories.CurrentWeatherRepository;
@@ -72,7 +73,7 @@ public class BasicWeatherService implements WeatherService {
 
     public List<WeatherForecast> getWeatherForecast(String cityName){
         List<WeatherForecast> forecastRecords = new ArrayList<>();
-        weatherUrlBuilder.buildForecastDefaultUrl();
+        writeWeatherForecastToDB(cityName);
         return null;
     }
 
@@ -97,6 +98,13 @@ public class BasicWeatherService implements WeatherService {
         dbEntity.setSunset(Timestamp.from(Instant.ofEpochSecond(Long.valueOf(((JSONObject)json.get("sys")).get("sunset").toString()))));
         dbEntity.setCityName(json.get("name").toString().toLowerCase());
         return dbEntity;
+    }
+
+    private List<WeatherForecastDBEntity> writeWeatherForecastToDB(String cityName){
+        List<WeatherForecastDBEntity> dbList = new ArrayList<>();
+        JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildForecastUrl(cityName));
+
+        return dbList;
     }
 
 }
