@@ -4,11 +4,14 @@ import mg.utils.JSONConsumer;
 import mg.weather.WeatherConfiguration;
 import mg.weather.converters.CurrentWeatherDBEntityToCurrentWeather;
 import mg.weather.converters.CurrentWeatherToCurrentWeatherDBEntity;
+import mg.weather.converters.WeatherForecastDBEntityToWeatherForecast;
+import mg.weather.converters.WeatherForecastToWeatherForecastDBEntity;
 import mg.weather.dbentities.CurrentWeatherDBEntity;
 import mg.weather.dbentities.WeatherForecastDBEntity;
 import mg.weather.models.CurrentWeather;
 import mg.weather.models.WeatherForecast;
 import mg.weather.repositories.CurrentWeatherRepository;
+import mg.weather.repositories.WeatherForecastRepository;
 import mg.weather.utils.WeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,12 +24,16 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BasicWeatherService implements WeatherService {
 
     @Autowired
     CurrentWeatherRepository currentWeatherRepository;
+
+    @Autowired
+    WeatherForecastRepository weatherForecastRepository;
 
     @Autowired
     WeatherConfiguration weatherConfiguration;
@@ -42,6 +49,12 @@ public class BasicWeatherService implements WeatherService {
 
     @Autowired
     CurrentWeatherToCurrentWeatherDBEntity currentWeatherToCurrentWeatherDBEntity;
+
+    @Autowired
+    WeatherForecastDBEntityToWeatherForecast weatherForecastDBEntityToWeatherForecast;
+
+    @Autowired
+    WeatherForecastToWeatherForecastDBEntity weatherForecastToWeatherForecastDBEntity;
 
     @Override
     public CurrentWeather getDefaultWeatherInfo(){
@@ -73,8 +86,19 @@ public class BasicWeatherService implements WeatherService {
 
     public List<WeatherForecast> getWeatherForecast(String cityName){
         List<WeatherForecast> forecastRecords = new ArrayList<>();
+        if (weatherForecastRepository.findByCityName(cityName).isPresent()){
+            WeatherForecastDBEntity dbEntity = weatherForecastRepository.findByCityName(cityName).get();
+            int dbWeatherForecast = dbEntity.getTime().toLocalDateTime().getHour() / 2;
+            int currentTimeHours = LocalDateTime.now().getHour() / 2;
+            if (currentTimeHours != dbWeatherForecast) {
+                weatherForecastRepository.deleteAllByCityName(cityName);
+                forecastRecords = writeWeatherForecastToDBEntity(cityName).stream()
+                        .map(weatherForecastDBEntityToWeatherForecast::convert)
+                        .collect(Collectors.toList());
+            }
+        }
         writeWeatherForecastToDBEntity(cityName);
-        return null;
+        return forecastRecords;
     }
 
     private CurrentWeatherDBEntity writeCurrentWeatherToDBEntity(String cityName){
