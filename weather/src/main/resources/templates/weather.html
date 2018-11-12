@@ -16,7 +16,7 @@
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Navbar</a>
         </nav>
-        <div>
+        <div class="container-fluid">
             <div class="card-deck">
                 <div class="card bg-light mb-4 shadow-sm">
                     <div class="card-header">
@@ -46,6 +46,15 @@
                         <h5 th:text="'Visibility: '+${weather.getVisibility()}+' m'"></h5>
                         <hr>
                         <h5 th:text="'Wind speed: '+${weather.getWindSpeed()}+' m/sec'"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h4>Forecast</h4>
+                    </div>
+                    <div class="card-body">
                     </div>
                 </div>
             </div>

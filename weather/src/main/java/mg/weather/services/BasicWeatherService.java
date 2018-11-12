@@ -96,8 +96,11 @@ public class BasicWeatherService implements WeatherService {
                         .map(weatherForecastDBEntityToWeatherForecast::convert)
                         .collect(Collectors.toList());
             }
+        } else {
+            forecastRecords = writeWeatherForecastToDBEntity(cityName).stream()
+                    .map(weatherForecastDBEntityToWeatherForecast::convert)
+                    .collect(Collectors.toList());
         }
-        writeWeatherForecastToDBEntity(cityName);
         return forecastRecords;
     }
 
