@@ -1,0 +1,27 @@
+.card-columns {
+    column-count: 6;
+}
+
+@media (max-width: 74.9em) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (max-width: 61.9em) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 47.9em) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 33.9em) {
+    .card-columns {
+        column-count: 1;
+    }
+}
