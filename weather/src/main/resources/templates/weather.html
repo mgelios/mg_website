@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Weather</title>
     <!--<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -13,10 +14,23 @@
 </head>
 
 <body>
-    <div>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Navbar</a>
-        </nav>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Weather</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="p-3 p-md-5">
         <div class="container-fluid">
             <div class="card-deck">
                 <div class="card bg-light mb-4 mt-4 shadow-sm">
@@ -32,8 +46,6 @@
                             <img class="card-img-top" th:src="@{/images/weather/{icon}(icon = ${weather.getIcon()}+'.svg')}" >
                         </div>
                     </div>
-                </div>
-                <div class="card bg-light mb-4 mt-4 shadow-sm">
                 </div>
                 <div class="card bg-light mb-4 mt-4 shadow-sm">
                     <div class="card-header">
@@ -59,10 +71,10 @@
                         <div class="card-columns">
                             <div th:each="forecast : ${forecasts}" class="card">
                                 <div class="card-header">
-                                    <h5 th:text="${forecast.getDescription()}+': '+${#temporals.format(forecast.getTime(), 'HH:mm')}"></h5>
+                                    <h6 th:text="${forecast.getDescription()}+': '+${#temporals.format(forecast.getTime(), 'dd-MM HH:mm')}"></h6>
                                 </div>
                                 <div class="card-body">
-
+                                    <img class="card-img-top" th:src="@{/images/weather/{icon}(icon = ${forecast.getIcon()}+'.svg')}" >
                                 </div>
                             </div>
                         </div>
