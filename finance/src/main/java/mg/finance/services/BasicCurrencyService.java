@@ -1,6 +1,8 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
+import mg.finance.dbentities.CurrencyDBEntity;
+import mg.finance.models.Currency;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class BasicCurrencyService implements CurrencyService {
     JSONConsumer jsonConsumer;
 
     @Override
-    public String getCurrencyValues() {
+    public Currency getCurrencyValues() {
         jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl("USD"));
-        return jsonConsumer.toString();
+        CurrencyDBEntity dbEntity = new CurrencyDBEntity();
+        return null;
     }
 }

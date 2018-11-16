@@ -16,8 +16,11 @@ public class CurrencyStatisticsDBEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "date")
     private Timestamp date;
+    @Column(name = "currency")
     private CurrencyDBEntity currency;
+    @Column(name = "rate")
     private double rate;
 
 }
