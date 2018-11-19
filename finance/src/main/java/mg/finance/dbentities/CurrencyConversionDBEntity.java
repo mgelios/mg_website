@@ -15,9 +15,11 @@ public class CurrencyConversionDBEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "currency_from")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency_from", nullable = false)
     private CurrencyDBEntity currencyFrom;
-    @Column(name = "currency_to")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency_to", nullable = false)
     private CurrencyDBEntity currencyTo;
 
     @Column(name = "value")

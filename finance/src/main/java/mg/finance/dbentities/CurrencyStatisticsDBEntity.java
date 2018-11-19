@@ -18,8 +18,11 @@ public class CurrencyStatisticsDBEntity {
 
     @Column(name = "date")
     private Timestamp date;
-    @Column(name = "currency")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency", nullable = false)
     private CurrencyDBEntity currency;
+
     @Column(name = "rate")
     private double rate;
 
