@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,12 +43,20 @@ public class BasicCurrencyService implements CurrencyService {
     @Override
     public Currency getCurrencyValues() {
         JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl("USD"));
-        CurrencyDBEntity dbEntity = new CurrencyDBEntity();
-        dbEntity.setSystemId(json.getInt("Cur_ID"));
-        dbEntity.setDate(Timestamp.valueOf(json.getString("Date").replace("T", " ")));
-        dbEntity.setRate(json.getDouble("Cur_OfficialRate"));
-        dbEntity.setAbbreviation(json.getString("Cur_Abbreviation"));
-        dbEntity.setScale(json.getDouble("Cur_Scale"));
+        CurrencyDBEntity dbEntity = currencyRepository.findByAbbreviation("USD").get();
+        if (dbEntity != null){
+            LocalDateTime dbTime = LocalDateTime.from(dbEntity.getDate().toInstant());
+            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
+                currencyRepository.delete(dbEntity);
+                dbEntity = new CurrencyDBEntity();
+                dbEntity.setSystemId(json.getInt("Cur_ID"));
+                dbEntity.setDate(Timestamp.valueOf(json.getString("Date").replace("T", " ")));
+                dbEntity.setAbbreviation(json.getString("Cur_Abbreviation"));
+                dbEntity.setScale(json.getDouble("Cur_Scale"));
+                dbEntity.setName(json.getString("Cur_Name"));
+                dbEntity.setRate(json.getDouble("Cur_OfficialRate"));
+            }
+        }
         return null;
     }
 
