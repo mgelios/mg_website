@@ -76,6 +76,7 @@ public class BasicCurrencyService implements CurrencyService {
 
     @Override
     public List<CurrencyStatistics> getCurrencyStatistics() {
+
         return null;
     }
 }

@@ -13,6 +13,9 @@ public class FinanceConfiguration {
 
     private String currencyBaseUrl;
     private String currencyRateSuffix;
+    private String currencyStatisticsSuffix;
+    private String currencyStatisticsStartDate;
+    private String currencyStatisticsEndDate;
     private String currencyUrlParamMode;
 
 }
