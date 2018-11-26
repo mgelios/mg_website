@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,7 +77,10 @@ public class BasicCurrencyService implements CurrencyService {
 
     @Override
     public List<CurrencyStatistics> getCurrencyStatistics() {
+        CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation("USD").get();
+        if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()){
 
+        }
         return null;
     }
 }
