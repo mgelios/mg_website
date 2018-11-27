@@ -4,6 +4,7 @@ import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDBEntityToCurrency;
 import mg.finance.converters.CurrencyToCurrencyDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
+import mg.finance.dbentities.CurrencyStatisticsDBEntity;
 import mg.finance.models.Currency;
 import mg.finance.models.CurrencyConversion;
 import mg.finance.models.CurrencyStatistics;
@@ -79,8 +80,18 @@ public class BasicCurrencyService implements CurrencyService {
     public List<CurrencyStatistics> getCurrencyStatistics() {
         CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation("USD").get();
         if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()){
-
+            CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();
+            LocalDateTime dbTime = LocalDateTime.from(dbStatistics.getDate().toInstant());
+            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
+                currencyStatisticsRepository.delete(dbStatistics);
+            }
         }
         return null;
+    }
+
+    private CurrencyStatisticsDBEntity fillCurrencyStatisticsDBEntity(){
+        CurrencyStatisticsDBEntity dbEntity = new CurrencyStatisticsDBEntity();
+
+        return dbEntity;
     }
 }
