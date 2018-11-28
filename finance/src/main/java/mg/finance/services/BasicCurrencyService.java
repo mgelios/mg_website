@@ -89,7 +89,7 @@ public class BasicCurrencyService implements CurrencyService {
         return null;
     }
 
-    private CurrencyStatisticsDBEntity fillCurrencyStatisticsDBEntity(){
+    private CurrencyStatisticsDBEntity fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity){
         CurrencyStatisticsDBEntity dbEntity = new CurrencyStatisticsDBEntity();
 
         return dbEntity;

@@ -1,6 +1,7 @@
 drop table if exists mg_currency;
 drop table if exists mg_currency_statistics;
 drop table if exists mg_currency_conversion;
+drop table if exists mg_crypto_currency;
 
 create table mg_currency (
   id integer not null auto_increment,
@@ -30,5 +31,9 @@ create table mg_currency_statistics (
   rate double not null,
   primary key (id),
   constraint foreign key (currency) references mg_currency (id)
+);
+
+create table mg_crypto_currency(
+  id integer not null auto_increment;
 );
 
