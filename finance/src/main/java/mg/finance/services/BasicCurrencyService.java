@@ -2,6 +2,8 @@ package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDBEntityToCurrency;
+import mg.finance.converters.CurrencyStatisticsDBEntityToCurrencyStatistics;
+import mg.finance.converters.CurrencyStatisticsToCurrencyStatisticsDBEntity;
 import mg.finance.converters.CurrencyToCurrencyDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BasicCurrencyService implements CurrencyService {
@@ -42,6 +45,10 @@ public class BasicCurrencyService implements CurrencyService {
     CurrencyDBEntityToCurrency currencyDBEntityToCurrency;
     @Autowired
     CurrencyToCurrencyDBEntity currencyToCurrencyDBEntity;
+    @Autowired
+    CurrencyStatisticsDBEntityToCurrencyStatistics currencyStatisticsDBEntityToCurrencyStatistics;
+    @Autowired
+    CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
 
     @Override
     public Currency getCurrencyValues() {
@@ -79,19 +86,27 @@ public class BasicCurrencyService implements CurrencyService {
     @Override
     public List<CurrencyStatistics> getCurrencyStatistics() {
         CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation("USD").get();
+        List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
         if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()){
             CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();
             LocalDateTime dbTime = LocalDateTime.from(dbStatistics.getDate().toInstant());
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
-                currencyStatisticsRepository.delete(dbStatistics);
+                currencyStatisticsRepository.deleteAllByCurrency(dbCurrency);
+                dbStatisticsList = fillCurrencyStatisticsDBEntity(dbCurrency);
+            } else {
+                dbStatisticsList = currencyStatisticsRepository.findAllByCurrency(dbCurrency);
             }
+        } else {
+            dbStatisticsList = fillCurrencyStatisticsDBEntity(dbCurrency);
         }
-        return null;
+        return dbStatisticsList.stream()
+                .map(currencyStatisticsDBEntityToCurrencyStatistics::convert)
+                .collect(Collectors.toList());
     }
 
-    private CurrencyStatisticsDBEntity fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity){
-        CurrencyStatisticsDBEntity dbEntity = new CurrencyStatisticsDBEntity();
-
-        return dbEntity;
+    private List<CurrencyStatisticsDBEntity> fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity){
+        List<CurrencyStatisticsDBEntity> statistics = new ArrayList<>();
+        JSONObject json = jsonConsumer.getJson("");
+        return statistics;
     }
 }
