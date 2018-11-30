@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -107,6 +108,12 @@ public class BasicCurrencyService implements CurrencyService {
     private List<CurrencyStatisticsDBEntity> fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity){
         List<CurrencyStatisticsDBEntity> statistics = new ArrayList<>();
         JSONObject json = jsonConsumer.getJson("");
+        for (Object item : json.getJSONArray("")){
+            CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
+            statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
+            statisticsDBEntity.setCurrency(currencyDBEntity);
+            statisticsDBEntity.setRate(0.0);
+        }
         return statistics;
     }
 }
