@@ -8,6 +8,8 @@ public class CryptoCurrencyToCryptoCurrencyDBEntity implements Converter<CryptoC
 
     @Override
     public CryptoCurrencyDBEntity convert(CryptoCurrency source) {
+        CryptoCurrencyDBEntity target = new CryptoCurrencyDBEntity();
+        target.setId(source.getId());
         return null;
     }
 }
