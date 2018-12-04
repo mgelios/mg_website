@@ -7,6 +7,7 @@ import mg.finance.converters.CurrencyStatisticsToCurrencyStatisticsDBEntity;
 import mg.finance.converters.CurrencyToCurrencyDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
+import mg.finance.models.CryptoCurrency;
 import mg.finance.models.Currency;
 import mg.finance.models.CurrencyConversion;
 import mg.finance.models.CurrencyStatistics;
@@ -115,5 +116,12 @@ public class BasicCurrencyService implements CurrencyService {
             statisticsDBEntity.setRate(0.0);
         }
         return statistics;
+    }
+
+    @Override
+    public List<CryptoCurrency> getCryptoCurrenciesList() {
+        List<CryptoCurrency> result = new ArrayList<>();
+
+        return result;
     }
 }

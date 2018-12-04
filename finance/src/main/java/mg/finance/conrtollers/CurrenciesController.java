@@ -6,15 +6,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/currency")
+@RequestMapping("/finance")
 public class CurrenciesController {
 
     @Autowired
     CurrencyService currencyService;
 
-    @RequestMapping("/values")
+    @RequestMapping("/currency/values")
     String getCurrencyValues(){
         currencyService.getCurrencyValues();
+        return null;
+    }
+
+    @RequestMapping("/crypto/currencies")
+    String getCryptoCurrencyValues(){
+        currencyService.getCryptoCurrenciesList();
         return null;
     }
 
