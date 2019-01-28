@@ -2,9 +2,11 @@ package mg.weather.utils;
 
 import mg.weather.WeatherConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@EnableConfigurationProperties(WeatherConfiguration.class)
 public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
 
     @Autowired

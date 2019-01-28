@@ -16,6 +16,7 @@ import mg.weather.utils.WeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@EnableConfigurationProperties(WeatherConfiguration.class)
 public class BasicWeatherService implements WeatherService {
 
     @Autowired
