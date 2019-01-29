@@ -2,9 +2,11 @@ package mg.news.utils;
 
 import mg.news.NewsConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@EnableConfigurationProperties(NewsConfiguration.class)
 public class BasicRadiotUrlBuilder implements RadiotUrlBuilder {
 
     @Autowired
