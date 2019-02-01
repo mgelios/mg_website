@@ -1,6 +1,7 @@
 package mg.weather.services;
 
 import mg.utils.JSONConsumer;
+import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
 import mg.weather.converters.CurrentWeatherDBEntityToCurrentWeather;
 import mg.weather.converters.CurrentWeatherToCurrentWeatherDBEntity;
@@ -45,6 +46,9 @@ public class BasicWeatherService implements WeatherService {
 
     @Autowired
     JSONConsumer jsonConsumer;
+
+    @Autowired
+    JSONHelper jsonHelper;
 
     @Autowired
     CurrentWeatherDBEntityToCurrentWeather currentWeatherDBEntityToCurrentWeather;
@@ -109,6 +113,7 @@ public class BasicWeatherService implements WeatherService {
     private CurrentWeatherDBEntity writeCurrentWeatherToDBEntity(String cityName){
         JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
+        jsonHelper.getJSONObject(json,"coord.lat");
         dbEntity.setLatitude(json.getJSONObject("coord").getDouble("lat"));
         dbEntity.setLongitude(json.getJSONObject("coord").getDouble("lon"));
         dbEntity.setDescription(json.getJSONArray("weather").getJSONObject(0).getString("description"));
