@@ -15,12 +15,7 @@ public class BasicJSONHelper implements JSONHelper {
 
     @Override
     public JSONObject getJSONObject(JSONObject object, String path) {
-        List<String> pathParts = splitPath(path);
-        JSONObject currentObject = object;
-        for (String part : pathParts){
-            currentObject = currentObject.getJSONObject(part);
-        }
-        return currentObject;
+        return null;
     }
 
     @Override
@@ -50,7 +45,7 @@ public class BasicJSONHelper implements JSONHelper {
 
     @Override
     public Double getDouble(JSONObject object, String path) {
-        return null;
+        return Double.valueOf(getObject(object, path).toString());
     }
 
     @Override
@@ -68,8 +63,17 @@ public class BasicJSONHelper implements JSONHelper {
         return null;
     }
 
-    private List<String> splitPath(String path){
-        return Arrays.stream(path.split("[.]"))
+    private Object getLastObjectInPath(JSONObject object, List<String> pathParts, int currentIndex){
+        if (currentIndex != pathParts.size() - 1){
+            JSONObject currentObject = object.getJSONObject(pathParts.get(currentIndex));
+            return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+        }
+        return object.get(pathParts.get(currentIndex));
+    }
+
+    private Object getObject(JSONObject object ,String path){
+        List<String>pathParts = Arrays.stream(path.split("[.]"))
                 .collect(Collectors.toList());
+        return getLastObjectInPath(object, pathParts, 0);
     }
 }
