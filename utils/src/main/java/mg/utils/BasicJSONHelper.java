@@ -1,5 +1,7 @@
 package mg.utils;
 
+import com.sun.javafx.binding.StringFormatter;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -65,10 +67,20 @@ public class BasicJSONHelper implements JSONHelper {
 
     private Object getLastObjectInPath(JSONObject object, List<String> pathParts, int currentIndex){
         if (currentIndex != pathParts.size() - 1){
-            JSONObject currentObject = object.getJSONObject(pathParts.get(currentIndex));
-            return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+            if (!pathParts.get(currentIndex).contains("]")) {
+                JSONObject currentObject = object.getJSONObject(pathParts.get(currentIndex));
+                return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+            } else {
+
+            }
         }
         return object.get(pathParts.get(currentIndex));
+    }
+
+    private Object extractNumberFromPathPart(JSONObject object, String pathPart){
+        Integer index = Integer.valueOf(pathPart.replaceAll("\\D+", ""));
+        String arrayName = pathPart.replaceAll("^[a-zA-Z]+", "");
+        return object.getJSONArray(arrayName).get(index);
     }
 
     private Object getObject(JSONObject object ,String path){
