@@ -113,13 +113,12 @@ public class BasicWeatherService implements WeatherService {
     private CurrentWeatherDBEntity writeCurrentWeatherToDBEntity(String cityName){
         JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
-        jsonHelper.getDouble(json,"coord.lat");
-        dbEntity.setLatitude(json.getJSONObject("coord").getDouble("lat"));
-        dbEntity.setLongitude(json.getJSONObject("coord").getDouble("lon"));
-        dbEntity.setDescription(json.getJSONArray("weather").getJSONObject(0).getString("description"));
-        dbEntity.setMainInfo(json.getJSONArray("weather").getJSONObject(0).getString("main"));
-        dbEntity.setIcon(json.getJSONArray("weather").getJSONObject(0).getString("icon"));
-        dbEntity.setTemperature(json.getJSONObject("main").getDouble("temp"));
+        dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
+        dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
+        dbEntity.setDescription(jsonHelper.getString(json, "weather[0].description"));
+        dbEntity.setMainInfo(jsonHelper.getString(json, "weather[0].main"));
+        dbEntity.setIcon(jsonHelper.getString(json, "weather[0].icon"));
+        dbEntity.setTemperature(jsonHelper.getDouble(json, "main.temp"));
         dbEntity.setPressure(json.getJSONObject("main").getDouble("pressure"));
         dbEntity.setHumidity(json.getJSONObject("main").getDouble("humidity"));
         dbEntity.setMinimalTemperature(json.getJSONObject("main").getDouble("temp_min"));

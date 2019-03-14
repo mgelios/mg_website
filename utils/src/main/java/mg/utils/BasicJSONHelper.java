@@ -1,7 +1,5 @@
 package mg.utils;
 
-import com.sun.javafx.binding.StringFormatter;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -17,39 +15,40 @@ public class BasicJSONHelper implements JSONHelper {
 
     @Override
     public JSONObject getJSONObject(JSONObject object, String path) {
-        return null;
+        return (JSONObject) getObjectByPath(object, path);
     }
 
     @Override
     public JSONArray getJSONArray(JSONObject object, String path) {
-        return null;
+        return (JSONArray) getObjectByPath(object, path);
     }
 
     @Override
     public String getString(JSONObject object, String path) {
-        return null;
+        return getObjectByPath(object, path).toString();
     }
 
     @Override
     public Long getLong(JSONObject object, String path) {
-        return null;
+        return Long.valueOf(getObjectByPath(object, path).toString());
     }
 
     @Override
     public Integer getInt(JSONObject object, String path) {
-        return null;
+        return Integer.valueOf(getObjectByPath(object, path).toString());
     }
 
     @Override
     public Float getFloat(JSONObject object, String path) {
-        return null;
+        return Float.valueOf(getObjectByPath(object, path).toString());
     }
 
     @Override
     public Double getDouble(JSONObject object, String path) {
-        return Double.valueOf(getObject(object, path).toString());
+        return Double.valueOf(getObjectByPath(object, path).toString());
     }
 
+    //TODO: change return statment for big integers and big decimals
     @Override
     public BigInteger getBigInteger(JSONObject object, String path) {
         return null;
@@ -65,27 +64,24 @@ public class BasicJSONHelper implements JSONHelper {
         return null;
     }
 
-    private Object getLastObjectInPath(JSONObject object, List<String> pathParts, int currentIndex){
-        if (currentIndex != pathParts.size() - 1){
+
+    //TODO: reformat code
+    private Object getLastObjectInPath(Object object, List<String> pathParts, int currentIndex) {
+        if (currentIndex != pathParts.size()){
             if (!pathParts.get(currentIndex).contains("]")) {
-                JSONObject currentObject = object.getJSONObject(pathParts.get(currentIndex));
+                Object currentObject = ((JSONObject) object).get(pathParts.get(currentIndex));
                 return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
             } else {
-
+                String arrayName = pathParts.get(currentIndex).split("[\\[]|[\\]]")[0];
+                int arrayIndex = Integer.valueOf(pathParts.get(currentIndex).split("[\\[]|[\\]]")[1]);
+                return getLastObjectInPath(((JSONObject) object).getJSONArray(arrayName).get(arrayIndex), pathParts, currentIndex + 1);
             }
-        }
-        return object.get(pathParts.get(currentIndex));
+        } else return object;
     }
 
-    private Object extractNumberFromPathPart(JSONObject object, String pathPart){
-        Integer index = Integer.valueOf(pathPart.replaceAll("\\D+", ""));
-        String arrayName = pathPart.replaceAll("^[a-zA-Z]+", "");
-        return object.getJSONArray(arrayName).get(index);
-    }
-
-    private Object getObject(JSONObject object ,String path){
-        List<String>pathParts = Arrays.stream(path.split("[.]"))
+    private Object getObjectByPath(JSONObject parentObject ,String path) {
+        List<String> pathParts = Arrays.stream(path.split("[.]"))
                 .collect(Collectors.toList());
-        return getLastObjectInPath(object, pathParts, 0);
+        return getLastObjectInPath(parentObject, pathParts, 0);
     }
 }
