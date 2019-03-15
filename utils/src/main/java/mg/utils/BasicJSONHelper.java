@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +66,10 @@ public class BasicJSONHelper implements JSONHelper {
         return null;
     }
 
+    @Override
+    public Timestamp getTimestampOfEpochSecond(JSONObject object, String path) {
+        return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
+    }
 
     //TODO: reformat code
     private Object getLastObjectInPath(Object object, List<String> pathParts, int currentIndex) {

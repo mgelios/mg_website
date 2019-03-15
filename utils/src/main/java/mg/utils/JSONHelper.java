@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 public interface JSONHelper {
 
@@ -27,4 +28,6 @@ public interface JSONHelper {
     BigDecimal getBigDecimal(JSONObject object, String path);
 
     Boolean getBoolean(JSONObject object, String path);
+
+    Timestamp getTimestampOfEpochSecond(JSONObject object, String path);
 }
