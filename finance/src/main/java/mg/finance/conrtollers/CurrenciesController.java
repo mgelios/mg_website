@@ -13,13 +13,13 @@ public class CurrenciesController {
     CurrencyService currencyService;
 
     @RequestMapping("/currency/values")
-    String getCurrencyValues(){
+    String getCurrencyValues() {
         currencyService.getCurrencyValues();
         return null;
     }
 
     @RequestMapping("/crypto/currencies")
-    String getCryptoCurrencyValues(){
+    String getCryptoCurrencyValues() {
         currencyService.getCryptoCurrenciesList();
         return null;
     }

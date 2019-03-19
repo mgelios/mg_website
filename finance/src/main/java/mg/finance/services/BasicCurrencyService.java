@@ -56,9 +56,10 @@ public class BasicCurrencyService implements CurrencyService {
 
     @Override
     public Currency getCurrencyValues() {
-        CurrencyDBEntity dbEntity = currencyRepository.findByAbbreviation("USD").get();
-        if (dbEntity != null){
-            LocalDateTime dbTime = LocalDateTime.from(dbEntity.getDate().toInstant());
+        CurrencyDBEntity dbEntity = null;
+        if (currencyRepository.findByAbbreviation("USD").isPresent()) {
+            dbEntity = currencyRepository.findByAbbreviation("USD").get();
+            LocalDateTime dbTime = dbEntity.getDate().toLocalDateTime();
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
                 currencyRepository.delete(dbEntity);
                 dbEntity = fillCurrencyDBEntity();
@@ -69,7 +70,7 @@ public class BasicCurrencyService implements CurrencyService {
         return currencyDBEntityToCurrency.convert(dbEntity);
     }
 
-    private CurrencyDBEntity fillCurrencyDBEntity(){
+    private CurrencyDBEntity fillCurrencyDBEntity() {
         CurrencyDBEntity dbEntity = new CurrencyDBEntity();
         JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl("USD"));
         dbEntity.setSystemId(json.getInt("Cur_ID"));
@@ -91,7 +92,7 @@ public class BasicCurrencyService implements CurrencyService {
     public List<CurrencyStatistics> getCurrencyStatistics() {
         CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation("USD").get();
         List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
-        if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()){
+        if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()) {
             CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();
             LocalDateTime dbTime = LocalDateTime.from(dbStatistics.getDate().toInstant());
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
