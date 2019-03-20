@@ -10,10 +10,16 @@
         <p v-if="skills.length >= 1">You have more than on skill</p>
         <p v-else>You have one or less skills</p>
       </ul>
+      <div>
+          {{weather}}
+      </div>
     </div>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
   name: 'Skills',
   data: function(){
@@ -22,7 +28,8 @@ export default {
       skills: [
           {"skill": "Vue.js"},
           {"skill": "Spring boot"}
-      ]
+      ],
+      weather: {}
     }
   },
   methods: {
@@ -30,6 +37,11 @@ export default {
       this.skills.push({skill: this.skill});
       this.skill = '';
     }
+  },
+  mounted: function(){
+      axios
+        .get('http://localhost:8080/api/v1/weather/current')
+        .then(response => (this.weather = response));
   },
   props: {
     btnState: true
