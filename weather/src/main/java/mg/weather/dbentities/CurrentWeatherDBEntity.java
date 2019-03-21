@@ -1,6 +1,8 @@
 package mg.weather.dbentities;
 
 import lombok.Data;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,6 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="mg_current_weather")
+@Indexed
 public class CurrentWeatherDBEntity {
 
     @Id
@@ -19,6 +22,7 @@ public class CurrentWeatherDBEntity {
     @Column(name = "time")
     private Timestamp time;
 
+    @Field
     @Column(name = "city_name")
     private String cityName;
 

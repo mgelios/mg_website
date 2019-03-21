@@ -12,6 +12,7 @@ import mg.weather.dbentities.WeatherForecastDBEntity;
 import mg.weather.models.CurrentWeather;
 import mg.weather.models.WeatherForecast;
 import mg.weather.repositories.CurrentWeatherRepository;
+import mg.weather.repositories.WeatherDAO;
 import mg.weather.repositories.WeatherForecastRepository;
 import mg.weather.utils.WeatherUrlBuilder;
 import org.json.JSONArray;
@@ -20,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -62,6 +62,9 @@ public class BasicWeatherService implements WeatherService {
     @Autowired
     WeatherForecastToWeatherForecastDBEntity weatherForecastToWeatherForecastDBEntity;
 
+    @Autowired
+    WeatherDAO weatherDAO;
+
     @Override
     public CurrentWeather getDefaultWeatherInfo(){
         return getWeatherInfo(weatherConfiguration.getDefaultCity());
@@ -87,6 +90,7 @@ public class BasicWeatherService implements WeatherService {
             currentWeatherRepository.save(dbEntity);
             dbEntity = currentWeatherRepository.findByCityName("minsk").get();
         }
+        List<CurrentWeatherDBEntity> searchedEntities = weatherDAO.searchCurrentWeather("ins");
         return currentWeatherDBEntityToCurrentWeather.convert(dbEntity);
     }
 
