@@ -12,7 +12,7 @@ import mg.weather.dbentities.WeatherForecastDBEntity;
 import mg.weather.models.CurrentWeather;
 import mg.weather.models.WeatherForecast;
 import mg.weather.repositories.CurrentWeatherRepository;
-import mg.weather.repositories.WeatherDAO;
+import mg.weather.repositories.CurrentWeatherDAO;
 import mg.weather.repositories.WeatherForecastRepository;
 import mg.weather.utils.WeatherUrlBuilder;
 import org.json.JSONArray;
@@ -63,7 +63,7 @@ public class BasicWeatherService implements WeatherService {
     WeatherForecastToWeatherForecastDBEntity weatherForecastToWeatherForecastDBEntity;
 
     @Autowired
-    WeatherDAO weatherDAO;
+    CurrentWeatherDAO currentWeatherDAO;
 
     @Override
     public CurrentWeather getDefaultWeatherInfo(){
@@ -90,7 +90,7 @@ public class BasicWeatherService implements WeatherService {
             currentWeatherRepository.save(dbEntity);
             dbEntity = currentWeatherRepository.findByCityName("minsk").get();
         }
-        List<CurrentWeatherDBEntity> searchedEntities = weatherDAO.searchCurrentWeather("ins");
+        List<CurrentWeatherDBEntity> searchedEntities = currentWeatherDAO.searchCurrentWeather("ins", "ear");
         return currentWeatherDBEntityToCurrentWeather.convert(dbEntity);
     }
 

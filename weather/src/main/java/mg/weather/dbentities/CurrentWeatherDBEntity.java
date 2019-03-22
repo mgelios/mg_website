@@ -33,6 +33,7 @@ public class CurrentWeatherDBEntity {
 
     @Column(name = "main_info")
     private String mainInfo;
+    @Field
     @Column(name = "description")
     private String description;
     @Column(name = "icon")

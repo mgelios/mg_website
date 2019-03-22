@@ -1,6 +1,7 @@
 package mg.weather.repositories;
 
 import mg.weather.dbentities.CurrentWeatherDBEntity;
+import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -14,24 +15,36 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class WeatherDAO {
+public class CurrentWeatherDAO {
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Transactional
-    public List<CurrentWeatherDBEntity> searchCurrentWeather(String cityNamePart) {
-        FullTextQuery jpaQuery = getSearchCurrentWeatherQuery(cityNamePart);
+    public List<CurrentWeatherDBEntity> searchCurrentWeather(String cityNamePart, String descriptionPart) {
+        FullTextQuery jpaQuery = getSearchCurrentWeatherQuery(cityNamePart, descriptionPart);
         return jpaQuery.getResultList();
     }
 
-    private FullTextQuery getSearchCurrentWeatherQuery(String cityNamePart) {
+    private FullTextQuery getSearchCurrentWeatherQuery(String cityNamePart, String descriptionPart) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder()
                 .forEntity(CurrentWeatherDBEntity.class)
                 .get();
-        Query query = queryBuilder.keyword().fuzzy().onField("cityName").boostedTo(5f).matching(cityNamePart).createQuery();
+        Query query = queryBuilder.bool()
+                .should(queryBuilder.keyword()
+                        .fuzzy()
+                        .onField("description")
+                        .matching(descriptionPart)
+                        .createQuery())
+                .should(queryBuilder.keyword()
+                        .fuzzy()
+                        .onField("cityName")
+                        .matching(cityNamePart)
+                        .createQuery())
+                .minimumShouldMatchNumber(2)
+                .createQuery();
         FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query, CurrentWeatherDBEntity.class);
         return fullTextQuery;
     }
