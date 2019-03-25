@@ -16,6 +16,7 @@ import mg.finance.repositories.CurrencyRepository;
 import mg.finance.repositories.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
+import org.h2.mvstore.DataUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,24 +57,31 @@ public class BasicCurrencyService implements CurrencyService {
     CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
 
     @Override
-    public Currency getCurrencyValues() {
+    public List<Currency> getDefaultCurrencyValues(){
+        return financeConfiguration.getDefaultCurrencies().stream()
+                .map(currency -> getCurrencyValue(currency))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Currency getCurrencyValue(String currency) {
         CurrencyDBEntity dbEntity = null;
-        if (currencyRepository.findByAbbreviation("USD").isPresent()) {
-            dbEntity = currencyRepository.findByAbbreviation("USD").get();
+        if (currencyRepository.findByAbbreviation(currency).isPresent()) {
+            dbEntity = currencyRepository.findByAbbreviation(currency).get();
             LocalDateTime dbTime = dbEntity.getDate().toLocalDateTime();
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
                 currencyRepository.delete(dbEntity);
-                dbEntity = fillCurrencyDBEntity();
+                dbEntity = fillCurrencyDBEntity(currency);
             }
         } else {
-            dbEntity = fillCurrencyDBEntity();
+            dbEntity = fillCurrencyDBEntity(currency);
         }
         return currencyDBEntityToCurrency.convert(dbEntity);
     }
 
-    private CurrencyDBEntity fillCurrencyDBEntity() {
+    private CurrencyDBEntity fillCurrencyDBEntity(String currency) {
         CurrencyDBEntity dbEntity = new CurrencyDBEntity();
-        JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl("USD"));
+        JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl(currency));
         dbEntity.setSystemId(json.getInt("Cur_ID"));
         dbEntity.setDate(Timestamp.valueOf(json.getString("Date").replace("T", " ")));
         dbEntity.setAbbreviation(json.getString("Cur_Abbreviation"));
@@ -89,8 +98,16 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     @Override
-    public List<CurrencyStatistics> getCurrencyStatistics() {
-        CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation("USD").get();
+    public Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics(){
+        financeConfiguration.getDefaultStatisticsCurrencies().stream()
+                .map(currency -> getCurrencyStatistics(currency));
+        //.collect(Collectors.groupingBy(CurrencyStatistics::getCurrency));
+        return null;
+    }
+
+    @Override
+    public List<CurrencyStatistics> getCurrencyStatistics(String currency) {
+        CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation(currency).get();
         List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
         if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()) {
             CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();

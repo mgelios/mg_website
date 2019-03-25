@@ -1,5 +1,6 @@
 package mg.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class BasicJSONConsumer implements JSONConsumer{
 
@@ -24,9 +26,9 @@ public class BasicJSONConsumer implements JSONConsumer{
             resultAsString = EntityUtils.toString(response.getEntity());
             result  = new JSONObject(resultAsString);
         } catch (ClientProtocolException e){
-            //TODO: logging errors
+            log.error(e.getMessage());
         } catch (IOException e){
-            //TODO: logging errors
+            log.error(e.getMessage());
         }
         return result;
     }

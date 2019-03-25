@@ -16,7 +16,7 @@ public class BasicCurrencyUrlBuilder implements CurrencyUrlBuilder{
         StringBuilder result = new StringBuilder();
         result.append(financeConfiguration.getCurrencyBaseUrl())
                 .append(financeConfiguration.getCurrencyRateSuffix())
-                .append("USD")
+                .append(currency)
                 .append(financeConfiguration.getCurrencyUrlParamMode());
         return result.toString();
     }

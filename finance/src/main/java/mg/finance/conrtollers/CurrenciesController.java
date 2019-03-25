@@ -14,7 +14,7 @@ public class CurrenciesController {
 
     @RequestMapping("/currency/values")
     String getCurrencyValues() {
-        currencyService.getCurrencyValues();
+        currencyService.getDefaultCurrencyValues();
         return null;
     }
 

@@ -6,14 +6,19 @@ import mg.finance.models.CurrencyConversion;
 import mg.finance.models.CurrencyStatistics;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CurrencyService {
 
-    Currency getCurrencyValues();
+    List<Currency> getDefaultCurrencyValues();
+
+    Currency getCurrencyValue(String currency);
 
     List<CurrencyConversion> calculateCurrencyConversions();
 
-    List<CurrencyStatistics> getCurrencyStatistics();
+    Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics();
+
+    List<CurrencyStatistics> getCurrencyStatistics(String currency);
 
     List<CryptoCurrency> getCryptoCurrenciesList();
 }

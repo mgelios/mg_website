@@ -90,7 +90,7 @@ public class BasicWeatherService implements WeatherService {
             currentWeatherRepository.save(dbEntity);
             dbEntity = currentWeatherRepository.findByCityName("minsk").get();
         }
-        List<CurrentWeatherDBEntity> searchedEntities = currentWeatherDAO.searchCurrentWeather("ins", "ear");
+        //List<CurrentWeatherDBEntity> searchedEntities = currentWeatherDAO.searchCurrentWeather("ins", "ear");
         return currentWeatherDBEntityToCurrentWeather.convert(dbEntity);
     }
 
