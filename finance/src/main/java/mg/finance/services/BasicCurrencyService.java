@@ -1,5 +1,6 @@
 package mg.finance.services;
 
+import jdk.nashorn.internal.runtime.options.Option;
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDBEntityToCurrency;
 import mg.finance.converters.CurrencyStatisticsDBEntityToCurrencyStatistics;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,7 +59,7 @@ public class BasicCurrencyService implements CurrencyService {
     CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
 
     @Override
-    public List<Currency> getDefaultCurrencyValues(){
+    public List<Currency> getDefaultCurrencyValues() {
         return financeConfiguration.getDefaultCurrencies().stream()
                 .map(currency -> getCurrencyValue(currency))
                 .collect(Collectors.toList());
@@ -69,7 +71,7 @@ public class BasicCurrencyService implements CurrencyService {
         if (currencyRepository.findByAbbreviation(currency).isPresent()) {
             dbEntity = currencyRepository.findByAbbreviation(currency).get();
             LocalDateTime dbTime = dbEntity.getDate().toLocalDateTime();
-            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
+            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
                 currencyRepository.delete(dbEntity);
                 dbEntity = fillCurrencyDBEntity(currency);
             }
@@ -98,7 +100,8 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     @Override
-    public Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics(){
+    public Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
+        getCurrencyStatistics(financeConfiguration.getDefaultStatisticsCurrencies().get(0));
         financeConfiguration.getDefaultStatisticsCurrencies().stream()
                 .map(currency -> getCurrencyStatistics(currency));
         //.collect(Collectors.groupingBy(CurrencyStatistics::getCurrency));
@@ -107,12 +110,13 @@ public class BasicCurrencyService implements CurrencyService {
 
     @Override
     public List<CurrencyStatistics> getCurrencyStatistics(String currency) {
-        CurrencyDBEntity dbCurrency = currencyRepository.findByAbbreviation(currency).get();
+        CurrencyDBEntity dbCurrency = currencyToCurrencyDBEntity.convert(getCurrencyValue(currency));
         List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
-        if (currencyStatisticsRepository.findFirstByCurrency(dbCurrency).isPresent()) {
+        Optional<CurrencyStatisticsDBEntity> dbSingularStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency);
+        if (dbSingularStatistics.isPresent()) {
             CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();
             LocalDateTime dbTime = LocalDateTime.from(dbStatistics.getDate().toInstant());
-            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()){
+            if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
                 currencyStatisticsRepository.deleteAllByCurrency(dbCurrency);
                 dbStatisticsList = fillCurrencyStatisticsDBEntity(dbCurrency);
             } else {
@@ -126,10 +130,10 @@ public class BasicCurrencyService implements CurrencyService {
                 .collect(Collectors.toList());
     }
 
-    private List<CurrencyStatisticsDBEntity> fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity){
+    private List<CurrencyStatisticsDBEntity> fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity) {
         List<CurrencyStatisticsDBEntity> statistics = new ArrayList<>();
-        JSONObject json = jsonConsumer.getJson("");
-        for (Object item : json.getJSONArray("")){
+        JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyStatisticsUrl(String.valueOf(currencyDBEntity.getSystemId())));
+        for (Object item : json.getJSONArray("")) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
             statisticsDBEntity.setCurrency(currencyDBEntity);

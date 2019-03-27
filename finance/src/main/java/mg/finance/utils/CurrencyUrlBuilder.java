@@ -4,4 +4,6 @@ public interface CurrencyUrlBuilder {
 
     String buildCurrencyRateUrl(String currency);
 
+    String buildCurrencyStatisticsUrl(String currencyId);
+
 }

@@ -21,6 +21,6 @@ public class RestCurrenciesController {
 
     @RequestMapping("/currency/statistics")
     public Object getCurrencyStatistics() {
-        return currencyService.getCurrencyStatistics();
+        return currencyService.getDefaultCurrencyStatistics();
     }
 }
