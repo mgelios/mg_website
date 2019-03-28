@@ -1,6 +1,5 @@
 package mg.finance.services;
 
-import jdk.nashorn.internal.runtime.options.Option;
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDBEntityToCurrency;
 import mg.finance.converters.CurrencyStatisticsDBEntityToCurrencyStatistics;
@@ -17,7 +16,6 @@ import mg.finance.repositories.CurrencyRepository;
 import mg.finance.repositories.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
-import org.h2.mvstore.DataUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+//TODO: separate cryptocurrency, currency, currency statistics processing
 @Service
 @EnableConfigurationProperties(FinanceConfiguration.class)
 public class BasicCurrencyService implements CurrencyService {
@@ -104,8 +102,8 @@ public class BasicCurrencyService implements CurrencyService {
     public Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         getCurrencyStatistics(financeConfiguration.getDefaultStatisticsCurrencies().get(0));
         financeConfiguration.getDefaultStatisticsCurrencies().stream()
-                .map(currency -> getCurrencyStatistics(currency));
-        //.collect(Collectors.groupingBy(CurrencyStatistics::getCurrency));
+                .map(currency -> getCurrencyStatistics(currency)).collect(Collectors.toList());
+
         return null;
     }
 
@@ -116,7 +114,7 @@ public class BasicCurrencyService implements CurrencyService {
         Optional<CurrencyStatisticsDBEntity> dbSingularStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency);
         if (dbSingularStatistics.isPresent()) {
             CurrencyStatisticsDBEntity dbStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency).get();
-            LocalDateTime dbTime = LocalDateTime.from(dbStatistics.getDate().toInstant());
+            LocalDateTime dbTime = dbStatistics.getDate().toLocalDateTime();
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
                 currencyStatisticsRepository.deleteAllByCurrency(dbCurrency);
                 dbStatisticsList = fillCurrencyStatisticsDBEntity(dbCurrency);
@@ -141,6 +139,7 @@ public class BasicCurrencyService implements CurrencyService {
             statisticsDBEntity.setCurrency(currencyDBEntity);
             statisticsDBEntity.setRate(((JSONObject) item).getDouble("Cur_OfficialRate"));
             statisticsDBEntity.setId(((JSONObject) item).getLong("Cur_ID"));
+            currencyStatisticsRepository.save(statisticsDBEntity);
             statistics.add(statisticsDBEntity);
         }
         return statistics;

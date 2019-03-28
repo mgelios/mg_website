@@ -40,4 +40,15 @@ public class BasicCurrencyUrlBuilder implements CurrencyUrlBuilder{
         return result.toString();
     }
 
+    public String buildCryptoCurrenciesUrl() {
+        StringBuilder result = new StringBuilder();
+        result.append("https://api.coinmarketcap.com/v1/ticker/?limit=100");
+        return result.toString();
+    }
+
+    public String buildCryptoCurrenciesMarketUrl() {
+        StringBuilder result = new StringBuilder();
+        result.append("https://api.coinmarketcap.com/v1/global/");
+        return result.toString();
+    }
 }

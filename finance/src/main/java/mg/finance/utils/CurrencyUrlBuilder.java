@@ -6,4 +6,7 @@ public interface CurrencyUrlBuilder {
 
     String buildCurrencyStatisticsUrl(String currencyId);
 
+    String buildCryptoCurrenciesUrl();
+
+    String buildCryptoCurrenciesMarketUrl();
 }
