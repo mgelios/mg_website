@@ -1,8 +1,11 @@
 package mg.utils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public interface JSONConsumer {
 
-    JSONObject getJson(String url);
+    JSONObject getJsonObject(String url);
+
+    JSONArray getJsonArray(String url);
 }

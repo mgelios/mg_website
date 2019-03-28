@@ -115,7 +115,7 @@ public class BasicWeatherService implements WeatherService {
     }
 
     private CurrentWeatherDBEntity writeCurrentWeatherToDBEntity(String cityName){
-        JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
+        JSONObject json = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
         dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
         dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
@@ -139,7 +139,7 @@ public class BasicWeatherService implements WeatherService {
 
     private List<WeatherForecastDBEntity> writeWeatherForecastToDBEntity(String cityName){
         List<WeatherForecastDBEntity> dbList = new ArrayList<>();
-        JSONObject json = jsonConsumer.getJson(weatherUrlBuilder.buildForecastUrl(cityName));
+        JSONObject json = jsonConsumer.getJsonObject(weatherUrlBuilder.buildForecastUrl(cityName));
         JSONArray forecasts = json.getJSONArray("list");
         String city = jsonHelper.getString(json, "city.name");
         int numberOfRecords = json.getInt("cnt");

@@ -18,6 +18,7 @@ import mg.finance.repositories.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import org.h2.mvstore.DataUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -83,7 +84,7 @@ public class BasicCurrencyService implements CurrencyService {
 
     private CurrencyDBEntity fillCurrencyDBEntity(String currency) {
         CurrencyDBEntity dbEntity = new CurrencyDBEntity();
-        JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyRateUrl(currency));
+        JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(currency));
         dbEntity.setSystemId(json.getInt("Cur_ID"));
         dbEntity.setDate(Timestamp.valueOf(json.getString("Date").replace("T", " ")));
         dbEntity.setAbbreviation(json.getString("Cur_Abbreviation"));
@@ -132,12 +133,15 @@ public class BasicCurrencyService implements CurrencyService {
 
     private List<CurrencyStatisticsDBEntity> fillCurrencyStatisticsDBEntity(CurrencyDBEntity currencyDBEntity) {
         List<CurrencyStatisticsDBEntity> statistics = new ArrayList<>();
-        JSONObject json = jsonConsumer.getJson(currencyUrlBuilder.buildCurrencyStatisticsUrl(String.valueOf(currencyDBEntity.getSystemId())));
-        for (Object item : json.getJSONArray("")) {
+        JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrencyStatisticsUrl(
+                String.valueOf(currencyDBEntity.getSystemId())));
+        for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
             statisticsDBEntity.setCurrency(currencyDBEntity);
-            statisticsDBEntity.setRate(0.0);
+            statisticsDBEntity.setRate(((JSONObject) item).getDouble("Cur_OfficialRate"));
+            statisticsDBEntity.setId(((JSONObject) item).getLong("Cur_ID"));
+            statistics.add(statisticsDBEntity);
         }
         return statistics;
     }
