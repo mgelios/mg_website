@@ -1,7 +1,6 @@
 package mg.finance.dbentities;
 
 import lombok.Data;
-import mg.finance.models.Currency;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -19,7 +18,7 @@ public class CurrencyStatisticsDBEntity {
     @Column(name = "date")
     private Timestamp date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "currency", nullable = false)
     private CurrencyDBEntity currency;
 

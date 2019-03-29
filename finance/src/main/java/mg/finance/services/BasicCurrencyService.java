@@ -25,10 +25,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //TODO: separate cryptocurrency, currency, currency statistics processing
@@ -71,7 +68,7 @@ public class BasicCurrencyService implements CurrencyService {
             dbEntity = currencyRepository.findByAbbreviation(currency).get();
             LocalDateTime dbTime = dbEntity.getDate().toLocalDateTime();
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-                currencyRepository.delete(dbEntity);
+                currencyRepository.deleteById(dbEntity.getId());
                 dbEntity = fillCurrencyDBEntity(currency);
             }
         } else {
@@ -99,12 +96,9 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     @Override
-    public Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
-        getCurrencyStatistics(financeConfiguration.getDefaultStatisticsCurrencies().get(0));
-        financeConfiguration.getDefaultStatisticsCurrencies().stream()
-                .map(currency -> getCurrencyStatistics(currency)).collect(Collectors.toList());
-
-        return null;
+    public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
+        return financeConfiguration.getDefaultStatisticsCurrencies().stream()
+                .collect(Collectors.toMap(String::toString, this::getCurrencyStatistics));
     }
 
     @Override

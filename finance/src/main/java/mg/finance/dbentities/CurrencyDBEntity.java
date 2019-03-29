@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,4 +28,6 @@ public class CurrencyDBEntity {
     private String name;
     @Column(name = "rate")
     private double rate;
+    @OneToMany(mappedBy = "currency", cascade = CascadeType.REMOVE)
+    private Set<CurrencyStatisticsDBEntity> statistics;
 }

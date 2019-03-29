@@ -16,7 +16,7 @@ public interface CurrencyService {
 
     List<CurrencyConversion> calculateCurrencyConversions();
 
-    Map<Currency, List<CurrencyStatistics>> getDefaultCurrencyStatistics();
+    Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics();
 
     List<CurrencyStatistics> getCurrencyStatistics(String currency);
 
