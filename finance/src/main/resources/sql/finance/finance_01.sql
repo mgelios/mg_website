@@ -1,6 +1,6 @@
-drop table if exists mg_currency;
 drop table if exists mg_currency_statistics;
 drop table if exists mg_currency_conversion;
+drop table if exists mg_currency;
 drop table if exists mg_crypto_currency;
 
 create table mg_currency (
@@ -21,7 +21,8 @@ create table mg_currency_conversion (
   value double not null,
   primary key (id),
   constraint foreign key (currency_from) references mg_currency (id),
-  constraint foreign key (currency_to) references mg_currency (id)
+  constraint foreign key (currency_to) references mg_currency (id),
+  constraint unique_conversion unique (currency_to, currency_from)
 );
 
 create table mg_currency_statistics (

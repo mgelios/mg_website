@@ -14,7 +14,9 @@ public interface CurrencyService {
 
     Currency getCurrencyValue(String currency);
 
-    List<CurrencyConversion> calculateCurrencyConversions();
+    List<CurrencyConversion> calculateDefaultCurrenciesConversions();
+
+    CurrencyConversion calculateCurrenciesConversion(String from, String to);
 
     Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics();
 

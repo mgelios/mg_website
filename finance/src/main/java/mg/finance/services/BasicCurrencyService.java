@@ -1,10 +1,7 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CurrencyDBEntityToCurrency;
-import mg.finance.converters.CurrencyStatisticsDBEntityToCurrencyStatistics;
-import mg.finance.converters.CurrencyStatisticsToCurrencyStatisticsDBEntity;
-import mg.finance.converters.CurrencyToCurrencyDBEntity;
+import mg.finance.converters.*;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
 import mg.finance.models.CryptoCurrency;
@@ -50,18 +47,20 @@ public class BasicCurrencyService implements CurrencyService {
     @Autowired
     CurrencyToCurrencyDBEntity currencyToCurrencyDBEntity;
     @Autowired
+    CurrencyConversionDBEntityToCurrencyConversion currencyConversionDBEntityToCurrencyConversion;
+    @Autowired
+    CurrencyConversionToCurrencyConversionDBEntity currencyConversionToCurrencyConversionDBEntity;
+    @Autowired
     CurrencyStatisticsDBEntityToCurrencyStatistics currencyStatisticsDBEntityToCurrencyStatistics;
     @Autowired
     CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
 
-    @Override
     public List<Currency> getDefaultCurrencyValues() {
         return financeConfiguration.getDefaultCurrencies().stream()
                 .map(currency -> getCurrencyValue(currency))
                 .collect(Collectors.toList());
     }
 
-    @Override
     public Currency getCurrencyValue(String currency) {
         CurrencyDBEntity dbEntity = null;
         if (currencyRepository.findByAbbreviation(currency).isPresent()) {
@@ -90,18 +89,26 @@ public class BasicCurrencyService implements CurrencyService {
         return dbEntity;
     }
 
-    @Override
-    public List<CurrencyConversion> calculateCurrencyConversions() {
+    public List<CurrencyConversion> calculateDefaultCurrenciesConversions() {
         return null;
     }
 
-    @Override
+    public CurrencyConversion calculateCurrenciesConversion(String from, String to) {
+        Currency currencyFrom = getCurrencyValue(from);
+        Currency currencyTo = getCurrencyValue(to);
+        CurrencyConversion currencyConversion = new CurrencyConversion();
+        currencyConversion.setValue((currencyFrom.getRate() / currencyFrom.getScale())/(currencyTo.getRate() / currencyTo.getScale()));
+        currencyConversion.setCurrencyFrom(currencyFrom);
+        currencyConversion.setCurrencyTo(currencyTo);
+        currencyConversionRepository.save(currencyConversionToCurrencyConversionDBEntity.convert(currencyConversion));
+        return currencyConversion;
+    }
+
     public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
                 .collect(Collectors.toMap(String::toString, this::getCurrencyStatistics));
     }
 
-    @Override
     public List<CurrencyStatistics> getCurrencyStatistics(String currency) {
         CurrencyDBEntity dbCurrency = currencyToCurrencyDBEntity.convert(getCurrencyValue(currency));
         List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
@@ -139,7 +146,6 @@ public class BasicCurrencyService implements CurrencyService {
         return statistics;
     }
 
-    @Override
     public List<CryptoCurrency> getCryptoCurrenciesList() {
         List<CryptoCurrency> result = new ArrayList<>();
 

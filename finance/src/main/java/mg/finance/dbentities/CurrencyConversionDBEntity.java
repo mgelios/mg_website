@@ -18,11 +18,11 @@ public class CurrencyConversionDBEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "currency_from", nullable = false)
     private CurrencyDBEntity currencyFrom;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "currency_to", nullable = false)
     private CurrencyDBEntity currencyTo;
 
     @Column(name = "value")
     private double value;
-
 }
