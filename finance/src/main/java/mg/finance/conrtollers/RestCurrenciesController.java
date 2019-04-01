@@ -23,4 +23,9 @@ public class RestCurrenciesController {
     public Object getCurrencyStatistics() {
         return currencyService.getDefaultCurrencyStatistics();
     }
+
+    @RequestMapping("/currency/conversions")
+    public Object getCurrencyConversions(){
+        return currencyService.calculateDefaultCurrenciesConversions();
+    }
 }

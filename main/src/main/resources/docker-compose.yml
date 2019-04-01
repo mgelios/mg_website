@@ -1,0 +1,8 @@
+services:
+    mysql:
+        image:
+        command:
+        restart:
+        environment:
+        ports:
+          - '3306:3306'

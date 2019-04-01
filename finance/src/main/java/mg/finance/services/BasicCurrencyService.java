@@ -67,7 +67,7 @@ public class BasicCurrencyService implements CurrencyService {
             dbEntity = currencyRepository.findByAbbreviation(currency).get();
             LocalDateTime dbTime = dbEntity.getDate().toLocalDateTime();
             if (dbTime.getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-                currencyRepository.deleteById(dbEntity.getId());
+                currencyRepository.delete(dbEntity);
                 dbEntity = fillCurrencyDBEntity(currency);
             }
         } else {
@@ -90,7 +90,12 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     public List<CurrencyConversion> calculateDefaultCurrenciesConversions() {
-        return null;
+        return financeConfiguration.getDefaultConversionCombinations()
+                .stream()
+                .map(conversionPair -> {
+                    return calculateCurrenciesConversion(conversionPair.split("[:]")[0], conversionPair.split("[:]")[1]);
+                })
+                .collect(Collectors.toList());
     }
 
     public CurrencyConversion calculateCurrenciesConversion(String from, String to) {
@@ -137,7 +142,7 @@ public class BasicCurrencyService implements CurrencyService {
         for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
-            statisticsDBEntity.setCurrency(currencyDBEntity);
+            //statisticsDBEntity.setCurrency(currencyDBEntity);
             statisticsDBEntity.setRate(((JSONObject) item).getDouble("Cur_OfficialRate"));
             statisticsDBEntity.setId(((JSONObject) item).getLong("Cur_ID"));
             currencyStatisticsRepository.save(statisticsDBEntity);

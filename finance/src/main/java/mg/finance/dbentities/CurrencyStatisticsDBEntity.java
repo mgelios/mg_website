@@ -18,8 +18,8 @@ public class CurrencyStatisticsDBEntity {
     @Column(name = "date")
     private Timestamp date;
 
-    @ManyToOne
-    @JoinColumn(name = "currency", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "currency")
     private CurrencyDBEntity currency;
 
     @Column(name = "rate")

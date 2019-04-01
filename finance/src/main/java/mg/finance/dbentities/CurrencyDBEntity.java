@@ -1,6 +1,7 @@
 package mg.finance.dbentities;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -28,6 +29,6 @@ public class CurrencyDBEntity {
     private String name;
     @Column(name = "rate")
     private double rate;
-    @OneToMany(mappedBy = "currency", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<CurrencyStatisticsDBEntity> statistics;
 }
