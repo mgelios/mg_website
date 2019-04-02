@@ -101,6 +101,7 @@ public class BasicCurrencyService implements CurrencyService {
     public CurrencyConversion calculateCurrenciesConversion(String from, String to) {
         Currency currencyFrom = getCurrencyValue(from);
         Currency currencyTo = getCurrencyValue(to);
+        currencyConversionRepository.deleteAll();
         CurrencyConversion currencyConversion = new CurrencyConversion();
         currencyConversion.setValue((currencyFrom.getRate() / currencyFrom.getScale())/(currencyTo.getRate() / currencyTo.getScale()));
         currencyConversion.setCurrencyFrom(currencyFrom);

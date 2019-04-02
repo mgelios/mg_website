@@ -16,19 +16,16 @@ public class CurrencyConversionDBEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "currency_from", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private CurrencyDBEntity currencyFrom;
-
     @ManyToOne
     @JoinColumn(name = "currency_to", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private CurrencyDBEntity currencyTo;
-
     @Column(name = "value")
     private double value;
 }

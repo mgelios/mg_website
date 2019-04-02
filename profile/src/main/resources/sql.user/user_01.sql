@@ -15,14 +15,12 @@ create table mg_user(
   firstname varchar(200),
   lastname varchar(200),
   email varchar(200),
-  enabled tinyint(1),
+  enabled boolean,
   primary key(id)
 );
 
 create table mg_user_role(
-  user_id integer,
-  role_id integer,
-  primary key(user_id,role_id),
-  constraint foreign key (user_id) references mg_user (id),
-  constraint foreign key (role_id) references mg_role (id)
+  user_id integer references mg_user(id),
+  role_id integer references mg_role(id),
+  primary key(user_id,role_id)
 );
