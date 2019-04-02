@@ -1,6 +1,8 @@
 package mg.finance.dbentities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import mg.finance.models.Currency;
 
 import javax.persistence.*;
@@ -15,12 +17,16 @@ public class CurrencyConversionDBEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "currency_from", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private CurrencyDBEntity currencyFrom;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "currency_to", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private CurrencyDBEntity currencyTo;
 
     @Column(name = "value")

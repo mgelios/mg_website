@@ -35,6 +35,6 @@ create table mg_currency_statistics (
 );
 
 create table mg_crypto_currency(
-  id integer not null auto_increment;
+  id integer not null auto_increment
 );
 

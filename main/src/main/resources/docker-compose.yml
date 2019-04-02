@@ -1,15 +1,18 @@
-version: '3.3'
+version: "3.7"
 services:
     mysql:
         image: mysql
+        restart: always
+        container_name: "mg_dev_mysql"
         environment:
-            MYSQL_DATABASE: 'dev_db'
-            MYSQL_USER: 'dev_user'
-            MYSQL_PASSWORD: 'password'
-            MYSQL_ROOT_PASSWORD: 'root_password'
+            MYSQL_DATABASE: "dev_db"
+            MYSQL_USER: "dev_user"
+            MYSQL_PASSWORD: "password"
+            MYSQL_ROOT_PASSWORD: "root_password"
+        command: ["mysqld", "--default-authentication-plugin=caching_sha2_password"]
         ports:
-          - '3306:3306'
-        volumes:
-          - mysql_dev_db:/var/lib/mysql
-volumes:
-    mysql_dev_db:
+          - "3306:3306"
+#        volumes:
+#          - mysql_dev_db:/var/lib/mysql
+#volumes:
+#    mysql_dev_db:

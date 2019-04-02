@@ -142,7 +142,7 @@ public class BasicCurrencyService implements CurrencyService {
         for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
-            //statisticsDBEntity.setCurrency(currencyDBEntity);
+            statisticsDBEntity.setCurrency(currencyDBEntity);
             statisticsDBEntity.setRate(((JSONObject) item).getDouble("Cur_OfficialRate"));
             statisticsDBEntity.setId(((JSONObject) item).getLong("Cur_ID"));
             currencyStatisticsRepository.save(statisticsDBEntity);

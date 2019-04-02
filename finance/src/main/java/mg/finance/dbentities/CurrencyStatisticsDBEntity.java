@@ -1,6 +1,8 @@
 package mg.finance.dbentities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,11 +20,12 @@ public class CurrencyStatisticsDBEntity {
     @Column(name = "date")
     private Timestamp date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "currency")
     private CurrencyDBEntity currency;
 
     @Column(name = "rate")
     private double rate;
-
 }

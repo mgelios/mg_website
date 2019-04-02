@@ -1,6 +1,6 @@
 package mg.finance.dbentities;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
@@ -29,6 +29,8 @@ public class CurrencyDBEntity {
     private String name;
     @Column(name = "rate")
     private double rate;
-    @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "currency", orphanRemoval = true)
     private Set<CurrencyStatisticsDBEntity> statistics;
 }
