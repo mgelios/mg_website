@@ -1,20 +1,24 @@
 package mg.finance.models;
 
+import java.time.LocalDateTime;
+
 public class CryptoCurrency {
 
     private Long id;
-
     private String name;
-
     private String symbol;
-
     private long rank;
-
-    private double usdPrice;
-
-    private double btcPrice;
-
-    private double change24h;
+    private double priceUSD;
+    private double priceBTC;
+    private double volumeUSD24h;
+    private double marketCapUSD;
+    private double availableSupply;
+    private double totalSupply;
+    private double maxSupply;
+    private double percentChangeIn1h;
+    private double percentChangeIn24h;
+    private double percentChangeIn7h;
+    private LocalDateTime lastUpdated;
 
     public Long getId() {
         return id;
@@ -48,34 +52,91 @@ public class CryptoCurrency {
         this.rank = rank;
     }
 
-    public double getUsdPrice() {
-        return usdPrice;
+    public double getPriceUSD() {
+        return priceUSD;
     }
 
-    public void setUsdPrice(double usdPrice) {
-        this.usdPrice = usdPrice;
+    public void setPriceUSD(double priceUSD) {
+        this.priceUSD = priceUSD;
     }
 
-    public double getBtcPrice() {
-        return btcPrice;
+    public double getPriceBTC() {
+        return priceBTC;
     }
 
-    public void setBtcPrice(double btcPrice) {
-        this.btcPrice = btcPrice;
+    public void setPriceBTC(double priceBTC) {
+        this.priceBTC = priceBTC;
     }
 
-    public double getChange24h() {
-        return change24h;
+    public double getVolumeUSD24h() {
+        return volumeUSD24h;
     }
 
-    public void setChange24h(double change24h) {
-        this.change24h = change24h;
+    public void setVolumeUSD24h(double volumeUSD24h) {
+        this.volumeUSD24h = volumeUSD24h;
+    }
+
+    public double getMarketCapUSD() {
+        return marketCapUSD;
+    }
+
+    public void setMarketCapUSD(double marketCapUSD) {
+        this.marketCapUSD = marketCapUSD;
+    }
+
+    public double getAvailableSupply() {
+        return availableSupply;
+    }
+
+    public void setAvailableSupply(double availableSupply) {
+        this.availableSupply = availableSupply;
+    }
+
+    public double getTotalSupply() {
+        return totalSupply;
+    }
+
+    public void setTotalSupply(double totalSupply) {
+        this.totalSupply = totalSupply;
+    }
+
+    public double getMaxSupply() {
+        return maxSupply;
+    }
+
+    public void setMaxSupply(double maxSupply) {
+        this.maxSupply = maxSupply;
+    }
+
+    public double getPercentChangeIn1h() {
+        return percentChangeIn1h;
+    }
+
+    public void setPercentChangeIn1h(double percentChangeIn1h) {
+        this.percentChangeIn1h = percentChangeIn1h;
+    }
+
+    public double getPercentChangeIn24h() {
+        return percentChangeIn24h;
+    }
+
+    public void setPercentChangeIn24h(double percentChangeIn24h) {
+        this.percentChangeIn24h = percentChangeIn24h;
+    }
+
+    public double getPercentChangeIn7h() {
+        return percentChangeIn7h;
+    }
+
+    public void setPercentChangeIn7h(double percentChangeIn7h) {
+        this.percentChangeIn7h = percentChangeIn7h;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
-
-//    name = models.CharField(max_length=200, default='')
-//        symbol = models.CharField(max_length=200, default='')
-//        rank = models.IntegerField(default=0)
-//        price_usd = models.FloatField(default=0.0)
-//        price_btc = models.FloatField(default=0.0)
-//        change_24h = models.FloatField(default=0.0)

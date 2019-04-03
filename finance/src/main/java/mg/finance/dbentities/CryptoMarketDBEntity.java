@@ -27,5 +27,4 @@ public class CryptoMarketDBEntity {
     private double bitcoinPercent;
     @Column(name = "last_updated")
     private Timestamp lastUpdated;
-
 }
