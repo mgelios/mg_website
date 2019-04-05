@@ -28,4 +28,9 @@ public class RestCurrenciesController {
     public Object getCurrencyConversions(){
         return currencyService.calculateDefaultCurrenciesConversions();
     }
+
+    @RequestMapping("/crypto/currencies/list")
+    public Object getCryptoCurrencies() {
+        return currencyService.getCryptoCurrenciesList();
+    }
 }

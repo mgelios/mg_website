@@ -17,7 +17,7 @@ public class CryptoCurrency {
     private double maxSupply;
     private double percentChangeIn1h;
     private double percentChangeIn24h;
-    private double percentChangeIn7h;
+    private double percentChangeIn7d;
     private LocalDateTime lastUpdated;
 
     public Long getId() {
@@ -124,12 +124,12 @@ public class CryptoCurrency {
         this.percentChangeIn24h = percentChangeIn24h;
     }
 
-    public double getPercentChangeIn7h() {
-        return percentChangeIn7h;
+    public double getPercentChangeIn7d() {
+        return percentChangeIn7d;
     }
 
-    public void setPercentChangeIn7h(double percentChangeIn7h) {
-        this.percentChangeIn7h = percentChangeIn7h;
+    public void setPercentChangeIn7d(double percentChangeIn7d) {
+        this.percentChangeIn7d = percentChangeIn7d;
     }
 
     public LocalDateTime getLastUpdated() {

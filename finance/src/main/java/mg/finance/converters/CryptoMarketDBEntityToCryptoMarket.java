@@ -3,7 +3,9 @@ package mg.finance.converters;
 import mg.finance.dbentities.CryptoMarketDBEntity;
 import mg.finance.models.CryptoMarket;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CryptoMarketDBEntityToCryptoMarket implements Converter<CryptoMarketDBEntity, CryptoMarket> {
 
     @Override

@@ -39,7 +39,7 @@ public class CryptoCurrencyDBEntity {
     @Column(name = "percent_change_in_24h")
     private double percentChangeIn24h;
     @Column(name = "percent_change_in_7d")
-    private double percentChangeIn7h;
+    private double percentChangeIn7d;
     @Column(name = "last_updated")
     private Timestamp lastUpdated;
 

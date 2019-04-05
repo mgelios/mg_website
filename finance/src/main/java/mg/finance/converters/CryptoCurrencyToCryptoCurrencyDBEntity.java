@@ -3,9 +3,11 @@ package mg.finance.converters;
 import mg.finance.dbentities.CryptoCurrencyDBEntity;
 import mg.finance.models.CryptoCurrency;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
+@Component
 public class CryptoCurrencyToCryptoCurrencyDBEntity implements Converter<CryptoCurrency, CryptoCurrencyDBEntity> {
 
     @Override
@@ -19,7 +21,7 @@ public class CryptoCurrencyToCryptoCurrencyDBEntity implements Converter<CryptoC
         target.setName(source.getName());
         target.setPercentChangeIn1h(source.getPercentChangeIn1h());
         target.setPercentChangeIn24h(source.getPercentChangeIn24h());
-        target.setPercentChangeIn7h(source.getPercentChangeIn7h());
+        target.setPercentChangeIn7d(source.getPercentChangeIn7d());
         target.setPriceBTC(source.getPriceBTC());
         target.setPriceUSD(source.getPriceUSD());
         target.setRank(source.getRank());

@@ -2,17 +2,18 @@ package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.*;
+import mg.finance.dbentities.CryptoCurrencyDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
-import mg.finance.models.CryptoCurrency;
+import mg.finance.models.*;
 import mg.finance.models.Currency;
-import mg.finance.models.CurrencyConversion;
-import mg.finance.models.CurrencyStatistics;
+import mg.finance.repositories.CryptoCurrencyRepository;
 import mg.finance.repositories.CurrencyConversionRepository;
 import mg.finance.repositories.CurrencyRepository;
 import mg.finance.repositories.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
+import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,15 @@ public class BasicCurrencyService implements CurrencyService {
     @Autowired
     JSONConsumer jsonConsumer;
     @Autowired
+    JSONHelper jsonHelper;
+    @Autowired
     CurrencyRepository currencyRepository;
     @Autowired
     CurrencyStatisticsRepository currencyStatisticsRepository;
     @Autowired
     CurrencyConversionRepository currencyConversionRepository;
+    @Autowired
+    CryptoCurrencyRepository cryptoCurrencyRepository;
     @Autowired
     CurrencyDBEntityToCurrency currencyDBEntityToCurrency;
     @Autowired
@@ -54,6 +59,10 @@ public class BasicCurrencyService implements CurrencyService {
     CurrencyStatisticsDBEntityToCurrencyStatistics currencyStatisticsDBEntityToCurrencyStatistics;
     @Autowired
     CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
+    @Autowired
+    CryptoCurrencyDBEntityToCryptoCurrency cryptoCurrencyDBEntityToCryptoCurrency;
+    @Autowired
+    CryptoCurrencyToCryptoCurrencyDBEntity cryptoCurrencyToCryptoCurrencyDBEntity;
 
     public List<Currency> getDefaultCurrencyValues() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -153,8 +162,51 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     public List<CryptoCurrency> getCryptoCurrenciesList() {
-        List<CryptoCurrency> result = new ArrayList<>();
+        List<CryptoCurrencyDBEntity> result = new ArrayList<>();
+        Optional<CryptoCurrencyDBEntity> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
+        if (optionalCryptoCurrency.isPresent()) {
+            CryptoCurrencyDBEntity singularCryptoCurrency = optionalCryptoCurrency.get();
+            if (singularCryptoCurrency.getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
+                cryptoCurrencyRepository.deleteAll();
+                result = fillCryptoCurrencyDBEntity();
+            } else {
+                cryptoCurrencyRepository.findAll().forEach(result::add);
+            }
+        } else {
+            result = fillCryptoCurrencyDBEntity();
+        }
+        return result.stream()
+                .map(cryptoCurrencyDBEntityToCryptoCurrency::convert)
+                .collect(Collectors.toList());
+    }
 
-        return result;
+    private List<CryptoCurrencyDBEntity> fillCryptoCurrencyDBEntity(){
+        List<CryptoCurrencyDBEntity> cryptoCurrenciesList = new ArrayList<>();
+        JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCryptoCurrenciesUrl());
+        for (Object item : jsonArray) {
+            Double maxSupply = ((JSONObject) item).get("max_supply").getClass() == JSONObject.NULL.getClass() ? 0 : ((JSONObject) item).getDouble("max_supply");
+            CryptoCurrencyDBEntity cryptoCurrencyDBEntity = new CryptoCurrencyDBEntity();
+            cryptoCurrencyDBEntity.setName(((JSONObject) item).getString("name"));
+            cryptoCurrencyDBEntity.setSymbol(((JSONObject) item).getString("symbol"));
+            cryptoCurrencyDBEntity.setRank(((JSONObject) item).getLong("rank"));
+            cryptoCurrencyDBEntity.setPriceUSD(((JSONObject) item).getDouble("price_usd"));
+            cryptoCurrencyDBEntity.setPriceBTC(((JSONObject) item).getDouble("price_btc"));
+            cryptoCurrencyDBEntity.setVolumeUSD24h(((JSONObject) item).getDouble("24h_volume_usd"));
+            cryptoCurrencyDBEntity.setMarketCapUSD(((JSONObject) item).getDouble("market_cap_usd"));
+            cryptoCurrencyDBEntity.setAvailableSupply(((JSONObject) item).getDouble("available_supply"));
+            cryptoCurrencyDBEntity.setTotalSupply(((JSONObject) item).getDouble("total_supply"));
+            cryptoCurrencyDBEntity.setMaxSupply(maxSupply);
+            cryptoCurrencyDBEntity.setPercentChangeIn1h(((JSONObject) item).getDouble("percent_change_1h"));
+            cryptoCurrencyDBEntity.setPercentChangeIn24h(((JSONObject) item).getDouble("percent_change_24h"));
+            cryptoCurrencyDBEntity.setPercentChangeIn7d(((JSONObject) item).getDouble("percent_change_7d"));
+            cryptoCurrencyDBEntity.setLastUpdated(jsonHelper.getTimestampOfEpochSecond((JSONObject) item, "last_updated"));
+            cryptoCurrencyDBEntity = cryptoCurrencyRepository.save(cryptoCurrencyDBEntity);
+            cryptoCurrenciesList.add(cryptoCurrencyDBEntity);
+        }
+        return cryptoCurrenciesList;
+    }
+
+    public CryptoMarket getCryptoMarketInfo() {
+        return null;
     }
 }
