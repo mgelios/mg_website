@@ -3,14 +3,12 @@ package mg.finance.services;
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.*;
 import mg.finance.dbentities.CryptoCurrencyDBEntity;
+import mg.finance.dbentities.CryptoMarketDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
 import mg.finance.models.*;
 import mg.finance.models.Currency;
-import mg.finance.repositories.CryptoCurrencyRepository;
-import mg.finance.repositories.CurrencyConversionRepository;
-import mg.finance.repositories.CurrencyRepository;
-import mg.finance.repositories.CurrencyStatisticsRepository;
+import mg.finance.repositories.*;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
@@ -48,6 +46,8 @@ public class BasicCurrencyService implements CurrencyService {
     @Autowired
     CryptoCurrencyRepository cryptoCurrencyRepository;
     @Autowired
+    CryptoMarketRepository cryptoMarketRepository;
+    @Autowired
     CurrencyDBEntityToCurrency currencyDBEntityToCurrency;
     @Autowired
     CurrencyToCurrencyDBEntity currencyToCurrencyDBEntity;
@@ -63,6 +63,10 @@ public class BasicCurrencyService implements CurrencyService {
     CryptoCurrencyDBEntityToCryptoCurrency cryptoCurrencyDBEntityToCryptoCurrency;
     @Autowired
     CryptoCurrencyToCryptoCurrencyDBEntity cryptoCurrencyToCryptoCurrencyDBEntity;
+    @Autowired
+    CryptoMarketDBEntityToCryptoMarket cryptoMarketDBEntityToCryptoMarket;
+    @Autowired
+    CryptoMarketToCryptoMarketDBEntity cryptoMarketToCryptoMarketDBEntity;
 
     public List<Currency> getDefaultCurrencyValues() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -180,7 +184,7 @@ public class BasicCurrencyService implements CurrencyService {
                 .collect(Collectors.toList());
     }
 
-    private List<CryptoCurrencyDBEntity> fillCryptoCurrencyDBEntity(){
+    private List<CryptoCurrencyDBEntity> fillCryptoCurrencyDBEntity() {
         List<CryptoCurrencyDBEntity> cryptoCurrenciesList = new ArrayList<>();
         JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCryptoCurrenciesUrl());
         for (Object item : jsonArray) {
@@ -207,6 +211,30 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     public CryptoMarket getCryptoMarketInfo() {
-        return null;
+        CryptoMarketDBEntity cryptoMarketDBEntity = null;
+        if (cryptoMarketRepository.findTopByOrderByIdDesc().isPresent()) {
+            CryptoMarketDBEntity dbEntity = (CryptoMarketDBEntity) cryptoMarketRepository.findTopByOrderByIdDesc().get();
+            if (dbEntity.getLastUpdated().toLocalDateTime().getMinute() == LocalDateTime.now().getMinute()) {
+                cryptoMarketDBEntity = dbEntity;
+            } else {
+                cryptoMarketDBEntity = fillCryptoMarketDBEntity();
+            }
+        } else {
+            cryptoMarketDBEntity = fillCryptoMarketDBEntity();
+        }
+        return cryptoMarketDBEntityToCryptoMarket.convert(cryptoMarketDBEntity);
+    }
+
+    private CryptoMarketDBEntity fillCryptoMarketDBEntity() {
+        CryptoMarketDBEntity result = new CryptoMarketDBEntity();
+        JSONObject jsonCryptoMarketInfo = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCryptoCurrenciesMarketUrl());
+        result.setActiveCurrencies(jsonCryptoMarketInfo.getLong("active_currencies"));
+        result.setActiveMarkets(jsonCryptoMarketInfo.getLong("active_markets"));
+        result.setBitcoinPercent(jsonCryptoMarketInfo.getDouble("bitcoin_percentage_of_market_cap"));
+        result.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(jsonCryptoMarketInfo, "last_updated"));
+        result.setTotalUsd(jsonCryptoMarketInfo.getLong("total_market_cap_usd"));
+        result.setTotalUsdDayVolume(jsonCryptoMarketInfo.getLong("total_24h_volume_usd"));
+        result = cryptoMarketRepository.save(result);
+        return result;
     }
 }

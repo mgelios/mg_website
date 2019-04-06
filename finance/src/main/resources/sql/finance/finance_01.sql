@@ -53,8 +53,8 @@ create table mg_crypto_currency(
 
 create table mg_crypto_currency_market(
   id serial not null,
-  total_usd integer not null,
-  total_usd_day_volume integer not null,
+  total_usd bigint not null,
+  total_usd_day_volume bigint not null,
   active_markets integer not null,
   active_currencies integer not null,
   bitcoin_percent real not null,

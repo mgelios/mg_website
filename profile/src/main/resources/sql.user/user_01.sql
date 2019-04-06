@@ -3,13 +3,13 @@ drop table if exists mg_role;
 drop table if exists mg_user;
 
 create table mg_role(
-  id integer,
+  id serial,
   name varchar(200),
   primary key(id)
 );
 
 create table mg_user(
-  id integer,
+  id serial,
   username varchar(200) unique not null,
   password varchar(400) not null,
   firstname varchar(200),

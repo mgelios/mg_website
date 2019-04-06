@@ -33,4 +33,9 @@ public class RestCurrenciesController {
     public Object getCryptoCurrencies() {
         return currencyService.getCryptoCurrenciesList();
     }
+
+    @RequestMapping("/crypto/market")
+    public Object getCryptoMarketInfo() {
+        return currencyService.getCryptoMarketInfo();
+    }
 }
