@@ -3,6 +3,7 @@ dependencies {
     compile project(':profile')
     compile project(':weather')
     compile project(':finance')
+    compile project(':news')
 }
 
 
