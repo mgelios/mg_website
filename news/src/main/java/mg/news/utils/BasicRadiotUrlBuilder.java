@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+//TODO: update configuration properties naming and breakdown
 @Component
 @EnableConfigurationProperties(NewsConfiguration.class)
 public class BasicRadiotUrlBuilder implements RadiotUrlBuilder {
@@ -23,6 +24,9 @@ public class BasicRadiotUrlBuilder implements RadiotUrlBuilder {
 
     @Override
     public String buildPodcastUrl() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        builder.append(newsConfiguration.getRadiotApiUrl())
+                .append(newsConfiguration.getRadiotPodcastsSuffix());
+        return builder.toString();
     }
 }

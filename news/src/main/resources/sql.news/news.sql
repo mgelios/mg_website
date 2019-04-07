@@ -1,3 +1,6 @@
+drop table if exists mg_radiot_time_label_to_podcast;
+drop table if exists mg_radiot_time_label;
+drop table if exists mg_radiot_podcast;
 drop table if exists mg_radiot_article;
 
 create table mg_radiot_article(
@@ -16,4 +19,20 @@ create table mg_radiot_article(
   likes bigint,
   last_updated timestamp,
   primary key (id)
+);
+
+create table mg_radiot_podcast();
+
+create table mg_radiot_time_label(
+  id serial not null,
+  topic text,
+  time timestamp,
+  duration bigint,
+  primary key (id)
+);
+
+create table mg_radiot_time_label_to_podcast(
+  podcast_id integer not null,
+  time_label_id integer not null,
+  primary key (podcast_id, time_label_id)
 );
