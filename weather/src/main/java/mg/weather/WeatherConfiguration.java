@@ -2,6 +2,8 @@ package mg.weather;
 
 import lombok.Data;
 import mg.utils.JSONConsumer;
+import mg.weather.task.WeatherSyncTask;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "mg.weather")
 @Data
 public class WeatherConfiguration{
+
+    @Autowired
+    WeatherSyncTask weatherSyncTask;
 
     private String baseUrl;
     private String weatherSuffix;

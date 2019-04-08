@@ -21,7 +21,11 @@ create table mg_radiot_article(
   primary key (id)
 );
 
-create table mg_radiot_podcast();
+create table mg_radiot_podcast(
+  id serial not null,
+
+  primary key (id)
+);
 
 create table mg_radiot_time_label(
   id serial not null,
