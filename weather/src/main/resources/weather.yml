@@ -1,0 +1,16 @@
+mg:
+  weather:
+    baseUrl: "http://api.openweathermap.org/data/2.5/"
+    weatherSuffix: "weather"
+    forecastSuffix: "forecast"
+    apiKey: "0502d0f1f744a28dd8065598094fa1db"
+    units: "metric"
+    lang: "en"
+    defaultCity: "minsk"
+    firstQueryDelimiter: "?q"
+    queryDelimiter: "&"
+    apiKeyVariable: "appid"
+    unitsVariable: "units"
+    langVariable: "lang"
+    equalitySymbol: "="
+
