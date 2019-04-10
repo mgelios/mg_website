@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 
 @Component
-public class CurrentWeatherToCurrentWeatherDBEntity implements Converter<CurrentWeather, CurrentWeatherDBEntity> {
+public class CurrentWeatherDTOToEntity implements Converter<CurrentWeather, CurrentWeatherDBEntity> {
 
     @Override
     public CurrentWeatherDBEntity convert(CurrentWeather source){

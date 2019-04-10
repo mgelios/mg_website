@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CurrentWeatherDBEntityToCurrentWeather implements Converter<CurrentWeatherDBEntity, CurrentWeather> {
+public class CurrentWeatherEntityToDTO implements Converter<CurrentWeatherDBEntity, CurrentWeather> {
 
     @Override
     public CurrentWeather convert(CurrentWeatherDBEntity source){

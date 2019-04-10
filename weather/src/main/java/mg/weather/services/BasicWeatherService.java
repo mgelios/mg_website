@@ -3,8 +3,8 @@ package mg.weather.services;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
-import mg.weather.converters.CurrentWeatherDBEntityToCurrentWeather;
-import mg.weather.converters.CurrentWeatherToCurrentWeatherDBEntity;
+import mg.weather.converters.CurrentWeatherEntityToDTO;
+import mg.weather.converters.CurrentWeatherDTOToEntity;
 import mg.weather.converters.WeatherForecastDBEntityToWeatherForecast;
 import mg.weather.converters.WeatherForecastToWeatherForecastDBEntity;
 import mg.weather.dbentities.CurrentWeatherDBEntity;
@@ -51,10 +51,10 @@ public class BasicWeatherService implements WeatherService {
     JSONHelper jsonHelper;
 
     @Autowired
-    CurrentWeatherDBEntityToCurrentWeather currentWeatherDBEntityToCurrentWeather;
+    CurrentWeatherEntityToDTO currentWeatherEntityToDTO;
 
     @Autowired
-    CurrentWeatherToCurrentWeatherDBEntity currentWeatherToCurrentWeatherDBEntity;
+    CurrentWeatherDTOToEntity currentWeatherDTOToEntity;
 
     @Autowired
     WeatherForecastDBEntityToWeatherForecast weatherForecastDBEntityToWeatherForecast;
@@ -91,7 +91,7 @@ public class BasicWeatherService implements WeatherService {
             dbEntity = currentWeatherRepository.findByCityName("minsk").get();
         }
         //List<CurrentWeatherDBEntity> searchedEntities = currentWeatherDAO.searchCurrentWeather("ins", "ear");
-        return currentWeatherDBEntityToCurrentWeather.convert(dbEntity);
+        return currentWeatherEntityToDTO.convert(dbEntity);
     }
 
     public List<WeatherForecast> getWeatherForecast(String cityName){
