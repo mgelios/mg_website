@@ -60,9 +60,10 @@ public class ImprovedCurrentWeatherService {
     public void updateCurrentWeatherByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         currentWeatherRepository.deleteAllByCityName(cityName);
+        saveCurrentWeatherDBEntity(currentWeatherJson);
     }
 
-    public void saveCurrentWeatherDBEntity(JSONObject json) {
+    private void saveCurrentWeatherDBEntity(JSONObject json) {
         CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
         dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
         dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));

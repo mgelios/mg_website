@@ -1,5 +1,7 @@
 package mg.weather.controllers;
 
+import mg.weather.services.ImprovedCurrentWeatherService;
+import mg.weather.services.ImprovedWeatherForecastService;
 import mg.weather.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,9 +15,18 @@ public class RestWeatherController {
 
     @Autowired
     WeatherService weatherService;
+    @Autowired
+    ImprovedWeatherForecastService improvedWeatherForecastService;
+    @Autowired
+    ImprovedCurrentWeatherService improvedCurrentWeatherService;
 
     @RequestMapping("/current")
-    Object getCurrentWeather(){
-        return weatherService.getDefaultWeatherInfo();
+    Object getCurrentWeather() {
+        return improvedCurrentWeatherService.getDefaultCurrentWeather();
+    }
+
+    @RequestMapping("/forecast")
+    Object getWeatherForecast() {
+        return improvedWeatherForecastService.getDefaultWeatherForecast();
     }
 }

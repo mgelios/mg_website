@@ -15,5 +15,4 @@ public interface WeatherForecastRepository extends CrudRepository<WeatherForecas
     List<WeatherForecastDBEntity> findAllByCityName(String cityName);
 
     void deleteAllByCityName(String cityName);
-
 }

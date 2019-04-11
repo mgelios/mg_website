@@ -5,8 +5,8 @@ import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
 import mg.weather.converters.CurrentWeatherEntityToDTO;
 import mg.weather.converters.CurrentWeatherDTOToEntity;
-import mg.weather.converters.WeatherForecastDBEntityToWeatherForecast;
-import mg.weather.converters.WeatherForecastToWeatherForecastDBEntity;
+import mg.weather.converters.WeatherForecastEntityToDTO;
+import mg.weather.converters.WeatherForecastDTOToEntity;
 import mg.weather.dbentities.CurrentWeatherDBEntity;
 import mg.weather.dbentities.WeatherForecastDBEntity;
 import mg.weather.models.CurrentWeather;
@@ -57,10 +57,10 @@ public class BasicWeatherService implements WeatherService {
     CurrentWeatherDTOToEntity currentWeatherDTOToEntity;
 
     @Autowired
-    WeatherForecastDBEntityToWeatherForecast weatherForecastDBEntityToWeatherForecast;
+    WeatherForecastEntityToDTO weatherForecastEntityToDTO;
 
     @Autowired
-    WeatherForecastToWeatherForecastDBEntity weatherForecastToWeatherForecastDBEntity;
+    WeatherForecastDTOToEntity weatherForecastDTOToEntity;
 
     @Autowired
     CurrentWeatherDAO currentWeatherDAO;
@@ -103,12 +103,12 @@ public class BasicWeatherService implements WeatherService {
             if (currentTimeHours != dbWeatherForecast) {
                 weatherForecastRepository.deleteAllByCityName(cityName);
                 forecastRecords = writeWeatherForecastToDBEntity(cityName).stream()
-                        .map(weatherForecastDBEntityToWeatherForecast::convert)
+                        .map(weatherForecastEntityToDTO::convert)
                         .collect(Collectors.toList());
             }
         } else {
             forecastRecords = writeWeatherForecastToDBEntity(cityName).stream()
-                    .map(weatherForecastDBEntityToWeatherForecast::convert)
+                    .map(weatherForecastEntityToDTO::convert)
                     .collect(Collectors.toList());
         }
         return forecastRecords;

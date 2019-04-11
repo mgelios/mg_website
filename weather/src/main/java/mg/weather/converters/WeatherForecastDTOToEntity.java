@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 
 @Component
-public class WeatherForecastDBEntityToWeatherForecast implements Converter<WeatherForecastDBEntity, WeatherForecast> {
+public class WeatherForecastDTOToEntity implements Converter<WeatherForecast, WeatherForecastDBEntity> {
 
     @Override
-    public WeatherForecast convert(WeatherForecastDBEntity source) {
-        WeatherForecast target = new WeatherForecast();
+    public WeatherForecastDBEntity convert(WeatherForecast source){
+        WeatherForecastDBEntity target = new WeatherForecastDBEntity();
         target.setId(source.getId());
-        target.setTime(source.getTime().toLocalDateTime());
+        target.setTime(Timestamp.valueOf(source.getTime()));
         target.setTemperature(source.getTemperature());
         target.setMinimalTemperature(source.getMinimalTemperature());
         target.setMaximumTemperature(source.getMaximumTemperature());
@@ -30,4 +30,5 @@ public class WeatherForecastDBEntityToWeatherForecast implements Converter<Weath
         target.setCityName(source.getCityName());
         return target;
     }
+
 }
