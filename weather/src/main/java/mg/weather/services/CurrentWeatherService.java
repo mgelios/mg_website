@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class ImprovedCurrentWeatherService {
+public class CurrentWeatherService {
 
     @Autowired
     WeatherConfiguration weatherConfiguration;

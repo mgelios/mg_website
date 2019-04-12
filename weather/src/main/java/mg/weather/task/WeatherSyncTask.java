@@ -1,8 +1,8 @@
 package mg.weather.task;
 
 import lombok.extern.slf4j.Slf4j;
-import mg.weather.services.ImprovedCurrentWeatherService;
-import mg.weather.services.ImprovedWeatherForecastService;
+import mg.weather.services.CurrentWeatherService;
+import mg.weather.services.WeatherForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 public class WeatherSyncTask {
 
     @Autowired
-    ImprovedCurrentWeatherService improvedCurrentWeatherService;
+    CurrentWeatherService currentWeatherService;
     @Autowired
-    ImprovedWeatherForecastService improvedWeatherForecastService;
+    WeatherForecastService weatherForecastService;
 
-    @Scheduled(cron = "0/30 * * * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void syncWeatherInfo(){
         log.info("*** task running *** " + LocalDateTime.now().toString());
-        improvedCurrentWeatherService.updateDefaultCurrentWeather();
-        improvedWeatherForecastService.updateDefaultWeatherForecast();
+        currentWeatherService.updateDefaultCurrentWeather();
+        weatherForecastService.updateDefaultWeatherForecast();
     }
 }

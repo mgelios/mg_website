@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @EnableConfigurationProperties(WeatherConfiguration.class)
-public class ImprovedWeatherForecastService {
+public class WeatherForecastService {
 
     @Autowired
     JSONHelper jsonHelper;
