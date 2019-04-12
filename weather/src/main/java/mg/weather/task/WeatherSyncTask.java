@@ -20,7 +20,7 @@ public class WeatherSyncTask {
 
     @Scheduled(cron = "0 * * * * ?")
     public void syncWeatherInfo(){
-        log.info("*** task running *** " + LocalDateTime.now().toString());
+        log.info("*** weather task running *** " + LocalDateTime.now().toString());
         currentWeatherService.updateDefaultCurrentWeather();
         weatherForecastService.updateDefaultWeatherForecast();
     }

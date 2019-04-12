@@ -1,0 +1,11 @@
+mg:
+  finance:
+    currencyBaseUrl: "http://www.nbrb.by"
+    currencyRateSuffix: "/API/ExRates/Rates/"
+    currencyStatisticsSuffix: "/API/ExRates/Rates/Dynamics/"
+    currencyStatisticsStartDate: "startDate"
+    currencyStatisticsEndDate: "endDate"
+    currencyUrlParamMode: "?ParamMode=2"
+    defaultCurrencies: "USD,EUR,RUB,UAH,CNY"
+    defaultStatisticsCurrencies: "USD,EUR"
+    defaultConversionCombinations: "USD:EUR,EUR:USD,USD:RUB,USD:UAH,USD:CNY"
