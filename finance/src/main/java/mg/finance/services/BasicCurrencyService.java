@@ -48,25 +48,25 @@ public class BasicCurrencyService implements CurrencyService {
     @Autowired
     CryptoMarketRepository cryptoMarketRepository;
     @Autowired
-    CurrencyDBEntityToCurrency currencyDBEntityToCurrency;
+    CurrencyEntityToDTO currencyEntityToDTO;
     @Autowired
-    CurrencyToCurrencyDBEntity currencyToCurrencyDBEntity;
+    CurrencyDTOToEntity currencyDTOToEntity;
     @Autowired
-    CurrencyConversionDBEntityToCurrencyConversion currencyConversionDBEntityToCurrencyConversion;
+    CurrencyConversionEntityToDTO currencyConversionEntityToDTO;
     @Autowired
-    CurrencyConversionToCurrencyConversionDBEntity currencyConversionToCurrencyConversionDBEntity;
+    CurrencyConversionDTOToEntity currencyConversionDTOToEntity;
     @Autowired
-    CurrencyStatisticsDBEntityToCurrencyStatistics currencyStatisticsDBEntityToCurrencyStatistics;
+    CurrencyStatisticsEntityToDTO currencyStatisticsEntityToDTO;
     @Autowired
-    CurrencyStatisticsToCurrencyStatisticsDBEntity currencyStatisticsToCurrencyStatisticsDBEntity;
+    CurrencyStatisticsDTOToEntity currencyStatisticsDTOToEntity;
     @Autowired
-    CryptoCurrencyDBEntityToCryptoCurrency cryptoCurrencyDBEntityToCryptoCurrency;
+    CryptoCurrencyEntityToDTO cryptoCurrencyEntityToDTO;
     @Autowired
-    CryptoCurrencyToCryptoCurrencyDBEntity cryptoCurrencyToCryptoCurrencyDBEntity;
+    CryptoCurrencyDTOToEntity cryptoCurrencyDTOToEntity;
     @Autowired
-    CryptoMarketDBEntityToCryptoMarket cryptoMarketDBEntityToCryptoMarket;
+    CryptoMarketEntityToDTO cryptoMarketEntityToDTO;
     @Autowired
-    CryptoMarketToCryptoMarketDBEntity cryptoMarketToCryptoMarketDBEntity;
+    CryptoMarketDTOToEntity cryptoMarketDTOToEntity;
 
     public List<Currency> getDefaultCurrencyValues() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -86,7 +86,7 @@ public class BasicCurrencyService implements CurrencyService {
         } else {
             dbEntity = fillCurrencyDBEntity(currency);
         }
-        return currencyDBEntityToCurrency.convert(dbEntity);
+        return currencyEntityToDTO.convert(dbEntity);
     }
 
     private CurrencyDBEntity fillCurrencyDBEntity(String currency) {
@@ -119,7 +119,7 @@ public class BasicCurrencyService implements CurrencyService {
         currencyConversion.setValue((currencyFrom.getRate() / currencyFrom.getScale())/(currencyTo.getRate() / currencyTo.getScale()));
         currencyConversion.setCurrencyFrom(currencyFrom);
         currencyConversion.setCurrencyTo(currencyTo);
-        currencyConversionRepository.save(currencyConversionToCurrencyConversionDBEntity.convert(currencyConversion));
+        currencyConversionRepository.save(currencyConversionDTOToEntity.convert(currencyConversion));
         return currencyConversion;
     }
 
@@ -129,7 +129,7 @@ public class BasicCurrencyService implements CurrencyService {
     }
 
     public List<CurrencyStatistics> getCurrencyStatistics(String currency) {
-        CurrencyDBEntity dbCurrency = currencyToCurrencyDBEntity.convert(getCurrencyValue(currency));
+        CurrencyDBEntity dbCurrency = currencyDTOToEntity.convert(getCurrencyValue(currency));
         List<CurrencyStatisticsDBEntity> dbStatisticsList = null;
         Optional<CurrencyStatisticsDBEntity> dbSingularStatistics = currencyStatisticsRepository.findFirstByCurrency(dbCurrency);
         if (dbSingularStatistics.isPresent()) {
@@ -145,7 +145,7 @@ public class BasicCurrencyService implements CurrencyService {
             dbStatisticsList = fillCurrencyStatisticsDBEntity(dbCurrency);
         }
         return dbStatisticsList.stream()
-                .map(currencyStatisticsDBEntityToCurrencyStatistics::convert)
+                .map(currencyStatisticsEntityToDTO::convert)
                 .collect(Collectors.toList());
     }
 
@@ -180,7 +180,7 @@ public class BasicCurrencyService implements CurrencyService {
             result = fillCryptoCurrencyDBEntity();
         }
         return result.stream()
-                .map(cryptoCurrencyDBEntityToCryptoCurrency::convert)
+                .map(cryptoCurrencyEntityToDTO::convert)
                 .collect(Collectors.toList());
     }
 
@@ -222,7 +222,7 @@ public class BasicCurrencyService implements CurrencyService {
         } else {
             cryptoMarketDBEntity = fillCryptoMarketDBEntity();
         }
-        return cryptoMarketDBEntityToCryptoMarket.convert(cryptoMarketDBEntity);
+        return cryptoMarketEntityToDTO.convert(cryptoMarketDBEntity);
     }
 
     private CryptoMarketDBEntity fillCryptoMarketDBEntity() {

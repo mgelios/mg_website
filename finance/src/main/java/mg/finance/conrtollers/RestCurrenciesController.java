@@ -1,6 +1,7 @@
 package mg.finance.conrtollers;
 
 import mg.finance.services.CurrencyService;
+import mg.finance.services.ImprovedCurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +14,13 @@ public class RestCurrenciesController {
 
     @Autowired
     CurrencyService currencyService;
+    @Autowired
+    ImprovedCurrencyService improvedCurrencyService;
 
     @RequestMapping("/currency/values")
     public Object getCurrencyValues() {
-        return currencyService.getDefaultCurrencyValues();
+        //return currencyService.getDefaultCurrencyValues();
+        return improvedCurrencyService.getDefaultCurrencies();
     }
 
     @RequestMapping("/currency/statistics")

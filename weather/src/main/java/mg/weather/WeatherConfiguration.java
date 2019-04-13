@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-//@PropertySource("classpath:/weather.properties")
 @PropertySource(value = "classpath:/weather.yml", factory = YamlPropertyLoaderFactory.class)
 @ConfigurationProperties(prefix = "mg.weather")
 @Data

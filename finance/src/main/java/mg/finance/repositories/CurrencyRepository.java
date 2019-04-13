@@ -5,10 +5,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CurrencyRepository extends CrudRepository<CurrencyDBEntity, Long> {
 
     Optional<CurrencyDBEntity> findByAbbreviation(String abbreviation);
+
+    List<CurrencyDBEntity> findAllByAbbreviation(String abbreviation);
+
+    void deleteAllByAbbreviation(String abbreviation);
 }
