@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @EnableConfigurationProperties(WeatherConfiguration.class)
+@Transactional
 public class WeatherForecastService {
 
     @Autowired
@@ -62,7 +63,6 @@ public class WeatherForecastService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
     public void updateDefaultWeatherForecast() {
         updateWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
     }

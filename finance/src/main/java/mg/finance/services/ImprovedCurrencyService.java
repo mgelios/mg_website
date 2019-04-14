@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ImprovedCurrencyService {
 
     @Autowired
@@ -45,7 +46,11 @@ public class ImprovedCurrencyService {
     }
 
     public Currency getCurrencyByAbbreviation(String abbreviation) {
-       Optional<CurrencyDBEntity> optionalCurrency = currencyRepository.findByAbbreviation(abbreviation);
+        return currencyEntityToDTO.convert(getCurrencyDBEntityByAbbreviation(abbreviation));
+    }
+
+    public CurrencyDBEntity getCurrencyDBEntityByAbbreviation(String abbreviation) {
+        Optional<CurrencyDBEntity> optionalCurrency = currencyRepository.findByAbbreviation(abbreviation);
         CurrencyDBEntity result = null;
         if (optionalCurrency.isPresent()) {
             result = optionalCurrency.get();
@@ -54,14 +59,13 @@ public class ImprovedCurrencyService {
             updateCurrency(abbreviation);
             result = currencyRepository.findByAbbreviation(abbreviation).get();
         }
-        return currencyEntityToDTO.convert(result);
+        return result;
     }
 
     public void updateDefaultCurrencies() {
         financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
     }
 
-    @Transactional
     public void updateCurrency(String abbreviation) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
         if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {

@@ -2,6 +2,7 @@ package mg.finance.conrtollers;
 
 import mg.finance.services.CurrencyService;
 import mg.finance.services.ImprovedCurrencyService;
+import mg.finance.services.ImprovedCurrencyStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ public class RestCurrenciesController {
     CurrencyService currencyService;
     @Autowired
     ImprovedCurrencyService improvedCurrencyService;
+    @Autowired
+    ImprovedCurrencyStatisticsService improvedCurrencyStatisticsService;
 
     @RequestMapping("/currency/values")
     public Object getCurrencyValues() {
@@ -25,7 +28,8 @@ public class RestCurrenciesController {
 
     @RequestMapping("/currency/statistics")
     public Object getCurrencyStatistics() {
-        return currencyService.getDefaultCurrencyStatistics();
+        //return currencyService.getDefaultCurrencyStatistics();
+        return improvedCurrencyStatisticsService.getDefaultCurrencyStatistics();
     }
 
     @RequestMapping("/currency/conversions")

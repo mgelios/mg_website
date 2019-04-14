@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CurrentWeatherService {
 
     @Autowired
@@ -52,7 +53,6 @@ public class CurrentWeatherService {
         return currentWeatherEntityToDTO.convert(result);
     }
 
-    @Transactional
     public void updateDefaultCurrentWeather() {
         updateCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
