@@ -16,7 +16,7 @@ public class CurrencyConversionEntityToDTO implements Converter<CurrencyConversi
     public CurrencyConversion convert(CurrencyConversionDBEntity source) {
         CurrencyConversion target = new CurrencyConversion();
         target.setId(source.getId());
-        target.setValue(source.getId());
+        target.setValue(source.getValue());
         target.setCurrencyTo(currencyEntityToDTO.convert(source.getCurrencyTo()));
         target.setCurrencyFrom(currencyEntityToDTO.convert(source.getCurrencyFrom()));
         return target;
