@@ -14,40 +14,36 @@ public class RestCurrenciesController {
     @Autowired
     CurrencyService currencyService;
     @Autowired
-    ImprovedCurrencyService improvedCurrencyService;
+    CurrencyStatisticsService currencyStatisticsService;
     @Autowired
-    ImprovedCurrencyStatisticsService improvedCurrencyStatisticsService;
+    CurrencyConversionService currencyConversionService;
     @Autowired
-    ImprovedCurrencyConversionService improvedCurrencyConversionService;
+    CryptoCurrencyService cryptoCurrencyService;
     @Autowired
-    ImprovedCryptoCurrencyService improvedCryptoCurrencyService;
+    CryptoMarketService cryptoMarketService;
 
     @RequestMapping("/currency/values")
     public Object getCurrencyValues() {
-        //return currencyService.getDefaultCurrencyValues();
-        return improvedCurrencyService.getDefaultCurrencies();
+        return currencyService.getDefaultCurrencies();
     }
 
     @RequestMapping("/currency/statistics")
     public Object getCurrencyStatistics() {
-        //return currencyService.getDefaultCurrencyStatistics();
-        return improvedCurrencyStatisticsService.getDefaultCurrencyStatistics();
+        return currencyStatisticsService.getDefaultCurrencyStatistics();
     }
 
     @RequestMapping("/currency/conversions")
     public Object getCurrencyConversions(){
-        //return currencyService.calculateDefaultCurrenciesConversions();
-        return improvedCurrencyConversionService.getDefaultCurrencyConversions();
+        return currencyConversionService.getDefaultCurrencyConversions();
     }
 
-    @RequestMapping("/crypto/currencies/list")
+    @RequestMapping("/crypto/list")
     public Object getCryptoCurrencies() {
-        //return currencyService.getCryptoCurrenciesList();
-        return improvedCryptoCurrencyService.getCryptoCurrencies();
+        return cryptoCurrencyService.getCryptoCurrencies();
     }
 
     @RequestMapping("/crypto/market")
     public Object getCryptoMarketInfo() {
-        return currencyService.getCryptoMarketInfo();
+        return cryptoMarketService.getCryptoMarketInfo();
     }
 }

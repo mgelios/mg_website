@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ImprovedCryptoCurrencyService {
+public class CryptoCurrencyService {
 
     @Autowired
     FinanceConfiguration financeConfiguration;

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ImprovedCurrencyStatisticsService {
+public class CurrencyStatisticsService {
 
     @Autowired
     FinanceConfiguration financeConfiguration;
@@ -36,7 +36,7 @@ public class ImprovedCurrencyStatisticsService {
     @Autowired
     JSONHelper jsonHelper;
     @Autowired
-    ImprovedCurrencyService improvedCurrencyService;
+    CurrencyService currencyService;
     @Autowired
     CurrencyStatisticsRepository currencyStatisticsRepository;
     @Autowired
@@ -50,7 +50,7 @@ public class ImprovedCurrencyStatisticsService {
     }
 
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        CurrencyDBEntity currency = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+        CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         List<CurrencyStatisticsDBEntity> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
             updateCurrencyStatistics(abbreviation);
@@ -66,7 +66,7 @@ public class ImprovedCurrencyStatisticsService {
     }
 
     public void updateCurrencyStatistics(String abbreviation) {
-        CurrencyDBEntity currency = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+        CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrencyStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {

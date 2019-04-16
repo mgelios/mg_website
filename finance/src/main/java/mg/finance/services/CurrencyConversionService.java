@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ImprovedCurrencyConversionService {
+public class CurrencyConversionService {
 
     @Autowired
     FinanceConfiguration financeConfiguration;
     @Autowired
-    ImprovedCurrencyService improvedCurrencyService;
+    CurrencyService currencyService;
     @Autowired
     CurrencyConversionRepository currencyConversionRepository;
     @Autowired
@@ -39,8 +39,8 @@ public class ImprovedCurrencyConversionService {
     }
 
     public CurrencyConversion getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        CurrencyDBEntity from = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
-        CurrencyDBEntity to = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
+        CurrencyDBEntity from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
+        CurrencyDBEntity to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
         Optional<CurrencyConversionDBEntity> optionalConversion =
                 currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
         if (optionalConversion.isPresent()) {
@@ -59,8 +59,8 @@ public class ImprovedCurrencyConversionService {
     }
 
     public void updateCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        CurrencyDBEntity from = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
-        CurrencyDBEntity to = improvedCurrencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
+        CurrencyDBEntity from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
+        CurrencyDBEntity to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
         if (currencyConversionRepository.findAllByCurrencyFromAndCurrencyTo(from, to).size() != 0) {
             currencyConversionRepository.deleteAllByCurrencyFromAndAndCurrencyTo(from, to);
         }
