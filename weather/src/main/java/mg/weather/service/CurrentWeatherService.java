@@ -59,7 +59,9 @@ public class CurrentWeatherService {
 
     public void updateCurrentWeatherByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
-        currentWeatherRepository.deleteAllByCityName(cityName);
+        if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
+            currentWeatherRepository.deleteAllByCityName(cityName);
+        }
         saveCurrentWeatherDBEntity(currentWeatherJson);
     }
 

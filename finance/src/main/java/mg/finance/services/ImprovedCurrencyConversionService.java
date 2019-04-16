@@ -7,9 +7,6 @@ import mg.finance.dbentities.CurrencyConversionDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.models.CurrencyConversion;
 import mg.finance.repositories.CurrencyConversionRepository;
-import mg.finance.utils.CurrencyUrlBuilder;
-import mg.utils.JSONConsumer;
-import mg.utils.JSONHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +21,6 @@ public class ImprovedCurrencyConversionService {
 
     @Autowired
     FinanceConfiguration financeConfiguration;
-    @Autowired
-    CurrencyUrlBuilder currencyUrlBuilder;
-    @Autowired
-    JSONConsumer jsonConsumer;
-    @Autowired
-    JSONHelper jsonHelper;
     @Autowired
     ImprovedCurrencyService improvedCurrencyService;
     @Autowired

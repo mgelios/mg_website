@@ -69,7 +69,9 @@ public class WeatherForecastService {
 
     public void updateWeatherForecastByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildForecastUrl(cityName));
-        weatherForecastRepository.deleteAllByCityName(cityName);
+        if (weatherForecastRepository.findAllByCityName(cityName).size() != 0) {
+            weatherForecastRepository.deleteAllByCityName(cityName);
+        }
         saveWeatherForecastEntities(currentWeatherJson);
     }
 

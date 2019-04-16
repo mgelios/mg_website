@@ -1,9 +1,6 @@
 package mg.finance.conrtollers;
 
-import mg.finance.services.CurrencyService;
-import mg.finance.services.ImprovedCurrencyConversionService;
-import mg.finance.services.ImprovedCurrencyService;
-import mg.finance.services.ImprovedCurrencyStatisticsService;
+import mg.finance.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +19,8 @@ public class RestCurrenciesController {
     ImprovedCurrencyStatisticsService improvedCurrencyStatisticsService;
     @Autowired
     ImprovedCurrencyConversionService improvedCurrencyConversionService;
+    @Autowired
+    ImprovedCryptoCurrencyService improvedCryptoCurrencyService;
 
     @RequestMapping("/currency/values")
     public Object getCurrencyValues() {
@@ -43,7 +42,8 @@ public class RestCurrenciesController {
 
     @RequestMapping("/crypto/currencies/list")
     public Object getCryptoCurrencies() {
-        return currencyService.getCryptoCurrenciesList();
+        //return currencyService.getCryptoCurrenciesList();
+        return improvedCryptoCurrencyService.getCryptoCurrencies();
     }
 
     @RequestMapping("/crypto/market")
