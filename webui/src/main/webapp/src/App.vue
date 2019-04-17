@@ -9,6 +9,7 @@
       <v-container fluid>
         <router-view></router-view>
         <Card/>
+        <Table/>
       </v-container>
     </v-content>
     <v-footer app></v-footer>
@@ -18,12 +19,14 @@
 <script>
 import HelloWorld from './components/HelloWorld'
 import Card from './components/Card'
+import Table from './components/Table'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Card
+    Card,
+    Table
   },
   data () {
     return {
