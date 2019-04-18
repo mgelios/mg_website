@@ -7,7 +7,7 @@
     </v-toolbar>
     <v-content>
       <v-container fluid>
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
         <Card/>
         <Table/>
       </v-container>
@@ -20,13 +20,15 @@
 import HelloWorld from './components/HelloWorld'
 import Card from './components/Card'
 import Table from './components/Table'
+import CryptoCurrencies from './components/crypto/CryptoCurrencies'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
     Card,
-    Table
+    Table,
+    CryptoCurrencies
   },
   data () {
     return {
