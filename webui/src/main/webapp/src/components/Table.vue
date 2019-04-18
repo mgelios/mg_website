@@ -6,13 +6,11 @@
         <td class="text-xs-right">{{ props.item.temperature }}</td>
       </template>
     </v-data-table>
-    {{somedata}}
 </div>
 </template>
 
 <script>
   import axios from 'axios';
-  import { mapState } from 'vuex';
 
   export default {
     name: 'Table',
@@ -41,12 +39,6 @@
         .then(response => {
           this.items = response.data;
         });
-      this.$store.dispatch('CryptoCurrency/getAllCryptoCurrencies');
-    },
-    computed: {
-        ...mapState({
-          somedata : state => state.CryptoCurrency.all
-        })
     }
   }
 </script>

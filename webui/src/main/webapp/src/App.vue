@@ -10,6 +10,7 @@
         <!-- <router-view></router-view> -->
         <Card/>
         <Table/>
+        <CryptoCurrenciesTable/>
       </v-container>
     </v-content>
     <v-footer app></v-footer>
@@ -20,7 +21,8 @@
 import HelloWorld from './components/HelloWorld'
 import Card from './components/Card'
 import Table from './components/Table'
-import CryptoCurrencies from './components/crypto/CryptoCurrencies'
+import CryptoCurrenciesTable from './components/CryptoCurrenciesTable'
+//import CryptoCurrencies from './components/crypto/CryptoCurrencies'
 
 export default {
   name: 'App',
@@ -28,7 +30,8 @@ export default {
     HelloWorld,
     Card,
     Table,
-    CryptoCurrencies
+    CryptoCurrenciesTable
+//    CryptoCurrencies
   },
   data () {
     return {
