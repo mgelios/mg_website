@@ -6,14 +6,23 @@
         <td class="text-xs-right">{{ props.item.temperature }}</td>
       </template>
     </v-data-table>
+    <v-flex xs12 lg6>
+      <ExampleChart
+          :chartdata="items">
+      </ExampleChart>
+    </v-flex>
 </div>
 </template>
 
 <script>
   import axios from 'axios';
+  import ExampleChart from './ExampleChart';
 
   export default {
     name: 'Table',
+    components: {
+        ExampleChart
+    },
     data: function() {
         return {
             headers: [
@@ -34,11 +43,11 @@
         }
     },
     mounted: function() {
-      axios
-        .get("http://localhost:8080/api/v1/weather/forecast")
-        .then(response => {
-          this.items = response.data;
-        });
+        axios
+          .get("http://localhost:8080/api/v1/weather/forecast")
+          .then(response => {
+            this.items = response.data;
+          });
     }
   }
 </script>
