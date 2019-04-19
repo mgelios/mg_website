@@ -10,7 +10,7 @@ const getters = {
 const actions = {
     getAllCryptoCurrencies({ commit }) {
         crypto.getCryptoCurrencies(currencies => {
-            commit('setCryptoCurrencies', currencies)
+            commit('setCryptoCurrencies', currencies);
         })
     }
 }

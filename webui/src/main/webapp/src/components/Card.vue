@@ -8,43 +8,42 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  export default {
-    name: 'Card',
-    data: function() {
-        return {
-            cardTitle: "Some card title",
-            cardContent: ""
-        }
-    },
-    mounted: function() {
-      axios
-        .get("http://localhost:8080/api/v1/weather/current")
-        .then(response => {
-          this.cardContent = response.data;
-        });
+    import { mapState } from 'vuex';
 
-    },
-    filters: {
-      capitalize: function(string) {
-        if (!string)
-          return '';
-        string = string.toString();
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      },
-      degree: function(value) {
-        var string = "";
-        if (!value) return '';
-        if (value > 0) {
-          string = "+";
-        } else if (value < 0) {
-          string = "-";
-        } 
-        string = string + value.toString() + "°C";
-        return string;
-      }
+    export default {
+        name: 'Card',
+        data: function() {
+            return {
+            }
+        },
+        filters: {
+            capitalize: function(string) {
+                if (!string)
+                  return '';
+                string = string.toString();
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            },
+            degree: function(value) {
+                var string = "";
+                if (!value) return '';
+                if (value > 0) {
+                  string = "+";
+                } else if (value < 0) {
+                  string = "-";
+                } 
+                string = string + value.toString() + "°C";
+                return string;
+            }
+        },
+        mounted: function() {
+            this.$store.dispatch('Weather/getCurrentWeather');
+        },
+        computed: {
+            ...mapState({
+                cardContent : state => state.Weather.currentWeather
+            })
+        }
     }
-  }
 </script>
 
 <style>
