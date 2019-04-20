@@ -4,25 +4,30 @@
     export default {
         name: 'ExampleChart',
         extends: Line,
+        data() {
+            return {
+                dataSetOne: {
+                    label: 'max temp',
+                    data: []
+                },
+                dataSetTwo: {
+                    label: 'min temp',
+                    data: []
+                },
+                options: {
+                    aspectRatio: 4,
+                    maintainAspectRatio: true,
+                    responsive: false
+                }
+            }
+        },
         props: {
             chartdata: {
                 type: Array,
                 default: null
-            },
-            options: {
-                type: Object,
-                default: null
             }
         },
         mounted() {
-            var dataSetOne = {
-                label: 'max temp',
-                data: []
-            };
-            var dataSetTwo = {
-                label: 'min temp',
-                data: []
-            };
             var dataLabels = [];
             var lastMaxTemp = -250;
             var lastMinTemp = 250;
@@ -35,8 +40,8 @@
             for (var i = 0; i < this.chartdata.length; i++) {
                 if (this.chartdata[i].time.split("T")[0] !== lastLabel || i+1 == this.chartdata.length){
                     dataLabels.push(lastLabel);
-                    dataSetOne.data.push(lastMaxTemp);
-                    dataSetTwo.data.push(lastMinTemp);
+                    this.dataSetOne.data.push(lastMaxTemp);
+                    this.dataSetTwo.data.push(lastMinTemp);
                     lastMaxTemp = -250;
                     lastMinTemp = 250;
                 }
@@ -51,8 +56,8 @@
             var chartdataone = {
                 labels: dataLabels,
                 datasets: [
-                    dataSetOne, 
-                    dataSetTwo
+                    this.dataSetOne, 
+                    this.dataSetTwo
                 ]
             };
             this.renderChart(chartdataone, this.options);

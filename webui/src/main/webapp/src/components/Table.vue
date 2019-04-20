@@ -8,6 +8,7 @@
     </v-data-table>
     <v-flex xs12 lg6>
       <ExampleChart
+          v-if="items.length !== 0"
           :chartdata="items">
       </ExampleChart>
     </v-flex>
