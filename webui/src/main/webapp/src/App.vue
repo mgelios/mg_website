@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import Card from './components/Card'
-import Table from './components/Table'
-import CryptoCurrenciesTable from './components/CryptoCurrenciesTable'
+import HelloWorld from './components/example/HelloWorld'
+import Card from './components/example/Card'
+import Table from './components/example/Table'
+import CryptoCurrenciesTable from './components/example/CryptoCurrenciesTable'
 //import CryptoCurrencies from './components/crypto/CryptoCurrencies'
 
 export default {
