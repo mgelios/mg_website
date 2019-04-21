@@ -15,9 +15,8 @@
                     data: []
                 },
                 options: {
-                    aspectRatio: 4,
-                    maintainAspectRatio: true,
-                    responsive: false
+                    maintainAspectRatio: false,
+                    responsive: true,
                 }
             }
         },
