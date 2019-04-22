@@ -18,7 +18,7 @@ public class WeatherSyncTask {
     @Autowired
     WeatherForecastService weatherForecastService;
 
-    @Scheduled(cron = "* 0 * * * ?")
+    @Scheduled(cron = "* * 0 * * ?")
     public void syncWeatherInfo(){
         log.info("*** weather task running *** " + LocalDateTime.now().toString());
         currentWeatherService.updateDefaultCurrentWeather();
