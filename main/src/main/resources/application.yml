@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:15432/dev_db"
+    username: "dev_user"
+    password: "dev_postgres"
+    platform: "postgres"
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  queries:
+    users-query: "select email, password, enabled from mg_user where email=?"
+    roles-query: "select u.email, r.name from mg_user u inner join mg_user_role ur on(u.id=ur.user_id) inner join mg_role r on(ur.role_id=r.id) where u.email=?"
+
+hibernate:
+  search:
+    default:
+      directory_provider: "filesystem"
+      indexBase: "c:\\etc\\hiber_path\\"
