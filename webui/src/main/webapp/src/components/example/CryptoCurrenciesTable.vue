@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-data-table :headers="headers" :items="cryptoCurrencies">
         <template v-slot:items="cryptoCurrencies">
             <td>{{ cryptoCurrencies.item.rank }}</td>
