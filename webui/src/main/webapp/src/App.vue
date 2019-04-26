@@ -9,17 +9,6 @@
             <!--<HelloWorld/>-->
         </v-toolbar>
         <v-content>
-            <v-container>
-                <v-layout wrap row>
-                    <!-- <router-view></router-view> -->
-                    <!--<Card/>-->
-                    <!--<Table/>-->
-                    <!--<CryptoCurrenciesTable/>-->
-                    <v-flex xs12 lg6>
-                        <CurrentWeatherCard></CurrentWeatherCard>
-                    </v-flex>
-                </v-layout>
-            </v-container>
             <router-view></router-view>
         </v-content>
         <v-footer app></v-footer>
@@ -31,7 +20,7 @@ import HelloWorld from './components/example/HelloWorld'
 import Card from './components/example/Card'
 import Table from './components/example/Table'
 import CryptoCurrenciesTable from './components/example/CryptoCurrenciesTable'
-import CurrentWeatherCard from './components/weather/CurrentWeatherCard'
+import Dashboard from './components/weather/Dashboard'
 
 export default {
     name: 'App',
@@ -40,7 +29,7 @@ export default {
         Card,
         Table,
         CryptoCurrenciesTable,
-        CurrentWeatherCard
+        Dashboard
     },
     data () {
         return {

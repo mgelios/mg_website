@@ -4,19 +4,15 @@ import App from './App.vue'
 import store from './store'
 import './filters/filters'
 import VueRouter from 'vue-router'
-import ExampleChart from './components/example/ExampleChart'
-import CryptoCurrenciesTable from './components/example/CryptoCurrenciesTable'
+import Dashboard from './components/weather/Dashboard'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
-const Example = ExampleChart;
-const CryptoExample = CryptoCurrenciesTable;
+//const CryptoExample = CryptoCurrenciesTable;
 
 const routes = [
-    { path: '/example', component: Example },
-    { path: '/home', component: Example },
-    { path: '/crypto', component: CryptoExample }
+    { path: '/dashboard', component: Dashboard }
 ];
 
 const router = new VueRouter({
@@ -27,4 +23,4 @@ new Vue({
     store,
     router,
     render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

@@ -1,11 +1,12 @@
 <template>
     <v-card>
         <v-card-title>
-            <v-layout display-2>{{cardContent.cityName | capitalize}} {{cardContent.temperature | degreeCelsius}}</v-layout>
+            <v-layout display-1>{{currentWeather.cityName | capitalize}} {{currentWeather.temperature | degreeCelsius}}</v-layout>
         </v-card-title>
         <v-card-text>
-            <v-layout display-1>{{cardContent.description}}</v-layout>
-            <v-layout headline> {{cardContent.minimalTemperature | degreeCelsius}} - {{cardContent.maximumTemperature | degreeCelsius}} </v-layout>
+            <v-layout display-1>{{currentWeather.description}}</v-layout>
+            <v-layout headline> {{currentWeather.minimalTemperature | degreeCelsius}} - {{currentWeather.maximumTemperature | degreeCelsius}} </v-layout>
+            <v-layout headline></v-layout>
         </v-card-text>
     </v-card>
 </template>
@@ -24,7 +25,7 @@
         },
         computed: {
             ...mapState({
-                cardContent : state => state.Weather.currentWeather
+                currentWeather : state => state.Weather.currentWeather
             })
         }
     }
