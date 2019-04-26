@@ -3,10 +3,10 @@ import weather from '../../api/weather';
 const state = {
     currentWeather: {},
     weatherForecast: []
-}
+};
 
 const getters = {
-}
+};
 
 const actions = {
     getCurrentWeather({ commit }) {
@@ -19,7 +19,7 @@ const actions = {
             commit('setWeatherForecast', data);
         })
     }
-}
+};
 
 const mutations = {
     setCurrentWeather(state, data) {
@@ -28,7 +28,7 @@ const mutations = {
     setWeatherForecast(state, data) {
         state.weatherForecast = data;
     }
-}
+};
 
 export default {
     namespaced: true,

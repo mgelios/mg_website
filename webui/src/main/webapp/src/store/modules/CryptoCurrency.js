@@ -1,11 +1,11 @@
 import crypto from '../../api/crypto';
 
 const state = {
-    all: ["sdfsdf"]
-}
+    all: []
+};
 
 const getters = {
-}
+};
 
 const actions = {
     getAllCryptoCurrencies({ commit }) {
@@ -13,13 +13,13 @@ const actions = {
             commit('setCryptoCurrencies', currencies);
         })
     }
-}
+};
 
 const mutations = {
     setCryptoCurrencies(state, items) {
         state.all = items
     }
-}
+};
 
 export default {
     namespaced: true,

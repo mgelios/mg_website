@@ -4,7 +4,7 @@ import App from './App.vue'
 import store from './store'
 import './filters/filters'
 import VueRouter from 'vue-router'
-import Dashboard from './components/weather/Dashboard'
+import Dashboard from './components/dashboard/Dashboard'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);

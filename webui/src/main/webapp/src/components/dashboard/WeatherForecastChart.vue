@@ -15,8 +15,9 @@
                     data: []
                 },
                 options: {
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     responsive: true,
+                    aspectRatio: 2
                 }
             }
         },
@@ -24,7 +25,9 @@
             chartdata: {
                 type: Array,
                 default: null
-            }
+            },
+            height: null,
+            width: "100%"
         },
         mounted() {
             var dataLabels = [];
