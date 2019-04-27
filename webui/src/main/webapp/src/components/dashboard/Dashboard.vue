@@ -17,6 +17,11 @@
                         <CurrencyCard></CurrencyCard>
                     </v-flex>
                 </v-layout>
+                <v-layout wrap column>
+                    <v-flex xs12 lg6>
+                        <CurrencyConversionsCard></CurrencyConversionsCard>
+                    </v-flex>
+                </v-layout>
             </v-flex>
         </v-layout>
     </v-container>
@@ -26,13 +31,15 @@
     import CurrentWeatherCard from './CurrentWeatherCard'
     import WeatherForecastCard from './WeatherForecastCard'
     import CurrencyCard from './CurrencyCard'
+    import CurrencyConversionsCard from './CurrencyConversionsCard'
 
     export default {
         name: 'Dashboard',
         components: {
             CurrentWeatherCard,
             WeatherForecastCard,
-            CurrencyCard
+            CurrencyCard,
+            CurrencyConversionsCard
         }
     }
 </script>
