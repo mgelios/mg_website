@@ -17,7 +17,7 @@
                 options: {
                     maintainAspectRatio: true,
                     responsive: true,
-                    aspectRatio: 2
+                    aspectRatio: this.aspectRatio
                 }
             }
         },
@@ -27,7 +27,10 @@
                 default: null
             },
             height: null,
-            width: "100%"
+            width: "100%",
+            aspectRatio: {
+                default: 2
+            }
         },
         mounted() {
             var dataLabels = [];

@@ -1,7 +1,7 @@
 <template>
     <v-container grid-list-md fluid>
-        <v-layout row>
-            <v-flex xs12 lg6>
+        <v-layout row hidden-md-and-down>
+            <v-flex xs12 lg4>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrentWeatherCard></CurrentWeatherCard>
@@ -11,7 +11,7 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex xs12 lg6>
+            <v-flex xs12 lg4>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrencyCard></CurrencyCard>
@@ -22,6 +22,21 @@
                         <CurrencyConversionsCard></CurrencyConversionsCard>
                     </v-flex>
                 </v-layout>
+            </v-flex>
+        </v-layout>
+
+        <v-layout column hidden-lg-and-up>
+            <v-flex>
+                <CurrentWeatherCard></CurrentWeatherCard>
+            </v-flex>
+            <v-flex>
+                <WeatherForecastCard :chartAspectRatio="1"></WeatherForecastCard>
+            </v-flex>
+            <v-flex xs12 lg6>
+                <CurrencyCard></CurrencyCard>
+            </v-flex>
+            <v-flex xs12 lg6>
+                <CurrencyConversionsCard></CurrencyConversionsCard>
             </v-flex>
         </v-layout>
     </v-container>

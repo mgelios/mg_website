@@ -3,9 +3,10 @@
         <v-card-title>
             <v-layout display-1>Forecast</v-layout>
         </v-card-title>
-        <v-card-text>
+        <v-card-text hidden-lg-and-up>
             <WeatherForecastChart v-if="items.length !== 0"
-                                  :chartdata="items">
+                                  :chartdata="items"
+                                  :aspectRatio="chartAspectRatio">
             </WeatherForecastChart>
         </v-card-text>
     </v-card>
@@ -22,6 +23,11 @@
         },
         mounted: function() {
             this.$store.dispatch('Weather/getWeatherForecast');
+        },
+        props: {
+            chartAspectRatio: {
+                default: 2
+            }
         },
         computed: {
             ...mapState({
