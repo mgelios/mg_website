@@ -1,7 +1,8 @@
 import crypto from '../../api/crypto';
 
 const state = {
-    all: []
+    all: [],
+    market: {}
 };
 
 const getters = {
@@ -12,12 +13,20 @@ const actions = {
         crypto.getCryptoCurrencies(currencies => {
             commit('setCryptoCurrencies', currencies);
         })
+    },
+    getCryptoMarket({ commit }) {
+        crypto.getCryptoMarket(market => {
+            commit('setCryptoMarket', market);
+        })
     }
 };
 
 const mutations = {
     setCryptoCurrencies(state, items) {
         state.all = items
+    },
+    setCryptoMarket(state, data) {
+        state.market = data;
     }
 };
 

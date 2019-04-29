@@ -6,5 +6,11 @@ export default {
             .then(response => {
                callback(response.data);
             });
+    },
+    getCryptoMarket: function(callback) {
+        axios.get("http://localhost:8080/api/v1/finance/crypto/market")
+            .then(response => {
+                callback(response.data);
+            });
     }
 }

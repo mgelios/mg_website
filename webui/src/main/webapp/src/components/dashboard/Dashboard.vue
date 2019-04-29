@@ -23,6 +23,12 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
+            <v-flex>
+                <CryptoCurrenciesCard></CryptoCurrenciesCard>
+            </v-flex>
+            <v-flex>
+                <CryptoMarketCard></CryptoMarketCard>
+            </v-flex>
         </v-layout>
 
         <v-layout column hidden-lg-and-up>
@@ -38,6 +44,12 @@
             <v-flex xs12 lg6>
                 <CurrencyConversionsCard></CurrencyConversionsCard>
             </v-flex>
+            <v-flex xs12 lg6>
+                <CryptoCurrenciesCard></CryptoCurrenciesCard>
+            </v-flex>
+            <v-flex xs12 lg6>
+                <CryptoMarketCard></CryptoMarketCard>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -47,6 +59,8 @@
     import WeatherForecastCard from './WeatherForecastCard'
     import CurrencyCard from './CurrencyCard'
     import CurrencyConversionsCard from './CurrencyConversionsCard'
+    import CryptoCurrenciesCard from './CryptoCurrenciesCard'
+    import CryptoMarketCard from './CryptoMarketCard'
 
     export default {
         name: 'Dashboard',
@@ -54,7 +68,9 @@
             CurrentWeatherCard,
             WeatherForecastCard,
             CurrencyCard,
-            CurrencyConversionsCard
+            CurrencyConversionsCard,
+            CryptoCurrenciesCard,
+            CryptoMarketCard
         }
     }
 </script>
