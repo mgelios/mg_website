@@ -23,10 +23,10 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex>
+            <v-flex xs12 lg6>
                 <CryptoCurrenciesCard></CryptoCurrenciesCard>
             </v-flex>
-            <v-flex>
+            <v-flex xs12 lg6>
                 <CryptoMarketCard></CryptoMarketCard>
             </v-flex>
         </v-layout>
