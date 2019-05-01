@@ -17,8 +17,8 @@ create table mg_currency (
 
 create table mg_currency_conversion (
   id serial not null,
-  currency_from integer references mg_currency(id) not null,
-  currency_to integer references mg_currency(id) null,
+  currency_from integer,
+  currency_to integer,
   value real not null,
   primary key (id),
   constraint unique_conversion unique (currency_to, currency_from)
@@ -27,7 +27,7 @@ create table mg_currency_conversion (
 create table mg_currency_statistics (
   id serial not null,
   date timestamp not null,
-  currency integer references mg_currency(id) null,
+  currency integer,
   rate real not null,
   primary key (id)
 );
