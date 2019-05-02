@@ -1,5 +1,6 @@
 package mg.finance.services;
 
+import lombok.Synchronized;
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDTOToEntity;
 import mg.finance.converters.CurrencyEntityToDTO;
@@ -66,6 +67,7 @@ public class CurrencyService {
         financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
     }
 
+    @Synchronized
     public void updateCurrency(String abbreviation) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
         if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {

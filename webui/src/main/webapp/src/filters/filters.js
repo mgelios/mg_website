@@ -18,3 +18,7 @@ Vue.filter('degreeCelsius', function(value) {
     string = string + value.toString() + "°C";
     return string;
 });
+
+Vue.filter('byn', function(value) {
+    return '' + value.toFixed(2) + ' BYN';
+});

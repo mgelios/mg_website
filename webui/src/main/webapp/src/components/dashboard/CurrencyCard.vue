@@ -4,7 +4,19 @@
             <v-layout display-1>Exhange Rates</v-layout>
         </v-card-title>
         <v-card-text>
-            {{exchangeRates}}
+            <v-list>
+                <template v-for="(item, index) in exchangeRates">
+                    <v-list-tile :key="index">
+                        <v-list-tile-content>
+                            {{item.scale}} {{item.abbreviation}}
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            {{item.rate | byn}}
+                        </v-list-tile-action>
+                    </v-list-tile>
+                    <v-divider :key="index+'divider'"></v-divider>
+                </template>
+            </v-list>
         </v-card-text>
     </v-card>
 </template>
