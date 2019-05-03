@@ -1,7 +1,19 @@
 <template>
     <v-card>
-        <v-card-title>Crypto Market</v-card-title>
-        <v-card-text>{{cryptoMarket}}</v-card-text>
+        <v-card-title class="indigo darken-1">
+            <v-layout display-1 class="white--text">Crypto Market</v-layout>
+        </v-card-title>
+        <v-card-text>
+            <v-list-tile>Total USD: {{cryptoMarket.totalUsd}}</v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>USD volume in 24h: {{cryptoMarket.totalUsdDayVolume}}</v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>Number of active markets: {{cryptoMarket.activeMarkets}}</v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>Number of active currencies: {{cryptoMarket.activeCurrencies}}</v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>Bitcoin percentage: {{cryptoMarket.bitcoinPercent}}%</v-list-tile>
+        </v-card-text>
     </v-card>
 </template>
 

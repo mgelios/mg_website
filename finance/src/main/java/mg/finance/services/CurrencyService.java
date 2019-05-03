@@ -67,7 +67,6 @@ public class CurrencyService {
         financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
     }
 
-    @Synchronized
     public void updateCurrency(String abbreviation) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
         if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {

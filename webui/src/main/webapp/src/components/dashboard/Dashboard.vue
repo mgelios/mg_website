@@ -1,7 +1,7 @@
 <template>
     <v-container grid-list-md fluid>
         <v-layout row hidden-md-and-down>
-            <v-flex xs12 lg6>
+            <v-flex xs12 lg8>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrentWeatherCard></CurrentWeatherCard>
@@ -11,7 +11,7 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex xs12 lg6>
+            <v-flex xs12 lg4>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrencyCard></CurrencyCard>
@@ -40,15 +40,11 @@
         </v-layout>
 
         <v-layout row>
-            <v-flex xs12 lg12>
-                <v-layout wrap column>
-                    <v-flex xs12>
-                        <CryptoCurrenciesCard></CryptoCurrenciesCard>
-                    </v-flex>
-                    <v-flex xs12>
-                        <CryptoMarketCard></CryptoMarketCard>
-                    </v-flex>
-                </v-layout>
+            <v-flex xs12 lg4>
+                <CryptoMarketCard></CryptoMarketCard>
+            </v-flex>
+            <v-flex xs12 lg8>
+                <CryptoCurrenciesCard></CryptoCurrenciesCard>
             </v-flex>
         </v-layout>
 

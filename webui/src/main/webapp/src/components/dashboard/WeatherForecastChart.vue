@@ -7,17 +7,27 @@
         data() {
             return {
                 dataSetOne: {
-                    label: 'max temp',
-                    data: []
+                    label: 'min temp',
+                    data: [],
+                    backgroundColor: '#7ac0c088',
+                    borderColor: '#7ac0c0',
+                    fill: 'start'
                 },
                 dataSetTwo: {
-                    label: 'min temp',
-                    data: []
+                    label: 'max temp',
+                    data: [],
+                    backgroundColor: '#e6896688',
+                    borderColor: '#e68966',
+                    fill: '0'
                 },
                 options: {
                     maintainAspectRatio: true,
                     responsive: true,
-                    aspectRatio: this.aspectRatio
+                    aspectRatio: this.aspectRatio,
+                    tooltips: {
+                        intersect: false,
+                        mode: 'index'
+                    }
                 }
             }
         },
@@ -46,8 +56,8 @@
                 for (var i = 0; i < this.chartdata.length; i++) {
                     if (this.chartdata[i].time.split("T")[0] !== lastLabel || i + 1 == this.chartdata.length) {
                         dataLabels.push(lastLabel);
-                        this.dataSetOne.data.push(lastMaxTemp);
-                        this.dataSetTwo.data.push(lastMinTemp);
+                        this.dataSetOne.data.push(lastMinTemp);
+                        this.dataSetTwo.data.push(lastMaxTemp);
                         lastMaxTemp = -250;
                         lastMinTemp = 250;
                     }

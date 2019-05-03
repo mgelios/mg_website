@@ -1,7 +1,7 @@
 <template>
     <v-card>
-        <v-card-title>
-            <v-layout display-1>{{currentWeather.cityName | capitalize}} {{currentWeather.temperature | degreeCelsius}}</v-layout>
+        <v-card-title class="blue-grey darken-1">
+            <v-layout display-1 class="white--text">{{currentWeather.cityName | capitalize}} {{currentWeather.temperature | degreeCelsius}}</v-layout>
         </v-card-title>
         <v-card-text>
             <v-layout display-1>{{currentWeather.description}}</v-layout>

@@ -1,7 +1,7 @@
 <template>
     <v-card>
-        <v-card-title>
-            <v-layout display-1>Forecast</v-layout>
+        <v-card-title class="blue-grey darken-1">
+            <v-layout display-1 class="white--text">Forecast</v-layout>
         </v-card-title>
         <v-card-text hidden-lg-and-up>
             <WeatherForecastChart v-if="items.length !== 0"
