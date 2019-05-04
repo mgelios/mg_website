@@ -7,7 +7,10 @@
             <v-data-table :headers="tableHeaders" :items="cryptoCurrencies">
                 <template v-slot:items="props">
                     <td>{{ props.item.rank }}</td>
-                    <td class="text-xs-right">{{ props.item.priceUSD }}</td>
+                    <td>{{ props.item.symbol}}</td>
+                    <td>{{ props.item.priceUSD }}</td>
+                    <td>{{ props.item.priceBTC }}</td>
+                    <td>{{ props.item.percentChangeIn24h }}</td>
                 </template>
             </v-data-table>
         </v-card-text>
@@ -32,10 +35,28 @@
                         value: 'rank'
                     },
                     {
+                        text: 'Symbol',
+                        align: 'left',
+                        sortable: true,
+                        value: 'symbol'
+                    },
+                    {
                         text: 'Price (USD)',
-                        aligh: 'left',
+                        align: 'left',
                         sortable: false,
                         value: 'priceUSD'
+                    },
+                    {
+                        text: 'Price (BTC)',
+                        align: 'left',
+                        sortable: false,
+                        value: 'priceBTC'
+                    },
+                    {
+                        text: 'Change in 24h',
+                        align: 'left',
+                        sortable: true,
+                        value: 'percentChangeIn24h'
                     }
                 ]
             }

@@ -1,7 +1,7 @@
 <template>
     <v-container grid-list-md fluid>
         <v-layout row hidden-md-and-down>
-            <v-flex xs12 lg8>
+            <v-flex xs12 lg4>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrentWeatherCard></CurrentWeatherCard>
@@ -17,6 +17,8 @@
                         <CurrencyCard></CurrencyCard>
                     </v-flex>
                 </v-layout>
+            </v-flex>
+            <v-flex xs12 lg4>
                 <v-layout wrap column>
                     <v-flex xs12 lg6>
                         <CurrencyConversionsCard></CurrencyConversionsCard>

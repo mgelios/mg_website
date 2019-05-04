@@ -4,15 +4,30 @@
             <v-layout display-1 class="white--text">Crypto Market</v-layout>
         </v-card-title>
         <v-card-text>
-            <v-list-tile>Total USD: {{cryptoMarket.totalUsd}}</v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>Total USD:</v-list-tile-content>
+                <v-list-tile-action>{{cryptoMarket.totalUsd}}</v-list-tile-action>
+            </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile>USD volume in 24h: {{cryptoMarket.totalUsdDayVolume}}</v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>USD volume in 24h:</v-list-tile-content>
+                <v-list-tile-action>{{cryptoMarket.totalUsdDayVolume}}</v-list-tile-action>
+            </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile>Number of active markets: {{cryptoMarket.activeMarkets}}</v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>Number of active markets:</v-list-tile-content>
+                <v-list-tile-action>{{cryptoMarket.activeMarkets}}</v-list-tile-action>
+            </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile>Number of active currencies: {{cryptoMarket.activeCurrencies}}</v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>Number of active currencies:</v-list-tile-content>
+                <v-list-tile-action>{{cryptoMarket.activeCurrencies}}</v-list-tile-action>
+            </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile>Bitcoin percentage: {{cryptoMarket.bitcoinPercent}}%</v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>Bitcoin percentage:</v-list-tile-content>
+                <v-list-tile-action>{{cryptoMarket.bitcoinPercent}}%</v-list-tile-action>
+            </v-list-tile>
         </v-card-text>
     </v-card>
 </template>
