@@ -26,6 +26,7 @@
                 </v-layout>
             </v-flex>
         </v-layout>
+
         <v-layout column hidden-lg-and-up>
             <v-flex>
                 <CurrentWeatherCard></CurrentWeatherCard>
@@ -50,6 +51,11 @@
             </v-flex>
         </v-layout>
 
+        <v-layout row>
+            <v-flex xs12 lg6>
+                <RadiotNewsCard></RadiotNewsCard>
+            </v-flex>
+        </v-layout>
 
     </v-container>
 </template>
@@ -61,6 +67,7 @@
     import CurrencyConversionsCard from './CurrencyConversionsCard'
     import CryptoCurrenciesCard from './CryptoCurrenciesCard'
     import CryptoMarketCard from './CryptoMarketCard'
+    import RadiotNewsCard from './RadiotNewsCard'
 
     export default {
         name: 'Dashboard',
@@ -70,7 +77,8 @@
             CurrencyCard,
             CurrencyConversionsCard,
             CryptoCurrenciesCard,
-            CryptoMarketCard
+            CryptoMarketCard,
+            RadiotNewsCard
         }
     }
 </script>
