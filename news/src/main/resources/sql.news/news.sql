@@ -1,4 +1,3 @@
-drop table if exists mg_radiot_time_label_to_podcast;
 drop table if exists mg_radiot_time_label;
 drop table if exists mg_radiot_podcast;
 drop table if exists mg_radiot_article;
@@ -23,7 +22,13 @@ create table mg_radiot_article(
 
 create table mg_radiot_podcast(
   id serial not null,
-
+  url text,
+  title text,
+  date timestamp,
+  image text,
+  body text,
+  show_notes text,
+  audio_url text,
   primary key (id)
 );
 
@@ -32,11 +37,6 @@ create table mg_radiot_time_label(
   topic text,
   time timestamp,
   duration bigint,
+  podcast integer,
   primary key (id)
-);
-
-create table mg_radiot_time_label_to_podcast(
-  podcast_id integer not null,
-  time_label_id integer not null,
-  primary key (podcast_id, time_label_id)
 );

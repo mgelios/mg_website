@@ -13,6 +13,7 @@ public class NewsConfiguration {
 
     private String radiotApiUrl;
     private String radiotArticlesSuffix;
+    private String radiotPodcastsApiUrl;
     private String radiotPodcastsSuffix;
 
 }

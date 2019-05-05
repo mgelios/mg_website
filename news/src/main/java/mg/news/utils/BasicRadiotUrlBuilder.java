@@ -25,7 +25,7 @@ public class BasicRadiotUrlBuilder implements RadiotUrlBuilder {
     @Override
     public String buildPodcastUrl() {
         StringBuilder builder = new StringBuilder();
-        builder.append(newsConfiguration.getRadiotApiUrl())
+        builder.append(newsConfiguration.getRadiotPodcastsApiUrl())
                 .append(newsConfiguration.getRadiotPodcastsSuffix());
         return builder.toString();
     }
