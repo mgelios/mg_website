@@ -10,6 +10,11 @@ public class RadiotPodcastTimeLabelEntityToDTO implements Converter<RadiotPodcas
 
     @Override
     public RadiotPodcastTimeLabel convert(RadiotPodcastTimeLabelDBEntity source) {
-        return null;
+        RadiotPodcastTimeLabel target = new RadiotPodcastTimeLabel();
+        target.setDuration(source.getDuration());
+        target.setId(source.getId());
+        target.setTime(source.getTime().toLocalDateTime());
+        target.setTopic(source.getTopic());
+        return target;
     }
 }

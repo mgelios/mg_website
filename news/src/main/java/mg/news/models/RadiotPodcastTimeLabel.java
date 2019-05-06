@@ -1,6 +1,6 @@
 package mg.news.models;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class RadiotPodcastTimeLabel {
 
@@ -8,7 +8,7 @@ public class RadiotPodcastTimeLabel {
     private RadiotPodcast podcast;
     private String topic;
     private Long duration;
-    private Timestamp time;
+    private LocalDateTime time;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class RadiotPodcastTimeLabel {
         this.duration = duration;
     }
 
-    public Timestamp getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 }

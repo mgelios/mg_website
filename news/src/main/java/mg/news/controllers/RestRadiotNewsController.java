@@ -24,7 +24,6 @@ public class RestRadiotNewsController {
 
     @RequestMapping("/radiot/podcasts")
     public Object getRadiotPodcasts() {
-        radiotPodcastService.updateRadiotPodcasts();
-        return null;
+        return radiotPodcastService.getRadiotPodcasts();
     }
 }
