@@ -71,16 +71,20 @@ public class BasicJSONHelper implements JSONHelper {
         return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
     }
 
-    //TODO: reformat code
+    //TODO: reformat code!!!
     private Object getLastObjectInPath(Object object, List<String> pathParts, int currentIndex) {
         if (currentIndex != pathParts.size()){
             if (!pathParts.get(currentIndex).contains("]")) {
-                Object currentObject = ((JSONObject) object).get(pathParts.get(currentIndex));
-                return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+                if (((JSONObject) object).has(pathParts.get(currentIndex))) {
+                    Object currentObject = ((JSONObject) object).get(pathParts.get(currentIndex));
+                    return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+                } else return null;
             } else {
                 String arrayName = pathParts.get(currentIndex).split("[\\[]|[\\]]")[0];
                 int arrayIndex = Integer.valueOf(pathParts.get(currentIndex).split("[\\[]|[\\]]")[1]);
-                return getLastObjectInPath(((JSONObject) object).getJSONArray(arrayName).get(arrayIndex), pathParts, currentIndex + 1);
+                if (((JSONObject) object).has(arrayName)) {
+                    return getLastObjectInPath(((JSONObject) object).getJSONArray(arrayName).get(arrayIndex), pathParts, currentIndex + 1);
+                } else return null;
             }
         } else return object;
     }

@@ -9,6 +9,7 @@ import mg.news.repositories.RadiotPodcastRepository;
 import mg.news.repositories.RadiotPodcastTimeLabelRepository;
 import mg.news.utils.RadiotUrlBuilder;
 import mg.utils.JSONConsumer;
+import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class RadiotPodcastService {
 
     @Autowired
     JSONConsumer jsonConsumer;
+    @Autowired
+    JSONHelper jsonHelper;
     @Autowired
     RadiotUrlBuilder radiotUrlBuilder;
     @Autowired
@@ -71,15 +74,12 @@ public class RadiotPodcastService {
         });
     }
 
-    //TODO: add 'has' check to JSON helper class and change fetching data to jsonhelper
     private void saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcastDBEntity podcast) {
         json.forEach(item -> {
             RadiotPodcastTimeLabelDBEntity timeLabel = new RadiotPodcastTimeLabelDBEntity();
-            if (((JSONObject) item).has("duration")) {
-                timeLabel.setDuration(((JSONObject) item).getLong("duration"));
-            }
+            timeLabel.setDuration(jsonHelper.getLong((JSONObject) item, "duration"));
             timeLabel.setTime(Timestamp.from(Instant.now()));
-            timeLabel.setTopic(((JSONObject) item).getString("topic"));
+            timeLabel.setTopic(jsonHelper.getString((JSONObject) item, "topic"));
             timeLabel.setPodcast(podcast);
             radiotPodcastTimeLabelRepository.save(timeLabel);
         });
