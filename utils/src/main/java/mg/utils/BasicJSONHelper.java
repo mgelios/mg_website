@@ -71,25 +71,33 @@ public class BasicJSONHelper implements JSONHelper {
         return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
     }
 
-    //TODO: reformat code!!!
     private Object getLastObjectInPath(Object object, List<String> pathParts, int currentIndex) {
-        if (currentIndex != pathParts.size()){
+        if (currentIndex != pathParts.size()) {
             if (!pathParts.get(currentIndex).contains("]")) {
-                if (((JSONObject) object).has(pathParts.get(currentIndex))) {
-                    Object currentObject = ((JSONObject) object).get(pathParts.get(currentIndex));
-                    return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
-                } else return null;
+                return processObject(object, pathParts, currentIndex);
             } else {
-                String arrayName = pathParts.get(currentIndex).split("[\\[]|[\\]]")[0];
-                int arrayIndex = Integer.valueOf(pathParts.get(currentIndex).split("[\\[]|[\\]]")[1]);
-                if (((JSONObject) object).has(arrayName)) {
-                    return getLastObjectInPath(((JSONObject) object).getJSONArray(arrayName).get(arrayIndex), pathParts, currentIndex + 1);
-                } else return null;
+                return processArrayItem(object, pathParts, currentIndex);
             }
         } else return object;
     }
 
-    private Object getObjectByPath(JSONObject parentObject ,String path) {
+    private Object processObject(Object object, List<String> pathParts, int currentIndex) {
+        if (((JSONObject) object).has(pathParts.get(currentIndex))) {
+            Object currentObject = ((JSONObject) object).get(pathParts.get(currentIndex));
+            return getLastObjectInPath(currentObject, pathParts, currentIndex + 1);
+        } else return null;
+    }
+
+    private Object processArrayItem(Object object, List<String> pathParts, int currentIndex) {
+        String arrayName = pathParts.get(currentIndex).split("[\\[]|[\\]]")[0];
+        int arrayIndex = Integer.valueOf(pathParts.get(currentIndex).split("[\\[]|[\\]]")[1]);
+        if (((JSONObject) object).has(arrayName)) {
+            return getLastObjectInPath(((JSONObject) object).getJSONArray(arrayName).get(arrayIndex),
+                    pathParts, currentIndex + 1);
+        } else return null;
+    }
+
+    private Object getObjectByPath(JSONObject parentObject, String path) {
         List<String> pathParts = Arrays.stream(path.split("[.]"))
                 .collect(Collectors.toList());
         return getLastObjectInPath(parentObject, pathParts, 0);

@@ -62,13 +62,14 @@ public class RadiotPodcastService {
     private void saveRadiotPodcasts(JSONArray json) {
         json.forEach(item -> {
             RadiotPodcastDBEntity radiotPodcast = new RadiotPodcastDBEntity();
-            radiotPodcast.setAudioUrl(((JSONObject) item).getString("audio_url"));
-            radiotPodcast.setBody(((JSONObject) item).getString("body"));
+            JSONObject jsonItem = (JSONObject) item;
+            radiotPodcast.setAudioUrl(jsonHelper.getString(jsonItem, "audio_url"));
+            radiotPodcast.setBody(jsonHelper.getString(jsonItem, "body"));
+            radiotPodcast.setImage(jsonHelper.getString(jsonItem, "image"));
+            radiotPodcast.setShowNotes(jsonHelper.getString(jsonItem, "show_notes"));
+            radiotPodcast.setTitle(jsonHelper.getString(jsonItem, "title"));
+            radiotPodcast.setUrl(jsonHelper.getString(jsonItem, "url"));
             radiotPodcast.setDate(Timestamp.from(Instant.now()));
-            radiotPodcast.setImage(((JSONObject) item).getString("image"));
-            radiotPodcast.setShowNotes(((JSONObject) item).getString("show_notes"));
-            radiotPodcast.setTitle(((JSONObject) item).getString("title"));
-            radiotPodcast.setUrl(((JSONObject) item).getString("url"));
             radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
             saveRadiotPodcastTimeLabels(((JSONObject) item).getJSONArray("time_labels"), radiotPodcast);
         });
@@ -76,10 +77,11 @@ public class RadiotPodcastService {
 
     private void saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcastDBEntity podcast) {
         json.forEach(item -> {
+            JSONObject jsonItem = (JSONObject) item;
             RadiotPodcastTimeLabelDBEntity timeLabel = new RadiotPodcastTimeLabelDBEntity();
-            timeLabel.setDuration(jsonHelper.getLong((JSONObject) item, "duration"));
+            timeLabel.setDuration(jsonHelper.getLong(jsonItem, "duration"));
+            timeLabel.setTopic(jsonHelper.getString(jsonItem, "topic"));
             timeLabel.setTime(Timestamp.from(Instant.now()));
-            timeLabel.setTopic(jsonHelper.getString((JSONObject) item, "topic"));
             timeLabel.setPodcast(podcast);
             radiotPodcastTimeLabelRepository.save(timeLabel);
         });
