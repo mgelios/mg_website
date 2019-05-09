@@ -78,10 +78,11 @@ public class CurrencyStatisticsService {
     private void saveCurrencyStatisticsDBEntities(JSONArray jsonArray, CurrencyDBEntity currency) {
         for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
+            JSONObject jsonItem = (JSONObject) item;
             statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
             statisticsDBEntity.setCurrency(currency);
-            statisticsDBEntity.setRate(((JSONObject) item).getDouble("Cur_OfficialRate"));
-            statisticsDBEntity.setId(((JSONObject) item).getLong("Cur_ID"));
+            statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem,"Cur_OfficialRate"));
+            statisticsDBEntity.setId(jsonHelper.getLong(jsonItem,"Cur_ID"));
             currencyStatisticsRepository.save(statisticsDBEntity);
         }
     }

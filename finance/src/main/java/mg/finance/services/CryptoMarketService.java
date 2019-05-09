@@ -58,12 +58,12 @@ public class CryptoMarketService {
 
     private void saveCryptoMarket(JSONObject json) {
         CryptoMarketDBEntity cryptoMarket = new CryptoMarketDBEntity();
-        cryptoMarket.setActiveCurrencies(json.getLong("active_currencies"));
-        cryptoMarket.setActiveMarkets(json.getLong("active_markets"));
-        cryptoMarket.setBitcoinPercent(json.getDouble("bitcoin_percentage_of_market_cap"));
+        cryptoMarket.setActiveCurrencies(jsonHelper.getLong(json,"active_currencies"));
+        cryptoMarket.setActiveMarkets(jsonHelper.getLong(json,"active_markets"));
+        cryptoMarket.setBitcoinPercent(jsonHelper.getDouble(json,"bitcoin_percentage_of_market_cap"));
         cryptoMarket.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(json, "last_updated"));
-        cryptoMarket.setTotalUsd(json.getLong("total_market_cap_usd"));
-        cryptoMarket.setTotalUsdDayVolume(json.getLong("total_24h_volume_usd"));
+        cryptoMarket.setTotalUsd(jsonHelper.getLong(json,"total_market_cap_usd"));
+        cryptoMarket.setTotalUsdDayVolume(jsonHelper.getLong(json,"total_24h_volume_usd"));
         cryptoMarketRepository.save(cryptoMarket);
     }
 }

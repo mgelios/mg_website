@@ -32,7 +32,8 @@ public class BasicJSONHelper implements JSONHelper {
 
     @Override
     public Long getLong(JSONObject object, String path) {
-        return Long.valueOf(getObjectByPath(object, path).toString());
+        Object result = getObjectByPath(object, path);
+        return result instanceof Number ? ((Number) result).longValue() : Long.parseLong((String) result);
     }
 
     @Override
