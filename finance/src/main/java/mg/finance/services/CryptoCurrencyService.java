@@ -63,22 +63,23 @@ public class CryptoCurrencyService {
 
     private void saveCryptoCurrency(JSONArray jsonArray) {
         for (Object item : jsonArray) {
+            JSONObject jsonItem = (JSONObject) item;
             Double maxSupply = ((JSONObject) item).get("max_supply").getClass() == JSONObject.NULL.getClass() ? 0 : ((JSONObject) item).getDouble("max_supply");
             CryptoCurrencyDBEntity cryptoCurrencyDBEntity = new CryptoCurrencyDBEntity();
-            cryptoCurrencyDBEntity.setName(((JSONObject) item).getString("name"));
-            cryptoCurrencyDBEntity.setSymbol(((JSONObject) item).getString("symbol"));
-            cryptoCurrencyDBEntity.setRank(((JSONObject) item).getLong("rank"));
-            cryptoCurrencyDBEntity.setPriceUSD(((JSONObject) item).getDouble("price_usd"));
-            cryptoCurrencyDBEntity.setPriceBTC(((JSONObject) item).getDouble("price_btc"));
-            cryptoCurrencyDBEntity.setVolumeUSD24h(((JSONObject) item).getDouble("24h_volume_usd"));
-            cryptoCurrencyDBEntity.setMarketCapUSD(((JSONObject) item).getDouble("market_cap_usd"));
-            cryptoCurrencyDBEntity.setAvailableSupply(((JSONObject) item).getDouble("available_supply"));
-            cryptoCurrencyDBEntity.setTotalSupply(((JSONObject) item).getDouble("total_supply"));
-            cryptoCurrencyDBEntity.setMaxSupply(maxSupply);
-            cryptoCurrencyDBEntity.setPercentChangeIn1h(((JSONObject) item).getDouble("percent_change_1h"));
-            cryptoCurrencyDBEntity.setPercentChangeIn24h(((JSONObject) item).getDouble("percent_change_24h"));
-            cryptoCurrencyDBEntity.setPercentChangeIn7d(((JSONObject) item).getDouble("percent_change_7d"));
-            cryptoCurrencyDBEntity.setLastUpdated(jsonHelper.getTimestampOfEpochSecond((JSONObject) item, "last_updated"));
+            cryptoCurrencyDBEntity.setName(jsonHelper.getString(jsonItem, "name"));
+            cryptoCurrencyDBEntity.setSymbol(jsonHelper.getString(jsonItem, "symbol"));
+            cryptoCurrencyDBEntity.setRank(jsonHelper.getLong(jsonItem, "rank"));
+            cryptoCurrencyDBEntity.setPriceUSD(jsonHelper.getDouble(jsonItem, "price_usd"));
+            cryptoCurrencyDBEntity.setPriceBTC(jsonHelper.getDouble(jsonItem, "price_btc"));
+            cryptoCurrencyDBEntity.setVolumeUSD24h(jsonHelper.getDouble(jsonItem, "24h_volume_usd"));
+            cryptoCurrencyDBEntity.setMarketCapUSD(jsonHelper.getDouble(jsonItem, "market_cap_usd"));
+            cryptoCurrencyDBEntity.setAvailableSupply(jsonHelper.getDouble(jsonItem, "available_supply"));
+            cryptoCurrencyDBEntity.setTotalSupply(jsonHelper.getDouble(jsonItem, "total_supply"));
+            cryptoCurrencyDBEntity.setMaxSupply(jsonHelper.getDouble(jsonItem, "max_supply"));
+            cryptoCurrencyDBEntity.setPercentChangeIn1h(jsonHelper.getDouble(jsonItem, "percent_change_1h"));
+            cryptoCurrencyDBEntity.setPercentChangeIn24h(jsonHelper.getDouble(jsonItem, "percent_change_24h"));
+            cryptoCurrencyDBEntity.setPercentChangeIn7d(jsonHelper.getDouble(jsonItem, "percent_change_7d"));
+            cryptoCurrencyDBEntity.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(jsonItem, "last_updated"));
             cryptoCurrencyRepository.save(cryptoCurrencyDBEntity);
         }
     }

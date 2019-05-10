@@ -33,7 +33,11 @@ public class BasicJSONHelper implements JSONHelper {
     @Override
     public Long getLong(JSONObject object, String path) {
         Object result = getObjectByPath(object, path);
-        return result instanceof Number ? ((Number) result).longValue() : Long.parseLong((String) result);
+        if (JSONObject.NULL.equals(result)) {
+            return 0L;
+        } else {
+            return result instanceof Number ? ((Number) result).longValue() : Long.parseLong((String) result);
+        }
     }
 
     @Override
@@ -48,7 +52,12 @@ public class BasicJSONHelper implements JSONHelper {
 
     @Override
     public Double getDouble(JSONObject object, String path) {
-        return Double.valueOf(getObjectByPath(object, path).toString());
+        Object result = getObjectByPath(object, path);
+        if (JSONObject.NULL.equals(result)) {
+            return 0.0;
+        } else {
+            return result instanceof Number ? ((Number) result).doubleValue() : Double.parseDouble((String) result);
+        }
     }
 
     //TODO: change return statment for big integers and big decimals
