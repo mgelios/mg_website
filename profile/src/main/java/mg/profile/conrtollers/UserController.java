@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+//TODO: istead of using static pages move controller to rest endpoints
 @RestController
 @RequestMapping("/user")
 public class UserController {

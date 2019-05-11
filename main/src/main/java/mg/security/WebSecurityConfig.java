@@ -20,6 +20,9 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private MGBasicAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
     private DataSource dataSource;
 
     @Autowired
@@ -57,16 +60,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/currency/values").permitAll()
                     .antMatchers("/user/details").authenticated()
                     .antMatchers("/user/list").hasAuthority("ADMIN")
-                    .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                    .authenticated().and().csrf().disable().formLogin()
-                    .loginPage("/user/login").failureUrl("/user/login?error=true")
-                    .defaultSuccessUrl("/admin/home")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .and().logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/").and().exceptionHandling()
-                    .accessDeniedPage("/access-denied");
+                    .antMatchers("/admin/**").hasAuthority("ADMIN")
+                    .anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(authenticationEntryPoint);
+
+//                    .csrf().disable().formLogin()
+//                    .loginPage("/user/login").failureUrl("/user/login?error=true")
+//                    .defaultSuccessUrl("/admin/home")
+//                    .usernameParameter("email")
+//                    .passwordParameter("password")
+//                    .and().logout()
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                    .logoutSuccessUrl("/").and().exceptionHandling()
+//                    .accessDeniedPage("/access-denied");
     }
 
     @Override
