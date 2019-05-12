@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -61,7 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/user/details").authenticated()
                     .antMatchers("/user/list").hasAuthority("ADMIN")
                     .antMatchers("/admin/**").hasAuthority("ADMIN")
-                    .anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(authenticationEntryPoint);
+                    .anyRequest().authenticated()
+                    .and().httpBasic()
+                    .authenticationEntryPoint(authenticationEntryPoint);
 
 //                    .csrf().disable().formLogin()
 //                    .loginPage("/user/login").failureUrl("/user/login?error=true")

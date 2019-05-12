@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleToRoleDBEntity implements Converter<Role, RoleDBEntity> {
+public class RoleDTOToEntity implements Converter<Role, RoleDBEntity> {
 
     @Override
     public RoleDBEntity convert(Role source) {
