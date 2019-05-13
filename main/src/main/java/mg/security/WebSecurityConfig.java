@@ -18,14 +18,33 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH_ALL = {
+            "/api/v1/**",
+            "/static/**",
+            "/css/**",
+            "/images/**",
+            "/service/calc",
+            "/user/login",
+            "/user/registration",
+            "/weather/current",
+            "/currency/values"
+    };
+
+    private static final String[] AUTH_AUTHENTICATED = {
+            "/user/details"
+    };
+
+    private static final String[] AUTH_ADMIN = {
+            "/user/list",
+            "/admin/**"
+    };
+
     @Autowired
     private MGBasicAuthenticationEntryPoint authenticationEntryPoint;
-
     @Autowired
     private DataSource dataSource;
-
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -47,32 +66,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/api/v1/**").permitAll()
-                    .antMatchers("/static/**").permitAll()
-                    .antMatchers("/css/**").permitAll()
-                    .antMatchers("/images/**").permitAll()
-                    .antMatchers("/service/calc").permitAll()
-                    .antMatchers("/user/login").permitAll()
-                    .antMatchers("/user/registration").permitAll()
-                    .antMatchers("/weather/current").permitAll()
-                    .antMatchers("/currency/values").permitAll()
-                    .antMatchers("/user/details").authenticated()
-                    .antMatchers("/user/list").hasAuthority("ADMIN")
-                    .antMatchers("/admin/**").hasAuthority("ADMIN")
+                    .antMatchers(AUTH_ALL).permitAll()
+                    .antMatchers(AUTH_AUTHENTICATED).hasAnyAuthority()
+                    .antMatchers(AUTH_ADMIN).hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and().httpBasic()
                     .authenticationEntryPoint(authenticationEntryPoint);
-
-//                    .csrf().disable().formLogin()
-//                    .loginPage("/user/login").failureUrl("/user/login?error=true")
-//                    .defaultSuccessUrl("/admin/home")
-//                    .usernameParameter("email")
-//                    .passwordParameter("password")
-//                    .and().logout()
-//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                    .logoutSuccessUrl("/").and().exceptionHandling()
-//                    .accessDeniedPage("/access-denied");
     }
 
     @Override
