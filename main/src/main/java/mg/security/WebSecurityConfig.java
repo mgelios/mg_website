@@ -70,8 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_AUTHENTICATED).hasAnyAuthority()
                     .antMatchers(AUTH_ADMIN).hasAuthority("ADMIN")
                     .anyRequest().authenticated()
-                    .and().httpBasic()
-                    .authenticationEntryPoint(authenticationEntryPoint);
+                    .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    .and().csrf().disable();
     }
 
     @Override
