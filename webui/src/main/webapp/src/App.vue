@@ -1,11 +1,12 @@
 <template>
     <v-app>
-        <v-navigation-drawer app>
+        <v-navigation-drawer app v-model="navDrawer">
             <v-toolbar flat>
                 <v-icon x-large>pool</v-icon>
             </v-toolbar>
         </v-navigation-drawer>
         <v-toolbar app flat>
+            <v-toolbar-side-icon @click.native="navDrawer = !navDrawer"></v-toolbar-side-icon>
             <!--<HelloWorld/>-->
         </v-toolbar>
         <v-content>
@@ -33,7 +34,7 @@ export default {
     },
     data () {
         return {
-          //
+            navDrawer: true
         }
     }
 }
