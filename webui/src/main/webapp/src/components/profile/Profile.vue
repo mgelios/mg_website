@@ -1,7 +1,13 @@
 <template>
     <v-container grid-list-md fluid>
-        <v-layout row hidden-md-and-down>
-            <Login></Login>
+        <v-layout row>
+            <v-flex xs12 lg4>
+            </v-flex>
+            <v-flex xs12 lg4>
+                <Login></Login>
+            </v-flex>
+            <v-flex xs12 lg4>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
