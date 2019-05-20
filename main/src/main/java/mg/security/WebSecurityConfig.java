@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -45,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private MGAuthenticationProvider mgAuthenticationProvider;
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -54,12 +57,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-                jdbcAuthentication()
-                    .usersByUsernameQuery(usersQuery)
-                    .authoritiesByUsernameQuery(rolesQuery)
-                    .dataSource(dataSource)
-                    .passwordEncoder(bCryptPasswordEncoder);
+//        auth.
+//                jdbcAuthentication()
+//                    .usersByUsernameQuery(usersQuery)
+//                    .authoritiesByUsernameQuery(rolesQuery)
+//                    .dataSource(dataSource)
+//                    .passwordEncoder(bCryptPasswordEncoder);
+
+        auth.authenticationProvider(mgAuthenticationProvider);
     }
 
     @Override
@@ -67,8 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                     .antMatchers(AUTH_ALL).permitAll()
-                    .antMatchers(AUTH_AUTHENTICATED).hasAnyAuthority()
-                    .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
+                    .antMatchers(AUTH_AUTHENTICATED).authenticated()
+                    .antMatchers(AUTH_ADMIN).hasAuthority("ROLE_ADMIN")
                     .anyRequest().authenticated()
                     .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                     .and().csrf().disable();
