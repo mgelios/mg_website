@@ -1,7 +1,7 @@
 package mg.profile.services;
 
+import mg.profile.converters.UserEntityToDTO;
 import mg.profile.dbentities.UserDBEntity;
-import mg.profile.models.LocalUser;
 import mg.profile.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class MgUserDetailsService implements UserDetailsService {
+public class MGUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserEntityToDTO userEntityToDTO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,7 +25,7 @@ public class MgUserDetailsService implements UserDetailsService {
         if (!user.isPresent()){
             throw new UsernameNotFoundException(username);
         }
-        return new LocalUser();
+        return userEntityToDTO.convert(user.get());
     }
 
 }

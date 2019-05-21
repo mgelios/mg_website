@@ -16,5 +16,4 @@ public class RoleDBEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
-
 }

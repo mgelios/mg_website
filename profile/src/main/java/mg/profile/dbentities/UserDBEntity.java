@@ -33,8 +33,9 @@ public class UserDBEntity {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "mg_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "mg_user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleDBEntity> roles;
 
 }

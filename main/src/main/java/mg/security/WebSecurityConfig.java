@@ -1,6 +1,8 @@
 package mg.security;
 
 
+import mg.security.custom.MGBasicAuthenticationProvider;
+import mg.security.custom.MGBasicAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -43,28 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MGBasicAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
-    private DataSource dataSource;
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private MGAuthenticationProvider mgAuthenticationProvider;
-
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
-
-    @Value("${spring.queries.roles-query}")
-    private String rolesQuery;
+    private MGBasicAuthenticationProvider authenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.
-//                jdbcAuthentication()
-//                    .usersByUsernameQuery(usersQuery)
-//                    .authoritiesByUsernameQuery(rolesQuery)
-//                    .dataSource(dataSource)
-//                    .passwordEncoder(bCryptPasswordEncoder);
-
-        auth.authenticationProvider(mgAuthenticationProvider);
+        auth.authenticationProvider(authenticationProvider);
     }
 
     @Override
@@ -73,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
-                    .antMatchers(AUTH_ADMIN).hasAuthority("ROLE_ADMIN")
+                    .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                     .and().csrf().disable();
