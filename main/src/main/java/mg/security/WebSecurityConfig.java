@@ -1,6 +1,8 @@
 package mg.security;
 
 
+import mg.security.custom.MGAuthenticationFailureHandler;
+import mg.security.custom.MGAuthenticationSuccessHandler;
 import mg.security.custom.MGBasicAuthenticationProvider;
 import mg.security.custom.MGBasicAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private MGBasicAuthenticationProvider authenticationProvider;
+    @Autowired
+    private MGAuthenticationSuccessHandler authSuccessHandler;
+    @Autowired
+    private MGAuthenticationFailureHandler authFailureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -62,6 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    .and().formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
+                    .and().logout()
                     .and().csrf().disable();
     }
 
