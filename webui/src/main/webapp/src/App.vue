@@ -1,18 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer app v-model="navDrawer">
-            <v-toolbar flat>
-                <v-icon x-large>pool</v-icon>
-            </v-toolbar>
-        </v-navigation-drawer>
-        <v-toolbar app flat>
-            <v-toolbar-side-icon @click.native="navDrawer = !navDrawer"></v-toolbar-side-icon>
-            <!--<HelloWorld/>-->
-        </v-toolbar>
-        <v-content>
-            <router-view></router-view>
-        </v-content>
-        <v-footer app></v-footer>
+        <router-view></router-view>
     </v-app>
 </template>
 
@@ -33,9 +21,7 @@ export default {
         Dashboard
     },
     data () {
-        return {
-            navDrawer: true
-        }
+        return {}
     }
 }
 </script>

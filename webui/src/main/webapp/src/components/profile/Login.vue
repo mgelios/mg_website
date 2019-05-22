@@ -6,15 +6,20 @@
         <v-card-text>
             <v-form>
                 <v-text-field
+                        prepend-icon="person"
                         label="Login"
                         required
                         :counter="50"></v-text-field>
                 <v-text-field
+                        prepend-icon="lock"
                         label="Password"
                         required
                         :counter="50"></v-text-field>
             </v-form>
         </v-card-text>
+        <v-card-actions>
+            <v-btn>Login</v-btn>
+        </v-card-actions>
     </v-card>
 </template>
 
