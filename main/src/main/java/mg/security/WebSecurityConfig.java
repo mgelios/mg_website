@@ -31,7 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/user/login",
             "/user/registration",
             "/weather/current",
-            "/currency/values"
+            "/currency/values",
+            "/swagger-resources/**",
+            "/swagger-ui.html"
     };
 
     private static final String[] AUTH_AUTHENTICATED = {

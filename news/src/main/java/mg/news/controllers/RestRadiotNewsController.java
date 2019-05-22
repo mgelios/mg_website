@@ -4,6 +4,7 @@ import mg.news.services.RadiotArticleService;
 import mg.news.services.RadiotPodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,12 +18,12 @@ public class RestRadiotNewsController {
     @Autowired
     RadiotPodcastService radiotPodcastService;
 
-    @RequestMapping("/radiot/articles")
+    @GetMapping("/radiot/articles")
     public Object getRadiotArticles() {
         return radiotArticleService.getRadiotArticlesList();
     }
 
-    @RequestMapping("/radiot/podcasts")
+    @GetMapping("/radiot/podcasts")
     public Object getRadiotPodcasts() {
         return radiotPodcastService.getRadiotPodcasts();
     }

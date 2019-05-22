@@ -17,3 +17,8 @@ hibernate:
     default:
       directory_provider: "filesystem"
       indexBase: "c:\\etc\\hiber_path\\"
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: "/api-doc"
