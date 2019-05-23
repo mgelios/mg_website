@@ -6,26 +6,53 @@
         <v-card-text>
             <v-form>
                 <v-text-field
+                        v-model="login"
                         prepend-icon="person"
                         label="Login"
                         required
-                        :counter="50"></v-text-field>
+                        :counter="50">
+                </v-text-field>
                 <v-text-field
+                        v-model="password"
                         prepend-icon="lock"
                         label="Password"
                         required
-                        :counter="50"></v-text-field>
+                        :counter="50"
+                        :append-icon="showPassword ? 'visibility_off' : 'visibility'"
+                        :type="showPassword ? 'text' : 'password'"
+                        @click:append="showPassword = !showPassword">
+                </v-text-field>
             </v-form>
         </v-card-text>
         <v-card-actions>
-            <v-btn>Login</v-btn>
+            <v-btn v-on:click="doLogin">Login</v-btn>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
-        name: 'Login'
+        name: 'Login',
+        data: function() {
+            return {
+                showPassword: false,
+                login: '',
+                password: ''
+            };
+        },
+        methods: {
+            doLogin: function() {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8080/registration',
+                    data: {
+                        login: this.login
+                    }
+                });
+            }
+        }
     }
 </script>
 
