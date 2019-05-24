@@ -22,3 +22,7 @@ springfox:
     swagger:
       v2:
         path: "/api-doc"
+server:
+  error:
+    whitelabel:
+      enabled: false

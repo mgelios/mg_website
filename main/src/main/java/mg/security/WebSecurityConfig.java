@@ -68,7 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                    .anyRequest().authenticated()
                     .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                     .and().formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
                     .and().logout()
