@@ -46,9 +46,10 @@
             doLogin: function() {
                 axios({
                     method: 'post',
-                    url: 'http://localhost:8080/registration',
+                    url: 'http://localhost:8080/user/login',
                     data: {
-                        login: this.login
+                        login: this.login,
+                        password: this.password
                     }
                 });
             }

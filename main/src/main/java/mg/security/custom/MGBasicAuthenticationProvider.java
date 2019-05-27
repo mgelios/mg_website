@@ -7,13 +7,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MGBasicAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    MGUserDetailsService userDetailsService;
+    private MGUserDetailsService userDetailsService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
