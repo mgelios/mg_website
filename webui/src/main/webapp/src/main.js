@@ -13,8 +13,8 @@ Vue.use(VueRouter);
 //const CryptoExample = CryptoCurrenciesTable;
 
 const routes = [
-    { path: '/dashboard', component: Dashboard },
-    { path: '/profile', component: Profile}
+    { path: '/dashboard', name: 'dashboard', component: Dashboard },
+    { path: '/profile', name: 'profile', component: Profile }
 ];
 
 const router = new VueRouter({

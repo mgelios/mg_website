@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                    //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                     .and().formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
                     .and().logout()
                     .and().csrf().disable();

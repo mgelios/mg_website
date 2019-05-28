@@ -7,6 +7,7 @@
         </v-navigation-drawer>
         <v-toolbar app flat>
             <v-toolbar-side-icon @click.native="navDrawer = !navDrawer"></v-toolbar-side-icon>
+            <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
             <!--<HelloWorld/>-->
         </v-toolbar>
         <v-content grid-list-md fluid>

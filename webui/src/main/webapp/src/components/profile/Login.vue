@@ -44,13 +44,13 @@
         },
         methods: {
             doLogin: function() {
+                var bodyFormData = new FormData();
+                bodyFormData.set('username', this.login);
+                bodyFormData.set('password', this.password);
                 axios({
                     method: 'post',
-                    url: 'http://localhost:8080/user/login',
-                    data: {
-                        login: this.login,
-                        password: this.password
-                    }
+                    url: 'http://localhost:8080/login',
+                    data: bodyFormData
                 });
             }
         }

@@ -10,14 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
-@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value="/home", method = RequestMethod.GET)
+    @RequestMapping(value="/login", method = RequestMethod.OPTIONS)
+    public void loginCheck(HttpServletRequest request, HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
