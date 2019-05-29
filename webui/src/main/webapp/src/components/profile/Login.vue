@@ -50,7 +50,14 @@
                 axios({
                     method: 'post',
                     url: 'http://localhost:8080/login',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    },
                     data: bodyFormData
+                }).then(function(response) {
+                    if (response.status === 200) {
+                        this.$route.push({ name: 'dashboard'});
+                    }
                 });
             }
         }

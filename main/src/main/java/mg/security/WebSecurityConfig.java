@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
+                cors().and().
                 authorizeRequests()
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
