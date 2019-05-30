@@ -17,12 +17,12 @@ const routes = [
     { path: '/profile', name: 'profile', component: Profile }
 ];
 
-const router = new VueRouter({
+const MyRouter = new VueRouter({
   routes
 });
 
 new Vue({
     store,
-    router,
+    router: MyRouter,
     render: h => h(App)
 }).$mount('#app');

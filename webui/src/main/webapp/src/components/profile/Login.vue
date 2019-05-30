@@ -44,19 +44,17 @@
         },
         methods: {
             doLogin: function() {
+                const self = this;
                 var bodyFormData = new FormData();
                 bodyFormData.set('username', this.login);
                 bodyFormData.set('password', this.password);
                 axios({
                     method: 'post',
                     url: 'http://localhost:8080/login',
-                    headers: {
-                        'Access-Control-Allow-Origin': '*'
-                    },
                     data: bodyFormData
                 }).then(function(response) {
                     if (response.status === 200) {
-                        this.$route.push({ name: 'dashboard'});
+                        self.$router.push({ name: 'dashboard'});
                     }
                 });
             }
