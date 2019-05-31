@@ -52,11 +52,10 @@ public class WeatherForecastService {
         boolean expired = true;
         if (weatherForecastRepository.findAllByCityName(cityName).size() > 0) {
             weatherForecastList = weatherForecastRepository.findAllByCityName(cityName);
-            expired = weatherForecastList.get(0).getTime().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear();
+            expired = weatherForecastList.get(0).getTime().toLocalDateTime().getHour() != LocalDateTime.now().getHour();
         }
         if (weatherForecastList.size() == 0 || weatherForecastList.get(0) == null || expired) {
-            updateWeatherForecastByCityName(cityName);
-            weatherForecastList = weatherForecastRepository.findAllByCityName(cityName);
+            weatherForecastList = updateWeatherForecastByCityName(cityName);
         }
         return weatherForecastList.stream()
                 .map(weatherForecastEntityToDTO::convert)
@@ -67,16 +66,16 @@ public class WeatherForecastService {
         updateWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public void updateWeatherForecastByCityName(String cityName) {
+    public List<WeatherForecastDBEntity> updateWeatherForecastByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildForecastUrl(cityName));
         if (weatherForecastRepository.findAllByCityName(cityName).size() != 0) {
             weatherForecastRepository.deleteAllByCityName(cityName);
         }
-        saveWeatherForecastEntities(currentWeatherJson);
+        return saveWeatherForecastEntities(currentWeatherJson);
     }
 
-    private void saveWeatherForecastEntities(JSONObject json) {
-        List<WeatherForecastDBEntity> dbList = new ArrayList<>();
+    private List<WeatherForecastDBEntity> saveWeatherForecastEntities(JSONObject json) {
+        List<WeatherForecastDBEntity> result = new ArrayList<>();
         JSONArray forecasts = json.getJSONArray("list");
         String city = jsonHelper.getString(json, "city.name").toLowerCase();
         int numberOfRecords = json.getInt("cnt");
@@ -99,8 +98,9 @@ public class WeatherForecastService {
             dbEntity.setCityName(city);
             dbEntity.setUpdateTime(Timestamp.from(Instant.now()));
             dbEntity = weatherForecastRepository.save(dbEntity);
-            dbList.add(dbEntity);
+            result.add(dbEntity);
         }
+        return result;
     }
 
 }

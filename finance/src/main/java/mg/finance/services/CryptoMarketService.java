@@ -39,24 +39,26 @@ public class CryptoMarketService {
     CryptoMarketEntityToDTO cryptoMarketEntityToDTO;
 
     public CryptoMarket getCryptoMarketInfo() {
-        Optional<CryptoMarketDBEntity> cryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
-        if (!cryptoMarket.isPresent() ||
-                cryptoMarket.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
-            updateCryptoMarket();
-            cryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
+        Optional<CryptoMarketDBEntity> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
+        CryptoMarketDBEntity cryptoMarket = null;
+        if (!optionalCryptoMarket.isPresent() ||
+                optionalCryptoMarket.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
+            cryptoMarket = updateCryptoMarket();
+        } else {
+            cryptoMarket = optionalCryptoMarket.get();
         }
-        return cryptoMarketEntityToDTO.convert(cryptoMarket.get());
+        return cryptoMarketEntityToDTO.convert(cryptoMarket);
     }
 
-    public void updateCryptoMarket() {
+    public CryptoMarketDBEntity updateCryptoMarket() {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCryptoCurrenciesMarketUrl());
         if (cryptoMarketRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoMarketRepository.deleteAll();
         }
-        saveCryptoMarket(json);
+        return saveCryptoMarket(json);
     }
 
-    private void saveCryptoMarket(JSONObject json) {
+    private CryptoMarketDBEntity saveCryptoMarket(JSONObject json) {
         CryptoMarketDBEntity cryptoMarket = new CryptoMarketDBEntity();
         cryptoMarket.setActiveCurrencies(jsonHelper.getLong(json,"active_currencies"));
         cryptoMarket.setActiveMarkets(jsonHelper.getLong(json,"active_markets"));
@@ -64,6 +66,6 @@ public class CryptoMarketService {
         cryptoMarket.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(json, "last_updated"));
         cryptoMarket.setTotalUsd(jsonHelper.getLong(json,"total_market_cap_usd"));
         cryptoMarket.setTotalUsdDayVolume(jsonHelper.getLong(json,"total_24h_volume_usd"));
-        cryptoMarketRepository.save(cryptoMarket);
+        return cryptoMarketRepository.save(cryptoMarket);
     }
 }

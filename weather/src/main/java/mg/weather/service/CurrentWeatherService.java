@@ -47,8 +47,7 @@ public class CurrentWeatherService {
             result = optionalCurrentWeather.get();
         }
         if (result == null || result.getTime().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-            updateCurrentWeatherByCityName(cityName);
-            result = currentWeatherRepository.findByCityName(cityName).get();
+            result = updateCurrentWeatherByCityName(cityName);
         }
         return currentWeatherEntityToDTO.convert(result);
     }
@@ -57,15 +56,15 @@ public class CurrentWeatherService {
         updateCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public void updateCurrentWeatherByCityName(String cityName) {
+    public CurrentWeatherDBEntity updateCurrentWeatherByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
             currentWeatherRepository.deleteAllByCityName(cityName);
         }
-        saveCurrentWeatherDBEntity(currentWeatherJson);
+        return saveCurrentWeatherDBEntity(currentWeatherJson);
     }
 
-    private void saveCurrentWeatherDBEntity(JSONObject json) {
+    private CurrentWeatherDBEntity saveCurrentWeatherDBEntity(JSONObject json) {
         CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
         dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
         dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
@@ -84,6 +83,6 @@ public class CurrentWeatherService {
         dbEntity.setSunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"));
         dbEntity.setSunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"));
         dbEntity.setCityName(jsonHelper.getString(json,"name").toLowerCase());
-        currentWeatherRepository.save(dbEntity);
+        return currentWeatherRepository.save(dbEntity);
     }
 }

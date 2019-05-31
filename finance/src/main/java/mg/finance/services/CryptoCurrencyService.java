@@ -45,26 +45,27 @@ public class CryptoCurrencyService {
         List<CryptoCurrencyDBEntity> cryptoCurrencies = new ArrayList<>();
         if (!optionalCryptoCurrency.isPresent() ||
                 optionalCryptoCurrency.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
-            updateCryptoCurrencies();
+            cryptoCurrencies = updateCryptoCurrencies();
+        } else {
+            cryptoCurrencyRepository.findAll().forEach(cryptoCurrencies::add);
         }
-        cryptoCurrencyRepository.findAll().forEach(cryptoCurrencies::add);
         return cryptoCurrencies.stream()
                 .map(cryptoCurrencyEntityToDTO::convert)
                 .collect(Collectors.toList());
     }
 
-    public void updateCryptoCurrencies() {
+    public List<CryptoCurrencyDBEntity> updateCryptoCurrencies() {
         JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCryptoCurrenciesUrl());
         if (cryptoCurrencyRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoCurrencyRepository.deleteAll();
         }
-        saveCryptoCurrency(jsonArray);
+        return saveCryptoCurrency(jsonArray);
     }
 
-    private void saveCryptoCurrency(JSONArray jsonArray) {
+    private List<CryptoCurrencyDBEntity> saveCryptoCurrency(JSONArray jsonArray) {
+        List<CryptoCurrencyDBEntity> result = new ArrayList<>();
         for (Object item : jsonArray) {
             JSONObject jsonItem = (JSONObject) item;
-            Double maxSupply = ((JSONObject) item).get("max_supply").getClass() == JSONObject.NULL.getClass() ? 0 : ((JSONObject) item).getDouble("max_supply");
             CryptoCurrencyDBEntity cryptoCurrencyDBEntity = new CryptoCurrencyDBEntity();
             cryptoCurrencyDBEntity.setName(jsonHelper.getString(jsonItem, "name"));
             cryptoCurrencyDBEntity.setSymbol(jsonHelper.getString(jsonItem, "symbol"));
@@ -80,8 +81,9 @@ public class CryptoCurrencyService {
             cryptoCurrencyDBEntity.setPercentChangeIn24h(jsonHelper.getDouble(jsonItem, "percent_change_24h"));
             cryptoCurrencyDBEntity.setPercentChangeIn7d(jsonHelper.getDouble(jsonItem, "percent_change_7d"));
             cryptoCurrencyDBEntity.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(jsonItem, "last_updated"));
-            cryptoCurrencyRepository.save(cryptoCurrencyDBEntity);
+            result.add(cryptoCurrencyRepository.save(cryptoCurrencyDBEntity));
         }
+        return result;
     }
 
 }

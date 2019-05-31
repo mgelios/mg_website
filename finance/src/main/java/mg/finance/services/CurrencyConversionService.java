@@ -46,9 +46,7 @@ public class CurrencyConversionService {
         if (optionalConversion.isPresent()) {
             return currencyConversionEntityToDTO.convert(optionalConversion.get());
         } else {
-            updateCurrencyConversion(abbreviationFrom, abbreviationTo);
-            return currencyConversionEntityToDTO.convert(
-                    currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to).get());
+            return currencyConversionEntityToDTO.convert(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
         }
     }
 
@@ -58,21 +56,21 @@ public class CurrencyConversionService {
         });
     }
 
-    public void updateCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
+    public CurrencyConversionDBEntity updateCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
         CurrencyDBEntity from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
         CurrencyDBEntity to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
         if (currencyConversionRepository.findAllByCurrencyFromAndCurrencyTo(from, to).size() != 0) {
             currencyConversionRepository.deleteAllByCurrencyFromAndAndCurrencyTo(from, to);
         }
-        saveCurrencyConversion(from, to);
+        return saveCurrencyConversion(from, to);
     }
 
-    private void saveCurrencyConversion(CurrencyDBEntity from, CurrencyDBEntity to) {
+    private CurrencyConversionDBEntity saveCurrencyConversion(CurrencyDBEntity from, CurrencyDBEntity to) {
         CurrencyConversionDBEntity currencyConversionDBEntity = new CurrencyConversionDBEntity();
         currencyConversionDBEntity.setCurrencyFrom(from);
         currencyConversionDBEntity.setCurrencyTo(to);
         currencyConversionDBEntity.setValue(getConversionValue(from, to));
-        currencyConversionRepository.save(currencyConversionDBEntity);
+        return currencyConversionRepository.save(currencyConversionDBEntity);
     }
 
     private double getConversionValue(CurrencyDBEntity from, CurrencyDBEntity to) {

@@ -46,20 +46,20 @@ public class RadiotPodcastService {
         if (radiotPodcastRepository.findAll().iterator().hasNext()) {
             radiotPodcastRepository.findAll().forEach(podcasts::add);
         } else {
-            updateRadiotPodcasts();
-            radiotPodcastRepository.findAll().forEach(podcasts::add);
+            podcasts = updateRadiotPodcasts();
         }
         return podcasts.stream()
                 .map(radiotPodcastEntityToDTO::convert)
                 .collect(Collectors.toList());
     }
 
-    public void updateRadiotPodcasts() {
+    public List<RadiotPodcastDBEntity> updateRadiotPodcasts() {
         radiotPodcastRepository.deleteAll();
-        saveRadiotPodcasts(jsonConsumer.getJsonArray(radiotUrlBuilder.buildPodcastUrl()));
+        return saveRadiotPodcasts(jsonConsumer.getJsonArray(radiotUrlBuilder.buildPodcastUrl()));
     }
 
-    private void saveRadiotPodcasts(JSONArray json) {
+    private List<RadiotPodcastDBEntity> saveRadiotPodcasts(JSONArray json) {
+        List<RadiotPodcastDBEntity> result = new ArrayList<>();
         json.forEach(item -> {
             RadiotPodcastDBEntity radiotPodcast = new RadiotPodcastDBEntity();
             JSONObject jsonItem = (JSONObject) item;
@@ -72,7 +72,9 @@ public class RadiotPodcastService {
             radiotPodcast.setDate(Timestamp.from(Instant.now()));
             radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
             saveRadiotPodcastTimeLabels(((JSONObject) item).getJSONArray("time_labels"), radiotPodcast);
+            result.add(radiotPodcast);
         });
+        return result;
     }
 
     private void saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcastDBEntity podcast) {
