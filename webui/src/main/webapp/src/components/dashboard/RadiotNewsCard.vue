@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="light-blue darken-2">
-            <v-layout display-1 class="white--text">Radiot Articles</v-layout>
+            <v-layout headline class="white--text">Radiot Articles</v-layout>
         </v-card-title>
         <v-card-text>
             <v-list>

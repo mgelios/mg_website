@@ -10,63 +10,38 @@
             <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
             <!--<HelloWorld/>-->
         </v-toolbar>
-        <v-content grid-list-md fluid>
-            <v-layout row hidden-md-and-down>
-                <v-flex xs12 lg4>
-                    <v-layout wrap column>
-                        <v-flex xs12 lg6>
-                            <CurrentWeatherCard></CurrentWeatherCard>
-                        </v-flex>
-                        <v-flex xs12 lg6>
-                            <WeatherForecastCard></WeatherForecastCard>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs12 lg4>
-                    <v-layout wrap column>
-                        <v-flex xs12 lg6>
-                            <CurrencyCard></CurrencyCard>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs12 lg4>
-                    <v-layout wrap column>
-                        <v-flex xs12 lg6>
-                            <CurrencyConversionsCard></CurrencyConversionsCard>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
+        <v-content>
+            <v-container fluid grid-list-md>
+                <v-layout row wrap>
+                    <v-flex xs12 md6 lg3 d-flex>
+                        <CurrentWeatherCard></CurrentWeatherCard>
+                    </v-flex>
+                    <v-flex xs12 md6 lg3 d-flex>
+                        <WeatherForecastCard :chartAspectRatio="1.2"></WeatherForecastCard>
+                    </v-flex>
+                    <v-flex xs12 md6 lg3 d-flex>
+                        <CurrencyCard></CurrencyCard>
+                    </v-flex>
+                    <v-flex xs12 md6 lg3 d-flex>
+                        <CurrencyConversionsCard></CurrencyConversionsCard>
+                    </v-flex>
+                </v-layout>
 
-            <v-layout column hidden-lg-and-up>
-                <v-flex>
-                    <CurrentWeatherCard></CurrentWeatherCard>
-                </v-flex>
-                <v-flex>
-                    <WeatherForecastCard :chartAspectRatio="1"></WeatherForecastCard>
-                </v-flex>
-                <v-flex xs12 lg6>
-                    <CurrencyCard></CurrencyCard>
-                </v-flex>
-                <v-flex xs12 lg6>
-                    <CurrencyConversionsCard></CurrencyConversionsCard>
-                </v-flex>
-            </v-layout>
+                <v-layout row wrap>
+                    <v-flex xs12 lg4>
+                        <CryptoMarketCard></CryptoMarketCard>
+                    </v-flex>
+                    <v-flex xs12 lg8>
+                        <CryptoCurrenciesCard></CryptoCurrenciesCard>
+                    </v-flex>
+                </v-layout>
 
-            <v-layout row>
-                <v-flex xs12 lg4>
-                    <CryptoMarketCard></CryptoMarketCard>
-                </v-flex>
-                <v-flex xs12 lg8>
-                    <CryptoCurrenciesCard></CryptoCurrenciesCard>
-                </v-flex>
-            </v-layout>
-
-            <v-layout row>
-                <v-flex xs12 lg6>
-                    <RadiotNewsCard></RadiotNewsCard>
-                </v-flex>
-            </v-layout>
+                <v-layout row wrap>
+                    <v-flex xs12 lg6>
+                        <RadiotNewsCard></RadiotNewsCard>
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-content>
         <v-footer app></v-footer>
     </div>

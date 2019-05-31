@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-card>
         <v-card-title class="indigo darken-1">
-            <v-layout display-1 class="white--text">Crypto Currencies</v-layout>
+            <v-layout headline class="white--text">Crypto Currencies</v-layout>
         </v-card-title>
         <v-card-text>
             <v-data-table :headers="tableHeaders" :items="cryptoCurrencies">

@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="teal darken-1">
-            <v-layout display-1 class="white--text">Exhange Rates</v-layout>
+            <v-layout headline class="white--text">Exhange Rates</v-layout>
         </v-card-title>
         <v-card-text>
             <v-list>
@@ -14,7 +14,7 @@
                             {{item.rate | byn}}
                         </v-list-tile-action>
                     </v-list-tile>
-                    <v-divider v-if="index + 1 < exchangeRates.length" :key="index+'divider'"></v-divider>
+                    <v-divider class="ma-0" v-if="index + 1 < exchangeRates.length" :key="index+'divider'"></v-divider>
                 </template>
             </v-list>
         </v-card-text>

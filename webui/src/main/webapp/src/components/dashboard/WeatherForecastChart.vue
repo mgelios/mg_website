@@ -48,8 +48,8 @@
             var lastMinTemp = 250;
             var lastLabel = "";
             if (this.chartdata && this.chartdata.length > 0){
-                lastMaxTemp = this.chartdata[0].maximumTemperature;
-                lastMinTemp = this.chartdata[0].minimalTemperature;
+                lastMaxTemp = this.chartdata[0].maximumTemperature.toFixed(2);
+                lastMinTemp = this.chartdata[0].minimalTemperature.toFixed(2);
                 lastLabel = this.chartdata[0].time[2];
             }
             if (this.chartdata) {
@@ -62,10 +62,10 @@
                         lastMinTemp = 250;
                     }
                     if (this.chartdata[i].maximumTemperature > lastMaxTemp) {
-                        lastMaxTemp = this.chartdata[i].maximumTemperature;
+                        lastMaxTemp = this.chartdata[i].maximumTemperature.toFixed(2);
                     }
                     if (this.chartdata[i].minimalTemperature < lastMinTemp) {
-                        lastMinTemp = this.chartdata[i].minimalTemperature;
+                        lastMinTemp = this.chartdata[i].minimalTemperature.toFixed(2);
                     }
                     lastLabel = this.chartdata[i].time[2];
                 }

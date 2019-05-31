@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="indigo darken-1">
-            <v-layout display-1 class="white--text">Crypto Market</v-layout>
+            <v-layout headline class="white--text">Crypto Market</v-layout>
         </v-card-title>
         <v-card-text>
             <v-list-tile>

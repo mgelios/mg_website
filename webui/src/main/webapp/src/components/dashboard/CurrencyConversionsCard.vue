@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="teal darken-1">
-            <v-layout display-1 class="white--text">Currency Conversions</v-layout>
+            <v-layout headline class="white--text">Currency Conversions</v-layout>
         </v-card-title>
         <v-card-text>
             <v-list>
@@ -14,7 +14,7 @@
                             {{item.value}}
                         </v-list-tile-action>
                     </v-list-tile>
-                    <v-divider v-if="index + 1 < conversions.length" :key="index+'divider'"></v-divider>
+                    <v-divider class="ma-0" v-if="index + 1 < conversions.length" :key="index+'divider'"></v-divider>
                 </template>
             </v-list>
         </v-card-text>
