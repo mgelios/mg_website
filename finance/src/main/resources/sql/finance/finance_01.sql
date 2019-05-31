@@ -20,8 +20,7 @@ create table mg_currency_conversion (
   currency_from integer,
   currency_to integer,
   value real not null,
-  primary key (id),
-  constraint unique_conversion unique (currency_to, currency_from)
+  primary key (id)
 );
 
 create table mg_currency_statistics (

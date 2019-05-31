@@ -57,8 +57,7 @@ public class CurrencyService {
             result = optionalCurrency.get();
         }
         if (result == null || result.getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-            updateCurrency(abbreviation);
-            result = currencyRepository.findByAbbreviation(abbreviation).get();
+            result = updateCurrency(abbreviation);
         }
         return result;
     }
@@ -67,15 +66,15 @@ public class CurrencyService {
         financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
     }
 
-    public void updateCurrency(String abbreviation) {
+    public CurrencyDBEntity updateCurrency(String abbreviation) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
         if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {
             currencyRepository.deleteAllByAbbreviation(abbreviation);
         }
-        saveCurrencyDBEntity(json);
+        return saveCurrencyDBEntity(json);
     }
 
-    public void saveCurrencyDBEntity(JSONObject json) {
+    public CurrencyDBEntity saveCurrencyDBEntity(JSONObject json) {
         CurrencyDBEntity dbEntity = new CurrencyDBEntity();
         dbEntity.setSystemId(jsonHelper.getInt(json,"Cur_ID"));
         dbEntity.setDate(Timestamp.valueOf(jsonHelper.getString(json,"Date").replace("T", " ")));
@@ -83,6 +82,6 @@ public class CurrencyService {
         dbEntity.setScale(jsonHelper.getDouble(json,"Cur_Scale"));
         dbEntity.setName(jsonHelper.getString(json,"Cur_Name"));
         dbEntity.setRate(jsonHelper.getDouble(json,"Cur_OfficialRate"));
-        currencyRepository.save(dbEntity);
+        return currencyRepository.save(dbEntity);
     }
 }

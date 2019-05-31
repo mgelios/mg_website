@@ -50,11 +50,11 @@
             if (this.chartdata && this.chartdata.length > 0){
                 lastMaxTemp = this.chartdata[0].maximumTemperature;
                 lastMinTemp = this.chartdata[0].minimalTemperature;
-                lastLabel = this.chartdata[0].time.split("T")[0];
+                lastLabel = this.chartdata[0].time[2];
             }
             if (this.chartdata) {
                 for (var i = 0; i < this.chartdata.length; i++) {
-                    if (this.chartdata[i].time.split("T")[0] !== lastLabel || i + 1 == this.chartdata.length) {
+                    if (this.chartdata[i].time[2] !== lastLabel || i + 1 == this.chartdata.length) {
                         dataLabels.push(lastLabel);
                         this.dataSetOne.data.push(lastMinTemp);
                         this.dataSetTwo.data.push(lastMaxTemp);
@@ -67,7 +67,7 @@
                     if (this.chartdata[i].minimalTemperature < lastMinTemp) {
                         lastMinTemp = this.chartdata[i].minimalTemperature;
                     }
-                    lastLabel = this.chartdata[i].time.split("T")[0];
+                    lastLabel = this.chartdata[i].time[2];
                 }
             }
             var chartdataone = {

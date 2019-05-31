@@ -71,15 +71,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
-                addFilterBefore(basicCORSFilter, LogoutFilter.class).cors().and().
+                addFilterBefore(basicCORSFilter, LogoutFilter.class).
                 authorizeRequests()
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                    .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                    .and().formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
-                    .and().logout()
-                    .and().csrf().disable();
+                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                .and().formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
+                .and().logout()
+                .and().csrf().disable();
     }
 
     @Override

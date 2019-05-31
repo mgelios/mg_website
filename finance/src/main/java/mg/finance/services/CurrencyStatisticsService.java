@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,8 +54,7 @@ public class CurrencyStatisticsService {
         CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         List<CurrencyStatisticsDBEntity> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-            updateCurrencyStatistics(abbreviation);
-            result = currencyStatisticsRepository.findAllByCurrency(currency);
+            result = updateCurrencyStatistics(abbreviation);
         }
         return result.stream()
                 .map(currencyStatisticsEntityToDTO::convert)
@@ -65,17 +65,18 @@ public class CurrencyStatisticsService {
         financeConfiguration.getDefaultStatisticsCurrencies().forEach(this::updateCurrencyStatistics);
     }
 
-    public void updateCurrencyStatistics(String abbreviation) {
+    public List<CurrencyStatisticsDBEntity> updateCurrencyStatistics(String abbreviation) {
         CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrencyStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);
         }
-        saveCurrencyStatisticsDBEntities(json, currency);
+        return saveCurrencyStatisticsDBEntities(json, currency);
     }
 
-    private void saveCurrencyStatisticsDBEntities(JSONArray jsonArray, CurrencyDBEntity currency) {
+    private List<CurrencyStatisticsDBEntity> saveCurrencyStatisticsDBEntities(JSONArray jsonArray, CurrencyDBEntity currency) {
+        List<CurrencyStatisticsDBEntity> result = new ArrayList<>();
         for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             JSONObject jsonItem = (JSONObject) item;
@@ -83,7 +84,8 @@ public class CurrencyStatisticsService {
             statisticsDBEntity.setCurrency(currency);
             statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem,"Cur_OfficialRate"));
             statisticsDBEntity.setId(jsonHelper.getLong(jsonItem,"Cur_ID"));
-            currencyStatisticsRepository.save(statisticsDBEntity);
+            result.add(currencyStatisticsRepository.save(statisticsDBEntity));
         }
+        return result;
     }
 }
