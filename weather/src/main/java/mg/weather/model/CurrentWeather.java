@@ -1,186 +1,67 @@
 package mg.weather.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 public class CurrentWeather {
 
+    @Getter
+    @Setter
     private Long id;
-
+    @Getter
+    @Setter
     private LocalDateTime time;
-
+    @Getter
+    @Setter
     private String cityName;
-
+    @Getter
+    @Setter
     private double longitude;
+    @Getter
+    @Setter
     private double latitude;
-
+    @Getter
+    @Setter
     private String mainInfo;
+    @Getter
+    @Setter
     private String description;
+    @Getter
+    @Setter
     private String icon;
-
+    @Getter
+    @Setter
     private double temperature;
+    @Getter
+    @Setter
     private double pressure;
+    @Getter
+    @Setter
     private double humidity;
+    @Getter
+    @Setter
     private double minimalTemperature;
+    @Getter
+    @Setter
     private double maximumTemperature;
+    @Getter
+    @Setter
     private double visibility;
-
+    @Getter
+    @Setter
     private double windSpeed;
+    @Getter
+    @Setter
     private double windDegree;
-
+    @Getter
+    @Setter
     private LocalDateTime sunrise;
+    @Getter
+    @Setter
     private LocalDateTime sunset;
-
+    @Getter
+    @Setter
     private double uvi;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getMainInfo() {
-        return mainInfo;
-    }
-
-    public void setMainInfo(String mainInfo) {
-        this.mainInfo = mainInfo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
-
-    public double getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
-    }
-
-    public double getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(double humidity) {
-        this.humidity = humidity;
-    }
-
-    public double getMinimalTemperature() {
-        return minimalTemperature;
-    }
-
-    public void setMinimalTemperature(double minimalTemperature) {
-        this.minimalTemperature = minimalTemperature;
-    }
-
-    public double getMaximumTemperature() {
-        return maximumTemperature;
-    }
-
-    public void setMaximumTemperature(double maximumTemperature) {
-        this.maximumTemperature = maximumTemperature;
-    }
-
-    public double getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(double visibility) {
-        this.visibility = visibility;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public double getWindDegree() {
-        return windDegree;
-    }
-
-    public void setWindDegree(double windDegree) {
-        this.windDegree = windDegree;
-    }
-
-    public LocalDateTime getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(LocalDateTime sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public LocalDateTime getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(LocalDateTime sunset) {
-        this.sunset = sunset;
-    }
-
-    public double getUvi() {
-        return uvi;
-    }
-
-    public void setUvi(double uvi) {
-        this.uvi = uvi;
-    }
 }
