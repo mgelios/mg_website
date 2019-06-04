@@ -24,19 +24,19 @@ import java.util.Optional;
 public class CryptoMarketService {
 
     @Autowired
-    FinanceConfiguration financeConfiguration;
+    private FinanceConfiguration financeConfiguration;
     @Autowired
-    CurrencyUrlBuilder currencyUrlBuilder;
+    private CurrencyUrlBuilder currencyUrlBuilder;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    CryptoMarketRepository cryptoMarketRepository;
+    private CryptoMarketRepository cryptoMarketRepository;
     @Autowired
-    CryptoMarketDTOToEntity cryptoMarketDTOToEntity;
+    private CryptoMarketDTOToEntity cryptoMarketDTOToEntity;
     @Autowired
-    CryptoMarketEntityToDTO cryptoMarketEntityToDTO;
+    private CryptoMarketEntityToDTO cryptoMarketEntityToDTO;
 
     public CryptoMarket getCryptoMarketInfo() {
         Optional<CryptoMarketDBEntity> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();

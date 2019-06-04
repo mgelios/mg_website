@@ -29,21 +29,21 @@ import java.util.stream.Collectors;
 public class CurrencyStatisticsService {
 
     @Autowired
-    FinanceConfiguration financeConfiguration;
+    private FinanceConfiguration financeConfiguration;
     @Autowired
-    CurrencyUrlBuilder currencyUrlBuilder;
+    private CurrencyUrlBuilder currencyUrlBuilder;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
     @Autowired
-    CurrencyStatisticsRepository currencyStatisticsRepository;
+    private CurrencyStatisticsRepository currencyStatisticsRepository;
     @Autowired
-    CurrencyStatisticsDTOToEntity currencyStatisticsDTOToEntity;
+    private CurrencyStatisticsDTOToEntity currencyStatisticsDTOToEntity;
     @Autowired
-    CurrencyStatisticsEntityToDTO currencyStatisticsEntityToDTO;
+    private CurrencyStatisticsEntityToDTO currencyStatisticsEntityToDTO;
 
     public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()

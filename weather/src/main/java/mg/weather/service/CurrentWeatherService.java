@@ -11,6 +11,7 @@ import mg.weather.repository.CurrentWeatherRepository;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,19 +23,19 @@ import java.util.Optional;
 public class CurrentWeatherService {
 
     @Autowired
-    WeatherConfiguration weatherConfiguration;
+    private WeatherConfiguration weatherConfiguration;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    WeatherUrlBuilder weatherUrlBuilder;
+    private WeatherUrlBuilder weatherUrlBuilder;
     @Autowired
-    CurrentWeatherRepository currentWeatherRepository;
+    private CurrentWeatherRepository currentWeatherRepository;
     @Autowired
-    CurrentWeatherEntityToDTO currentWeatherEntityToDTO;
+    private CurrentWeatherEntityToDTO currentWeatherEntityToDTO;
     @Autowired
-    CurrentWeatherDTOToEntity currentWeatherDTOToEntity;
+    private CurrentWeatherDTOToEntity currentWeatherDTOToEntity;
 
     public CurrentWeather getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());

@@ -1,6 +1,5 @@
 package mg.finance.services;
 
-import lombok.Synchronized;
 import mg.finance.FinanceConfiguration;
 import mg.finance.converters.CurrencyDTOToEntity;
 import mg.finance.converters.CurrencyEntityToDTO;
@@ -26,19 +25,19 @@ import java.util.stream.Collectors;
 public class CurrencyService {
 
     @Autowired
-    FinanceConfiguration financeConfiguration;
+    private FinanceConfiguration financeConfiguration;
     @Autowired
-    CurrencyUrlBuilder currencyUrlBuilder;
+    private CurrencyUrlBuilder currencyUrlBuilder;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    CurrencyRepository currencyRepository;
+    private CurrencyRepository currencyRepository;
     @Autowired
-    CurrencyDTOToEntity currencyDTOToEntity;
+    private CurrencyDTOToEntity currencyDTOToEntity;
     @Autowired
-    CurrencyEntityToDTO currencyEntityToDTO;
+    private CurrencyEntityToDTO currencyEntityToDTO;
 
     public List<Currency> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()

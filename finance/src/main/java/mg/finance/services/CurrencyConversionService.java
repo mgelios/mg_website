@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
 public class CurrencyConversionService {
 
     @Autowired
-    FinanceConfiguration financeConfiguration;
+    private FinanceConfiguration financeConfiguration;
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
     @Autowired
-    CurrencyConversionRepository currencyConversionRepository;
+    private CurrencyConversionRepository currencyConversionRepository;
     @Autowired
-    CurrencyConversionDTOToEntity currencyConversionDTOToEntity;
+    private CurrencyConversionDTOToEntity currencyConversionDTOToEntity;
     @Autowired
-    CurrencyConversionEntityToDTO currencyConversionEntityToDTO;
+    private CurrencyConversionEntityToDTO currencyConversionEntityToDTO;
 
     public List<CurrencyConversion> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()

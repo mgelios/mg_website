@@ -26,19 +26,19 @@ import java.util.stream.Collectors;
 public class CryptoCurrencyService {
 
     @Autowired
-    FinanceConfiguration financeConfiguration;
+    private FinanceConfiguration financeConfiguration;
     @Autowired
-    CurrencyUrlBuilder currencyUrlBuilder;
+    private CurrencyUrlBuilder currencyUrlBuilder;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    CryptoCurrencyRepository cryptoCurrencyRepository;
+    private CryptoCurrencyRepository cryptoCurrencyRepository;
     @Autowired
-    CryptoCurrencyDTOToEntity cryptoCurrencyDTOToEntity;
+    private CryptoCurrencyDTOToEntity cryptoCurrencyDTOToEntity;
     @Autowired
-    CryptoCurrencyEntityToDTO cryptoCurrencyEntityToDTO;
+    private CryptoCurrencyEntityToDTO cryptoCurrencyEntityToDTO;
 
     public List<CryptoCurrency> getCryptoCurrencies() {
         Optional<CryptoCurrencyDBEntity> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();

@@ -29,19 +29,19 @@ import java.util.stream.Collectors;
 public class WeatherForecastService {
 
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    WeatherUrlBuilder weatherUrlBuilder;
+    private WeatherUrlBuilder weatherUrlBuilder;
     @Autowired
-    WeatherForecastRepository weatherForecastRepository;
+    private WeatherForecastRepository weatherForecastRepository;
     @Autowired
-    WeatherConfiguration weatherConfiguration;
+    private WeatherConfiguration weatherConfiguration;
     @Autowired
-    WeatherForecastDTOToEntity weatherForecastDTOToEntity;
+    private WeatherForecastDTOToEntity weatherForecastDTOToEntity;
     @Autowired
-    WeatherForecastEntityToDTO weatherForecastEntityToDTO;
+    private WeatherForecastEntityToDTO weatherForecastEntityToDTO;
 
     public List<WeatherForecast> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());

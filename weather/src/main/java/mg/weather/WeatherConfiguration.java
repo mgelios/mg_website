@@ -38,6 +38,4 @@ public class WeatherConfiguration{
     private String apiKeyVariable;
     private String unitsVariable;
     private String langVariable;
-
-
 }
