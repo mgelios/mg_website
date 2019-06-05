@@ -19,10 +19,10 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    UserEntityToDTO userEntityToDTO;
+    private UserEntityToDTO userEntityToDTO;
 
     @Autowired
-    UserDTOToEntity userDTOToEntity;
+    private UserDTOToEntity userDTOToEntity;
 
     public List<LocalUser> getUsersList() {
         List<LocalUser> users = new ArrayList<>();

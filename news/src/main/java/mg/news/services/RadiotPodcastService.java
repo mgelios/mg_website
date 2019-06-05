@@ -27,19 +27,19 @@ import java.util.stream.Collectors;
 public class RadiotPodcastService {
 
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    RadiotUrlBuilder radiotUrlBuilder;
+    private RadiotUrlBuilder radiotUrlBuilder;
     @Autowired
-    RadiotPodcastRepository radiotPodcastRepository;
+    private RadiotPodcastRepository radiotPodcastRepository;
     @Autowired
-    RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
+    private RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
     @Autowired
-    RadiotPodcastDTOToEntity radiotPodcastDTOToEntity;
+    private RadiotPodcastDTOToEntity radiotPodcastDTOToEntity;
     @Autowired
-    RadiotPodcastEntityToDTO radiotPodcastEntityToDTO;
+    private RadiotPodcastEntityToDTO radiotPodcastEntityToDTO;
 
     public List<RadiotPodcast> getRadiotPodcasts() {
         List<RadiotPodcastDBEntity> podcasts = new ArrayList<>();

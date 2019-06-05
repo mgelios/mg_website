@@ -25,17 +25,17 @@ import java.util.stream.Collectors;
 public class RadiotArticleService {
 
     @Autowired
-    JSONConsumer jsonConsumer;
+    private JSONConsumer jsonConsumer;
     @Autowired
-    JSONHelper jsonHelper;
+    private JSONHelper jsonHelper;
     @Autowired
-    RadiotUrlBuilder radiotUrlBuilder;
+    private RadiotUrlBuilder radiotUrlBuilder;
     @Autowired
-    RadiotArticleRepository radiotArticleRepository;
+    private RadiotArticleRepository radiotArticleRepository;
     @Autowired
-    RadiotArticleDTOToEntity radiotArticleDTOToEntity;
+    private RadiotArticleDTOToEntity radiotArticleDTOToEntity;
     @Autowired
-    RadiotArticleEntityToDTO radiotArticleEntityToDTO;
+    private RadiotArticleEntityToDTO radiotArticleEntityToDTO;
 
 
     public List<RadiotArticle> getRadiotArticlesList() {

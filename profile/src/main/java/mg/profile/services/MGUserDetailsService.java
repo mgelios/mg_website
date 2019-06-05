@@ -27,6 +27,5 @@ public class MGUserDetailsService implements UserDetailsService {
         }
         return userEntityToDTO.convert(user.get());
     }
-
 }
 
