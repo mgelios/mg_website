@@ -18,3 +18,5 @@ project(':news').projectDir = file('news')
 
 include ':webui'
 project(':webui').projectDir = file('webui')
+include 'blog'
+
