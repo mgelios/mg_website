@@ -3,15 +3,13 @@ package mg.weather.service;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
-import mg.weather.converter.CurrentWeatherEntityToDTO;
-import mg.weather.converter.CurrentWeatherDTOToEntity;
 import mg.weather.dbentity.CurrentWeatherDBEntity;
+import mg.weather.mapper.CurrentWeatherMapper;
 import mg.weather.model.CurrentWeather;
 import mg.weather.repository.CurrentWeatherRepository;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,10 +30,6 @@ public class CurrentWeatherService {
     private WeatherUrlBuilder weatherUrlBuilder;
     @Autowired
     private CurrentWeatherRepository currentWeatherRepository;
-    @Autowired
-    private CurrentWeatherEntityToDTO currentWeatherEntityToDTO;
-    @Autowired
-    private CurrentWeatherDTOToEntity currentWeatherDTOToEntity;
 
     public CurrentWeather getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
@@ -50,7 +44,7 @@ public class CurrentWeatherService {
         if (result == null || result.getTime().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
             result = updateCurrentWeatherByCityName(cityName);
         }
-        return currentWeatherEntityToDTO.convert(result);
+        return CurrentWeatherMapper.INSTANCE.mapToDTO(result);
     }
 
     public void updateDefaultCurrentWeather() {
