@@ -11,7 +11,7 @@ public abstract class CurrentWeatherMapper {
 
     public static final CurrentWeatherMapper INSTANCE = Mappers.getMapper(CurrentWeatherMapper.class);
 
-    public abstract CurrentWeatherDBEntity mapToEntity(CurrentWeather currentWeather);
+    public abstract CurrentWeatherDBEntity mapToEntity(CurrentWeather dto);
 
-    public abstract CurrentWeather mapToDTO(CurrentWeatherDBEntity currentWeatherDBEntity);
+    public abstract CurrentWeather mapToDTO(CurrentWeatherDBEntity entity);
 }

@@ -3,9 +3,8 @@ package mg.weather.service;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
-import mg.weather.converter.WeatherForecastDTOToEntity;
-import mg.weather.converter.WeatherForecastEntityToDTO;
 import mg.weather.dbentity.WeatherForecastDBEntity;
+import mg.weather.mapper.WeatherForecastMapper;
 import mg.weather.model.WeatherForecast;
 import mg.weather.repository.WeatherForecastRepository;
 import mg.weather.util.WeatherUrlBuilder;
@@ -38,10 +37,6 @@ public class WeatherForecastService {
     private WeatherForecastRepository weatherForecastRepository;
     @Autowired
     private WeatherConfiguration weatherConfiguration;
-    @Autowired
-    private WeatherForecastDTOToEntity weatherForecastDTOToEntity;
-    @Autowired
-    private WeatherForecastEntityToDTO weatherForecastEntityToDTO;
 
     public List<WeatherForecast> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
@@ -58,7 +53,7 @@ public class WeatherForecastService {
             weatherForecastList = updateWeatherForecastByCityName(cityName);
         }
         return weatherForecastList.stream()
-                .map(weatherForecastEntityToDTO::convert)
+                .map(WeatherForecastMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
 
