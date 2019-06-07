@@ -47,7 +47,6 @@ public class RadiotArticleService {
             dbArticles = fillRadiotArticles();
         }
         return dbArticles.stream()
-                //.map(radiotArticleEntityToDTO::convert)
                 .map(RadiotArticleMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
