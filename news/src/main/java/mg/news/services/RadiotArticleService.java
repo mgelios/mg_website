@@ -1,8 +1,7 @@
 package mg.news.services;
 
-import mg.news.converter.RadiotArticleDTOToEntity;
-import mg.news.converter.RadiotArticleEntityToDTO;
 import mg.news.dbentities.RadiotArticleDBEntity;
+import mg.news.mapper.RadiotArticleMapper;
 import mg.news.models.RadiotArticle;
 import mg.news.repositories.RadiotArticleRepository;
 import mg.news.utils.RadiotUrlBuilder;
@@ -32,11 +31,6 @@ public class RadiotArticleService {
     private RadiotUrlBuilder radiotUrlBuilder;
     @Autowired
     private RadiotArticleRepository radiotArticleRepository;
-    @Autowired
-    private RadiotArticleDTOToEntity radiotArticleDTOToEntity;
-    @Autowired
-    private RadiotArticleEntityToDTO radiotArticleEntityToDTO;
-
 
     public List<RadiotArticle> getRadiotArticlesList() {
         List<RadiotArticleDBEntity> dbArticles = new ArrayList<>();
@@ -53,7 +47,8 @@ public class RadiotArticleService {
             dbArticles = fillRadiotArticles();
         }
         return dbArticles.stream()
-                .map(radiotArticleEntityToDTO::convert)
+                //.map(radiotArticleEntityToDTO::convert)
+                .map(RadiotArticleMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
 

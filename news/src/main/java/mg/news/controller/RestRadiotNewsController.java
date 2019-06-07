@@ -1,4 +1,4 @@
-package mg.news.controllers;
+package mg.news.controller;
 
 import mg.news.services.RadiotArticleService;
 import mg.news.services.RadiotPodcastService;
