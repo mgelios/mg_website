@@ -7,6 +7,22 @@
     <bytecodeTargetLevel>
       <module name="app_main" target="1.8" />
       <module name="app_test" target="1.8" />
+      <module name="blog_main" target="1.8" />
+      <module name="blog_test" target="1.8" />
+      <module name="finance_main" target="1.8" />
+      <module name="finance_test" target="1.8" />
+      <module name="main_main" target="1.8" />
+      <module name="main_test" target="1.8" />
+      <module name="news_main" target="1.8" />
+      <module name="news_test" target="1.8" />
+      <module name="profile_main" target="1.8" />
+      <module name="profile_test" target="1.8" />
+      <module name="utils_main" target="1.8" />
+      <module name="utils_test" target="1.8" />
+      <module name="weather_main" target="1.8" />
+      <module name="weather_test" target="1.8" />
+      <module name="webui_main" target="1.8" />
+      <module name="webui_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
