@@ -1,11 +1,8 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CryptoCurrencyDTOToEntity;
-import mg.finance.converters.CryptoCurrencyEntityToDTO;
-import mg.finance.converters.CryptoMarketDTOToEntity;
-import mg.finance.converters.CryptoMarketEntityToDTO;
 import mg.finance.dbentities.CryptoMarketDBEntity;
+import mg.finance.mapper.CryptoMarketMapper;
 import mg.finance.models.CryptoMarket;
 import mg.finance.repositories.CryptoMarketRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
@@ -33,10 +30,6 @@ public class CryptoMarketService {
     private JSONHelper jsonHelper;
     @Autowired
     private CryptoMarketRepository cryptoMarketRepository;
-    @Autowired
-    private CryptoMarketDTOToEntity cryptoMarketDTOToEntity;
-    @Autowired
-    private CryptoMarketEntityToDTO cryptoMarketEntityToDTO;
 
     public CryptoMarket getCryptoMarketInfo() {
         Optional<CryptoMarketDBEntity> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
@@ -47,7 +40,7 @@ public class CryptoMarketService {
         } else {
             cryptoMarket = optionalCryptoMarket.get();
         }
-        return cryptoMarketEntityToDTO.convert(cryptoMarket);
+        return CryptoMarketMapper.INSTANCE.mapToDTO(cryptoMarket);
     }
 
     public CryptoMarketDBEntity updateCryptoMarket() {

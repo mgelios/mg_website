@@ -1,9 +1,8 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CryptoCurrencyDTOToEntity;
-import mg.finance.converters.CryptoCurrencyEntityToDTO;
 import mg.finance.dbentities.CryptoCurrencyDBEntity;
+import mg.finance.mapper.CryptoCurrencyMapper;
 import mg.finance.models.CryptoCurrency;
 import mg.finance.repositories.CryptoCurrencyRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
@@ -35,10 +34,6 @@ public class CryptoCurrencyService {
     private JSONHelper jsonHelper;
     @Autowired
     private CryptoCurrencyRepository cryptoCurrencyRepository;
-    @Autowired
-    private CryptoCurrencyDTOToEntity cryptoCurrencyDTOToEntity;
-    @Autowired
-    private CryptoCurrencyEntityToDTO cryptoCurrencyEntityToDTO;
 
     public List<CryptoCurrency> getCryptoCurrencies() {
         Optional<CryptoCurrencyDBEntity> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
@@ -50,7 +45,7 @@ public class CryptoCurrencyService {
             cryptoCurrencyRepository.findAll().forEach(cryptoCurrencies::add);
         }
         return cryptoCurrencies.stream()
-                .map(cryptoCurrencyEntityToDTO::convert)
+                .map(CryptoCurrencyMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
 
