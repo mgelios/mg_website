@@ -1,10 +1,9 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CurrencyConversionDTOToEntity;
-import mg.finance.converters.CurrencyConversionEntityToDTO;
 import mg.finance.dbentities.CurrencyConversionDBEntity;
 import mg.finance.dbentities.CurrencyDBEntity;
+import mg.finance.mapper.CurrencyConversionMapper;
 import mg.finance.models.CurrencyConversion;
 import mg.finance.repositories.CurrencyConversionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +24,6 @@ public class CurrencyConversionService {
     private CurrencyService currencyService;
     @Autowired
     private CurrencyConversionRepository currencyConversionRepository;
-    @Autowired
-    private CurrencyConversionDTOToEntity currencyConversionDTOToEntity;
-    @Autowired
-    private CurrencyConversionEntityToDTO currencyConversionEntityToDTO;
 
     public List<CurrencyConversion> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()
@@ -44,9 +39,9 @@ public class CurrencyConversionService {
         Optional<CurrencyConversionDBEntity> optionalConversion =
                 currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
         if (optionalConversion.isPresent()) {
-            return currencyConversionEntityToDTO.convert(optionalConversion.get());
+            return CurrencyConversionMapper.INSTANCE.mapToDTO(optionalConversion.get());
         } else {
-            return currencyConversionEntityToDTO.convert(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
+            return CurrencyConversionMapper.INSTANCE.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
         }
     }
 

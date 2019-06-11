@@ -1,9 +1,8 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CurrencyDTOToEntity;
-import mg.finance.converters.CurrencyEntityToDTO;
 import mg.finance.dbentities.CurrencyDBEntity;
+import mg.finance.mapper.CurrencyMapper;
 import mg.finance.models.Currency;
 import mg.finance.repositories.CurrencyRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
@@ -34,10 +33,6 @@ public class CurrencyService {
     private JSONHelper jsonHelper;
     @Autowired
     private CurrencyRepository currencyRepository;
-    @Autowired
-    private CurrencyDTOToEntity currencyDTOToEntity;
-    @Autowired
-    private CurrencyEntityToDTO currencyEntityToDTO;
 
     public List<Currency> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -46,7 +41,7 @@ public class CurrencyService {
     }
 
     public Currency getCurrencyByAbbreviation(String abbreviation) {
-        return currencyEntityToDTO.convert(getCurrencyDBEntityByAbbreviation(abbreviation));
+        return CurrencyMapper.INSTANCE.mapToDTO(getCurrencyDBEntityByAbbreviation(abbreviation));
     }
 
     public CurrencyDBEntity getCurrencyDBEntityByAbbreviation(String abbreviation) {

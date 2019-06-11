@@ -1,10 +1,9 @@
 package mg.finance.services;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.converters.CurrencyStatisticsDTOToEntity;
-import mg.finance.converters.CurrencyStatisticsEntityToDTO;
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
+import mg.finance.mapper.CurrencyStatisticsMapper;
 import mg.finance.models.CurrencyStatistics;
 import mg.finance.repositories.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
@@ -40,10 +39,6 @@ public class CurrencyStatisticsService {
     private CurrencyService currencyService;
     @Autowired
     private CurrencyStatisticsRepository currencyStatisticsRepository;
-    @Autowired
-    private CurrencyStatisticsDTOToEntity currencyStatisticsDTOToEntity;
-    @Autowired
-    private CurrencyStatisticsEntityToDTO currencyStatisticsEntityToDTO;
 
     public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
@@ -57,7 +52,7 @@ public class CurrencyStatisticsService {
             result = updateCurrencyStatistics(abbreviation);
         }
         return result.stream()
-                .map(currencyStatisticsEntityToDTO::convert)
+                .map(CurrencyStatisticsMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
 

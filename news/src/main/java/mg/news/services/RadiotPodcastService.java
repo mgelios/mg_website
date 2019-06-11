@@ -1,7 +1,5 @@
 package mg.news.services;
 
-import mg.news.converter.RadiotPodcastDTOToEntity;
-import mg.news.converter.RadiotPodcastEntityToDTO;
 import mg.news.dbentities.RadiotPodcastDBEntity;
 import mg.news.dbentities.RadiotPodcastTimeLabelDBEntity;
 import mg.news.mapper.RadiotPodcastMapper;
@@ -39,10 +37,6 @@ public class RadiotPodcastService {
     private RadiotPodcastRepository radiotPodcastRepository;
     @Autowired
     private RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
-    @Autowired
-    private RadiotPodcastDTOToEntity radiotPodcastDTOToEntity;
-    @Autowired
-    private RadiotPodcastEntityToDTO radiotPodcastEntityToDTO;
 
     public List<RadiotPodcast> getRadiotPodcasts() {
         List<RadiotPodcastDBEntity> podcasts = new ArrayList<>();
@@ -51,9 +45,8 @@ public class RadiotPodcastService {
         } else {
             podcasts = updateRadiotPodcasts();
         }
-        RadiotPodcast podcast = RadiotPodcastMapper.INSTANCE.mapToDTO(podcasts.get(0));
         return podcasts.stream()
-                .map(radiotPodcastEntityToDTO::convert)
+                .map(RadiotPodcastMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
     }
 
