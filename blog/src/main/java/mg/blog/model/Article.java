@@ -4,6 +4,7 @@ import lombok.Data;
 import mg.profile.models.LocalUser;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -15,4 +16,6 @@ public class Article {
     private String content;
     private LocalDateTime lastUpdated;
     private Set<Tag> tags;
+    private Subcategory subcategory;
+    private List<Comment> comments;
 }
