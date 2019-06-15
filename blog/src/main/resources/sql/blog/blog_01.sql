@@ -15,6 +15,7 @@ create table mg_blog_article (
 
 create table mg_blog_category (
   id serial not null,
+  name text,
   primary key (id)
 );
 
