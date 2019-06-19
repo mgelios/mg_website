@@ -74,13 +74,13 @@
 </template>
 
 <script>
-    import CurrentWeatherCard from './CurrentWeatherCard'
-    import WeatherForecastCard from './WeatherForecastCard'
-    import CurrencyCard from './CurrencyCard'
-    import CurrencyConversionsCard from './CurrencyConversionsCard'
-    import CryptoCurrenciesCard from './CryptoCurrenciesCard'
-    import CryptoMarketCard from './CryptoMarketCard'
-    import RadiotNewsCard from './RadiotNewsCard'
+    import CurrentWeatherCard from './cards/CurrentWeatherCard'
+    import WeatherForecastCard from './cards/WeatherForecastCard'
+    import CurrencyCard from './cards/CurrencyCard'
+    import CurrencyConversionsCard from './cards/CurrencyConversionsCard'
+    import CryptoCurrenciesCard from './cards/CryptoCurrenciesCard'
+    import CryptoMarketCard from './cards/CryptoMarketCard'
+    import RadiotNewsCard from './cards/RadiotNewsCard'
 
     export default {
         name: 'Dashboard',
@@ -112,8 +112,12 @@
                         title: 'Crypto market',
                         icon: 'list_alt',
                         route: ''
+                    },
+                    {
+                        title: 'Radio-T',
+                        icon: 'radio',
+                        route: ''
                     }
-
                 ]
             }
         }
