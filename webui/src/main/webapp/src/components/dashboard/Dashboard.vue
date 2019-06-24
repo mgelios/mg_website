@@ -37,7 +37,7 @@
             <!--<HelloWorld/>-->
         </v-toolbar>
             <router-view></router-view>
-        <v-footer app></v-footer>
+        <v-footer app :inset="true" :fixed="false" class="justify-center">&copy;MGeliOS 2019</v-footer>
     </div>
 </template>
 
@@ -68,7 +68,7 @@
                         title: 'Radio-T',
                         icon: 'radio',
                         route: ''
-                    }
+                    },
                 ]
             }
         }
