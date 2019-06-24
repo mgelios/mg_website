@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import WeatherForecastChart from './WeatherForecastChart';
+    import WeatherForecastChart from './charts/WeatherForecastChart';
     import { mapState } from 'vuex';
 
     export default {
