@@ -27,6 +27,7 @@ create table mg_blog_subcategory (
 
 create table mg_blog_tag (
   id serial not null,
+  name text,
   primary key (id)
 );
 
