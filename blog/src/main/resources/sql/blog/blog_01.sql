@@ -33,5 +33,6 @@ create table mg_blog_tag (
 
 create table mg_blog_comment (
   id serial not null,
+  text text,
   primary key (id)
 );
