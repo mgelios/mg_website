@@ -34,5 +34,6 @@ create table mg_blog_tag (
 create table mg_blog_comment (
   id serial not null,
   text text,
+  last_updated timestamp,
   primary key (id)
 );
