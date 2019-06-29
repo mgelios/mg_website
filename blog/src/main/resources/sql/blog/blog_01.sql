@@ -36,5 +36,6 @@ create table mg_blog_comment (
   text text,
   last_updated timestamp,
   article integer,
+  author integer,
   primary key (id)
 );
