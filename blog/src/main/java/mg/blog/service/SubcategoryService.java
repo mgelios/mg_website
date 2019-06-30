@@ -9,4 +9,8 @@ public class SubcategoryService {
 
     @Autowired
     private SubcategoryRepository subcategoryRepository;
+
+    public void createSubcategory(Long categoryId) {
+
+    }
 }
