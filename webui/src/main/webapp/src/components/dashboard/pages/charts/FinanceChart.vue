@@ -49,16 +49,16 @@
                 for (var i = 0; i < this.chartdata.length; i++) {
                     if (this.chartdata[i].time[2] !== lastLabel || i + 1 == this.chartdata.length) {
                         dataLabels.push(lastLabel);
-                        this.dataSetOne.data.push(lastMinTemp);
-                        this.dataSetTwo.data.push(lastMaxTemp);
-                        lastMaxTemp = -250;
-                        lastMinTemp = 250;
+                        this.dataSetOne.data.push(lastMinValue);
+                        this.dataSetTwo.data.push(lastMaxValue);
+                        lastMaxValue = -1000000;
+                        lastMinValue = 1000000;
                     }
-                    if (this.chartdata[i].maximumTemperature > lastMaxTemp) {
-                        lastMaxTemp = this.chartdata[i].maximumTemperature.toFixed(2);
+                    if (this.chartdata[i].maximumTemperature > lastMaxValue) {
+                        lastMaxValue = this.chartdata[i].maximumTemperature.toFixed(2);
                     }
-                    if (this.chartdata[i].minimalTemperature < lastMinTemp) {
-                        lastMinTemp = this.chartdata[i].minimalTemperature.toFixed(2);
+                    if (this.chartdata[i].minimalTemperature < lastMinValue) {
+                        lastMinValue = this.chartdata[i].minimalTemperature.toFixed(2);
                     }
                     lastLabel = this.chartdata[i].time[2];
                 }
