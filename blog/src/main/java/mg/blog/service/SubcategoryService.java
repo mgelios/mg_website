@@ -13,4 +13,8 @@ public class SubcategoryService {
     public void createSubcategory(Long categoryId) {
 
     }
+
+    public void deleteSubcategory(Long categoryId) {
+
+    }
 }
