@@ -15,4 +15,12 @@ public class CommentService {
     public void updateComment() {
 
     }
+
+    public void deleteComment() {
+
+    }
+
+    public void getComment() {
+
+    }
 }
