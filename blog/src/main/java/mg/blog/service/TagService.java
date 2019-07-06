@@ -9,4 +9,24 @@ public class TagService {
 
     @Autowired
     private TagRepository tagRepository;
+
+    public void createTag() {
+
+    }
+
+    public void updateTag() {
+
+    }
+
+    public void deleteTag() {
+
+    }
+
+    public void getTag() {
+
+    }
+
+    public void getTags() {
+
+    }
 }
