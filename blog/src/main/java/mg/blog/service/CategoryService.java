@@ -14,4 +14,16 @@ public class CategoryService {
     public CategoryDBEntity getCategory(Long categoryId) {
         return categoryRepository.findById(categoryId).get();
     }
+
+    public void deleteCategory() {
+
+    }
+
+    public void updateCategory() {
+
+    }
+
+    public void createCategory() {
+
+    }
 }
