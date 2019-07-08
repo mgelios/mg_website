@@ -2,7 +2,9 @@ import currency from '../../api/currency';
 
 const state = {
     rates: [],
-    conversions: []
+    conversions: [],
+    statisticsEUR: [],
+    statisticsUSD: []
 };
 
 const getters = {
@@ -18,6 +20,11 @@ const actions = {
         currency.getConversions(conversions => {
             commit('setCurrencyConversions', conversions);
         })
+    },
+    getCurrenciesStatistics({ commit }) {
+        currency.getStatistics(statistics => {
+            commit('setCurrenciesStatistics', statistics);
+        })
     }
 };
 
@@ -27,6 +34,10 @@ const mutations = {
     },
     setCurrencyConversions(state, items) {
         state.conversions = items;
+    },
+    setCurrenciesStatistics(state, items) {
+        state.statisticsEUR = items.EUR;
+        state.statisticsUSD = items.USD;
     }
 };
 

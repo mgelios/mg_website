@@ -3,10 +3,11 @@
 
     export default {
         name: 'FinanceChart',
+        extends: Line,
         data() {
             return {
                 dataSet: {
-                    label: 'currency',
+                    label: this.chartLabel,
                     data: [],
                     backgroundColor: '#7ac0c088',
                     borderColor: '#3f8c4a',
@@ -19,15 +20,25 @@
                     tooltips: {
                         intersect: false,
                         mode: 'index'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                            }
+                        }]
                     }
                 }
             }
         },
         props: {
-            label: 'currency',
+            chartLabel: {
+                default: 'currency'
+            },
             aspectRatio: {
                 default: 2
             },
+            height: null,
+            width: "100%",
             chartData: {
                 type: Array,
                 default: null
@@ -35,44 +46,21 @@
         },
         mounted() {
             var dataLabels = [];
-            var lastMaxValue = -1000000;
-            var lastMinValue = 1000000;
-            var lastLabel = '';
-            //TODO: change naming to more common
-            if (this.chartdata && this.chartdata.length > 0){
-                lastMaxValue = this.chartdata[0].maximumTemperature.toFixed(2);
-                lastMinValue = this.chartdata[0].minimalTemperature.toFixed(2);
-                lastLabel = this.chartdata[0].time[2];
-            }
-
-            if (this.chartdata) {
-                for (var i = 0; i < this.chartdata.length; i++) {
-                    if (this.chartdata[i].time[2] !== lastLabel || i + 1 == this.chartdata.length) {
-                        dataLabels.push(lastLabel);
-                        this.dataSetOne.data.push(lastMinValue);
-                        this.dataSetTwo.data.push(lastMaxValue);
-                        lastMaxValue = -1000000;
-                        lastMinValue = 1000000;
-                    }
-                    if (this.chartdata[i].maximumTemperature > lastMaxValue) {
-                        lastMaxValue = this.chartdata[i].maximumTemperature.toFixed(2);
-                    }
-                    if (this.chartdata[i].minimalTemperature < lastMinValue) {
-                        lastMinValue = this.chartdata[i].minimalTemperature.toFixed(2);
-                    }
-                    lastLabel = this.chartdata[i].time[2];
+            if (this.chartData) {
+                for (var i = 0; i < this.chartData.length; i++) {
+                    dataLabels.push(this.chartData[i].date[2] + '-' + this.chartData[i].date[1]);
+                    this.dataSet.data.push(this.chartData[i].rate.toFixed(4));
                 }
             }
 
-            var chartdataone = {
+            var chartData = {
                 labels: dataLabels,
                 datasets: [
-                    this.dataSetOne,
-                    this.dataSetTwo
+                    this.dataSet
                 ]
             };
 
-            this.renderChart(chartdataone, this.options);
+            this.renderChart(chartData, this.options);
         }
     }
 </script>

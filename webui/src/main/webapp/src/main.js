@@ -5,8 +5,9 @@ import store from './store'
 import './filters/filters'
 import VueRouter from 'vue-router'
 import Dashboard from './components/dashboard/Dashboard'
-import WeatherPage from './components/dashboard/pages/Weather'
-import DashboardMainPage from './components/dashboard/pages/Main'
+import WeatherDashboardPage from './components/dashboard/pages/Weather'
+import FinanceDashboardPage from './components/dashboard/pages/Finance'
+import MainDashboardPage from './components/dashboard/pages/Main'
 import Profile from './components/profile/Profile'
 
 Vue.config.productionTip = false;
@@ -23,19 +24,19 @@ const routes = [
             {
                 path: 'main',
                 name: 'dashboardMainPage',
-                component: DashboardMainPage
+                component: MainDashboardPage
             },
             {
                 path: 'weather',
                 name: 'dashboardWeatherPage',
-                component: WeatherPage
+                component: WeatherDashboardPage
+            },
+            {
+                path: 'finance',
+                name: 'dashboardFinancePage',
+                component: FinanceDashboardPage
             }
         ]
-    },
-    {
-        path: '/dashboard/weather',
-        name: 'dashboardWeatherPage',
-        component: WeatherPage
     },
     {
         path: '/profile',

@@ -12,5 +12,11 @@ export default {
             .then(response => {
                 callback(response.data);
             });
+    },
+    getStatistics: function (callback) {
+        axios.get("http://localhost:8080/api/v1/finance/currency/statistics")
+            .then(response => {
+                callback(response.data);
+            });
     }
 }
