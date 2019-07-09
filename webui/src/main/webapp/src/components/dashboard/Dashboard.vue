@@ -5,7 +5,9 @@
                 <v-list>
                     <v-list-tile avatar>
                         <v-list-tile-avatar>
-                            <v-icon x-large>dashboard</v-icon>
+                            <router-link :to="{ name: 'dashboardMainPage' }">
+                                <v-icon x-large>dashboard</v-icon>
+                            </router-link>
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title>Dashboard</v-list-tile-title>
@@ -22,12 +24,14 @@
                 <v-list-tile
                         v-for="navItem in navigationItems"
                         :key="navItem.title">
-                    <v-list-tile-action>
-                        <v-icon>{{navItem.icon}}</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{navItem.title}}</v-list-tile-title>
-                    </v-list-tile-content>
+                        <v-list-tile-action>
+                            <router-link :to="{ name: navItem.route }">
+                                <v-icon>{{navItem.icon}}</v-icon>
+                            </router-link>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{navItem.title}}</v-list-tile-title>
+                        </v-list-tile-content>
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
@@ -57,12 +61,12 @@
                     {
                         title: 'Finance',
                         icon: 'euro_symbol',
-                        route: ''
+                        route: 'dashboardFinancePage'
                     },
                     {
                         title: 'Crypto market',
                         icon: 'list_alt',
-                        route: ''
+                        route: 'dashboardCryptoMarketPage'
                     },
                     {
                         title: 'Radio-T',

@@ -8,6 +8,7 @@ import Dashboard from './components/dashboard/Dashboard'
 import WeatherDashboardPage from './components/dashboard/pages/Weather'
 import FinanceDashboardPage from './components/dashboard/pages/Finance'
 import MainDashboardPage from './components/dashboard/pages/Main'
+import CryptoMarketDashboardPage from './components/dashboard/pages/CryptoMarket'
 import Profile from './components/profile/Profile'
 
 Vue.config.productionTip = false;
@@ -35,6 +36,11 @@ const routes = [
                 path: 'finance',
                 name: 'dashboardFinancePage',
                 component: FinanceDashboardPage
+            },
+            {
+                path: 'crypto',
+                name: 'dashboardCryptoMarketPage',
+                component: CryptoMarketDashboardPage
             }
         ]
     },
