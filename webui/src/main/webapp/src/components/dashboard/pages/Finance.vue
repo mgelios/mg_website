@@ -1,25 +1,63 @@
 <template>
     <v-content>
-        <v-card>
-            <v-card-text>
-                <v-layout row wrap>
-                    <v-flex xs12 lg6 d-flex>
-                        <FinanceChart v-if="statisticsUSD.length != 0"
-                                      :chartData="statisticsUSD"
-                                      :chartLabel="usdLabel"
-                                      :aspectRatio="usdAspectRatio">
-                        </FinanceChart>
-                    </v-flex>
-                    <v-flex xs12 lg6 d-flex>
-                        <FinanceChart v-if="statisticsEUR.length != 0"
-                                      :chartData="statisticsEUR"
-                                      :chartLabel="eurLabel"
-                                      :aspectRatio="eurAspectRatio">
-                        </FinanceChart>
-                    </v-flex>
-                </v-layout>
-            </v-card-text>
-        </v-card>
+        <v-container fluid grid-list-md>
+            <v-card>
+                <v-card-text>
+                    <v-layout row wrap>
+                        <v-flex xs12 lg6>
+                            <p class="text-xs-center headline">Conversions</p>
+                            <v-list>
+                                <template v-for="(item, index) in conversions">
+                                    <v-list-tile :key="index">
+                                        <v-list-tile-content>
+                                            {{item.currencyFrom.abbreviation}}/{{item.currencyTo.abbreviation}}
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{item.value}}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider class="ma-0" v-if="index + 1 < conversions.length" :key="index+'divider'"></v-divider>
+                                </template>
+                            </v-list>
+                        </v-flex>
+                        <v-flex xs12 lg6>
+                            <p class="text-xs-center headline">Exhange Rates</p>
+                            <v-list>
+                                <template v-for="(item, index) in exchangeRates">
+                                    <v-list-tile :key="index">
+                                        <v-list-tile-content>
+                                            {{item.scale}} {{item.abbreviation}}
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{item.rate | byn}}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider class="ma-0" v-if="index + 1 < exchangeRates.length" :key="index+'divider'"></v-divider>
+                                </template>
+                            </v-list>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-flex xs12 lg6>
+                            <p class="text-xs-center headline">USD month rates</p>
+                            <FinanceChart v-if="statisticsUSD.length != 0"
+                                          :chartData="statisticsUSD"
+                                          :chartLabel="usdLabel"
+                                          :aspectRatio="usdAspectRatio">
+                            </FinanceChart>
+                        </v-flex>
+                        <v-flex xs12 lg6>
+                            <p class="text-xs-center headline">EUR month rates</p>
+                            <FinanceChart v-if="statisticsEUR.length != 0"
+                                          :chartData="statisticsEUR"
+                                          :chartLabel="eurLabel"
+                                          :aspectRatio="eurAspectRatio">
+                            </FinanceChart>
+                        </v-flex>
+                    </v-layout>
+                </v-card-text>
+            </v-card>
+        </v-container>
     </v-content>
 </template>
 
@@ -42,11 +80,15 @@
         },
         mounted: function() {
             this.$store.dispatch('Currency/getCurrenciesStatistics');
+            this.$store.dispatch('Currency/getExchangeRates');
+            this.$store.dispatch('Currency/getCurrencyConversions');
         },
         computed: {
             ...mapState({
                 statisticsEUR : state => state.Currency.statisticsEUR,
-                statisticsUSD : state => state.Currency.statisticsUSD
+                statisticsUSD : state => state.Currency.statisticsUSD,
+                conversions : state => state.Currency.conversions,
+                exchangeRates : state => state.Currency.rates
             })
         }
     }
