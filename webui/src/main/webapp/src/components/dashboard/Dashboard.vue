@@ -56,7 +56,7 @@
                     {
                         title: 'Weather',
                         icon: 'cloud',
-                        route: ''
+                        route: 'dashboardWeatherPage'
                     },
                     {
                         title: 'Finance',

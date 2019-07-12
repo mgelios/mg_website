@@ -3,7 +3,7 @@
         <v-card-title class="blue-grey darken-1">
             <v-layout headline class="white--text">Forecast</v-layout>
         </v-card-title>
-        <v-card-text hidden-lg-and-up>
+        <v-card-text>
             <WeatherForecastChart v-if="items.length !== 0"
                                   :chartdata="items"
                                   :aspectRatio="chartAspectRatio">

@@ -54,8 +54,6 @@
         name: 'CurrentWeatherCard',
         data: function() {
             return {
-                weatherImagesFolder: '../../../../assets/img/weather/',
-                weatherImagesExtension: '.svg'
             }
         },
         mounted: function() {
