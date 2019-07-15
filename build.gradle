@@ -79,5 +79,8 @@ subprojects {
     }
 }
 
-task stage {dependsOn(':main:clean', ':main:build')}
+task stageClean {dependsOn(':main:clean')}
+task stage (dependsOn: [stageClean, ':main:build']){
+}
+stage.mustRunAfter(stageClean)
 

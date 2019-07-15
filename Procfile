@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar build/libs/main-0.0.1.jar
