@@ -79,5 +79,5 @@ subprojects {
     }
 }
 
-task stage {dependsOn(':main:bootRun')}
+task stage {dependsOn(':main:clean', ':main:build')}
 
