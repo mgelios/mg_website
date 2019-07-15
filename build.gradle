@@ -78,3 +78,6 @@ subprojects {
         testCompile('org.springframework.security:spring-security-test')
     }
 }
+
+task stage {dependsOn(':main:bootRun')}
+
