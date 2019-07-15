@@ -10,6 +10,7 @@ buildscript {
 
 plugins {
     id "io.spring.dependency-management" version "1.0.5.RELEASE"
+    id "com.heroku.sdk.heroku-gradle" version "1.0.4"
 }
 
 allprojects {
@@ -83,4 +84,8 @@ task stageClean {dependsOn(':main:clean')}
 task stage (dependsOn: [stageClean, ':main:build']){
 }
 stage.mustRunAfter(stageClean)
+
+heroku {
+    appName = 'mgwebsite'
+}
 
