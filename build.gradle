@@ -81,7 +81,9 @@ subprojects {
 }
 
 task stageClean {dependsOn(':main:clean')}
-task stage (dependsOn: [stageClean, ':main:build']){
+task stage (type:Copy, dependsOn: [stageClean, ':main:build']){
+    from 'main/build/libs'
+    into 'build/libs'
 }
 stage.mustRunAfter(stageClean)
 
