@@ -8,6 +8,7 @@ import mg.security.custom.MGBasicAuthenticationProvider;
 import mg.security.custom.MGBasicAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,8 +30,10 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_ALL = {
+            "/resources/**",
             "/api/v1/**",
             "/static/**",
+            "/public/**",
             "/css/**",
             "/images/**",
             "/service/calc",
@@ -73,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 addFilterBefore(basicCORSFilter, LogoutFilter.class).
                 authorizeRequests()
+                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")

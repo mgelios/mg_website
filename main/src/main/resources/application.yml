@@ -23,6 +23,7 @@ springfox:
       v2:
         path: "/api-doc"
 server:
+  port: 8080
   error:
     whitelabel:
       enabled: false
