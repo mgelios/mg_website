@@ -11,8 +11,8 @@ public class MgMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/resources/**")
-                .addResourceLocations("classpath:/resources/")
+                .addResourceHandler("/resources/**", "/static/**")
+                .addResourceLocations("classpath:/resources/", "classpath:/static/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
     }
