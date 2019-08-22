@@ -8,14 +8,14 @@
                             <p class="text-xs-center headline">Conversions</p>
                             <v-list>
                                 <template v-for="(item, index) in conversions">
-                                    <v-list-tile :key="index">
-                                        <v-list-tile-content>
+                                    <v-list-item :key="index">
+                                        <v-list-item-content>
                                             {{item.currencyFrom.abbreviation}}/{{item.currencyTo.abbreviation}}
-                                        </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        </v-list-item-content>
+                                        <v-list-item-action>
                                             {{item.value}}
-                                        </v-list-tile-action>
-                                    </v-list-tile>
+                                        </v-list-item-action>
+                                    </v-list-item>
                                     <v-divider class="ma-0" v-if="index + 1 < conversions.length" :key="index+'divider'"></v-divider>
                                 </template>
                             </v-list>
@@ -24,14 +24,14 @@
                             <p class="text-xs-center headline">Exhange Rates</p>
                             <v-list>
                                 <template v-for="(item, index) in exchangeRates">
-                                    <v-list-tile :key="index">
-                                        <v-list-tile-content>
+                                    <v-list-item :key="index">
+                                        <v-list-item-content>
                                             {{item.scale}} {{item.abbreviation}}
-                                        </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        </v-list-item-content>
+                                        <v-list-item-action>
                                             {{item.rate | byn}}
-                                        </v-list-tile-action>
-                                    </v-list-tile>
+                                        </v-list-item-action>
+                                    </v-list-item>
                                     <v-divider class="ma-0" v-if="index + 1 < exchangeRates.length" :key="index+'divider'"></v-divider>
                                 </template>
                             </v-list>

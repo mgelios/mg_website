@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import './plugins/vuetify'
+import vuetify from './plugins/vuetify'
 import App from './App.vue'
 import store from './store'
 import './filters/filters'
@@ -58,5 +58,6 @@ const MyRouter = new VueRouter({
 new Vue({
     store,
     router: MyRouter,
+    vuetify,
     render: h => h(App)
 }).$mount('#app');

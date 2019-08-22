@@ -1,45 +1,43 @@
 <template>
     <div>
         <v-navigation-drawer app v-model="navDrawer" :mini-variant.sync="miniToolbar">
-            <v-toolbar flat>
                 <v-list>
-                    <v-list-tile avatar>
-                        <v-list-tile-avatar>
+                    <v-list-item avatar>
+                        <v-list-item-avatar>
                             <router-link :to="{ name: 'dashboardMainPage' }">
                                 <v-icon x-large>dashboard</v-icon>
                             </router-link>
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Dashboard</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>Dashboard</v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-action>
                             <v-btn icon @click.stop="miniToolbar = !miniToolbar">
                                 <v-icon>chevron_left</v-icon>
                             </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
+                        </v-list-item-action>
+                    </v-list-item>
                 </v-list>
-            </v-toolbar>
             <v-list>
-                <v-list-tile
+                <v-list-item
                         v-for="navItem in navigationItems"
                         :key="navItem.title">
-                        <v-list-tile-action>
+                        <v-list-item-action>
                             <router-link :to="{ name: navItem.route }">
                                 <v-icon>{{navItem.icon}}</v-icon>
                             </router-link>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{navItem.title}}</v-list-tile-title>
-                        </v-list-tile-content>
-                </v-list-tile>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>{{navItem.title}}</v-list-item-title>
+                        </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app flat>
-            <v-toolbar-side-icon @click.native="navDrawer = !navDrawer"></v-toolbar-side-icon>
+        <v-app-bar app flat>
+            <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
             <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
             <!--<HelloWorld/>-->
-        </v-toolbar>
+        </v-app-bar>
             <router-view></router-view>
         <v-footer app :inset="true" :fixed="false" class="justify-center">&copy;MGeliOS 2019</v-footer>
     </div>

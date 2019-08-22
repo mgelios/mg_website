@@ -11,35 +11,35 @@
                 <v-flex xs12 sm6>
                     <v-layout headline class="text-xs-center">{{currentWeather.description | capitalize}}</v-layout>
                     <v-list>
-                        <v-list-tile>
-                            <v-list-tile-content>Humidity:</v-list-tile-content>
-                            <v-list-tile-action>{{currentWeather.humidity}}%</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Humidity:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.humidity}}%</v-list-item-action>
+                        </v-list-item>
                         <v-divider class="ma-0"></v-divider>
-                        <v-list-tile>
-                            <v-list-tile-content>Pressure:</v-list-tile-content>
-                            <v-list-tile-action>{{(currentWeather.pressure*(0.750062)).toFixed(2)}}</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Pressure:</v-list-item-content>
+                            <v-list-item-action>{{(currentWeather.pressure*(0.750062)).toFixed(2)}}</v-list-item-action>
+                        </v-list-item>
                         <v-divider class="ma-0"></v-divider>
-                        <v-list-tile>
-                            <v-list-tile-content>Visibility:</v-list-tile-content>
-                            <v-list-tile-action>{{currentWeather.visibility}} m</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Visibility:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.visibility}} m</v-list-item-action>
+                        </v-list-item>
                         <v-divider class="ma-0"></v-divider>
-                        <v-list-tile>
-                            <v-list-tile-content>Wind speed:</v-list-tile-content>
-                            <v-list-tile-action>{{currentWeather.windSpeed}} m/s</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Wind speed:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.windSpeed}} m/s</v-list-item-action>
+                        </v-list-item>
                         <v-divider class="ma-0"></v-divider>
-                        <v-list-tile>
-                            <v-list-tile-content>Sunrise:</v-list-tile-content>
-                            <v-list-tile-action>{{currentWeather.sunrise[3]+':'+currentWeather.sunrise[4]}}</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Sunrise:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.sunrise[3]+':'+currentWeather.sunrise[4]}}</v-list-item-action>
+                        </v-list-item>
                         <v-divider class="ma-0"></v-divider>
-                        <v-list-tile>
-                            <v-list-tile-content>Sunset:</v-list-tile-content>
-                            <v-list-tile-action>{{currentWeather.sunset[3]+':'+currentWeather.sunset[4]}}</v-list-tile-action>
-                        </v-list-tile>
+                        <v-list-item>
+                            <v-list-item-content>Sunset:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.sunset[3]+':'+currentWeather.sunset[4]}}</v-list-item-action>
+                        </v-list-item>
                     </v-list>
                 </v-flex>
             </v-layout>

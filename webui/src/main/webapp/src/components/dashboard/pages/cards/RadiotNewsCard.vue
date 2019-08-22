@@ -6,20 +6,20 @@
         <v-card-text>
             <v-list>
                 <template v-for="(item, index) in articles">
-                    <v-list-tile :key="index" v-if="index < 6">
-                        <v-list-tile-avatar v-if="item.mainPicture">
+                    <v-list-item :key="index" v-if="index < 6">
+                        <v-list-item-avatar v-if="item.mainPicture">
                             <img :src="item.mainPicture">
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{item.snippet}}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>{{item.title}}</v-list-item-title>
+                            <v-list-item-subtitle>{{item.snippet}}</v-list-item-subtitle>
+                        </v-list-item-content>
+                        <v-list-item-action>
                             <v-btn icon ripple :href="item.link" :exact="true">
                                 <v-icon color="grey lighten-1">play_arrow</v-icon>
                             </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
+                        </v-list-item-action>
+                    </v-list-item>
                     <v-divider v-if="index < 5" :key="index+'divider'"></v-divider>
                 </template>
             </v-list>

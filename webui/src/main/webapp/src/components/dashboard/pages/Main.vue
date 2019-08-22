@@ -1,17 +1,17 @@
 <template>
     <v-content>
         <v-container fluid grid-list-md>
-            <v-layout row wrap>
-                <v-flex xs12 md6 lg3 d-flex>
+            <v-layout row wrap fill-height>
+                <v-flex xs12 md6 lg3>
                     <CurrentWeatherCard></CurrentWeatherCard>
                 </v-flex>
-                <v-flex xs12 md6 lg3 d-flex>
+                <v-flex xs12 md6 lg3>
                     <WeatherForecastCard :chartAspectRatio="1.2"></WeatherForecastCard>
                 </v-flex>
-                <v-flex xs12 md6 lg3 d-flex>
+                <v-flex xs12 md6 lg3>
                     <CurrencyCard></CurrencyCard>
                 </v-flex>
-                <v-flex xs12 md6 lg3 d-flex>
+                <v-flex xs12 md6 lg3>
                     <CurrencyConversionsCard></CurrencyConversionsCard>
                 </v-flex>
             </v-layout>
