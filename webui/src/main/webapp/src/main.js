@@ -10,6 +10,7 @@ import FinanceDashboardPage from './components/dashboard/pages/Finance'
 import MainDashboardPage from './components/dashboard/pages/Main'
 import CryptoMarketDashboardPage from './components/dashboard/pages/CryptoMarket'
 import Profile from './components/profile/Profile'
+import Test from './components/dashboard/pages/Test'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -41,6 +42,11 @@ const routes = [
                 path: 'crypto',
                 name: 'dashboardCryptoMarketPage',
                 component: CryptoMarketDashboardPage
+            },
+            {
+                path: 'test',
+                name: 'testPage',
+                component: Test
             }
         ]
     },

@@ -6,11 +6,11 @@
         <v-card-text>
             <v-layout row>
                 <v-flex xs12 sm6>
-                    <v-img v-bind:src="getImage(currentWeather.icon)"></v-img>
+                    <v-img v-if="currentWeather.icon" v-bind:src="getImage(currentWeather.icon)"></v-img>
                 </v-flex>
                 <v-flex xs12 sm6>
                     <v-layout headline class="text-xs-center">{{currentWeather.description | capitalize}}</v-layout>
-                    <v-list>
+                    <v-list v-if="currentWeather.pressure">
                         <v-list-item>
                             <v-list-item-content>Humidity:</v-list-item-content>
                             <v-list-item-action>{{currentWeather.humidity}}%</v-list-item-action>
