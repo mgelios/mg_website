@@ -35,6 +35,7 @@
         </v-navigation-drawer>
         <v-app-bar app flat>
             <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
+            <div class="flex-grow-1"></div>
             <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
             <!--<HelloWorld/>-->
         </v-app-bar>

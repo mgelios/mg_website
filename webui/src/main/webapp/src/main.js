@@ -11,6 +11,7 @@ import MainDashboardPage from './components/dashboard/pages/Main'
 import CryptoMarketDashboardPage from './components/dashboard/pages/CryptoMarket'
 import Profile from './components/profile/Profile'
 import Test from './components/dashboard/pages/Test'
+import Blog from './components/blog/Blog'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -49,6 +50,11 @@ const routes = [
                 component: Test
             }
         ]
+    },
+    {
+        path: '/blog',
+        name: 'blog',
+        component: Blog
     },
     {
         path: '/profile',
