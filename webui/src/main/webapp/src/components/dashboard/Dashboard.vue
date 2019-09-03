@@ -1,12 +1,35 @@
 <template>
     <div>
+        <v-app-bar app flat>
+            <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
+            <div class="flex-grow-1"></div>
+            <v-menu v-model="menu" :close-on-content-click="false">
+                <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                        <v-icon>business</v-icon>
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-list>
+                        <v-list-item @click="router.push({name: 'blog'})">
+                            <v-list-item-avatar>
+                                <v-icon>chrome_reader_mode</v-icon>
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title>Blog</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </v-card>
+            </v-menu>
+            <v-icon large @click="router.push({name: 'profile'})">perm_identity</v-icon>
+            <!--<HelloWorld/>-->
+        </v-app-bar>
         <v-navigation-drawer app v-model="navDrawer" :mini-variant.sync="miniToolbar">
                 <v-list>
                     <v-list-item avatar>
                         <v-list-item-avatar>
-                            <router-link :to="{ name: 'dashboardMainPage' }">
-                                <v-icon x-large>dashboard</v-icon>
-                            </router-link>
+                            <v-icon x-large @click="router.push({name: 'dashboardMainPage'})">dashboard</v-icon>
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title>Dashboard</v-list-item-title>
@@ -21,11 +44,10 @@
             <v-list>
                 <v-list-item
                         v-for="navItem in navigationItems"
-                        :key="navItem.title">
+                        :key="navItem.title"
+                        @click="router.push({name: navItem.route})">
                         <v-list-item-action>
-                            <router-link :to="{ name: navItem.route }">
-                                <v-icon>{{navItem.icon}}</v-icon>
-                            </router-link>
+                            <v-icon>{{navItem.icon}}</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>{{navItem.title}}</v-list-item-title>
@@ -33,13 +55,7 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-app-bar app flat>
-            <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
-            <div class="flex-grow-1"></div>
-            <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
-            <!--<HelloWorld/>-->
-        </v-app-bar>
-            <router-view></router-view>
+        <router-view></router-view>
         <v-footer app :inset="true" :fixed="false" class="justify-center">&copy;MGeliOS 2019</v-footer>
     </div>
 </template>
@@ -49,6 +65,8 @@
         name: 'Dashboard',
         data: function () {
             return {
+                router: this.$router,
+                menu: false,
                 navDrawer: true,
                 miniToolbar: true,
                 navigationItems: [

@@ -6,12 +6,19 @@
             <v-menu v-model="menu" :close-on-content-click="false">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                        <v-icon>view_list</v-icon>
+                        <v-icon>business</v-icon>
                     </v-btn>
                 </template>
                 <v-card>
                     <v-list>
-
+                        <v-list-item @click="router.push({name: 'dashboardMainPage'})">
+                            <v-list-item-avatar>
+                                <v-icon>dashboard</v-icon>
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title>Dashboard</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
                     </v-list>
                 </v-card>
             </v-menu>
@@ -33,12 +40,10 @@
             <v-list dense>
                 <v-list-item
                         v-for="item in items"
-                        :key="item.title"
-                        @click="">
+                        :key="item.title">
                     <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
@@ -46,17 +51,19 @@
             </v-list>
         </v-navigation-drawer>
         <router-view>
-
         </router-view>
     </div>
 </template>
 
 <script>
+
+
     export default {
         name: 'Blog',
         data () {
             return {
                 menu: false,
+                router: this.$router,
                 items: [
                     { title: 'Home', icon: 'mdi-home-city' },
                     { title: 'My Account', icon: 'mdi-account' },

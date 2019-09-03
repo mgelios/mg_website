@@ -10,7 +10,7 @@ import FinanceDashboardPage from './components/dashboard/pages/Finance'
 import MainDashboardPage from './components/dashboard/pages/Main'
 import CryptoMarketDashboardPage from './components/dashboard/pages/CryptoMarket'
 import Profile from './components/profile/Profile'
-import Test from './components/dashboard/pages/Test'
+import Test from './components/blog/pages/Test'
 import Blog from './components/blog/Blog'
 
 Vue.config.productionTip = false;
@@ -44,17 +44,19 @@ const routes = [
                 name: 'dashboardCryptoMarketPage',
                 component: CryptoMarketDashboardPage
             },
+        ]
+    },
+    {
+        path: '/blog',
+        name: 'blog',
+        component: Blog,
+        children: [
             {
                 path: 'test',
                 name: 'testPage',
                 component: Test
             }
         ]
-    },
-    {
-        path: '/blog',
-        name: 'blog',
-        component: Blog
     },
     {
         path: '/profile',
