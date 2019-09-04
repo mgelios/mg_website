@@ -1,28 +1,44 @@
 <template>
     <v-content>
-        <v-container>
-            <Editor ref="editor" :outline="true" :preview="true" v-model="text" />
+        <v-container fluid grid-list-md>
+            <v-layout row wrap fill-height>
+                <v-flex xs12 lg6>
+                    <v-textarea
+                            v-model="text"
+                            v-on:input="updateText"
+                            :auto-grow="true"
+                            background-color="amber lighten-4"
+                            :solo="true">
+                    </v-textarea>
+                </v-flex>
+                <v-flex xs12 lg6>
+                    <v-container v-html="compiledText"></v-container>
+                </v-flex>
+            </v-layout>
         </v-container>
     </v-content>
 </template>
 
 <script>
-    import { Editor } from 'vuetify-markdown-editor';
-    import 'emoji-mart-vue-fast/css/emoji-mart.css'
+    import marked from 'marked'
+
     export default {
         name: 'Test',
         components: {
-            Editor
         },
         data() {
             return {
-                text: ''
+                text: '## paste your text here',
+                compiledText: ''
             };
         },
+        methods: {
+            updateText: function() {
+                this.compiledText = marked(this.text);
+            }
+        },
         mounted() {
-            this.$refs.editor.focus();
-            // Dark theme
-            //this.$vuetify.theme.dark = true;
+            this.updateText();
         }
     }
 </script>
