@@ -39,6 +39,12 @@
                                     <td>{{ props.item.priceBTC }}</td>
                                     <td>{{ props.item.percentChangeIn24h }}</td>
                                 </template>
+                                <template v-slot:item.percentChangeIn24h="{item}">
+                                    <v-chip :color="getPercentageOfChangesColor(item.percentChangeIn24h)" dark>
+                                        {{item.percentChangeIn24h}}
+                                        <v-icon right>{{getPercentageOfChangesIcon(item.percentChangeIn24h)}}</v-icon>
+                                    </v-chip>
+                                </template>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -101,6 +107,24 @@
                 cryptoCurrencies : state => state.CryptoCurrency.all,
                 cryptoMarket : state => state.CryptoCurrency.market
             })
+        },
+        methods: {
+            getPercentageOfChangesColor: function(value) {
+                if (value > 1) {
+                    return 'green';
+                } else if (value <= 1 && value >= -1) {
+                    return 'grey';
+                } else
+                    return 'red';
+            },
+            getPercentageOfChangesIcon: function(value) {
+                if (value > 1) {
+                    return 'trending_up';
+                } else if (value <= 1 && value >= -1) {
+                    return 'trending_flat';
+                } else
+                    return 'trending_down';
+            }
         }
     }
 </script>

@@ -8,6 +8,7 @@ create table mg_blog_article (
   id serial not null,
   title text,
   content text,
+  short_description text,
   author integer,
   last_updated timestamp,
   primary key (id)
@@ -16,12 +17,14 @@ create table mg_blog_article (
 create table mg_blog_category (
   id serial not null,
   name text,
+  description text,
   primary key (id)
 );
 
 create table mg_blog_subcategory (
   id serial not null,
   name text,
+  description text,
   primary key (id)
 );
 

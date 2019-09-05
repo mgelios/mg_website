@@ -18,6 +18,7 @@ public class ArticleDBEntity {
     @OneToOne
     private UserDBEntity author;
     private String title;
+    private String shortDescription;
     private String content;
     private Timestamp lastUpdated;
     @ManyToOne

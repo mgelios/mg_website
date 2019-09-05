@@ -19,7 +19,6 @@ public class ArticleService {
 
     public Article createArticle(String content) {
         Article article = new Article();
-        SecurityContextHolder.getContext().getAuthentication().getName();
         return null;
     }
 

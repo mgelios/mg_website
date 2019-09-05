@@ -7,7 +7,7 @@
                             v-model="text"
                             v-on:input="updateText"
                             :auto-grow="true"
-                            background-color="amber lighten-4"
+                            background-color="green lighten-5"
                             :solo="true">
                     </v-textarea>
                 </v-flex>

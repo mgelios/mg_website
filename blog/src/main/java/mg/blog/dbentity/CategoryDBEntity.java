@@ -10,6 +10,7 @@ public class CategoryDBEntity {
 
     private Long id;
     private String name;
+    private String description;
     @OneToMany
     private List<SubcategoryDBEntity> subcategories;
 }
