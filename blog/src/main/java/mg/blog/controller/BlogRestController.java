@@ -1,5 +1,8 @@
 package mg.blog.controller;
 
+import mg.blog.model.Article;
+import mg.blog.model.Category;
+import mg.blog.model.Subcategory;
 import mg.blog.service.ArticleService;
 import mg.blog.service.CategoryService;
 import mg.blog.service.SubcategoryService;
@@ -19,7 +22,7 @@ public class BlogRestController {
     }
 
     @PostMapping("/article/{id}")
-    public Object createArticle(@PathVariable Long id) {
+    public Object createArticle(@RequestBody Article article) {
         return null;
     }
 
@@ -29,7 +32,7 @@ public class BlogRestController {
     }
 
     @PostMapping("/category/{id}")
-    public Object createCategory(@PathVariable Long id) {
+    public Object createCategory(@RequestBody Category category) {
         return null;
     }
 
@@ -39,7 +42,8 @@ public class BlogRestController {
     }
 
     @PostMapping("/subcategory/{id}")
-    public Object createSubcategory(@PathVariable Long id) {
+    public Object createSubcategory(@RequestBody Subcategory subcategory) {
+        subcategory.getDescription();
         return null;
     }
 }

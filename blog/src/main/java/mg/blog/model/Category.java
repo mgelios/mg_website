@@ -9,5 +9,6 @@ public class Category {
 
     private Long id;
     private String name;
+    private String subcategory;
     private List<Subcategory> subcategories;
 }
