@@ -7,9 +7,19 @@ const state = {
 
 const getters = {};
 
-const actions = {};
+const actions = {
+    triggerCategoryCreation({ commit,categoryData }) {
+        blog.createCategory(category => {
+            commit('createCategory', category);
+        }, categoryData);
+    }
+};
 
-const mutations = {};
+const mutations = {
+    createCategory: function(state, createdCategory) {
+        state.categories.push(createdCategory);
+    }
+};
 
 export default {
     namespaced: true,

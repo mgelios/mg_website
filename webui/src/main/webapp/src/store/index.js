@@ -4,6 +4,7 @@ import CryptoCurrency from './modules/CryptoCurrency'
 import Weather from './modules/Weather'
 import Currency from './modules/Currency'
 import Radiot from './modules/Radiot'
+import Blog from './modules/Blog'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         CryptoCurrency,
         Weather,
         Currency,
-        Radiot
+        Radiot,
+        Blog
     }
 })

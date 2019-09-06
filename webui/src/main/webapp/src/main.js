@@ -12,6 +12,7 @@ import CryptoMarketDashboardPage from './components/dashboard/pages/CryptoMarket
 import Profile from './components/profile/Profile'
 import Test from './components/blog/pages/Test'
 import Blog from './components/blog/Blog'
+import BlogCategories from './components/blog/pages/Categories'
 
 import marked from 'marked'
 import hljs from 'highlight.js';
@@ -59,6 +60,11 @@ const routes = [
                 path: 'test',
                 name: 'testPage',
                 component: Test
+            },
+            {
+                path: 'categories',
+                name: 'categoriesPage',
+                component: BlogCategories
             }
         ]
     },

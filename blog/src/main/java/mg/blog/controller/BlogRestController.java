@@ -31,8 +31,9 @@ public class BlogRestController {
         return categoryService.getCategory(id);
     }
 
-    @PostMapping("/category/{id}")
+    @PostMapping("/category")
     public Object createCategory(@RequestBody Category category) {
+        category.getName();
         return null;
     }
 

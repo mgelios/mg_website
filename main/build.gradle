@@ -4,6 +4,7 @@ dependencies {
     compile project(':weather')
     compile project(':finance')
     compile project(':news')
+    compile project(':blog')
 }
 
 
