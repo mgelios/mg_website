@@ -11,19 +11,19 @@ const getters = {
 };
 
 const actions = {
-    getExchangeRates({ commit }) {
+    getExchangeRates(context) {
         currency.getExchangeRates(currencies => {
-            commit('setExchangeRates', currencies);
+            context.commit('setExchangeRates', currencies);
         })
     },
-    getCurrencyConversions({ commit }) {
+    getCurrencyConversions(context) {
         currency.getConversions(conversions => {
-            commit('setCurrencyConversions', conversions);
+            context.commit('setCurrencyConversions', conversions);
         })
     },
-    getCurrenciesStatistics({ commit }) {
+    getCurrenciesStatistics(context) {
         currency.getStatistics(statistics => {
-            commit('setCurrenciesStatistics', statistics);
+            context.commit('setCurrenciesStatistics', statistics);
         })
     }
 };

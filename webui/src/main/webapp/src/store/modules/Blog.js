@@ -8,9 +8,9 @@ const state = {
 const getters = {};
 
 const actions = {
-    triggerCategoryCreation({ commit,categoryData }) {
+    triggerCategoryCreation(context, categoryData) {
         blog.createCategory(category => {
-            commit('createCategory', category);
+            context.commit('createCategory', category);
         }, categoryData);
     }
 };

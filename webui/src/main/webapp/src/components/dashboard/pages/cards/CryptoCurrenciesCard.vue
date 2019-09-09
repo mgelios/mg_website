@@ -77,7 +77,7 @@
             getPercentageOfChangesColor: function(value) {
                 if (value > 1) {
                     return 'green';
-                } else if (value <= 1 && value > 0) {
+                } else if (value <= 1 && value > -1) {
                     return 'grey';
                 } else
                     return 'red';

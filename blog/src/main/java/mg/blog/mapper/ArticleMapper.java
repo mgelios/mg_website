@@ -17,13 +17,13 @@ public abstract class ArticleMapper {
 
     public abstract Article mapToDTO(ArticleDBEntity entity);
 
-    @AfterMapping
-    private void addBackReference (@MappingTarget ArticleDBEntity entity) {
-        entity.getComments().forEach(comment -> comment.setArticle(entity));
-    }
+//    @AfterMapping
+//    private void addBackReference (@MappingTarget ArticleDBEntity entity) {
+//        entity.getComments().forEach(comment -> comment.setArticle(entity));
+//    }
 
-    @AfterMapping
-    private void addBackReference (@MappingTarget Article dto) {
-        dto.getComments().forEach(comment -> comment.setArticle(dto));
-    }
+//    @AfterMapping
+//    private void addBackReference (@MappingTarget Article dto) {
+//        dto.getComments().forEach(comment -> comment.setArticle(dto));
+//    }
 }

@@ -9,14 +9,14 @@ const getters = {
 };
 
 const actions = {
-    getCurrentWeather({ commit }) {
+    getCurrentWeather(context) {
         weather.getCurrentWeather(data => {
-            commit('setCurrentWeather', data);
+            context.commit('setCurrentWeather', data);
         })
     },
-    getWeatherForecast({ commit }) {
+    getWeatherForecast(context) {
         weather.getWeatherForecast(data => {
-            commit('setWeatherForecast', data);
+            context.commit('setWeatherForecast', data);
         })
     }
 };

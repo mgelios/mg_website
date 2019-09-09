@@ -8,9 +8,9 @@ const getters = {
 };
 
 const actions = {
-    getArticles({ commit }) {
+    getArticles(context) {
         weather.getArticles(data => {
-            commit('setArticles', data);
+            context.commit('setArticles', data);
         })
     }
 };

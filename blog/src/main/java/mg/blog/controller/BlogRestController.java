@@ -6,14 +6,19 @@ import mg.blog.model.Subcategory;
 import mg.blog.service.ArticleService;
 import mg.blog.service.CategoryService;
 import mg.blog.service.SubcategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/v1/blog")
 public class BlogRestController {
 
+    @Autowired
     private ArticleService articleService;
+    @Autowired
     private CategoryService categoryService;
+    @Autowired
     private SubcategoryService subcategoryService;
 
     @GetMapping("/article/{id}")
@@ -33,8 +38,7 @@ public class BlogRestController {
 
     @PostMapping("/category")
     public Object createCategory(@RequestBody Category category) {
-        category.getName();
-        return null;
+        return categoryService.createCategory(category);
     }
 
     @GetMapping("/subcategory/{id}")

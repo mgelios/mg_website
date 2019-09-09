@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-    createCategory: function(categoryData, callback) {
+    createCategory: function(callback, categoryData) {
         axios
             .post("/api/v1/blog/category", categoryData)
             .then(response => {

@@ -9,14 +9,14 @@ const getters = {
 };
 
 const actions = {
-    getAllCryptoCurrencies({ commit }) {
+    getAllCryptoCurrencies(context) {
         crypto.getCryptoCurrencies(currencies => {
-            commit('setCryptoCurrencies', currencies);
+            context.commit('setCryptoCurrencies', currencies);
         })
     },
-    getCryptoMarket({ commit }) {
+    getCryptoMarket(context) {
         crypto.getCryptoMarket(market => {
-            commit('setCryptoMarket', market);
+            context.commit('setCryptoMarket', market);
         })
     }
 };

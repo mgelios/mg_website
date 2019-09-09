@@ -10,7 +10,7 @@ public class Comment {
 
     private Long id;
     private String text;
-    private LocalUser author;
-    private Article article;
+    //private LocalUser author;
+    //private Article article;
     private LocalDateTime lastUpdated;
 }

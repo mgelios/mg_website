@@ -11,11 +11,12 @@ import java.util.Set;
 public class Article {
 
     private Long id;
-    private LocalUser author;
+//    private LocalUser author;
     private String title;
+    private String shortDescription;
     private String content;
     private LocalDateTime lastUpdated;
-    private Set<Tag> tags;
+//    private Set<Tag> tags;
     private Subcategory subcategory;
-    private List<Comment> comments;
+//    private List<Comment> comments;
 }
