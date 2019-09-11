@@ -12,10 +12,18 @@ const actions = {
         blog.createCategory(category => {
             context.commit('createCategory', category);
         }, categoryData);
+    },
+    triggerCategoryReceiving(context) {
+        blog.getCategories(categories => {
+            context.commit('setCategories', categories);
+        })
     }
 };
 
 const mutations = {
+    setCategories: function(state, receivedCategories) {
+        state.categories = receivedCategories;
+    },
     createCategory: function(state, createdCategory) {
         state.categories.push(createdCategory);
     }

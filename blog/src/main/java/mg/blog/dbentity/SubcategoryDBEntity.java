@@ -15,6 +15,8 @@ public class SubcategoryDBEntity {
     private Long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "icon")
+    private String icon;
     @Column(name = "description")
     private String description;
 }

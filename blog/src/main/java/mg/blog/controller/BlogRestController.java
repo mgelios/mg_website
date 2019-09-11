@@ -31,6 +31,11 @@ public class BlogRestController {
         return null;
     }
 
+    @GetMapping("/category/all")
+    public Object getAllCategories() {
+        return categoryService.getAllCategories();
+    }
+
     @GetMapping("/category/{id}")
     public Object getCategory(@PathVariable Long id) {
         return categoryService.getCategory(id);

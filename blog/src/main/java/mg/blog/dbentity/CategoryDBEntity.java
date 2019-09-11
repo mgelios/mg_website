@@ -18,6 +18,8 @@ public class CategoryDBEntity {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "icon")
+    private String icon;
     @OneToMany
     private List<SubcategoryDBEntity> subcategories;
 }
