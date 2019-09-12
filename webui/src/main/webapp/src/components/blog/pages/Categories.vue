@@ -45,10 +45,17 @@
             <v-card>
                 <v-card-title>
                     <span class="headline">Add subcategory</span>
+                    <span class="headline">Parent category: category</span>
                 </v-card-title>
                 <v-card-text>
+                    <v-text-field outlined label="icon"></v-text-field>
+                    <v-text-field outlined label="name"></v-text-field>
+                    <v-text-field outlined label="description"></v-text-field>
                 </v-card-text>
                 <v-card-actions>
+                    <v-btn color="blue darken-1" text @click="dialogOpened = false">Cancel</v-btn>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="blue darken-1" text>Create subcategory</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -56,7 +63,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    //import { mapState } from 'vuex';
 
     export default {
         name: 'Categories',
@@ -118,6 +125,9 @@
             },
             secondTestAction: function() {
                 this.categoryName = "lalala";
+            },
+            createSubcategory: function() {
+
             }
         },
         mounted: function() {
