@@ -26,21 +26,21 @@
             <!--<HelloWorld/>-->
         </v-app-bar>
         <v-navigation-drawer app v-model="navDrawer" :mini-variant.sync="miniToolbar">
-                <v-list>
-                    <v-list-item avatar>
-                        <v-list-item-avatar>
-                            <v-icon x-large @click="router.push({name: 'dashboardMainPage'})">dashboard</v-icon>
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                            <v-list-item-title>Dashboard</v-list-item-title>
-                        </v-list-item-content>
-                        <v-list-item-action>
-                            <v-btn icon @click.stop="miniToolbar = !miniToolbar">
-                                <v-icon>chevron_left</v-icon>
-                            </v-btn>
-                        </v-list-item-action>
-                    </v-list-item>
-                </v-list>
+            <v-list>
+                <v-list-item avatar>
+                    <v-list-item-avatar>
+                        <v-icon x-large @click="router.push({name: 'dashboardMainPage'})">dashboard</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-title>Dashboard</v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        <v-btn icon @click.stop="miniToolbar = !miniToolbar">
+                            <v-icon>chevron_left</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+                </v-list-item>
+            </v-list>
             <v-list>
                 <v-list-item
                         v-for="navItem in navigationItems"

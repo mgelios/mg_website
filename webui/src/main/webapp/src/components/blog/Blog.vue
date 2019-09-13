@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app-bar app flat>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
             <div class="flex-grow-1"></div>
             <v-menu v-model="menu" :close-on-content-click="false">
                 <template v-slot:activator="{ on }">
@@ -24,7 +24,7 @@
             </v-menu>
             <router-link :to="{ name: 'profile' }"><v-icon large>perm_identity</v-icon></router-link>
         </v-app-bar>
-        <v-navigation-drawer app absolute permanent left>
+        <v-navigation-drawer v-model="navDrawer" app absolute left>
             <template v-slot:prepend>
                 <v-list-item two-line>
                     <v-list-item-avatar>
@@ -64,6 +64,7 @@
             return {
                 menu: false,
                 router: this.$router,
+                navDrawer: true,
                 items: [
                     { title: 'Home', icon: 'mdi-home-city' },
                     { title: 'My Account', icon: 'mdi-account' },
