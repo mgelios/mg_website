@@ -6,4 +6,5 @@ public interface WeatherUrlBuilder {
     String buildCurrentWeatherUrl(String city);
     String buildForecastDefaultUrl();
     String buildForecastUrl(String city);
+    String buildDefaultUviUrl();
 }

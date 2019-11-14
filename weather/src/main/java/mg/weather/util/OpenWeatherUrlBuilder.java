@@ -18,6 +18,7 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         builder.append(weatherConfiguration.getBaseUrl())
                 .append(weatherConfiguration.getWeatherSuffix())
                 .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getQuerySymbol())
                 .append(weatherConfiguration.getEqualitySymbol())
                 .append(weatherConfiguration.getDefaultCity())
                 .append(getApiKeyPart())
@@ -27,11 +28,12 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
     }
 
     @Override
-    public String buildCurrentWeatherUrl(String city){
+    public String buildCurrentWeatherUrl(String city) {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
                 .append(weatherConfiguration.getWeatherSuffix())
                 .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getQuerySymbol())
                 .append(weatherConfiguration.getEqualitySymbol())
                 .append(city)
                 .append(getApiKeyPart())
@@ -41,11 +43,12 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
     }
 
     @Override
-    public String buildForecastDefaultUrl(){
+    public String buildForecastDefaultUrl() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
                 .append(weatherConfiguration.getForecastSuffix())
                 .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getQuerySymbol())
                 .append(weatherConfiguration.getEqualitySymbol())
                 .append(weatherConfiguration.getDefaultCity())
                 .append(getApiKeyPart())
@@ -55,11 +58,12 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
     }
 
     @Override
-    public String buildForecastUrl(String city){
+    public String buildForecastUrl(String city) {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
                 .append(weatherConfiguration.getForecastSuffix())
                 .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(weatherConfiguration.getQuerySymbol())
                 .append(weatherConfiguration.getEqualitySymbol())
                 .append(city)
                 .append(getApiKeyPart())
@@ -68,8 +72,19 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
+    @Override
+    public String buildDefaultUviUrl() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getBaseUrl())
+                .append(weatherConfiguration.getUviSuffix())
+                .append(weatherConfiguration.getFirstQueryDelimiter())
+                .append(getApiKeyPart())
+                .append(getDefaultCoordPart());
+        return builder.toString();
+    }
 
-    private String getApiKeyPart(){
+
+    private String getApiKeyPart() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getQueryDelimiter())
                 .append(weatherConfiguration.getApiKeyVariable())
@@ -78,7 +93,7 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
-    private String getUnitsPart(){
+    private String getUnitsPart() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getQueryDelimiter())
                 .append(weatherConfiguration.getUnitsVariable())
@@ -87,14 +102,24 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
-    private String getLangPart(){
+    private String getLangPart() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getQueryDelimiter())
                 .append(weatherConfiguration.getLangVariable())
                 .append(weatherConfiguration.getEqualitySymbol())
                 .append(weatherConfiguration.getLang());
         return builder.toString();
-
     }
 
+    private String getDefaultCoordPart() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(weatherConfiguration.getQueryDelimiter())
+                .append(weatherConfiguration.getCoordLatSuffix())
+                .append(weatherConfiguration.getEqualitySymbol())
+                .append(weatherConfiguration.getDefaultCoordLat())
+                .append(weatherConfiguration.getCoordLonSuffix())
+                .append(weatherConfiguration.getEqualitySymbol())
+                .append(weatherConfiguration.getDefaultCoordLon());
+        return builder.toString();
+    }
 }

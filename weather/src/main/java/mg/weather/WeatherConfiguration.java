@@ -33,9 +33,16 @@ public class WeatherConfiguration{
 
     private String firstQueryDelimiter;
     private String queryDelimiter;
+    private String querySymbol;
     private String equalitySymbol;
 
     private String apiKeyVariable;
     private String unitsVariable;
     private String langVariable;
+
+    private String uviSuffix;
+    private String coordLatSuffix;
+    private String coordLonSuffix;
+    private String defaultCoordLat;
+    private String defaultCoordLon;
 }
