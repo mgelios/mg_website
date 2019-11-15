@@ -7,4 +7,5 @@ public interface WeatherUrlBuilder {
     String buildForecastDefaultUrl();
     String buildForecastUrl(String city);
     String buildDefaultUviUrl();
+    String buildUviUrl(String lat, String lon);
 }

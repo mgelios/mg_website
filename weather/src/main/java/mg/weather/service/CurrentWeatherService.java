@@ -78,6 +78,14 @@ public class CurrentWeatherService {
         dbEntity.setSunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"));
         dbEntity.setSunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"));
         dbEntity.setCityName(jsonHelper.getString(json,"name").toLowerCase());
+        dbEntity.setUvi(getUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));
         return currentWeatherRepository.save(dbEntity);
+    }
+
+    private double getUvi(double lat, double lon) {
+        double uvi = 0.0;
+        JSONObject currentUviJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildUviUrl(String.valueOf(lat), String.valueOf(lon)));
+        uvi = jsonHelper.getDouble(currentUviJson, "value");
+        return uvi;
     }
 }

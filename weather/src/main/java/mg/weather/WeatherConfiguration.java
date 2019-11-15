@@ -31,7 +31,7 @@ public class WeatherConfiguration{
     private String lang;
     private String defaultCity;
 
-    private String firstQueryDelimiter;
+    private String weatherQuerySuffix;
     private String queryDelimiter;
     private String querySymbol;
     private String equalitySymbol;

@@ -7,7 +7,7 @@ mg:
     units: "metric"
     lang: "en"
     defaultCity: "minsk"
-    firstQueryDelimiter: "?"
+    weatherQuerySuffix: "q"
     querySymbol: "?"
     queryDelimiter: "&"
     apiKeyVariable: "appid"
