@@ -2,7 +2,6 @@ package mg.finance.repositories;
 
 import mg.finance.dbentities.CurrencyDBEntity;
 import mg.finance.dbentities.CurrencyStatisticsDBEntity;
-import mg.finance.models.CurrencyStatistics;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

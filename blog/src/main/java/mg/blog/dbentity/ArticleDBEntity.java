@@ -3,13 +3,9 @@ package mg.blog.dbentity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import mg.blog.model.Subcategory;
-import mg.profile.dbentities.UserDBEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity

@@ -3,7 +3,6 @@ package mg.finance.dbentities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import mg.finance.models.Currency;
 
 import javax.persistence.*;
 

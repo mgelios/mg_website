@@ -1,10 +1,6 @@
 package mg.finance.dbentities;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
