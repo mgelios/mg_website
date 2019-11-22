@@ -1,4 +1,4 @@
-package mg.weather.dbentity;
+package mg.weather.entity;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="mg_weather_forecast")
-public class WeatherForecastDBEntity {
+public class WeatherForecast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

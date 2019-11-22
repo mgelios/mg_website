@@ -1,4 +1,4 @@
-package mg.weather.dbentity;
+package mg.weather.entity;
 
 import lombok.Data;
 import org.hibernate.search.annotations.Field;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Data
 @Table(name="mg_current_weather")
 @Indexed
-public class CurrentWeatherDBEntity {
+public class CurrentWeather {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

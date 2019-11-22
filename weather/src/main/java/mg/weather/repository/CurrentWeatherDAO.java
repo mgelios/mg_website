@@ -1,6 +1,6 @@
 package mg.weather.repository;
 
-import mg.weather.dbentity.CurrentWeatherDBEntity;
+import mg.weather.entity.CurrentWeather;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -20,7 +20,7 @@ public class CurrentWeatherDAO {
     EntityManager entityManager;
 
     @Transactional
-    public List<CurrentWeatherDBEntity> searchCurrentWeather(String cityNamePart, String descriptionPart) {
+    public List<CurrentWeather> searchCurrentWeather(String cityNamePart, String descriptionPart) {
         FullTextQuery jpaQuery = getSearchCurrentWeatherQuery(cityNamePart, descriptionPart);
         return jpaQuery.getResultList();
     }
@@ -29,7 +29,7 @@ public class CurrentWeatherDAO {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder()
-                .forEntity(CurrentWeatherDBEntity.class)
+                .forEntity(CurrentWeather.class)
                 .get();
         Query query = queryBuilder.bool()
                 .should(queryBuilder.keyword()
@@ -44,7 +44,7 @@ public class CurrentWeatherDAO {
                         .createQuery())
                 .minimumShouldMatchNumber(2)
                 .createQuery();
-        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query, CurrentWeatherDBEntity.class);
+        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query, CurrentWeather.class);
         return fullTextQuery;
     }
 }

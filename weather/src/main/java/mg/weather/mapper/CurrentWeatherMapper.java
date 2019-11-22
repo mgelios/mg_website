@@ -1,8 +1,8 @@
 package mg.weather.mapper;
 
 import mg.utils.mapper.DateMapper;
-import mg.weather.dbentity.CurrentWeatherDBEntity;
-import mg.weather.model.CurrentWeather;
+import mg.weather.entity.CurrentWeather;
+import mg.weather.dto.CurrentWeatherDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,7 +11,7 @@ public abstract class CurrentWeatherMapper {
 
     public static final CurrentWeatherMapper INSTANCE = Mappers.getMapper(CurrentWeatherMapper.class);
 
-    public abstract CurrentWeatherDBEntity mapToEntity(CurrentWeather dto);
+    public abstract CurrentWeather mapToEntity(CurrentWeatherDto dto);
 
-    public abstract CurrentWeather mapToDTO(CurrentWeatherDBEntity entity);
+    public abstract CurrentWeatherDto mapToDTO(CurrentWeather entity);
 }

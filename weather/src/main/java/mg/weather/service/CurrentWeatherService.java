@@ -3,9 +3,9 @@ package mg.weather.service;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
-import mg.weather.dbentity.CurrentWeatherDBEntity;
+import mg.weather.entity.CurrentWeather;
 import mg.weather.mapper.CurrentWeatherMapper;
-import mg.weather.model.CurrentWeather;
+import mg.weather.dto.CurrentWeatherDto;
 import mg.weather.repository.CurrentWeatherRepository;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONObject;
@@ -31,13 +31,13 @@ public class CurrentWeatherService {
     @Autowired
     private CurrentWeatherRepository currentWeatherRepository;
 
-    public CurrentWeather getDefaultCurrentWeather() {
+    public CurrentWeatherDto getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public CurrentWeather getCurrentWeatherByCityName(String cityName) {
-        Optional<CurrentWeatherDBEntity> optionalCurrentWeather = currentWeatherRepository.findByCityName(cityName);
-        CurrentWeatherDBEntity result = null;
+    public CurrentWeatherDto getCurrentWeatherByCityName(String cityName) {
+        Optional<CurrentWeather> optionalCurrentWeather = currentWeatherRepository.findByCityName(cityName);
+        CurrentWeather result = null;
         if (optionalCurrentWeather.isPresent()) {
             result = optionalCurrentWeather.get();
         }
@@ -51,16 +51,16 @@ public class CurrentWeatherService {
         updateCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public CurrentWeatherDBEntity updateCurrentWeatherByCityName(String cityName) {
+    public CurrentWeather updateCurrentWeatherByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
         if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
             currentWeatherRepository.deleteAllByCityName(cityName);
         }
-        return saveCurrentWeatherDBEntity(currentWeatherJson);
+        return saveCurrentWeather(currentWeatherJson);
     }
 
-    private CurrentWeatherDBEntity saveCurrentWeatherDBEntity(JSONObject json) {
-        CurrentWeatherDBEntity dbEntity = new CurrentWeatherDBEntity();
+    private CurrentWeather saveCurrentWeather(JSONObject json) {
+        CurrentWeather dbEntity = new CurrentWeather();
         dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
         dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
         dbEntity.setDescription(jsonHelper.getString(json, "weather[0].description"));

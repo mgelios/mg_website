@@ -3,9 +3,9 @@ package mg.weather.service;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
-import mg.weather.dbentity.WeatherForecastDBEntity;
+import mg.weather.entity.WeatherForecast;
 import mg.weather.mapper.WeatherForecastMapper;
-import mg.weather.model.WeatherForecast;
+import mg.weather.dto.WeatherForecastDto;
 import mg.weather.repository.WeatherForecastRepository;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONArray;
@@ -38,12 +38,12 @@ public class WeatherForecastService {
     @Autowired
     private WeatherConfiguration weatherConfiguration;
 
-    public List<WeatherForecast> getDefaultWeatherForecast() {
+    public List<WeatherForecastDto> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public List<WeatherForecast> getWeatherForecastByCityName(String cityName) {
-        List<WeatherForecastDBEntity> weatherForecastList = new ArrayList<>();
+    public List<WeatherForecastDto> getWeatherForecastByCityName(String cityName) {
+        List<WeatherForecast> weatherForecastList = new ArrayList<>();
         boolean expired = true;
         if (weatherForecastRepository.findAllByCityName(cityName).size() > 0) {
             weatherForecastList = weatherForecastRepository.findAllByCityName(cityName);
@@ -61,21 +61,21 @@ public class WeatherForecastService {
         updateWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
     }
 
-    public List<WeatherForecastDBEntity> updateWeatherForecastByCityName(String cityName) {
+    public List<WeatherForecast> updateWeatherForecastByCityName(String cityName) {
         JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildForecastUrl(cityName));
         if (weatherForecastRepository.findAllByCityName(cityName).size() != 0) {
             weatherForecastRepository.deleteAllByCityName(cityName);
         }
-        return saveWeatherForecastEntities(currentWeatherJson);
+        return saveWeatherForecasts(currentWeatherJson);
     }
 
-    private List<WeatherForecastDBEntity> saveWeatherForecastEntities(JSONObject json) {
-        List<WeatherForecastDBEntity> result = new ArrayList<>();
+    private List<WeatherForecast> saveWeatherForecasts(JSONObject json) {
+        List<WeatherForecast> result = new ArrayList<>();
         JSONArray forecasts = json.getJSONArray("list");
         String city = jsonHelper.getString(json, "city.name").toLowerCase();
         int numberOfRecords = json.getInt("cnt");
         for (int i = 0; i < numberOfRecords; i++){
-            WeatherForecastDBEntity dbEntity = new WeatherForecastDBEntity();
+            WeatherForecast dbEntity = new WeatherForecast();
             JSONObject forecast = forecasts.getJSONObject(i);
             dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"));
             dbEntity.setTemperature(jsonHelper.getDouble(forecast, "main.temp"));

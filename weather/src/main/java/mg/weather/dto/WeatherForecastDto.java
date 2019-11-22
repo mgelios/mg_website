@@ -1,11 +1,11 @@
-package mg.weather.model;
+package mg.weather.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class WeatherForecast {
+public class WeatherForecastDto {
 
     private Long id;
     private LocalDateTime time;
