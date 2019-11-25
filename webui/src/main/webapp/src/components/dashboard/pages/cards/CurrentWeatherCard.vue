@@ -1,14 +1,14 @@
 <template>
     <v-card>
         <v-card-title class="blue-grey darken-1">
-            <v-layout headline class="white--text">{{currentWeather.cityName | capitalize}} {{currentWeather.temperature | degreeCelsius}}</v-layout>
+            <v-layout headline class="white--text">
+                <v-img v-if="currentWeather.icon" v-bind:src="getImage(currentWeather.icon)" height="1.5em" contain style="filter: invert(100%);" max-width="1.5em" />
+                {{currentWeather.cityName | capitalize}} {{currentWeather.temperature | degreeCelsius}}
+            </v-layout>
         </v-card-title>
         <v-card-text>
             <v-layout row>
-                <v-flex xs12 sm6>
-                    <v-img v-if="currentWeather.icon" v-bind:src="getImage(currentWeather.icon)"></v-img>
-                </v-flex>
-                <v-flex xs12 sm6>
+                <v-flex xs12>
                     <v-layout headline class="text-xs-center">{{currentWeather.description | capitalize}}</v-layout>
                     <v-list v-if="currentWeather.pressure">
                         <v-list-item>
@@ -39,6 +39,11 @@
                         <v-list-item>
                             <v-list-item-content>Sunset:</v-list-item-content>
                             <v-list-item-action>{{currentWeather.sunset[3]+':'+currentWeather.sunset[4]}}</v-list-item-action>
+                        </v-list-item>
+                        <v-divider class="ma-0"></v-divider>
+                        <v-list-item>
+                            <v-list-item-content>UVI:</v-list-item-content>
+                            <v-list-item-action>{{currentWeather.uvi.toFixed(2)}}</v-list-item-action>
                         </v-list-item>
                     </v-list>
                 </v-flex>
