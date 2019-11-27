@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card height="100%">
         <v-card-title class="light-blue darken-2">
             <v-layout headline class="white--text">Radiot Articles</v-layout>
         </v-card-title>

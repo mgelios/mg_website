@@ -12,8 +12,6 @@ Vue.filter('degreeCelsius', function(value) {
     if (!value) return '';
     if (value > 0) {
         string = "+";
-    } else if (value < 0) {
-        string = "-";
     }
     string = string + value.toString() + "°C";
     return string;

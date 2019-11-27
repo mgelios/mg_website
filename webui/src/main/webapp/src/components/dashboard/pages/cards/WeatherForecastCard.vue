@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card height="100%">
         <v-card-title class="blue-grey darken-1">
             <v-layout headline class="white--text">Forecast</v-layout>
         </v-card-title>

@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card height="100%">
         <v-card-title class="teal darken-1">
             <v-layout headline class="white--text">Currency Conversions</v-layout>
         </v-card-title>

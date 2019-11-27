@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card height="100%">
         <v-card-title class="blue-grey darken-1">
             <v-layout headline class="white--text">
                 <v-img v-if="currentWeather.icon" v-bind:src="getImage(currentWeather.icon)" height="1.5em" contain style="filter: invert(100%);" max-width="1.5em" />

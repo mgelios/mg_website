@@ -7,19 +7,19 @@
                         <v-card-text>
                             <v-layout row>
                                 <v-flex xs0 sm2 lg4></v-flex>
-                                <v-flex xs6 sm4 lg2>
+                                <v-flex xs12 sm4 lg2>
                                     <v-img v-bind:src="getImage(currentWeather.icon)"></v-img>
                                 </v-flex>
-                                <v-flex xs6 sm4 lg2>
-                                    <v-layout class="display-3 text-xs-center">{{currentWeather.temperature | degreeCelsius}}</v-layout>
-                                    <v-layout class="headline">{{currentWeather.mainInfo | capitalize}}</v-layout>
+                                <v-flex xs12 sm4 lg2 d-flex align-center>
+                                    <v-container class="display-3">{{currentWeather.temperature | degreeCelsius}}</v-container>
+                                    <v-container class="headline">{{currentWeather.mainInfo | capitalize}}</v-container>
                                 </v-flex>
                                 <v-flex xs0 sm2 lg4></v-flex>
                             </v-layout>
                             <v-layout row>
                                 <v-flex xs0 sm2 lg3 xl4></v-flex>
                                 <v-flex xs12 sm8 lg6 xl4>
-                                    <v-layout row wrap>
+                                    <v-layout row wrap v-if="currentWeather">
                                         <v-flex xs6 sm4 subheading>Details: {{currentWeather.description}}</v-flex>
                                         <v-flex xs6 sm4 subheading>Humidity: {{currentWeather.humidity}}%</v-flex>
                                         <v-flex xs6 sm4 subheading>Pressure: {{(currentWeather.pressure*(0.750062)).toFixed(2)}}</v-flex>
