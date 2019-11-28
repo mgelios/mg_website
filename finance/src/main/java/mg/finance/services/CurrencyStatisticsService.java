@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +73,7 @@ public class CurrencyStatisticsService {
         for (Object item : jsonArray) {
             CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
             JSONObject jsonItem = (JSONObject) item;
-            statisticsDBEntity.setDate(Timestamp.from(Instant.now()));
+            statisticsDBEntity.setDate(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"));
             statisticsDBEntity.setCurrency(currency);
             statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem,"Cur_OfficialRate"));
             statisticsDBEntity.setId(jsonHelper.getLong(jsonItem,"Cur_ID"));

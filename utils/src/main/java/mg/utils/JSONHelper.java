@@ -30,4 +30,6 @@ public interface JSONHelper {
     Boolean getBoolean(JSONObject object, String path);
 
     Timestamp getTimestampOfEpochSecond(JSONObject object, String path);
+
+    Timestamp getTimestampFromFormat(JSONObject object, String path, String pattern);
 }

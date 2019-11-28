@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,15 +63,14 @@ public class BasicJSONHelper implements JSONHelper {
         }
     }
 
-    //TODO: change return statment for big integers and big decimals
     @Override
     public BigInteger getBigInteger(JSONObject object, String path) {
-        return null;
+        return new BigInteger(getString(object, path));
     }
 
     @Override
     public BigDecimal getBigDecimal(JSONObject object, String path) {
-        return null;
+        return new BigDecimal(getString(object, path));
     }
 
     @Override
@@ -79,6 +81,12 @@ public class BasicJSONHelper implements JSONHelper {
     @Override
     public Timestamp getTimestampOfEpochSecond(JSONObject object, String path) {
         return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
+    }
+
+    @Override
+    public Timestamp getTimestampFromFormat(JSONObject object, String path, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return Timestamp.from(LocalDateTime.from(formatter.parse(getString(object, path))).toInstant(ZoneOffset.MIN));
     }
 
     private Object getLastObjectInPath(Object object, List<String> pathParts, int currentIndex) {
