@@ -1,4 +1,4 @@
-package mg.finance.dbentities;
+package mg.finance.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="mg_currency_statistics")
-public class CurrencyStatisticsDBEntity {
+public class CurrencyStatistics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class CurrencyStatisticsDBEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "currency")
-    private CurrencyDBEntity currency;
+    private Currency currency;
 
     @Column(name = "rate")
     private double rate;

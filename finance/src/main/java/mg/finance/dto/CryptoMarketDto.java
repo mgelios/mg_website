@@ -1,11 +1,11 @@
-package mg.finance.models;
+package mg.finance.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class CryptoMarket {
+public class CryptoMarketDto {
 
     private Long id;
     private Long totalUsd;

@@ -1,11 +1,11 @@
-package mg.finance.models;
+package mg.finance.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class CryptoCurrency {
+public class CryptoCurrencyDto {
 
     private Long id;
     private String name;

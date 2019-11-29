@@ -1,10 +1,10 @@
-package mg.finance.services;
+package mg.finance.service;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.dbentities.CurrencyDBEntity;
+import mg.finance.entity.Currency;
 import mg.finance.mapper.CurrencyMapper;
-import mg.finance.models.Currency;
-import mg.finance.repositories.CurrencyRepository;
+import mg.finance.dto.CurrencyDto;
+import mg.finance.repository.CurrencyRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
@@ -34,19 +34,19 @@ public class CurrencyService {
     @Autowired
     private CurrencyRepository currencyRepository;
 
-    public List<Currency> getDefaultCurrencies() {
+    public List<CurrencyDto> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
                 .map(this::getCurrencyByAbbreviation)
                 .collect(Collectors.toList());
     }
 
-    public Currency getCurrencyByAbbreviation(String abbreviation) {
+    public CurrencyDto getCurrencyByAbbreviation(String abbreviation) {
         return CurrencyMapper.INSTANCE.mapToDTO(getCurrencyDBEntityByAbbreviation(abbreviation));
     }
 
-    public CurrencyDBEntity getCurrencyDBEntityByAbbreviation(String abbreviation) {
-        Optional<CurrencyDBEntity> optionalCurrency = currencyRepository.findByAbbreviation(abbreviation);
-        CurrencyDBEntity result = null;
+    public Currency getCurrencyDBEntityByAbbreviation(String abbreviation) {
+        Optional<Currency> optionalCurrency = currencyRepository.findByAbbreviation(abbreviation);
+        Currency result = null;
         if (optionalCurrency.isPresent()) {
             result = optionalCurrency.get();
         }
@@ -60,7 +60,7 @@ public class CurrencyService {
         financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
     }
 
-    public CurrencyDBEntity updateCurrency(String abbreviation) {
+    public Currency updateCurrency(String abbreviation) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
         if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {
             currencyRepository.deleteAllByAbbreviation(abbreviation);
@@ -68,8 +68,8 @@ public class CurrencyService {
         return saveCurrencyDBEntity(json);
     }
 
-    public CurrencyDBEntity saveCurrencyDBEntity(JSONObject json) {
-        CurrencyDBEntity dbEntity = new CurrencyDBEntity();
+    public Currency saveCurrencyDBEntity(JSONObject json) {
+        Currency dbEntity = new Currency();
         dbEntity.setSystemId(jsonHelper.getInt(json,"Cur_ID"));
         dbEntity.setDate(Timestamp.valueOf(jsonHelper.getString(json,"Date").replace("T", " ")));
         dbEntity.setAbbreviation(jsonHelper.getString(json,"Cur_Abbreviation"));

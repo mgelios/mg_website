@@ -1,10 +1,10 @@
-package mg.finance.services;
+package mg.finance.service;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.dbentities.CryptoMarketDBEntity;
+import mg.finance.entity.CryptoMarket;
 import mg.finance.mapper.CryptoMarketMapper;
-import mg.finance.models.CryptoMarket;
-import mg.finance.repositories.CryptoMarketRepository;
+import mg.finance.dto.CryptoMarketDto;
+import mg.finance.repository.CryptoMarketRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
@@ -31,9 +31,9 @@ public class CryptoMarketService {
     @Autowired
     private CryptoMarketRepository cryptoMarketRepository;
 
-    public CryptoMarket getCryptoMarketInfo() {
-        Optional<CryptoMarketDBEntity> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
-        CryptoMarketDBEntity cryptoMarket = null;
+    public CryptoMarketDto getCryptoMarketInfo() {
+        Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
+        CryptoMarket cryptoMarket = null;
         if (!optionalCryptoMarket.isPresent() ||
                 optionalCryptoMarket.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
             cryptoMarket = updateCryptoMarket();
@@ -43,7 +43,7 @@ public class CryptoMarketService {
         return CryptoMarketMapper.INSTANCE.mapToDTO(cryptoMarket);
     }
 
-    public CryptoMarketDBEntity updateCryptoMarket() {
+    public CryptoMarket updateCryptoMarket() {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCryptoCurrenciesMarketUrl());
         if (cryptoMarketRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoMarketRepository.deleteAll();
@@ -51,8 +51,8 @@ public class CryptoMarketService {
         return saveCryptoMarket(json);
     }
 
-    private CryptoMarketDBEntity saveCryptoMarket(JSONObject json) {
-        CryptoMarketDBEntity cryptoMarket = new CryptoMarketDBEntity();
+    private CryptoMarket saveCryptoMarket(JSONObject json) {
+        CryptoMarket cryptoMarket = new CryptoMarket();
         cryptoMarket.setActiveCurrencies(jsonHelper.getLong(json,"active_currencies"));
         cryptoMarket.setActiveMarkets(jsonHelper.getLong(json,"active_markets"));
         cryptoMarket.setBitcoinPercent(jsonHelper.getDouble(json,"bitcoin_percentage_of_market_cap"));

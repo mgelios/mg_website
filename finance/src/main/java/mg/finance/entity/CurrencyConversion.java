@@ -1,4 +1,4 @@
-package mg.finance.dbentities;
+package mg.finance.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name="mg_currency_conversion")
-public class CurrencyConversionDBEntity {
+public class CurrencyConversion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +19,12 @@ public class CurrencyConversionDBEntity {
     @JoinColumn(name = "currency_from", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private CurrencyDBEntity currencyFrom;
+    private Currency currencyFrom;
     @ManyToOne
     @JoinColumn(name = "currency_to", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private CurrencyDBEntity currencyTo;
+    private Currency currencyTo;
     @Column(name = "value")
     private double value;
 }

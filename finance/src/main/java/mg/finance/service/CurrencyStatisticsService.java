@@ -1,11 +1,11 @@
-package mg.finance.services;
+package mg.finance.service;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.dbentities.CurrencyDBEntity;
-import mg.finance.dbentities.CurrencyStatisticsDBEntity;
+import mg.finance.entity.Currency;
+import mg.finance.entity.CurrencyStatistics;
 import mg.finance.mapper.CurrencyStatisticsMapper;
-import mg.finance.models.CurrencyStatistics;
-import mg.finance.repositories.CurrencyStatisticsRepository;
+import mg.finance.dto.CurrencyStatisticsDto;
+import mg.finance.repository.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
@@ -38,14 +38,14 @@ public class CurrencyStatisticsService {
     @Autowired
     private CurrencyStatisticsRepository currencyStatisticsRepository;
 
-    public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
+    public Map<String, List<CurrencyStatisticsDto>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
                 .collect(Collectors.toMap(String::toString, this::getDefaultCurrencyStatisticsByAbbreviation));
     }
 
-    public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
-        List<CurrencyStatisticsDBEntity> result = currencyStatisticsRepository.findAllByCurrency(currency);
+    public List<CurrencyStatisticsDto> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
+        Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+        List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
             result = updateCurrencyStatistics(abbreviation);
         }
@@ -58,8 +58,8 @@ public class CurrencyStatisticsService {
         financeConfiguration.getDefaultStatisticsCurrencies().forEach(this::updateCurrencyStatistics);
     }
 
-    public List<CurrencyStatisticsDBEntity> updateCurrencyStatistics(String abbreviation) {
-        CurrencyDBEntity currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+    public List<CurrencyStatistics> updateCurrencyStatistics(String abbreviation) {
+        Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrencyStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
@@ -68,10 +68,10 @@ public class CurrencyStatisticsService {
         return saveCurrencyStatisticsDBEntities(json, currency);
     }
 
-    private List<CurrencyStatisticsDBEntity> saveCurrencyStatisticsDBEntities(JSONArray jsonArray, CurrencyDBEntity currency) {
-        List<CurrencyStatisticsDBEntity> result = new ArrayList<>();
+    private List<CurrencyStatistics> saveCurrencyStatisticsDBEntities(JSONArray jsonArray, Currency currency) {
+        List<CurrencyStatistics> result = new ArrayList<>();
         for (Object item : jsonArray) {
-            CurrencyStatisticsDBEntity statisticsDBEntity = new CurrencyStatisticsDBEntity();
+            CurrencyStatistics statisticsDBEntity = new CurrencyStatistics();
             JSONObject jsonItem = (JSONObject) item;
             statisticsDBEntity.setDate(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"));
             statisticsDBEntity.setCurrency(currency);

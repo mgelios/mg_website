@@ -1,4 +1,4 @@
-package mg.finance.dbentities;
+package mg.finance.entity;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name="mg_currency")
-public class CurrencyDBEntity {
+public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class CurrencyDBEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "currency", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<CurrencyStatisticsDBEntity> statistics;
+    private Set<CurrencyStatistics> statistics;
 }

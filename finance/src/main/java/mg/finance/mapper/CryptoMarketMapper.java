@@ -1,7 +1,7 @@
 package mg.finance.mapper;
 
-import mg.finance.dbentities.CryptoMarketDBEntity;
-import mg.finance.models.CryptoMarket;
+import mg.finance.entity.CryptoMarket;
+import mg.finance.dto.CryptoMarketDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class CryptoMarketMapper {
 
     public static final CryptoMarketMapper INSTANCE = Mappers.getMapper(CryptoMarketMapper.class);
 
-    public abstract CryptoMarketDBEntity mapToEntity(CryptoMarket dto);
+    public abstract CryptoMarket mapToEntity(CryptoMarketDto dto);
 
-    public abstract CryptoMarket mapToDTO(CryptoMarketDBEntity entity);
+    public abstract CryptoMarketDto mapToDTO(CryptoMarket entity);
 }

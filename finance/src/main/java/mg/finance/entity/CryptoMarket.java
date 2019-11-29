@@ -1,4 +1,4 @@
-package mg.finance.dbentities;
+package mg.finance.entity;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="mg_crypto_currency_market")
-public class CryptoMarketDBEntity {
+public class CryptoMarket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

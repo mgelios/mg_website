@@ -1,15 +1,15 @@
-package mg.finance.models;
+package mg.finance.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class CurrencyStatistics {
+public class CurrencyStatisticsDto {
 
     private Long id;
 
     private LocalDateTime date;
-    private Currency currency;
+    private CurrencyDto currency;
     private double rate;
 }

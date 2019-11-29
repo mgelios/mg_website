@@ -1,10 +1,10 @@
-package mg.finance.services;
+package mg.finance.service;
 
 import mg.finance.FinanceConfiguration;
-import mg.finance.dbentities.CryptoCurrencyDBEntity;
+import mg.finance.entity.CryptoCurrency;
 import mg.finance.mapper.CryptoCurrencyMapper;
-import mg.finance.models.CryptoCurrency;
-import mg.finance.repositories.CryptoCurrencyRepository;
+import mg.finance.dto.CryptoCurrencyDto;
+import mg.finance.repository.CryptoCurrencyRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
@@ -35,9 +35,9 @@ public class CryptoCurrencyService {
     @Autowired
     private CryptoCurrencyRepository cryptoCurrencyRepository;
 
-    public List<CryptoCurrency> getCryptoCurrencies() {
-        Optional<CryptoCurrencyDBEntity> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
-        List<CryptoCurrencyDBEntity> cryptoCurrencies = new ArrayList<>();
+    public List<CryptoCurrencyDto> getCryptoCurrencies() {
+        Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
+        List<CryptoCurrency> cryptoCurrencies = new ArrayList<>();
         if (!optionalCryptoCurrency.isPresent() ||
                 optionalCryptoCurrency.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
             cryptoCurrencies = updateCryptoCurrencies();
@@ -49,7 +49,7 @@ public class CryptoCurrencyService {
                 .collect(Collectors.toList());
     }
 
-    public List<CryptoCurrencyDBEntity> updateCryptoCurrencies() {
+    public List<CryptoCurrency> updateCryptoCurrencies() {
         JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCryptoCurrenciesUrl());
         if (cryptoCurrencyRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoCurrencyRepository.deleteAll();
@@ -57,11 +57,11 @@ public class CryptoCurrencyService {
         return saveCryptoCurrency(jsonArray);
     }
 
-    private List<CryptoCurrencyDBEntity> saveCryptoCurrency(JSONArray jsonArray) {
-        List<CryptoCurrencyDBEntity> result = new ArrayList<>();
+    private List<CryptoCurrency> saveCryptoCurrency(JSONArray jsonArray) {
+        List<CryptoCurrency> result = new ArrayList<>();
         for (Object item : jsonArray) {
             JSONObject jsonItem = (JSONObject) item;
-            CryptoCurrencyDBEntity cryptoCurrencyDBEntity = new CryptoCurrencyDBEntity();
+            CryptoCurrency cryptoCurrencyDBEntity = new CryptoCurrency();
             cryptoCurrencyDBEntity.setName(jsonHelper.getString(jsonItem, "name"));
             cryptoCurrencyDBEntity.setSymbol(jsonHelper.getString(jsonItem, "symbol"));
             cryptoCurrencyDBEntity.setRank(jsonHelper.getLong(jsonItem, "rank"));

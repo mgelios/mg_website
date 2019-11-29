@@ -1,7 +1,7 @@
 package mg.finance.mapper;
 
-import mg.finance.dbentities.CurrencyStatisticsDBEntity;
-import mg.finance.models.CurrencyStatistics;
+import mg.finance.entity.CurrencyStatistics;
+import mg.finance.dto.CurrencyStatisticsDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class CurrencyStatisticsMapper {
 
     public static final CurrencyStatisticsMapper INSTANCE = Mappers.getMapper(CurrencyStatisticsMapper.class);
 
-    public abstract CurrencyStatisticsDBEntity mapToEntity(CurrencyStatistics dto);
+    public abstract CurrencyStatistics mapToEntity(CurrencyStatisticsDto dto);
 
-    public abstract CurrencyStatistics mapToDTO(CurrencyStatisticsDBEntity entity);
+    public abstract CurrencyStatisticsDto mapToDTO(CurrencyStatistics entity);
 }
