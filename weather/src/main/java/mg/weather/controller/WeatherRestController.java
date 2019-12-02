@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/v1/weather")
-public class RestWeatherController {
+public class WeatherRestController {
 
     @Autowired
     WeatherForecastService weatherForecastService;

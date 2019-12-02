@@ -1,7 +1,7 @@
 package mg.news.mapper;
 
-import mg.news.dbentities.RadiotPodcastDBEntity;
-import mg.news.models.RadiotPodcast;
+import mg.news.entity.RadiotPodcast;
+import mg.news.dto.RadiotPodcastDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -11,17 +11,17 @@ public abstract class RadiotPodcastMapper {
 
     public static final RadiotPodcastMapper INSTANCE = Mappers.getMapper(RadiotPodcastMapper.class);
 
-    public abstract RadiotPodcast mapToDTO(RadiotPodcastDBEntity entity);
+    public abstract RadiotPodcastDto mapToDTO(RadiotPodcast entity);
 
-    public abstract RadiotPodcastDBEntity mapToEntity(RadiotPodcast dto);
+    public abstract RadiotPodcast mapToEntity(RadiotPodcastDto dto);
 
     @AfterMapping
-    private void addBackReference(@MappingTarget RadiotPodcastDBEntity entity) {
+    private void addBackReference(@MappingTarget RadiotPodcast entity) {
         entity.getTimeLabels().forEach(label -> label.setPodcast(entity));
     }
 
     @AfterMapping
-    private void addBackReference(@MappingTarget RadiotPodcast dto) {
+    private void addBackReference(@MappingTarget RadiotPodcastDto dto) {
         dto.getTimeLabels().forEach(label -> label.setPodcast(dto));
     }
 }

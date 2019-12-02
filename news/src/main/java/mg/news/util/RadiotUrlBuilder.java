@@ -1,4 +1,4 @@
-package mg.news.utils;
+package mg.news.util;
 
 public interface RadiotUrlBuilder {
 

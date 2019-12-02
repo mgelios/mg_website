@@ -1,4 +1,4 @@
-package mg.news.utils;
+package mg.news.util;
 
 import mg.news.NewsConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;

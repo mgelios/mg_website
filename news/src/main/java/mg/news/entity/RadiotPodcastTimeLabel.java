@@ -1,4 +1,4 @@
-package mg.news.dbentities;
+package mg.news.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="mg_radiot_time_label")
-public class RadiotPodcastTimeLabelDBEntity {
+public class RadiotPodcastTimeLabel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class RadiotPodcastTimeLabelDBEntity {
     @JoinColumn(name = "podcast", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private RadiotPodcastDBEntity podcast;
+    private RadiotPodcast podcast;
     @Column(name = "topic")
     private String topic;
     @Column(name = "duration")

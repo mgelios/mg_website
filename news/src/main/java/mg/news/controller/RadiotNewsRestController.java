@@ -1,7 +1,7 @@
 package mg.news.controller;
 
-import mg.news.services.RadiotArticleService;
-import mg.news.services.RadiotPodcastService;
+import mg.news.service.RadiotArticleService;
+import mg.news.service.RadiotPodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/v1/news")
-public class RestRadiotNewsController {
+public class RadiotNewsRestController {
 
     @Autowired
     RadiotArticleService radiotArticleService;

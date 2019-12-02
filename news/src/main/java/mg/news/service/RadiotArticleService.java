@@ -1,10 +1,10 @@
-package mg.news.services;
+package mg.news.service;
 
-import mg.news.dbentities.RadiotArticleDBEntity;
+import mg.news.entity.RadiotArticle;
 import mg.news.mapper.RadiotArticleMapper;
-import mg.news.models.RadiotArticle;
-import mg.news.repositories.RadiotArticleRepository;
-import mg.news.utils.RadiotUrlBuilder;
+import mg.news.dto.RadiotArticleDto;
+import mg.news.repository.RadiotArticleRepository;
+import mg.news.util.RadiotUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
@@ -32,11 +32,11 @@ public class RadiotArticleService {
     @Autowired
     private RadiotArticleRepository radiotArticleRepository;
 
-    public List<RadiotArticle> getRadiotArticlesList() {
-        List<RadiotArticleDBEntity> dbArticles = new ArrayList<>();
-        Optional<RadiotArticleDBEntity> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByIdDesc();
+    public List<RadiotArticleDto> getRadiotArticlesList() {
+        List<RadiotArticle> dbArticles = new ArrayList<>();
+        Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByIdDesc();
         if (dbOptionalSingularArticle.isPresent()) {
-            RadiotArticleDBEntity dbSingularArticle = dbOptionalSingularArticle.get();
+            RadiotArticle dbSingularArticle = dbOptionalSingularArticle.get();
             if (dbSingularArticle.getLastUpdated().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
                 radiotArticleRepository.deleteAll();
                 dbArticles = fillRadiotArticles();
@@ -51,12 +51,12 @@ public class RadiotArticleService {
                 .collect(Collectors.toList());
     }
 
-    private List<RadiotArticleDBEntity> fillRadiotArticles() {
-        List<RadiotArticleDBEntity> radiotArticleList = new ArrayList<>();
+    private List<RadiotArticle> fillRadiotArticles() {
+        List<RadiotArticle> radiotArticleList = new ArrayList<>();
         JSONArray jsonArticles = jsonConsumer.getJsonArray(radiotUrlBuilder.buildNewsUrl(100));
         jsonArticles.forEach(article -> {
             JSONObject jsonArticle = (JSONObject) article;
-            RadiotArticleDBEntity dbArticle = new RadiotArticleDBEntity();
+            RadiotArticle dbArticle = new RadiotArticle();
             dbArticle.setAuthor(jsonHelper.getString(jsonArticle, "author"));
             dbArticle.setComments(jsonHelper.getLong(jsonArticle, "comments"));
             dbArticle.setContent(jsonHelper.getString(jsonArticle,"content"));

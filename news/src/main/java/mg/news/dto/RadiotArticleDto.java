@@ -1,11 +1,11 @@
-package mg.news.models;
+package mg.news.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class RadiotArticle {
+public class RadiotArticleDto {
 
     private Long id;
 

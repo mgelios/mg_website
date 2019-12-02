@@ -1,7 +1,7 @@
 package mg.news.mapper;
 
-import mg.news.dbentities.RadiotArticleDBEntity;
-import mg.news.models.RadiotArticle;
+import mg.news.entity.RadiotArticle;
+import mg.news.dto.RadiotArticleDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class RadiotArticleMapper {
 
     public static final RadiotArticleMapper INSTANCE = Mappers.getMapper(RadiotArticleMapper.class);
 
-    public abstract RadiotArticleDBEntity mapToEntity(RadiotArticle dto);
+    public abstract RadiotArticle mapToEntity(RadiotArticleDto dto);
 
-    public abstract RadiotArticle mapToDTO(RadiotArticleDBEntity entity);
+    public abstract RadiotArticleDto mapToDTO(RadiotArticle entity);
 }

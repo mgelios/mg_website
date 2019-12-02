@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,12 @@ import java.io.IOException;
 public class BasicJSONConsumer implements JSONConsumer {
 
     public JSONObject getJsonObject(String url) {
-        return new JSONObject(getJsonAsString(url));
+        try {
+            return new JSONObject(getJsonAsString(url));
+        } catch (JSONException e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public JSONArray getJsonArray(String url) {

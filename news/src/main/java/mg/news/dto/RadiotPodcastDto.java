@@ -1,4 +1,4 @@
-package mg.news.models;
+package mg.news.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
-public class RadiotPodcast {
+public class RadiotPodcastDto {
 
     private Long id;
     private String url;
@@ -16,5 +16,5 @@ public class RadiotPodcast {
     private String body;
     private String showNotes;
     private String audioUrl;
-    private Set<RadiotPodcastTimeLabel> timeLabels;
+    private Set<RadiotPodcastTimeLabelDto> timeLabels;
 }

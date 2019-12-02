@@ -1,4 +1,4 @@
-package mg.finance.conrtollers;
+package mg.finance.conrtoller;
 
 import mg.finance.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/v1/finance")
-public class RestCurrenciesController {
+public class CurrenciesRestController {
 
     @Autowired
     CurrencyService currencyService;

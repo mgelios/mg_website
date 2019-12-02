@@ -1,15 +1,14 @@
-package mg.news.dbentities;
+package mg.news.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Table(name="mg_radiot_article")
-public class RadiotArticleDBEntity {
+public class RadiotArticle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

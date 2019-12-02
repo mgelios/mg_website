@@ -1,4 +1,4 @@
-package mg.news.dbentities;
+package mg.news.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name="mg_radiot_podcast")
-public class RadiotPodcastDBEntity {
+public class RadiotPodcast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,5 @@ public class RadiotPodcastDBEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "podcast", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<RadiotPodcastTimeLabelDBEntity> timeLabels;
+    private Set<RadiotPodcastTimeLabel> timeLabels;
 }

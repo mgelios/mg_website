@@ -1,12 +1,12 @@
-package mg.news.services;
+package mg.news.service;
 
-import mg.news.dbentities.RadiotPodcastDBEntity;
-import mg.news.dbentities.RadiotPodcastTimeLabelDBEntity;
+import mg.news.entity.RadiotPodcast;
+import mg.news.entity.RadiotPodcastTimeLabel;
 import mg.news.mapper.RadiotPodcastMapper;
-import mg.news.models.RadiotPodcast;
-import mg.news.repositories.RadiotPodcastRepository;
-import mg.news.repositories.RadiotPodcastTimeLabelRepository;
-import mg.news.utils.RadiotUrlBuilder;
+import mg.news.dto.RadiotPodcastDto;
+import mg.news.repository.RadiotPodcastRepository;
+import mg.news.repository.RadiotPodcastTimeLabelRepository;
+import mg.news.util.RadiotUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
@@ -38,8 +38,8 @@ public class RadiotPodcastService {
     @Autowired
     private RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
 
-    public List<RadiotPodcast> getRadiotPodcasts() {
-        List<RadiotPodcastDBEntity> podcasts = new ArrayList<>();
+    public List<RadiotPodcastDto> getRadiotPodcasts() {
+        List<RadiotPodcast> podcasts = new ArrayList<>();
         if (radiotPodcastRepository.findAll().iterator().hasNext()) {
             radiotPodcastRepository.findAll().forEach(podcasts::add);
         } else {
@@ -50,17 +50,17 @@ public class RadiotPodcastService {
                 .collect(Collectors.toList());
     }
 
-    public List<RadiotPodcastDBEntity> updateRadiotPodcasts() {
+    public List<RadiotPodcast> updateRadiotPodcasts() {
         radiotPodcastRepository.deleteAll();
         return saveRadiotPodcasts(jsonConsumer.getJsonArray(radiotUrlBuilder.buildPodcastUrl()));
     }
 
-    private List<RadiotPodcastDBEntity> saveRadiotPodcasts(JSONArray json) {
-        List<RadiotPodcastDBEntity> result = new ArrayList<>();
+    private List<RadiotPodcast> saveRadiotPodcasts(JSONArray json) {
+        List<RadiotPodcast> result = new ArrayList<>();
         json.forEach(item -> {
-            RadiotPodcastDBEntity radiotPodcast = new RadiotPodcastDBEntity();
+            RadiotPodcast radiotPodcast = new RadiotPodcast();
             JSONObject jsonItem = (JSONObject) item;
-            Set<RadiotPodcastTimeLabelDBEntity> timeLabels = null;
+            Set<RadiotPodcastTimeLabel> timeLabels = null;
             radiotPodcast.setAudioUrl(jsonHelper.getString(jsonItem, "audio_url"));
             radiotPodcast.setBody(jsonHelper.getString(jsonItem, "body"));
             radiotPodcast.setImage(jsonHelper.getString(jsonItem, "image"));
@@ -76,11 +76,11 @@ public class RadiotPodcastService {
         return result;
     }
 
-    private Set<RadiotPodcastTimeLabelDBEntity> saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcastDBEntity podcast) {
-        Set<RadiotPodcastTimeLabelDBEntity> result = new HashSet<>();
+    private Set<RadiotPodcastTimeLabel> saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcast podcast) {
+        Set<RadiotPodcastTimeLabel> result = new HashSet<>();
         json.forEach(item -> {
             JSONObject jsonItem = (JSONObject) item;
-            RadiotPodcastTimeLabelDBEntity timeLabel = new RadiotPodcastTimeLabelDBEntity();
+            RadiotPodcastTimeLabel timeLabel = new RadiotPodcastTimeLabel();
             timeLabel.setDuration(jsonHelper.getLong(jsonItem, "duration"));
             timeLabel.setTopic(jsonHelper.getString(jsonItem, "topic"));
             timeLabel.setTime(Timestamp.from(Instant.now()));

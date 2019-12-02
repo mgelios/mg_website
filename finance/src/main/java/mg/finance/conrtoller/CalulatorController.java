@@ -1,4 +1,4 @@
-package mg.finance.conrtollers;
+package mg.finance.conrtoller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

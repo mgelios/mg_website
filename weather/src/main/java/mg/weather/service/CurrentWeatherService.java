@@ -85,7 +85,7 @@ public class CurrentWeatherService {
     private double getUvi(double lat, double lon) {
         double uvi = 0.0;
         JSONObject currentUviJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildUviUrl(String.valueOf(lat), String.valueOf(lon)));
-        uvi = jsonHelper.getDouble(currentUviJson, "value");
+        uvi = currentUviJson != null ? jsonHelper.getDouble(currentUviJson, "value") : 0.0;
         return uvi;
     }
 }
