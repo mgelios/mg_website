@@ -1,15 +1,15 @@
-package mg.profile.converters;
+package mg.profile.converter;
 
-import mg.profile.dbentities.RoleDBEntity;
-import mg.profile.models.Role;
+import mg.profile.entity.Role;
+import mg.profile.dto.RoleDto;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleEntityToDTO implements Converter<RoleDBEntity, Role> {
+public class RoleDtoToEntity implements Converter<RoleDto, Role> {
 
     @Override
-    public Role convert(RoleDBEntity source) {
+    public Role convert(RoleDto source) {
         Role target = new Role();
         target.setId(source.getId());
         target.setName(source.getName());

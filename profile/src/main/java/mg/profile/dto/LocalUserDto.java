@@ -1,8 +1,6 @@
-package mg.profile.models;
+package mg.profile.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-public class LocalUser implements UserDetails {
+public class LocalUserDto implements UserDetails {
 
     public interface FullValidation {}
 
@@ -44,7 +42,7 @@ public class LocalUser implements UserDetails {
     @Size(min=2, max=100, message="Please enter a valid last name", groups = {FullValidation.class, PartialValidation.class})
     private String lastName;
 
-    private Set<Role> roles;
+    private Set<RoleDto> roles;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

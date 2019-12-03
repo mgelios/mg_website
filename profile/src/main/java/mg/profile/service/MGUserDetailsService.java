@@ -1,8 +1,8 @@
-package mg.profile.services;
+package mg.profile.service;
 
-import mg.profile.converters.UserEntityToDTO;
-import mg.profile.dbentities.UserDBEntity;
-import mg.profile.repositories.UserRepository;
+import mg.profile.converter.UserEntityToDto;
+import mg.profile.entity.User;
+import mg.profile.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,11 +17,11 @@ public class MGUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserEntityToDTO userEntityToDTO;
+    private UserEntityToDto userEntityToDTO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDBEntity> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (!user.isPresent()){
             throw new UsernameNotFoundException(username);
         }

@@ -1,7 +1,7 @@
-package mg.profile.conrtollers;
+package mg.profile.conrtoller;
 
-import mg.profile.models.LocalUser;
-import mg.profile.services.UserService;
+import mg.profile.dto.LocalUserDto;
+import mg.profile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +30,7 @@ public class AdminController {
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        LocalUser user = userService.findUserByEmail(auth.getName());
+        LocalUserDto user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("user", user);
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");

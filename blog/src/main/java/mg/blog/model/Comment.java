@@ -1,7 +1,6 @@
 package mg.blog.model;
 
 import lombok.Data;
-import mg.profile.models.LocalUser;
 
 import java.time.LocalDateTime;
 

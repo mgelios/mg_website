@@ -1,4 +1,4 @@
-package mg.profile.dbentities;
+package mg.profile.entity;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name="mg_role")
-public class RoleDBEntity {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

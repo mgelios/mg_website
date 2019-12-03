@@ -1,10 +1,10 @@
-package mg.profile.services;
+package mg.profile.service;
 
-import mg.profile.converters.UserDTOToEntity;
-import mg.profile.converters.UserEntityToDTO;
-import mg.profile.dbentities.UserDBEntity;
-import mg.profile.models.LocalUser;
-import mg.profile.repositories.UserRepository;
+import mg.profile.converter.UserDtoToEntity;
+import mg.profile.converter.UserEntityToDto;
+import mg.profile.entity.User;
+import mg.profile.dto.LocalUserDto;
+import mg.profile.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,36 +19,36 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserEntityToDTO userEntityToDTO;
+    private UserEntityToDto userEntityToDTO;
 
     @Autowired
-    private UserDTOToEntity userDTOToEntity;
+    private UserDtoToEntity userDTOToEntity;
 
-    public List<LocalUser> getUsersList() {
-        List<LocalUser> users = new ArrayList<>();
+    public List<LocalUserDto> getUsersList() {
+        List<LocalUserDto> users = new ArrayList<>();
         userRepository.findAll().forEach(user -> {
             users.add(userEntityToDTO.convert(user));
         });
         return users;
     }
 
-    public LocalUser findUserByEmail(String email) {
-        Optional<UserDBEntity> dbUser = userRepository.findByEmail(email);
+    public LocalUserDto findUserByEmail(String email) {
+        Optional<User> dbUser = userRepository.findByEmail(email);
         if (dbUser.isPresent()){
             return userEntityToDTO.convert(dbUser.get());
         } else return null;
     }
 
-    public void saveUser(LocalUser user) {
-        UserDBEntity dbUser = userDTOToEntity.convert(user);
+    public void saveUser(LocalUserDto user) {
+        User dbUser = userDTOToEntity.convert(user);
         userRepository.save(dbUser);
     }
 
-    public LocalUser mergeUpdatedUser(LocalUser userUpdated, LocalUser oldUser){
+    public LocalUserDto mergeUpdatedUser(LocalUserDto userUpdated, LocalUserDto oldUser){
         oldUser.setEmail(userUpdated.getEmail());
         oldUser.setFirstName(userUpdated.getFirstName());
         oldUser.setLastName(userUpdated.getLastName());
-        UserDBEntity dbUser = userDTOToEntity.convert(oldUser);
+        User dbUser = userDTOToEntity.convert(oldUser);
         userRepository.save(dbUser);
         return oldUser;
     }

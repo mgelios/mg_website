@@ -1,7 +1,7 @@
-package mg.profile.conrtollers;
+package mg.profile.conrtoller;
 
-import mg.profile.models.LocalUser;
-import mg.profile.services.UserService;
+import mg.profile.dto.LocalUserDto;
+import mg.profile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,16 +34,16 @@ public class UserController {
     @RequestMapping(value={"/registration"}, method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
-        LocalUser user = new LocalUser();
+        LocalUserDto user = new LocalUserDto();
         modelAndView.addObject("localUser", user);
         modelAndView.setViewName("registration");
         return modelAndView;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Validated(LocalUser.FullValidation.class) LocalUser localUser, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Validated(LocalUserDto.FullValidation.class) LocalUserDto localUser, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        LocalUser userExists = userService.findUserByEmail(localUser.getEmail());
+        LocalUserDto userExists = userService.findUserByEmail(localUser.getEmail());
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
@@ -54,7 +54,7 @@ public class UserController {
         } else {
             userService.saveUser(localUser);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("localUser", new LocalUser());
+            modelAndView.addObject("localUser", new LocalUserDto());
             modelAndView.setViewName("user/registration");
 
         }
@@ -64,7 +64,7 @@ public class UserController {
     @RequestMapping(value="/list", method = RequestMethod.GET)
     public ModelAndView usersList(){
         ModelAndView modelAndView = new ModelAndView();
-        List<LocalUser> users = userService.getUsersList();
+        List<LocalUserDto> users = userService.getUsersList();
         modelAndView.addObject("users", users);
         modelAndView.setViewName("user/list");
         return modelAndView;
@@ -74,7 +74,7 @@ public class UserController {
     public ModelAndView userDetails(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        LocalUser localUser = userService.findUserByEmail(auth.getName());
+        LocalUserDto localUser = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("localUser", localUser);
         modelAndView.setViewName("user/details");
         return modelAndView;
@@ -82,12 +82,12 @@ public class UserController {
 
     //TODO: finish user update process
     @RequestMapping(value="/details", method = RequestMethod.POST)
-    public ModelAndView userDetailsUpdate(@Validated(LocalUser.PartialValidation.class) LocalUser localUser,
+    public ModelAndView userDetailsUpdate(@Validated(LocalUserDto.PartialValidation.class) LocalUserDto localUser,
                                           BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        LocalUser userDublicate = userService.findUserByEmail(localUser.getEmail());
-        LocalUser currentUser = userService.findUserByEmail(auth.getName());
+        LocalUserDto userDublicate = userService.findUserByEmail(localUser.getEmail());
+        LocalUserDto currentUser = userService.findUserByEmail(auth.getName());
         if (userDublicate.getId() != currentUser.getId()) {
             bindingResult
                     .rejectValue("email", "error.user",

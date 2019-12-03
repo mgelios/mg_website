@@ -1,4 +1,4 @@
-package mg.profile.conrtollers;
+package mg.profile.conrtoller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;

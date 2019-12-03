@@ -1,7 +1,6 @@
 package mg.blog.dbentity;
 
 import lombok.Data;
-import mg.profile.dbentities.UserDBEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

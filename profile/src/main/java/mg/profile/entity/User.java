@@ -1,4 +1,4 @@
-package mg.profile.dbentities;
+package mg.profile.entity;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name="mg_user")
-public class UserDBEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +36,6 @@ public class UserDBEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "mg_user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleDBEntity> roles;
+    private Set<Role> roles;
 
 }

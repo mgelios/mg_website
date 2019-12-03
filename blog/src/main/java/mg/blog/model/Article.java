@@ -1,11 +1,8 @@
 package mg.blog.model;
 
 import lombok.Data;
-import mg.profile.models.LocalUser;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Data
 public class Article {
