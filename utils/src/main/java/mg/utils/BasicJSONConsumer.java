@@ -24,6 +24,9 @@ public class BasicJSONConsumer implements JSONConsumer {
         } catch (JSONException e) {
             log.error(e.getMessage());
             return null;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
         }
     }
 

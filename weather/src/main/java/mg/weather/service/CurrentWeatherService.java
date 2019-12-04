@@ -60,26 +60,30 @@ public class CurrentWeatherService {
     }
 
     private CurrentWeather saveCurrentWeather(JSONObject json) {
-        CurrentWeather dbEntity = new CurrentWeather();
-        dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
-        dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
-        dbEntity.setDescription(jsonHelper.getString(json, "weather[0].description"));
-        dbEntity.setMainInfo(jsonHelper.getString(json, "weather[0].main"));
-        dbEntity.setIcon(jsonHelper.getString(json, "weather[0].icon"));
-        dbEntity.setTemperature(jsonHelper.getDouble(json, "main.temp"));
-        dbEntity.setPressure(jsonHelper.getDouble(json, "main.pressure"));
-        dbEntity.setHumidity(jsonHelper.getDouble(json, "main.humidity"));
-        dbEntity.setMinimalTemperature(jsonHelper.getDouble(json, "main.temp_min"));
-        dbEntity.setMaximumTemperature(jsonHelper.getDouble(json, "main.temp_max"));
-        dbEntity.setVisibility(jsonHelper.getDouble(json,"visibility"));
-        dbEntity.setWindSpeed(jsonHelper.getDouble(json,"wind.speed"));
-        dbEntity.setWindDegree(jsonHelper.getDouble(json,"wind.deg"));
-        dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(json, "dt"));
-        dbEntity.setSunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"));
-        dbEntity.setSunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"));
-        dbEntity.setCityName(jsonHelper.getString(json,"name").toLowerCase());
-        dbEntity.setUvi(getUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));
-        return currentWeatherRepository.save(dbEntity);
+        if (json != null) {
+            CurrentWeather dbEntity = new CurrentWeather();
+            dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
+            dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
+            dbEntity.setDescription(jsonHelper.getString(json, "weather[0].description"));
+            dbEntity.setMainInfo(jsonHelper.getString(json, "weather[0].main"));
+            dbEntity.setIcon(jsonHelper.getString(json, "weather[0].icon"));
+            dbEntity.setTemperature(jsonHelper.getDouble(json, "main.temp"));
+            dbEntity.setPressure(jsonHelper.getDouble(json, "main.pressure"));
+            dbEntity.setHumidity(jsonHelper.getDouble(json, "main.humidity"));
+            dbEntity.setMinimalTemperature(jsonHelper.getDouble(json, "main.temp_min"));
+            dbEntity.setMaximumTemperature(jsonHelper.getDouble(json, "main.temp_max"));
+            dbEntity.setVisibility(jsonHelper.getDouble(json, "visibility"));
+            dbEntity.setWindSpeed(jsonHelper.getDouble(json, "wind.speed"));
+            dbEntity.setWindDegree(jsonHelper.getDouble(json, "wind.deg"));
+            dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(json, "dt"));
+            dbEntity.setSunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"));
+            dbEntity.setSunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"));
+            dbEntity.setCityName(jsonHelper.getString(json, "name").toLowerCase());
+            dbEntity.setUvi(getUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));
+            return currentWeatherRepository.save(dbEntity);
+        } else {
+            return null;
+        }
     }
 
     private double getUvi(double lat, double lon) {

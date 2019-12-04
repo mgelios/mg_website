@@ -70,32 +70,36 @@ public class WeatherForecastService {
     }
 
     private List<WeatherForecast> saveWeatherForecasts(JSONObject json) {
-        List<WeatherForecast> result = new ArrayList<>();
-        JSONArray forecasts = json.getJSONArray("list");
-        String city = jsonHelper.getString(json, "city.name").toLowerCase();
-        int numberOfRecords = json.getInt("cnt");
-        for (int i = 0; i < numberOfRecords; i++){
-            WeatherForecast dbEntity = new WeatherForecast();
-            JSONObject forecast = forecasts.getJSONObject(i);
-            dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"));
-            dbEntity.setTemperature(jsonHelper.getDouble(forecast, "main.temp"));
-            dbEntity.setMinimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"));
-            dbEntity.setMaximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"));
-            dbEntity.setPressure(jsonHelper.getDouble(forecast, "main.pressure"));
-            dbEntity.setSeaLevel(jsonHelper.getDouble(forecast, "main.sea_level"));
-            dbEntity.setGroundLevel(jsonHelper.getDouble(forecast, "main.grnd_level"));
-            dbEntity.setHumidity(jsonHelper.getDouble(forecast, "main.humidity"));
-            dbEntity.setMainInfo(jsonHelper.getString(forecast, "weather[0].main"));
-            dbEntity.setDescription(jsonHelper.getString(forecast, "weather[0].description"));
-            dbEntity.setIcon(jsonHelper.getString(forecast, "weather[0].icon"));
-            dbEntity.setWindSpeed(jsonHelper.getDouble(forecast, "wind.speed"));
-            dbEntity.setWindDegree(jsonHelper.getDouble(forecast, "wind.deg"));
-            dbEntity.setCityName(city);
-            dbEntity.setUpdateTime(Timestamp.from(Instant.now()));
-            dbEntity = weatherForecastRepository.save(dbEntity);
-            result.add(dbEntity);
+        if (json != null) {
+            List<WeatherForecast> result = new ArrayList<>();
+            JSONArray forecasts = json.getJSONArray("list");
+            String city = jsonHelper.getString(json, "city.name").toLowerCase();
+            int numberOfRecords = json.getInt("cnt");
+            for (int i = 0; i < numberOfRecords; i++) {
+                WeatherForecast dbEntity = new WeatherForecast();
+                JSONObject forecast = forecasts.getJSONObject(i);
+                dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"));
+                dbEntity.setTemperature(jsonHelper.getDouble(forecast, "main.temp"));
+                dbEntity.setMinimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"));
+                dbEntity.setMaximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"));
+                dbEntity.setPressure(jsonHelper.getDouble(forecast, "main.pressure"));
+                dbEntity.setSeaLevel(jsonHelper.getDouble(forecast, "main.sea_level"));
+                dbEntity.setGroundLevel(jsonHelper.getDouble(forecast, "main.grnd_level"));
+                dbEntity.setHumidity(jsonHelper.getDouble(forecast, "main.humidity"));
+                dbEntity.setMainInfo(jsonHelper.getString(forecast, "weather[0].main"));
+                dbEntity.setDescription(jsonHelper.getString(forecast, "weather[0].description"));
+                dbEntity.setIcon(jsonHelper.getString(forecast, "weather[0].icon"));
+                dbEntity.setWindSpeed(jsonHelper.getDouble(forecast, "wind.speed"));
+                dbEntity.setWindDegree(jsonHelper.getDouble(forecast, "wind.deg"));
+                dbEntity.setCityName(city);
+                dbEntity.setUpdateTime(Timestamp.from(Instant.now()));
+                dbEntity = weatherForecastRepository.save(dbEntity);
+                result.add(dbEntity);
+            }
+            return result;
+        } else {
+            return null;
         }
-        return result;
     }
 
 }
