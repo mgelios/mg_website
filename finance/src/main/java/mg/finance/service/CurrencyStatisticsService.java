@@ -69,16 +69,20 @@ public class CurrencyStatisticsService {
     }
 
     private List<CurrencyStatistics> saveCurrencyStatisticsDBEntities(JSONArray jsonArray, Currency currency) {
-        List<CurrencyStatistics> result = new ArrayList<>();
-        for (Object item : jsonArray) {
-            CurrencyStatistics statisticsDBEntity = new CurrencyStatistics();
-            JSONObject jsonItem = (JSONObject) item;
-            statisticsDBEntity.setDate(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"));
-            statisticsDBEntity.setCurrency(currency);
-            statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem,"Cur_OfficialRate"));
-            statisticsDBEntity.setId(jsonHelper.getLong(jsonItem,"Cur_ID"));
-            result.add(currencyStatisticsRepository.save(statisticsDBEntity));
+        if (jsonArray != null) {
+            List<CurrencyStatistics> result = new ArrayList<>();
+            for (Object item : jsonArray) {
+                CurrencyStatistics statisticsDBEntity = new CurrencyStatistics();
+                JSONObject jsonItem = (JSONObject) item;
+                statisticsDBEntity.setDate(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"));
+                statisticsDBEntity.setCurrency(currency);
+                statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"));
+                statisticsDBEntity.setId(jsonHelper.getLong(jsonItem, "Cur_ID"));
+                result.add(currencyStatisticsRepository.save(statisticsDBEntity));
+            }
+            return result;
+        } else {
+            return null;
         }
-        return result;
     }
 }

@@ -69,13 +69,17 @@ public class CurrencyService {
     }
 
     public Currency saveCurrencyDBEntity(JSONObject json) {
-        Currency dbEntity = new Currency();
-        dbEntity.setSystemId(jsonHelper.getInt(json,"Cur_ID"));
-        dbEntity.setDate(Timestamp.valueOf(jsonHelper.getString(json,"Date").replace("T", " ")));
-        dbEntity.setAbbreviation(jsonHelper.getString(json,"Cur_Abbreviation"));
-        dbEntity.setScale(jsonHelper.getDouble(json,"Cur_Scale"));
-        dbEntity.setName(jsonHelper.getString(json,"Cur_Name"));
-        dbEntity.setRate(jsonHelper.getDouble(json,"Cur_OfficialRate"));
-        return currencyRepository.save(dbEntity);
+        if (json != null) {
+            Currency dbEntity = new Currency();
+            dbEntity.setSystemId(jsonHelper.getInt(json, "Cur_ID"));
+            dbEntity.setDate(Timestamp.valueOf(jsonHelper.getString(json, "Date").replace("T", " ")));
+            dbEntity.setAbbreviation(jsonHelper.getString(json, "Cur_Abbreviation"));
+            dbEntity.setScale(jsonHelper.getDouble(json, "Cur_Scale"));
+            dbEntity.setName(jsonHelper.getString(json, "Cur_Name"));
+            dbEntity.setRate(jsonHelper.getDouble(json, "Cur_OfficialRate"));
+            return currencyRepository.save(dbEntity);
+        } else {
+            return null;
+        }
     }
 }

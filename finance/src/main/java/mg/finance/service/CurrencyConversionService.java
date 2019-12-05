@@ -36,12 +36,16 @@ public class CurrencyConversionService {
     public CurrencyConversionDto getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
         Currency from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
         Currency to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
-        Optional<CurrencyConversion> optionalConversion =
-                currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
-        if (optionalConversion.isPresent()) {
-            return CurrencyConversionMapper.INSTANCE.mapToDTO(optionalConversion.get());
+        if (from != null && to != null) {
+            Optional<CurrencyConversion> optionalConversion =
+                    currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
+            if (optionalConversion.isPresent()) {
+                return CurrencyConversionMapper.INSTANCE.mapToDTO(optionalConversion.get());
+            } else {
+                return CurrencyConversionMapper.INSTANCE.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
+            }
         } else {
-            return CurrencyConversionMapper.INSTANCE.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
+            return null;
         }
     }
 

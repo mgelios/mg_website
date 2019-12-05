@@ -31,7 +31,15 @@ public class BasicJSONConsumer implements JSONConsumer {
     }
 
     public JSONArray getJsonArray(String url) {
-        return new JSONArray(getJsonAsString(url));
+        try {
+            return new JSONArray(getJsonAsString(url));
+        } catch (JSONException e) {
+            log.error(e.getMessage());
+            return null;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     private String getJsonAsString(String url) {
