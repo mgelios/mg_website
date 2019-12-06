@@ -54,25 +54,29 @@ public class RadiotArticleService {
     private List<RadiotArticle> fillRadiotArticles() {
         List<RadiotArticle> radiotArticleList = new ArrayList<>();
         JSONArray jsonArticles = jsonConsumer.getJsonArray(radiotUrlBuilder.buildNewsUrl(100));
-        jsonArticles.forEach(article -> {
-            JSONObject jsonArticle = (JSONObject) article;
-            RadiotArticle dbArticle = new RadiotArticle();
-            dbArticle.setAuthor(jsonHelper.getString(jsonArticle, "author"));
-            dbArticle.setComments(jsonHelper.getLong(jsonArticle, "comments"));
-            dbArticle.setContent(jsonHelper.getString(jsonArticle,"content"));
-            dbArticle.setFeed(jsonHelper.getString(jsonArticle,"feed"));
-            dbArticle.setLikes(jsonHelper.getLong(jsonArticle,"likes"));
-            dbArticle.setLink(jsonHelper.getString(jsonArticle,"link"));
-            dbArticle.setMainPicture(jsonHelper.getString(jsonArticle,"pic"));
-            dbArticle.setSlug(jsonHelper.getString(jsonArticle,"slug"));
-            dbArticle.setSnippet(jsonHelper.getString(jsonArticle,"snippet"));
-            dbArticle.setTitle(jsonHelper.getString(jsonArticle,"title"));
-            dbArticle.setOriginalTime(Timestamp.from(Instant.now()));
-            dbArticle.setRadiotTime(Timestamp.from(Instant.now()));
-            dbArticle.setLastUpdated(Timestamp.from(Instant.now()));
-            dbArticle = radiotArticleRepository.save(dbArticle);
-            radiotArticleList.add(dbArticle);
-        });
-        return radiotArticleList;
+        if (jsonArticles != null) {
+            jsonArticles.forEach(article -> {
+                JSONObject jsonArticle = (JSONObject) article;
+                RadiotArticle dbArticle = new RadiotArticle();
+                dbArticle.setAuthor(jsonHelper.getString(jsonArticle, "author"));
+                dbArticle.setComments(jsonHelper.getLong(jsonArticle, "comments"));
+                dbArticle.setContent(jsonHelper.getString(jsonArticle, "content"));
+                dbArticle.setFeed(jsonHelper.getString(jsonArticle, "feed"));
+                dbArticle.setLikes(jsonHelper.getLong(jsonArticle, "likes"));
+                dbArticle.setLink(jsonHelper.getString(jsonArticle, "link"));
+                dbArticle.setMainPicture(jsonHelper.getString(jsonArticle, "pic"));
+                dbArticle.setSlug(jsonHelper.getString(jsonArticle, "slug"));
+                dbArticle.setSnippet(jsonHelper.getString(jsonArticle, "snippet"));
+                dbArticle.setTitle(jsonHelper.getString(jsonArticle, "title"));
+                dbArticle.setOriginalTime(Timestamp.from(Instant.now()));
+                dbArticle.setRadiotTime(Timestamp.from(Instant.now()));
+                dbArticle.setLastUpdated(Timestamp.from(Instant.now()));
+                dbArticle = radiotArticleRepository.save(dbArticle);
+                radiotArticleList.add(dbArticle);
+            });
+            return radiotArticleList;
+        } else {
+            return null;
+        }
     }
 }

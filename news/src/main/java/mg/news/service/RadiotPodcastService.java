@@ -56,37 +56,45 @@ public class RadiotPodcastService {
     }
 
     private List<RadiotPodcast> saveRadiotPodcasts(JSONArray json) {
-        List<RadiotPodcast> result = new ArrayList<>();
-        json.forEach(item -> {
-            RadiotPodcast radiotPodcast = new RadiotPodcast();
-            JSONObject jsonItem = (JSONObject) item;
-            Set<RadiotPodcastTimeLabel> timeLabels = null;
-            radiotPodcast.setAudioUrl(jsonHelper.getString(jsonItem, "audio_url"));
-            radiotPodcast.setBody(jsonHelper.getString(jsonItem, "body"));
-            radiotPodcast.setImage(jsonHelper.getString(jsonItem, "image"));
-            radiotPodcast.setShowNotes(jsonHelper.getString(jsonItem, "show_notes"));
-            radiotPodcast.setTitle(jsonHelper.getString(jsonItem, "title"));
-            radiotPodcast.setUrl(jsonHelper.getString(jsonItem, "url"));
-            radiotPodcast.setDate(Timestamp.from(Instant.now()));
-            radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
-            timeLabels = saveRadiotPodcastTimeLabels(jsonHelper.getJSONArray(jsonItem, "time_labels"), radiotPodcast);
-            radiotPodcast.setTimeLabels(timeLabels);
-            result.add(radiotPodcastRepository.save(radiotPodcast));
-        });
-        return result;
+        if (json != null) {
+            List<RadiotPodcast> result = new ArrayList<>();
+            json.forEach(item -> {
+                RadiotPodcast radiotPodcast = new RadiotPodcast();
+                JSONObject jsonItem = (JSONObject) item;
+                Set<RadiotPodcastTimeLabel> timeLabels = null;
+                radiotPodcast.setAudioUrl(jsonHelper.getString(jsonItem, "audio_url"));
+                radiotPodcast.setBody(jsonHelper.getString(jsonItem, "body"));
+                radiotPodcast.setImage(jsonHelper.getString(jsonItem, "image"));
+                radiotPodcast.setShowNotes(jsonHelper.getString(jsonItem, "show_notes"));
+                radiotPodcast.setTitle(jsonHelper.getString(jsonItem, "title"));
+                radiotPodcast.setUrl(jsonHelper.getString(jsonItem, "url"));
+                radiotPodcast.setDate(Timestamp.from(Instant.now()));
+                radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
+                timeLabels = saveRadiotPodcastTimeLabels(jsonHelper.getJSONArray(jsonItem, "time_labels"), radiotPodcast);
+                radiotPodcast.setTimeLabels(timeLabels);
+                result.add(radiotPodcastRepository.save(radiotPodcast));
+            });
+            return result;
+        } else {
+            return null;
+        }
     }
 
     private Set<RadiotPodcastTimeLabel> saveRadiotPodcastTimeLabels(JSONArray json, RadiotPodcast podcast) {
-        Set<RadiotPodcastTimeLabel> result = new HashSet<>();
-        json.forEach(item -> {
-            JSONObject jsonItem = (JSONObject) item;
-            RadiotPodcastTimeLabel timeLabel = new RadiotPodcastTimeLabel();
-            timeLabel.setDuration(jsonHelper.getLong(jsonItem, "duration"));
-            timeLabel.setTopic(jsonHelper.getString(jsonItem, "topic"));
-            timeLabel.setTime(Timestamp.from(Instant.now()));
-            timeLabel.setPodcast(podcast);
-            result.add(radiotPodcastTimeLabelRepository.save(timeLabel));
-        });
-        return result;
+        if (json != null) {
+            Set<RadiotPodcastTimeLabel> result = new HashSet<>();
+            json.forEach(item -> {
+                JSONObject jsonItem = (JSONObject) item;
+                RadiotPodcastTimeLabel timeLabel = new RadiotPodcastTimeLabel();
+                timeLabel.setDuration(jsonHelper.getLong(jsonItem, "duration"));
+                timeLabel.setTopic(jsonHelper.getString(jsonItem, "topic"));
+                timeLabel.setTime(Timestamp.from(Instant.now()));
+                timeLabel.setPodcast(podcast);
+                result.add(radiotPodcastTimeLabelRepository.save(timeLabel));
+            });
+            return result;
+        } else {
+            return null;
+        }
     }
 }
