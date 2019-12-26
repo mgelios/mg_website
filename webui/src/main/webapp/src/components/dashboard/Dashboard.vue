@@ -1,9 +1,12 @@
 <template>
     <div>
+
         <v-app-bar app flat>
             <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
             <div class="flex-grow-1"></div>
-            <v-menu v-model="menu" :close-on-content-click="false">
+            <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false">
                 <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
                         <v-icon>business</v-icon>
@@ -25,7 +28,11 @@
             <v-icon large @click="router.push({name: 'profile'})">perm_identity</v-icon>
             <!--<HelloWorld/>-->
         </v-app-bar>
-        <v-navigation-drawer app v-model="navDrawer" :mini-variant.sync="miniToolbar">
+
+        <v-navigation-drawer
+                app
+                v-model="navDrawer"
+                :mini-variant.sync="miniToolbar">
             <v-list>
                 <v-list-item avatar>
                     <v-list-item-avatar>
@@ -46,17 +53,25 @@
                         v-for="navItem in navigationItems"
                         :key="navItem.title"
                         @click="router.push({name: navItem.route})">
-                        <v-list-item-action>
-                            <v-icon>{{navItem.icon}}</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>{{navItem.title}}</v-list-item-title>
-                        </v-list-item-content>
+                    <v-list-item-action>
+                        <v-icon>{{navItem.icon}}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>{{navItem.title}}</v-list-item-title>
+                    </v-list-item-content>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
+
         <router-view></router-view>
-        <v-footer app :inset="true" :fixed="false" class="justify-center">&copy;MGeliOS 2019</v-footer>
+
+        <v-footer
+                app
+                :inset="true"
+                :fixed="false"
+                class="justify-center">
+            &copy;MGeliOS 2019
+        </v-footer>
     </div>
 </template>
 
