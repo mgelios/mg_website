@@ -1,4 +1,6 @@
 spring:
+  liquibase:
+    enabled: true
   datasource:
     url: "jdbc:postgresql://localhost:15432/dev_db"
     username: "dev_user"
