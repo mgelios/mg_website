@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.2.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.3.2.RELEASE"
     }
 }
 
@@ -71,11 +71,13 @@ subprojects {
         compile('com.vladsch.flexmark:flexmark-all:0.50.4')
 
         compile('org.liquibase:liquibase-core:3.10.1')
+        compile('org.yaml:snakeyaml:1.26')
 
         runtime('com.h2database:h2')
         runtime('org.springframework.boot:spring-boot-devtools')
 
-        compileOnly('org.projectlombok:lombok')
+        compileOnly('org.projectlombok:lombok:1.18.12')
+        annotationProcessor('org.projectlombok:lombok:1.18.12')
 
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
