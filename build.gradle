@@ -70,8 +70,8 @@ subprojects {
 
         compile('com.vladsch.flexmark:flexmark-all:0.50.4')
 
-        compile('org.liquibase:liquibase-core:3.10.1')
         compile('org.yaml:snakeyaml:1.26')
+        compile('org.liquibase:liquibase-core:4.0.0')
 
         runtime('com.h2database:h2')
         runtime('org.springframework.boot:spring-boot-devtools')
