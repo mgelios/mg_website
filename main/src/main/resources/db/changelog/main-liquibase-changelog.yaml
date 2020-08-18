@@ -1,14 +1,11 @@
-databaseChangelog:
-#  - include:
-#      file: classpath:db/changelog/weather-root-changelog.yaml
-#
-  -  changeSet:
-       id:  1
-       author:  mgelios
-       changes:
-         -  createTable:
-              tableName:  some
-              columns:
-                -  column:
-                     name:  id
-                     type:  int
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mgelios
+      changes:
+        - createTable:
+            tableName: testTable
+            columns:
+              - column:
+                  name: id
+                  type: int
