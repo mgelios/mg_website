@@ -1,3 +1,14 @@
-databaseChangelog:
-  - include:
-      file: "db/changelog/weather-root-changelog.xml"
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mgelios
+      changes:
+        - createTable:
+            tableName: testTable
+            columns:
+              - column:
+                  name: id
+                  type: int
+
+#  - include:
+#      file: "db/changelog/weather-root-changelog.xml"
