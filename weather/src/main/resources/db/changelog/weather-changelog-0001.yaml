@@ -1,11 +1,53 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: weather-init
       author: mgelios
       changes:
         - createTable:
-            tableName: testTable
+            tableName: mg_current_weather
             columns:
               - column:
                   name: id
-                  type: int
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: time
+                  type: timestamp
+              - column:
+                  name: city_name
+                  type: text
+              - column:
+                  name: longitude
+                  type: real
+              - column:
+                  name: latitude
+                  type: real
+              - column:
+                  name: main_info
+                  type: text
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: icon
+                  type: text
+              - column:
+                  name: temperature
+                  type: real
+              - column:
+
+#                  <column name="icon" type="VARCHAR(200)" />
+#                  <column name="temperature" type="REAL" />
+#                  <column name="pressure" type="REAL" />
+#                  <column name="humidity" type="REAL" />
+#                  <column name="min_temp" type="REAL" />
+#                  <column name="max_temp" type="REAL" />
+#                  <column name="visibility" type="REAL" />
+#                  <column name="wind_speed" type="REAL" />
+#                  <column name="wind_degree" type="REAL" />
+#                  <column name="sunrise" type="TIMESTAMP" />
+#                  <column name="sunset" type="TIMESTAMP" />
+#                  <column name="uvi" type="real" />
+#                  </createTable>
