@@ -37,17 +37,32 @@ databaseChangeLog:
                   name: temperature
                   type: real
               - column:
-
-#                  <column name="icon" type="VARCHAR(200)" />
-#                  <column name="temperature" type="REAL" />
-#                  <column name="pressure" type="REAL" />
-#                  <column name="humidity" type="REAL" />
-#                  <column name="min_temp" type="REAL" />
-#                  <column name="max_temp" type="REAL" />
-#                  <column name="visibility" type="REAL" />
-#                  <column name="wind_speed" type="REAL" />
-#                  <column name="wind_degree" type="REAL" />
-#                  <column name="sunrise" type="TIMESTAMP" />
-#                  <column name="sunset" type="TIMESTAMP" />
-#                  <column name="uvi" type="real" />
-#                  </createTable>
+                  name: pressure
+                  type: real
+              - column:
+                  name: humidity
+                  type: real
+              - column:
+                  name: min_temp
+                  type: real
+              - column:
+                  name: max_temp
+                  type: real
+              - column:
+                  name: visibility
+                  type: real
+              - column:
+                  name: wind_speed
+                  type: real
+              - column:
+                  name: wind_degree
+                  type: real
+              - column:
+                  name: sunrise
+                  type: timestamp
+              - column:
+                  name: sunset
+                  type: timestamp
+              - column:
+                  name: uvi
+                  type: real
