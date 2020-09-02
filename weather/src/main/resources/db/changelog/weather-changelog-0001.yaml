@@ -69,7 +69,7 @@ databaseChangeLog:
                   type: real
 
         - createTable:
-            tableName: mg_current_weather
+            tableName: mg_weather_forecast
             columns:
               - column:
                   name: id
@@ -123,3 +123,8 @@ databaseChangeLog:
                   name: update_time
                   type: timestamp
 
+        rollback:
+          - dropTable:
+              tableName: mg_weather_forecast
+          - dropTable:
+              tableName: mg_current_weather
