@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: finance-init
+      author: mgelios
+      changes:
+
+        #  id serial not null,
+        #  system_id integer not null,
+        #  date timestamp not null,
+        #  abbreviation varchar(25) not null,
+        #  scale real not null,
+        #  name varchar(100) not null,
+        #  rate real not null,
+
+        - createTable:
+            tableName: mg_currency
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+        rollback:
+          - dropTable:
+              tableName: mg_currency
