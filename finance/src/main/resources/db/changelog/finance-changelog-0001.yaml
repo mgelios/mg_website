@@ -1,16 +1,10 @@
+#TODO: change serial id to uuid
+
 databaseChangeLog:
   - changeSet:
       id: finance-init
       author: mgelios
       changes:
-
-        #  id serial not null,
-        #  system_id integer not null,
-        #  date timestamp not null,
-        #  abbreviation varchar(25) not null,
-        #  scale real not null,
-        #  name varchar(100) not null,
-        #  rate real not null,
 
         - createTable:
             tableName: mg_currency
@@ -21,7 +15,68 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+              - column:
+                  name: system_id
+                  type: integer
+              - column:
+                  name: date
+                  type: timestamp
+              - column:
+                  name: abbreviation
+                  type: text
+              - column:
+                  name: scale
+                  type: real
+              - column:
+                  name: name
+                  type: text
+              - column:
+                  name: rate
+                  type: real
+
+        - createTable:
+            tableName: mg_currency_conversion
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: currency_from
+                  type: integer
+              - column:
+                  name: currency_to
+                  type: integer
+              - column:
+                  name: value
+                  type: real
+
+        - createTable:
+            tableName: mg_currency_statistics
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: date
+                  type: timestamp
+              - column:
+                  name: currency
+                  type: integer
+              - column:
+                  name: rate
+                  type: real
 
         rollback:
           - dropTable:
+              tableName: mg_currency_statistics
+          - dropTable:
+              tableName: mg_currency_conversion
+          - dropTable:
               tableName: mg_currency
+
