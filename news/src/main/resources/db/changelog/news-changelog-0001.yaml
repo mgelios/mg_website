@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: news-init
+      author: mgelios
+      changes:
+
+        - createTable:
+            tableName: mg_radiot_article
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: text
+              - column:
+                  name: content
+                  type: text
+              - column:
+                  name: snippet
+                  type: text
+              - column:
+                  name: main_picture
+                  type: text
+              - column:
+                  name: link
+                  type: text
+              - column:
+                  name: author
+                  type: text
+              - column:
+                  name: original_time
+                  type: timestamp
+              - column:
+                  name: radiot_time
+                  type: timestamp
+              - column:
+                  name: feed
+                  type: text
+              - column:
+                  name: slug
+                  type: text
+              - column:
+                  name: comments
+                  type: bigint
+              - column:
+                  name: likes
+                  type: bigint
+              - column:
+                  name: last_updated
+                  type: timestamp
