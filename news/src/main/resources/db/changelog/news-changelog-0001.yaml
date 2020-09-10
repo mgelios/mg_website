@@ -52,3 +52,34 @@ databaseChangeLog:
               - column:
                   name: last_updated
                   type: timestamp
+
+        - createTable:
+            tableName: mg_radiot_podcast
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: url
+                  type: text
+              - column:
+                  name: title
+                  type: text
+              - column:
+                  name: date
+                  type: timestamp
+              - column:
+                  name: image
+                  type: text
+              - column:
+                  name: body
+                  type: text
+              - column:
+                  name: show_notes
+                  type: text
+              - column:
+                  name: audio_url
+                  type: text
