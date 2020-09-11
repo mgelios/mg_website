@@ -83,3 +83,26 @@ databaseChangeLog:
               - column:
                   name: audio_url
                   type: text
+
+        - createTable:
+            tableName: mg_radiot_time_label
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: topic
+                  type: text
+              - column:
+                  name: time
+                  type: timestamp
+              - column:
+                  name: duration
+                  type: bigint
+              - column:
+                  name: podcast
+                  type: integer
+
