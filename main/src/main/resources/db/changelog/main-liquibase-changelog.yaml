@@ -1,4 +1,8 @@
 databaseChangeLog:
   - include:
       file: "classpath:db/changelog/weather-root-changelog.yaml"
+  - include:
+      file: "classpath:db/changelog/finance-root-changelog.yaml"
+  - include:
+      file: "classpath:db/changelog/news-root-changelog.yaml"
 
