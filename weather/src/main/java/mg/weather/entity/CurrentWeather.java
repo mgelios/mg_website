@@ -6,6 +6,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 
 @Entity
@@ -15,9 +16,9 @@ import java.sql.Timestamp;
 public class CurrentWeather {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @Column(name = "time")
     private Timestamp time;

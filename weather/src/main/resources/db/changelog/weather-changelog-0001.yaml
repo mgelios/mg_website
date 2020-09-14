@@ -8,8 +8,8 @@ databaseChangeLog:
             tableName: mg_current_weather
             columns:
               - column:
-                  name: id
-                  type: serial
+                  name: uuid
+                  type: binary(16)
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -72,8 +72,8 @@ databaseChangeLog:
             tableName: mg_weather_forecast
             columns:
               - column:
-                  name: id
-                  type: serial
+                  name: uuid
+                  type: binary(16)
                   constraints:
                     nullable: false
                     primaryKey: true

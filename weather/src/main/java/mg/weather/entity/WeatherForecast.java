@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -11,9 +12,9 @@ import java.sql.Timestamp;
 public class WeatherForecast {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @Column(name = "time")
     private Timestamp time;
