@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -13,9 +14,9 @@ import java.sql.Timestamp;
 public class CurrencyStatistics {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @Column(name = "date")
     private Timestamp date;

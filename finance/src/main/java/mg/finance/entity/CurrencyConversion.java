@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -12,9 +13,9 @@ import javax.persistence.*;
 public class CurrencyConversion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue
+    @Column(name = "uuid")
+    private UUID uuid;
     @ManyToOne
     @JoinColumn(name = "currency_from", nullable = false)
     @ToString.Exclude

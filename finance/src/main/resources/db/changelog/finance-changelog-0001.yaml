@@ -10,8 +10,8 @@ databaseChangeLog:
             tableName: mg_currency
             columns:
               - column:
-                  name: id
-                  type: serial
+                  name: uuid
+                  type: binary(16)
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -38,8 +38,8 @@ databaseChangeLog:
             tableName: mg_currency_conversion
             columns:
               - column:
-                  name: id
-                  type: serial
+                  name: uuid
+                  type: binary(16)
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -57,8 +57,8 @@ databaseChangeLog:
             tableName: mg_currency_statistics
             columns:
               - column:
-                  name: id
-                  type: serial
+                  name: uuid
+                  type: binary(16)
                   constraints:
                     nullable: false
                     primaryKey: true
