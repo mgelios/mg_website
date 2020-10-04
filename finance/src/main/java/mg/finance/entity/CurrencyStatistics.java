@@ -15,18 +15,12 @@ public class CurrencyStatistics {
 
     @Id
     @GeneratedValue
-    @Column(name = "uuid")
     private UUID uuid;
-
-    @Column(name = "date")
     private Timestamp date;
-
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "currency")
     private Currency currency;
-
-    @Column(name = "rate")
     private double rate;
 }

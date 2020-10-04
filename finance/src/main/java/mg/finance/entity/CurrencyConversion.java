@@ -14,7 +14,6 @@ public class CurrencyConversion {
 
     @Id
     @GeneratedValue
-    @Column(name = "uuid")
     private UUID uuid;
     @ManyToOne
     @JoinColumn(name = "currency_from", nullable = false)
@@ -26,6 +25,5 @@ public class CurrencyConversion {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Currency currencyTo;
-    @Column(name = "value")
     private double value;
 }

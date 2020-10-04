@@ -30,5 +30,4 @@ public class WeatherForecast {
     private double windDegree;
     private String cityName;
     private Timestamp updateTime;
-
 }
