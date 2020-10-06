@@ -15,21 +15,13 @@ public class RadiotPodcast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "url")
     private String url;
-    @Column(name = "title")
     private String title;
-    @Column(name = "date")
     private Timestamp date;
-    @Column(name = "image")
     private String image;
-    @Column(name = "body")
     private String body;
-    @Column(name = "show_notes")
     private String showNotes;
-    @Column(name = "audio_url")
     private String audioUrl;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

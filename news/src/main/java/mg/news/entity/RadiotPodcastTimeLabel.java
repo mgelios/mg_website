@@ -14,17 +14,13 @@ public class RadiotPodcastTimeLabel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
+    private String topic;
+    private Long duration;
+    private Timestamp time;
     @ManyToOne
     @JoinColumn(name = "podcast", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private RadiotPodcast podcast;
-    @Column(name = "topic")
-    private String topic;
-    @Column(name = "duration")
-    private Long duration;
-    @Column(name = "time")
-    private Timestamp time;
 }
