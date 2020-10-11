@@ -1,6 +1,8 @@
 package mg.weather.entity;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
@@ -9,7 +11,9 @@ import java.util.UUID;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_current_weather")
 @Indexed
 public class CurrentWeather {

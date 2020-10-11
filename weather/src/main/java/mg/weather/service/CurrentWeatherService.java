@@ -1,5 +1,6 @@
 package mg.weather.service;
 
+import lombok.AllArgsConstructor;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
@@ -18,18 +19,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CurrentWeatherService {
 
-    @Autowired
-    private WeatherConfiguration weatherConfiguration;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private WeatherUrlBuilder weatherUrlBuilder;
-    @Autowired
-    private CurrentWeatherRepository currentWeatherRepository;
+    private final WeatherConfiguration weatherConfiguration;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final WeatherUrlBuilder weatherUrlBuilder;
+    private final CurrentWeatherRepository currentWeatherRepository;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
@@ -61,24 +58,25 @@ public class CurrentWeatherService {
 
     private CurrentWeather saveCurrentWeather(JSONObject json) {
         if (json != null) {
-            CurrentWeather dbEntity = new CurrentWeather();
-            dbEntity.setLatitude(jsonHelper.getDouble(json, "coord.lat"));
-            dbEntity.setLongitude(jsonHelper.getDouble(json, "coord.lon"));
-            dbEntity.setDescription(jsonHelper.getString(json, "weather[0].description"));
-            dbEntity.setMainInfo(jsonHelper.getString(json, "weather[0].main"));
-            dbEntity.setIcon(jsonHelper.getString(json, "weather[0].icon"));
-            dbEntity.setTemperature(jsonHelper.getDouble(json, "main.temp"));
-            dbEntity.setPressure(jsonHelper.getDouble(json, "main.pressure"));
-            dbEntity.setHumidity(jsonHelper.getDouble(json, "main.humidity"));
-            dbEntity.setMinimalTemperature(jsonHelper.getDouble(json, "main.temp_min"));
-            dbEntity.setMaximumTemperature(jsonHelper.getDouble(json, "main.temp_max"));
-            dbEntity.setVisibility(jsonHelper.getDouble(json, "visibility"));
-            dbEntity.setWindSpeed(jsonHelper.getDouble(json, "wind.speed"));
-            dbEntity.setWindDegree(jsonHelper.getDouble(json, "wind.deg"));
-            dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(json, "dt"));
-            dbEntity.setSunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"));
-            dbEntity.setSunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"));
-            dbEntity.setCityName(jsonHelper.getString(json, "name").toLowerCase());
+            CurrentWeather dbEntity = CurrentWeather.builder()
+                    .latitude(jsonHelper.getDouble(json, "coord.lat"))
+                    .longitude(jsonHelper.getDouble(json, "coord.lon"))
+                    .description(jsonHelper.getString(json, "weather[0].description"))
+                    .mainInfo(jsonHelper.getString(json, "weather[0].main"))
+                    .icon(jsonHelper.getString(json, "weather[0].icon"))
+                    .temperature(jsonHelper.getDouble(json, "main.temp"))
+                    .pressure(jsonHelper.getDouble(json, "main.pressure"))
+                    .humidity(jsonHelper.getDouble(json, "main.humidity"))
+                    .minimalTemperature(jsonHelper.getDouble(json, "main.temp_min"))
+                    .maximumTemperature(jsonHelper.getDouble(json, "main.temp_max"))
+                    .visibility(jsonHelper.getDouble(json, "visibility"))
+                    .windSpeed(jsonHelper.getDouble(json, "wind.speed"))
+                    .windDegree(jsonHelper.getDouble(json, "wind.deg"))
+                    .time(jsonHelper.getTimestampOfEpochSecond(json, "dt"))
+                    .sunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"))
+                    .sunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"))
+                    .cityName(jsonHelper.getString(json, "name").toLowerCase())
+                    .build();
             dbEntity.setUvi(getUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));
             return currentWeatherRepository.save(dbEntity);
         } else {

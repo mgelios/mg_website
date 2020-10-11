@@ -1,13 +1,17 @@
 package mg.weather.entity;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_weather_forecast")
 public class WeatherForecast {
 
