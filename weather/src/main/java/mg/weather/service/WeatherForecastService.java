@@ -1,5 +1,6 @@
 package mg.weather.service;
 
+import lombok.AllArgsConstructor;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
@@ -10,7 +11,6 @@ import mg.weather.repository.WeatherForecastRepository;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,18 +25,14 @@ import java.util.stream.Collectors;
 @Service
 @EnableConfigurationProperties(WeatherConfiguration.class)
 @Transactional
+@AllArgsConstructor
 public class WeatherForecastService {
 
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private WeatherUrlBuilder weatherUrlBuilder;
-    @Autowired
-    private WeatherForecastRepository weatherForecastRepository;
-    @Autowired
-    private WeatherConfiguration weatherConfiguration;
+    private final JSONHelper jsonHelper;
+    private final JSONConsumer jsonConsumer;
+    private final WeatherUrlBuilder weatherUrlBuilder;
+    private final WeatherForecastRepository weatherForecastRepository;
+    private final WeatherConfiguration weatherConfiguration;
 
     public List<WeatherForecastDto> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
@@ -76,23 +72,24 @@ public class WeatherForecastService {
             String city = jsonHelper.getString(json, "city.name").toLowerCase();
             int numberOfRecords = json.getInt("cnt");
             for (int i = 0; i < numberOfRecords; i++) {
-                WeatherForecast dbEntity = new WeatherForecast();
                 JSONObject forecast = forecasts.getJSONObject(i);
-                dbEntity.setTime(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"));
-                dbEntity.setTemperature(jsonHelper.getDouble(forecast, "main.temp"));
-                dbEntity.setMinimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"));
-                dbEntity.setMaximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"));
-                dbEntity.setPressure(jsonHelper.getDouble(forecast, "main.pressure"));
-                dbEntity.setSeaLevel(jsonHelper.getDouble(forecast, "main.sea_level"));
-                dbEntity.setGroundLevel(jsonHelper.getDouble(forecast, "main.grnd_level"));
-                dbEntity.setHumidity(jsonHelper.getDouble(forecast, "main.humidity"));
-                dbEntity.setMainInfo(jsonHelper.getString(forecast, "weather[0].main"));
-                dbEntity.setDescription(jsonHelper.getString(forecast, "weather[0].description"));
-                dbEntity.setIcon(jsonHelper.getString(forecast, "weather[0].icon"));
-                dbEntity.setWindSpeed(jsonHelper.getDouble(forecast, "wind.speed"));
-                dbEntity.setWindDegree(jsonHelper.getDouble(forecast, "wind.deg"));
-                dbEntity.setCityName(city);
-                dbEntity.setUpdateTime(Timestamp.from(Instant.now()));
+                WeatherForecast dbEntity = WeatherForecast.builder()
+                        .time(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"))
+                        .temperature(jsonHelper.getDouble(forecast, "main.temp"))
+                        .minimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"))
+                        .maximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"))
+                        .pressure(jsonHelper.getDouble(forecast, "main.pressure"))
+                        .seaLevel(jsonHelper.getDouble(forecast, "main.sea_level"))
+                        .groundLevel(jsonHelper.getDouble(forecast, "main.grnd_level"))
+                        .humidity(jsonHelper.getDouble(forecast, "main.humidity"))
+                        .mainInfo(jsonHelper.getString(forecast, "weather[0].main"))
+                        .description(jsonHelper.getString(forecast, "weather[0].description"))
+                        .icon(jsonHelper.getString(forecast, "weather[0].icon"))
+                        .windSpeed(jsonHelper.getDouble(forecast, "wind.speed"))
+                        .windDegree(jsonHelper.getDouble(forecast, "wind.deg"))
+                        .cityName(city)
+                        .updateTime(Timestamp.from(Instant.now()))
+                        .build();
                 dbEntity = weatherForecastRepository.save(dbEntity);
                 result.add(dbEntity);
             }

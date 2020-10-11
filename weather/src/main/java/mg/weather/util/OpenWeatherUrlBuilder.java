@@ -1,16 +1,16 @@
 package mg.weather.util;
 
+import lombok.AllArgsConstructor;
 import mg.weather.WeatherConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
 @EnableConfigurationProperties(WeatherConfiguration.class)
+@AllArgsConstructor
 public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
 
-    @Autowired
-    WeatherConfiguration weatherConfiguration;
+    private final WeatherConfiguration weatherConfiguration;
 
     @Override
     public String buildCurrentDefaultWeatherUrl() {
