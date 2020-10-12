@@ -1,15 +1,15 @@
 package mg.finance.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_currency_statistics")
 public class CurrencyStatistics {
 

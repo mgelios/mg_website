@@ -1,5 +1,6 @@
 package mg.finance.service;
 
+import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.mapper.CurrencyMapper;
@@ -21,18 +22,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CurrencyService {
 
-    @Autowired
-    private FinanceConfiguration financeConfiguration;
-    @Autowired
-    private CurrencyUrlBuilder currencyUrlBuilder;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private CurrencyRepository currencyRepository;
+    private final FinanceConfiguration financeConfiguration;
+    private final CurrencyUrlBuilder currencyUrlBuilder;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final CurrencyRepository currencyRepository;
 
     public List<CurrencyDto> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -70,13 +67,14 @@ public class CurrencyService {
 
     public Currency saveCurrencyDBEntity(JSONObject json) {
         if (json != null) {
-            Currency dbEntity = new Currency();
-            dbEntity.setSystemId(jsonHelper.getInt(json, "Cur_ID"));
-            dbEntity.setDate(Timestamp.valueOf(jsonHelper.getString(json, "Date").replace("T", " ")));
-            dbEntity.setAbbreviation(jsonHelper.getString(json, "Cur_Abbreviation"));
-            dbEntity.setScale(jsonHelper.getDouble(json, "Cur_Scale"));
-            dbEntity.setName(jsonHelper.getString(json, "Cur_Name"));
-            dbEntity.setRate(jsonHelper.getDouble(json, "Cur_OfficialRate"));
+            Currency dbEntity = Currency.builder()
+                    .systemId(jsonHelper.getInt(json, "Cur_ID"))
+                    .date(Timestamp.valueOf(jsonHelper.getString(json, "Date").replace("T", " ")))
+                    .abbreviation(jsonHelper.getString(json, "Cur_Abbreviation"))
+                    .scale(jsonHelper.getDouble(json, "Cur_Scale"))
+                    .name(jsonHelper.getString(json, "Cur_Name"))
+                    .rate(jsonHelper.getDouble(json, "Cur_OfficialRate"))
+                    .build();
             return currencyRepository.save(dbEntity);
         } else {
             return null;

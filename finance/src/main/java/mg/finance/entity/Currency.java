@@ -8,7 +8,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_currency")
 public class Currency {
 
