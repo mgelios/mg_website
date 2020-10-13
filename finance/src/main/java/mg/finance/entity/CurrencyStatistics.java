@@ -16,6 +16,7 @@ public class CurrencyStatistics {
     @Id
     @GeneratedValue
     private UUID uuid;
+    private Long id;
     private Timestamp date;
     @ManyToOne
     @ToString.Exclude

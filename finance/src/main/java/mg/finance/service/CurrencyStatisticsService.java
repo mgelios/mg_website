@@ -1,5 +1,6 @@
 package mg.finance.service;
 
+import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.entity.CurrencyStatistics;
@@ -23,20 +24,15 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CurrencyStatisticsService {
 
-    @Autowired
-    private FinanceConfiguration financeConfiguration;
-    @Autowired
-    private CurrencyUrlBuilder currencyUrlBuilder;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private CurrencyService currencyService;
-    @Autowired
-    private CurrencyStatisticsRepository currencyStatisticsRepository;
+    private final FinanceConfiguration financeConfiguration;
+    private final CurrencyUrlBuilder currencyUrlBuilder;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final CurrencyService currencyService;
+    private final CurrencyStatisticsRepository currencyStatisticsRepository;
 
     public Map<String, List<CurrencyStatisticsDto>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
@@ -72,12 +68,13 @@ public class CurrencyStatisticsService {
         if (jsonArray != null) {
             List<CurrencyStatistics> result = new ArrayList<>();
             for (Object item : jsonArray) {
-                CurrencyStatistics statisticsDBEntity = new CurrencyStatistics();
                 JSONObject jsonItem = (JSONObject) item;
-                statisticsDBEntity.setDate(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"));
-                statisticsDBEntity.setCurrency(currency);
-                statisticsDBEntity.setRate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"));
-                statisticsDBEntity.setId(jsonHelper.getLong(jsonItem, "Cur_ID"));
+                CurrencyStatistics statisticsDBEntity = CurrencyStatistics.builder()
+                        .date(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"))
+                        .currency(currency)
+                        .rate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"))
+                        .id(jsonHelper.getLong(jsonItem, "Cur_ID"))
+                        .build();
                 result.add(currencyStatisticsRepository.save(statisticsDBEntity));
             }
             return result;
