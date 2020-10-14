@@ -1,12 +1,12 @@
 package mg.finance.service;
 
+import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
 import mg.finance.mapper.CurrencyConversionMapper;
 import mg.finance.dto.CurrencyConversionDto;
 import mg.finance.repository.CurrencyConversionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CurrencyConversionService {
 
-    @Autowired
-    private FinanceConfiguration financeConfiguration;
-    @Autowired
-    private CurrencyService currencyService;
-    @Autowired
-    private CurrencyConversionRepository currencyConversionRepository;
+    private final FinanceConfiguration financeConfiguration;
+    private final CurrencyService currencyService;
+    private final CurrencyConversionRepository currencyConversionRepository;
 
     public List<CurrencyConversionDto> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()
@@ -65,10 +63,11 @@ public class CurrencyConversionService {
     }
 
     private CurrencyConversion saveCurrencyConversion(Currency from, Currency to) {
-        CurrencyConversion currencyConversionDBEntity = new CurrencyConversion();
-        currencyConversionDBEntity.setCurrencyFrom(from);
-        currencyConversionDBEntity.setCurrencyTo(to);
-        currencyConversionDBEntity.setValue(getConversionValue(from, to));
+        CurrencyConversion currencyConversionDBEntity = CurrencyConversion.builder()
+                .currencyFrom(from)
+                .currencyTo(to)
+                .value(getConversionValue(from, to))
+                .build();
         return currencyConversionRepository.save(currencyConversionDBEntity);
     }
 
