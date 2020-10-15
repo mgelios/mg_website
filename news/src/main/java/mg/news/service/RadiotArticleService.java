@@ -1,5 +1,6 @@
 package mg.news.service;
 
+import lombok.AllArgsConstructor;
 import mg.news.entity.RadiotArticle;
 import mg.news.mapper.RadiotArticleMapper;
 import mg.news.dto.RadiotArticleDto;
@@ -9,7 +10,6 @@ import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -21,16 +21,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RadiotArticleService {
 
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private RadiotUrlBuilder radiotUrlBuilder;
-    @Autowired
-    private RadiotArticleRepository radiotArticleRepository;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final RadiotUrlBuilder radiotUrlBuilder;
+    private final RadiotArticleRepository radiotArticleRepository;
 
     public List<RadiotArticleDto> getRadiotArticlesList() {
         List<RadiotArticle> dbArticles = new ArrayList<>();
