@@ -1,5 +1,6 @@
 package mg.news.service;
 
+import lombok.AllArgsConstructor;
 import mg.news.entity.RadiotPodcast;
 import mg.news.entity.RadiotPodcastTimeLabel;
 import mg.news.mapper.RadiotPodcastMapper;
@@ -11,7 +12,6 @@ import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +25,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class RadiotPodcastService {
 
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private RadiotUrlBuilder radiotUrlBuilder;
-    @Autowired
-    private RadiotPodcastRepository radiotPodcastRepository;
-    @Autowired
-    private RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final RadiotUrlBuilder radiotUrlBuilder;
+    private final RadiotPodcastRepository radiotPodcastRepository;
+    private final RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
 
     public List<RadiotPodcastDto> getRadiotPodcasts() {
         List<RadiotPodcast> podcasts = new ArrayList<>();
@@ -59,16 +55,17 @@ public class RadiotPodcastService {
         if (json != null) {
             List<RadiotPodcast> result = new ArrayList<>();
             json.forEach(item -> {
-                RadiotPodcast radiotPodcast = new RadiotPodcast();
                 JSONObject jsonItem = (JSONObject) item;
                 Set<RadiotPodcastTimeLabel> timeLabels = null;
-                radiotPodcast.setAudioUrl(jsonHelper.getString(jsonItem, "audio_url"));
-                radiotPodcast.setBody(jsonHelper.getString(jsonItem, "body"));
-                radiotPodcast.setImage(jsonHelper.getString(jsonItem, "image"));
-                radiotPodcast.setShowNotes(jsonHelper.getString(jsonItem, "show_notes"));
-                radiotPodcast.setTitle(jsonHelper.getString(jsonItem, "title"));
-                radiotPodcast.setUrl(jsonHelper.getString(jsonItem, "url"));
-                radiotPodcast.setDate(Timestamp.from(Instant.now()));
+                RadiotPodcast radiotPodcast = RadiotPodcast.builder()
+                        .audioUrl(jsonHelper.getString(jsonItem, "audio_url"))
+                        .body(jsonHelper.getString(jsonItem, "body"))
+                        .image(jsonHelper.getString(jsonItem, "image"))
+                        .showNotes(jsonHelper.getString(jsonItem, "show_notes"))
+                        .title(jsonHelper.getString(jsonItem, "title"))
+                        .url(jsonHelper.getString(jsonItem, "url"))
+                        .date(Timestamp.from(Instant.now()))
+                        .build();
                 radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
                 timeLabels = saveRadiotPodcastTimeLabels(jsonHelper.getJSONArray(jsonItem, "time_labels"), radiotPodcast);
                 radiotPodcast.setTimeLabels(timeLabels);
@@ -85,11 +82,12 @@ public class RadiotPodcastService {
             Set<RadiotPodcastTimeLabel> result = new HashSet<>();
             json.forEach(item -> {
                 JSONObject jsonItem = (JSONObject) item;
-                RadiotPodcastTimeLabel timeLabel = new RadiotPodcastTimeLabel();
-                timeLabel.setDuration(jsonHelper.getLong(jsonItem, "duration"));
-                timeLabel.setTopic(jsonHelper.getString(jsonItem, "topic"));
-                timeLabel.setTime(Timestamp.from(Instant.now()));
-                timeLabel.setPodcast(podcast);
+                RadiotPodcastTimeLabel timeLabel = RadiotPodcastTimeLabel.builder()
+                        .duration(jsonHelper.getLong(jsonItem, "duration"))
+                        .topic(jsonHelper.getString(jsonItem, "topic"))
+                        .time(Timestamp.from(Instant.now()))
+                        .podcast(podcast)
+                        .build();
                 result.add(radiotPodcastTimeLabelRepository.save(timeLabel));
             });
             return result;

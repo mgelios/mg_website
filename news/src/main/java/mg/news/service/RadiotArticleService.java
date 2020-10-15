@@ -54,20 +54,21 @@ public class RadiotArticleService {
         if (jsonArticles != null) {
             jsonArticles.forEach(article -> {
                 JSONObject jsonArticle = (JSONObject) article;
-                RadiotArticle dbArticle = new RadiotArticle();
-                dbArticle.setAuthor(jsonHelper.getString(jsonArticle, "author"));
-                dbArticle.setComments(jsonHelper.getLong(jsonArticle, "comments"));
-                dbArticle.setContent(jsonHelper.getString(jsonArticle, "content"));
-                dbArticle.setFeed(jsonHelper.getString(jsonArticle, "feed"));
-                dbArticle.setLikes(jsonHelper.getLong(jsonArticle, "likes"));
-                dbArticle.setLink(jsonHelper.getString(jsonArticle, "link"));
-                dbArticle.setMainPicture(jsonHelper.getString(jsonArticle, "pic"));
-                dbArticle.setSlug(jsonHelper.getString(jsonArticle, "slug"));
-                dbArticle.setSnippet(jsonHelper.getString(jsonArticle, "snippet"));
-                dbArticle.setTitle(jsonHelper.getString(jsonArticle, "title"));
-                dbArticle.setOriginalTime(Timestamp.from(Instant.now()));
-                dbArticle.setRadiotTime(Timestamp.from(Instant.now()));
-                dbArticle.setLastUpdated(Timestamp.from(Instant.now()));
+                RadiotArticle dbArticle = RadiotArticle.builder()
+                        .author(jsonHelper.getString(jsonArticle, "author"))
+                        .comments(jsonHelper.getLong(jsonArticle, "comments"))
+                        .content(jsonHelper.getString(jsonArticle, "content"))
+                        .feed(jsonHelper.getString(jsonArticle, "feed"))
+                        .likes(jsonHelper.getLong(jsonArticle, "likes"))
+                        .link(jsonHelper.getString(jsonArticle, "link"))
+                        .mainPicture(jsonHelper.getString(jsonArticle, "pic"))
+                        .slug(jsonHelper.getString(jsonArticle, "slug"))
+                        .snippet(jsonHelper.getString(jsonArticle, "snippet"))
+                        .title(jsonHelper.getString(jsonArticle, "title"))
+                        .originalTime(Timestamp.from(Instant.now()))
+                        .radiotTime(Timestamp.from(Instant.now()))
+                        .lastUpdated(Timestamp.from(Instant.now()))
+                        .build();
                 dbArticle = radiotArticleRepository.save(dbArticle);
                 radiotArticleList.add(dbArticle);
             });
