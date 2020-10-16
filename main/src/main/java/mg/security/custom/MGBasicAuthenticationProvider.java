@@ -1,7 +1,7 @@
 package mg.security.custom;
 
+import lombok.AllArgsConstructor;
 import mg.profile.service.MGUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,12 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class MGBasicAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private MGUserDetailsService userDetailsService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final MGUserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
@@ -25,8 +24,7 @@ public class MGBasicAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         UserDetails user = userDetailsService.loadUserByUsername(name);
         if (user != null) {
-            final Authentication auth = new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
-            return auth;
+            return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
         }
         return null;
     }
