@@ -16,4 +16,7 @@ public class ApiConsumer {
     private UUID uuid;
     private String name;
     private String apiKey;
+    private String token;
+    private String clientId;
+    private String clientSecret;
 }
