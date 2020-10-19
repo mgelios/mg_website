@@ -1,11 +1,11 @@
 package mg.security;
 
+import lombok.AllArgsConstructor;
 import mg.BasicCORSFilter;
 import mg.security.custom.MGAuthenticationFailureHandler;
 import mg.security.custom.MGAuthenticationSuccessHandler;
 import mg.security.custom.MGBasicAuthenticationProvider;
 import mg.security.custom.MGBasicAuthenticationEntryPoint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_ALL = {
@@ -46,16 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/admin/**"
     };
 
-    @Autowired
-    private MGBasicAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
-    private MGBasicAuthenticationProvider authenticationProvider;
-    @Autowired
-    private MGAuthenticationSuccessHandler authSuccessHandler;
-    @Autowired
-    private MGAuthenticationFailureHandler authFailureHandler;
-    @Autowired
-    private BasicCORSFilter basicCORSFilter;
+    private final MGBasicAuthenticationEntryPoint authenticationEntryPoint;
+    private final MGBasicAuthenticationProvider authenticationProvider;
+    private final MGAuthenticationSuccessHandler authSuccessHandler;
+    private final MGAuthenticationFailureHandler authFailureHandler;
+    private final BasicCORSFilter basicCORSFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -14,8 +14,10 @@ import java.io.PrintWriter;
 public class MGBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
+
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + getRealmName() + "\"");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter writer = response.getWriter();
@@ -24,7 +26,7 @@ public class MGBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoi
 
     @Override
     public void afterPropertiesSet(){
-        setRealmName("MGelios");
+        setRealmName("mgrealm");
         super.afterPropertiesSet();
     }
 }
