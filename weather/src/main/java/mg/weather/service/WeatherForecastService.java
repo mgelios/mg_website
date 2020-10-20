@@ -8,6 +8,7 @@ import mg.weather.entity.WeatherForecast;
 import mg.weather.mapper.WeatherForecastMapper;
 import mg.weather.dto.WeatherForecastDto;
 import mg.weather.repository.WeatherForecastRepository;
+import mg.weather.util.OpenWeatherUrlBuilder;
 import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ public class WeatherForecastService {
 
     private final JSONHelper jsonHelper;
     private final JSONConsumer jsonConsumer;
-    private final WeatherUrlBuilder weatherUrlBuilder;
+    private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final WeatherForecastRepository weatherForecastRepository;
     private final WeatherConfiguration weatherConfiguration;
 

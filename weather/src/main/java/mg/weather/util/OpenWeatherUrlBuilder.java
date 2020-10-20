@@ -12,6 +12,13 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
 
     private final WeatherConfiguration weatherConfiguration;
 
+    private static final String OPEN_WEATHER_IMPERIAL_UNITS = "imperial";
+    private static final String OPEN_WEATHER_METRIC_UNITS = "metric";
+    private static final String OPEN_WEATHER_STANDARD_UNITS = "standard";
+
+    private static final String OPEN_WEATHER_RUSSIAN_LANGUAGE = "ru";
+    private static final String OPEN_WEATHER_ENGLISH_LANGUAGE = "en";
+
     @Override
     public String buildCurrentDefaultWeatherUrl() {
         StringBuilder builder = new StringBuilder();

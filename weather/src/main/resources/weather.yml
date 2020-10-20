@@ -4,6 +4,7 @@ mg:
     weatherSuffix: "weather"
     forecastSuffix: "forecast"
     apiKey: "0502d0f1f744a28dd8065598094fa1db"
+    apiClientName: "OPEN_WEATHER_MAP"
     units: "metric"
     lang: "en"
     defaultCity: "minsk"
