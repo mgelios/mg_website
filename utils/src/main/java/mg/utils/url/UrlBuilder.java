@@ -15,12 +15,21 @@ public class UrlBuilder {
 
     private String protocol;
     private String host;
+    private String path;
     private String query;
+
+    public String getUrl() {
+        return protocol + host + path + query;
+    }
 
     public static class Builder {
 
+        private static final String HTTP_PROTOCOL = "http://";
+        private static final String HTTPS_PROTOCOL = "https://";
+
         private String protocol;
         private String host;
+        private String path;
         private String query;
 
         public Builder protocol(String protocol) {
@@ -33,13 +42,27 @@ public class UrlBuilder {
             return this;
         }
 
+        public Builder path(String path) {
+            this.path = path;
+            return this;
+        }
+
         public Builder query(String query) {
             this.query = query;
             return this;
         }
 
+        public Builder addQueryParameter(String parameterName, String parameterValue) {
+            if ("".equals(this.path)) {
+                this.path = "?" + parameterName + "=" + parameterValue;
+            } else {
+                this.path = this.path + "&" + parameterName + "=" + parameterValue;
+            }
+            return this;
+        }
+
         public UrlBuilder build() {
-            return new UrlBuilder(this.protocol, this.host, this.query);
+            return new UrlBuilder(this.protocol, this.host, this.path, this.query);
         }
     }
 }
