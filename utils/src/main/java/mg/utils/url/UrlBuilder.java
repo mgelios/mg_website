@@ -52,6 +52,16 @@ public class UrlBuilder {
             return this;
         }
 
+        public Builder addPathPart(String pathPart) {
+            if ("".equals(this.query)) {
+                this.path = "/" + pathPart;
+            } else {
+                this.path = this.path + "/" + pathPart;
+            }
+
+            return this;
+        }
+
         public Builder addQueryParameter(String parameterName, String parameterValue) {
             if ("".equals(this.path)) {
                 this.path = "?" + parameterName + "=" + parameterValue;
