@@ -8,9 +8,8 @@ import mg.weather.entity.CurrentWeather;
 import mg.weather.mapper.CurrentWeatherMapper;
 import mg.weather.dto.CurrentWeatherDto;
 import mg.weather.repository.CurrentWeatherRepository;
-import mg.weather.util.WeatherUrlBuilder;
+import mg.weather.util.OpenWeatherUrlBuilder;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class CurrentWeatherService {
     private final WeatherConfiguration weatherConfiguration;
     private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
-    private final WeatherUrlBuilder weatherUrlBuilder;
+    private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final CurrentWeatherRepository currentWeatherRepository;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {

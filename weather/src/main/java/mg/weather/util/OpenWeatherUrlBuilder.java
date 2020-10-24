@@ -1,6 +1,7 @@
 package mg.weather.util;
 
 import lombok.AllArgsConstructor;
+import mg.utils.url.UrlBuilder;
 import mg.weather.WeatherConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -8,34 +9,17 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableConfigurationProperties(WeatherConfiguration.class)
 @AllArgsConstructor
-public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
+public class OpenWeatherUrlBuilder{
 
     private final WeatherConfiguration weatherConfiguration;
 
-    private static final String OPEN_WEATHER_IMPERIAL_UNITS = "imperial";
-    private static final String OPEN_WEATHER_METRIC_UNITS = "metric";
-    private static final String OPEN_WEATHER_STANDARD_UNITS = "standard";
+    public static final String OPEN_WEATHER_IMPERIAL_UNITS = "imperial";
+    public static final String OPEN_WEATHER_METRIC_UNITS = "metric";
+    public static final String OPEN_WEATHER_STANDARD_UNITS = "standard";
 
-    private static final String OPEN_WEATHER_RUSSIAN_LANGUAGE = "ru";
-    private static final String OPEN_WEATHER_ENGLISH_LANGUAGE = "en";
+    public static final String OPEN_WEATHER_RUSSIAN_LANGUAGE = "ru";
+    public static final String OPEN_WEATHER_ENGLISH_LANGUAGE = "en";
 
-    @Override
-    public String buildCurrentDefaultWeatherUrl() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(weatherConfiguration.getBaseUrl())
-                .append(weatherConfiguration.getWeatherSuffix())
-                .append(weatherConfiguration.getQuerySymbol())
-                .append(weatherConfiguration.getWeatherQuerySuffix())
-                .append(weatherConfiguration.getEqualitySymbol())
-                .append(weatherConfiguration.getDefaultCity())
-                .append(weatherConfiguration.getQueryDelimiter())
-                .append(getApiKeyPart())
-                .append(getUnitsPart())
-                .append(getLangPart());
-        return builder.toString();
-    }
-
-    @Override
     public String buildCurrentWeatherUrl(String city) {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
@@ -48,10 +32,16 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
                 .append(getApiKeyPart())
                 .append(getUnitsPart())
                 .append(getLangPart());
-        return builder.toString();
+
+        String result = (new UrlBuilder.Builder())
+                .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
+                .host(weatherConfiguration.getHost())
+                .addPathPart(weatherConfiguration.getWeatherPathPart())
+                .addQueryParameter()
+                .build().getUrl();
+        return result;
     }
 
-    @Override
     public String buildForecastDefaultUrl() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
@@ -67,7 +57,6 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
-    @Override
     public String buildForecastUrl(String city) {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())
@@ -83,7 +72,6 @@ public class OpenWeatherUrlBuilder implements WeatherUrlBuilder {
         return builder.toString();
     }
 
-    @Override
     public String buildDefaultUviUrl() {
         StringBuilder builder = new StringBuilder();
         builder.append(weatherConfiguration.getBaseUrl())

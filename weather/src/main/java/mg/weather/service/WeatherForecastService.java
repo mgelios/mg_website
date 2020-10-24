@@ -9,7 +9,6 @@ import mg.weather.mapper.WeatherForecastMapper;
 import mg.weather.dto.WeatherForecastDto;
 import mg.weather.repository.WeatherForecastRepository;
 import mg.weather.util.OpenWeatherUrlBuilder;
-import mg.weather.util.WeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

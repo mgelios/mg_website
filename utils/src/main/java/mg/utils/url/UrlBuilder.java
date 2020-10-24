@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,8 +23,8 @@ public class UrlBuilder {
 
     public static class Builder {
 
-        private static final String HTTP_PROTOCOL = "http://";
-        private static final String HTTPS_PROTOCOL = "https://";
+        public static final String HTTP_PROTOCOL = "http://";
+        public static final String HTTPS_PROTOCOL = "https://";
 
         private String protocol;
         private String host;
@@ -68,6 +67,7 @@ public class UrlBuilder {
             } else {
                 this.path = this.path + "&" + parameterName + "=" + parameterValue;
             }
+
             return this;
         }
 

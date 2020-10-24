@@ -20,23 +20,18 @@ public class WeatherConfiguration{
     @Autowired
     WeatherSyncTask weatherSyncTask;
 
-    private String baseUrl;
-    private String weatherSuffix;
-    private String forecastSuffix;
+    private String host;
+    private String weatherPathPart;
+    private String forecastPathPart;
+    private String queryPathPart;
 
+    private String apiKeyParameter;
+    private String unitsParameter;
+    private String langParameter;
+
+    private String apiKey;
     private String apiClientName;
-    private String units;
-    private String lang;
     private String defaultCity;
-
-    private String weatherQuerySuffix;
-    private String queryDelimiter;
-    private String querySymbol;
-    private String equalitySymbol;
-
-    private String apiKeyVariable;
-    private String unitsVariable;
-    private String langVariable;
 
     private String uviSuffix;
     private String coordLatSuffix;
