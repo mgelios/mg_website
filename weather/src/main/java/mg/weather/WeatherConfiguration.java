@@ -23,19 +23,19 @@ public class WeatherConfiguration{
     private String host;
     private String weatherPathPart;
     private String forecastPathPart;
-    private String queryPathPart;
+    private String uviPathPart;
 
+    private String placeParameter;
     private String apiKeyParameter;
     private String unitsParameter;
     private String langParameter;
+    private String coordLatParameter;
+    private String coordLonParameter;
 
     private String apiKey;
     private String apiClientName;
     private String defaultCity;
 
-    private String uviSuffix;
-    private String coordLatSuffix;
-    private String coordLonSuffix;
     private String defaultCoordLat;
     private String defaultCoordLon;
 }
