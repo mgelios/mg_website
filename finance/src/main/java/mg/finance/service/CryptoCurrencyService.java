@@ -1,5 +1,6 @@
 package mg.finance.service;
 
+import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CryptoCurrency;
 import mg.finance.mapper.CryptoCurrencyMapper;
@@ -10,7 +11,6 @@ import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +22,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CryptoCurrencyService {
 
-    @Autowired
-    private FinanceConfiguration financeConfiguration;
-    @Autowired
-    private CurrencyUrlBuilder currencyUrlBuilder;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private CryptoCurrencyRepository cryptoCurrencyRepository;
+    private final FinanceConfiguration financeConfiguration;
+    private final CurrencyUrlBuilder currencyUrlBuilder;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final CryptoCurrencyRepository cryptoCurrencyRepository;
 
     public List<CryptoCurrencyDto> getCryptoCurrencies() {
         Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
