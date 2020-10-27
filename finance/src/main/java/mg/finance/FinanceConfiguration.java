@@ -16,11 +16,10 @@ import java.util.Map;
 public class FinanceConfiguration {
 
     private String currencyBaseUrl;
-    private String currencyRateSuffix;
-    private String currencyStatisticsSuffix;
-    private String currencyStatisticsStartDate;
-    private String currencyStatisticsEndDate;
-    private String currencyUrlParamMode;
+    private String currencyStatisticsPathPart;
+    private String currencyStatisticsStartDateParameter;
+    private String currencyStatisticsEndDateParameter;
+    private String currencyUrlParamModeParameter;
     private List<String> defaultCurrencies;
     private List<String> defaultStatisticsCurrencies;
     private List<String> defaultConversionCombinations;

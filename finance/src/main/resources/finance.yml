@@ -1,9 +1,9 @@
 mg:
   finance:
     currencyBaseUrl: "www.nbrb.by/API/ExRates/Rates/"
-    currencyStatisticsSuffix: "Dynamics"
-    currencyStatisticsStartDate: "startDate"
-    currencyStatisticsEndDate: "endDate"
+    currencyStatisticsPathPart: "Dynamics"
+    currencyStatisticsStartDateParameter: "startDate"
+    currencyStatisticsEndDateParameter: "endDate"
     currencyUrlParamModeParameter: "ParamMode"
     defaultCurrencies: "USD,EUR,RUB,UAH,CNY"
     defaultStatisticsCurrencies: "USD,EUR"
