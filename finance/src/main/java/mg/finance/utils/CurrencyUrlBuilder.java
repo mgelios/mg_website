@@ -2,6 +2,7 @@ package mg.finance.utils;
 
 import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
+import mg.utils.url.UrlBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +20,13 @@ public class CurrencyUrlBuilder{
     private final FinanceConfiguration financeConfiguration;
 
     public String buildCurrencyRateUrl(String currency) {
-        StringBuilder result = new StringBuilder();
-        result.append(financeConfiguration.getCurrencyBaseUrl())
-                .append(financeConfiguration.getCurrencyRateSuffix())
-                .append(currency)
-                .append(financeConfiguration.getCurrencyUrlParamMode());
-        return result.toString();
+        String result = (new UrlBuilder.Builder())
+                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
+                .host(financeConfiguration.getCurrencyBaseUrl())
+                .addPathPart(currency)
+                .addQueryParameter(financeConfiguration.getCurrencyUrlParamModeParameter(), ABBREVIATION_NBRB_PARAM_MODE)
+                .build().getUrl();
+        return result;
     }
 
     public String buildCurrencyStatisticsUrl(String currencyId) {
