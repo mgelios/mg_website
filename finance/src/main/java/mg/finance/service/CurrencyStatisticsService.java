@@ -56,7 +56,7 @@ public class CurrencyStatisticsService {
 
     public List<CurrencyStatistics> updateCurrencyStatistics(String abbreviation) {
         Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
-        JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrencyStatisticsUrl(
+        JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);

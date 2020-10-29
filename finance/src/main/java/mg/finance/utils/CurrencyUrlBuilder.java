@@ -17,6 +17,8 @@ public class CurrencyUrlBuilder{
     private static final String CURRENCY_CODE_NBRB_PARAM_MODE = "1";
     private static final String ABBREVIATION_NBRB_PARAM_MODE = "2";
 
+    private static final DateTimeFormatter NBRB_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d");
+
     private final FinanceConfiguration financeConfiguration;
 
     public String buildCurrencyRateUrl(String currency) {
@@ -29,20 +31,29 @@ public class CurrencyUrlBuilder{
         return result;
     }
 
-    public String buildCurrencyStatisticsUrl(String currencyId) {
-        StringBuilder result = new StringBuilder();
-        LocalDateTime endDate = LocalDateTime.now();
-        LocalDateTime startDate = endDate.minusDays(30);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d");
-        result.append(financeConfiguration.getCurrencyBaseUrl())
-                .append(financeConfiguration.getCurrencyStatisticsSuffix())
-                .append(currencyId)
-                .append("?")
-                .append("startDate=")
-                .append(startDate.format(dateTimeFormatter))
-                .append("&endDate=")
-                .append(endDate.format(dateTimeFormatter));
-        return result.toString();
+    public String buildCurrency30DaysStatisticsUrl(String currencyId) {
+        return buildCurrencyStatisticsForLastDaysUrl(currencyId, 30);
+    }
+
+    public String buildCurrency365DaysStatisticsUrl(String currencyId) {
+        return buildCurrencyStatisticsForLastDaysUrl(currencyId, 365);
+    }
+
+    public String buildCurrencyStatisticsForLastDaysUrl(String currencyId, long days) {
+        String endDate = LocalDateTime.now()
+                .format(NBRB_DATETIME_FORMATTER);
+        String startDate = LocalDateTime.now()
+                .minusDays(days)
+                .format(NBRB_DATETIME_FORMATTER);
+        String result = (new UrlBuilder.Builder())
+                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
+                .host(financeConfiguration.getCurrencyBaseUrl())
+                .addPathPart(financeConfiguration.getCurrencyStatisticsPathPart())
+                .addPathPart(currencyId)
+                .addQueryParameter(financeConfiguration.getCurrencyStatisticsStartDateParameter(), startDate)
+                .addQueryParameter(financeConfiguration.getCurrencyStatisticsEndDateParameter(), endDate)
+                .build().getUrl();
+        return result;
     }
 
     public String buildCryptoCurrenciesUrl() {
