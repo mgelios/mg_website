@@ -1,0 +1,6 @@
+mg:
+  news:
+    radiotApiUrl: "https://news.radio-t.com"
+    radiotArticlesSuffix: "/api/v1/news/last/"
+    radiotPodcastsApiUrl: "https://radio-t.com"
+    radiotPodcastsSuffix: "/site-api/last/5?categories=podcast"
