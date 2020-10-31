@@ -1,6 +1,7 @@
 package mg.news;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import mg.utils.properties.YamlPropertyLoaderFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +10,13 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(value = "classpath:/news.yml", factory = YamlPropertyLoaderFactory.class)
 @ConfigurationProperties(prefix = "mg.news")
-@Data
+@Getter
+@Setter
 public class NewsConfiguration {
 
-    private String radiotApiUrl;
-    private String radiotArticlesSuffix;
-    private String radiotPodcastsApiUrl;
-    private String radiotPodcastsSuffix;
-
+    private String radiotNewsApiHost;
+    private String radiotPodcastsApiHost;
+    private String radiotArticlesPathPart;
+    private String radiotPodcastsPathPart;
+    private String radiotPodcastCategoriesParameter;
 }
