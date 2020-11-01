@@ -16,22 +16,22 @@ public class RadiotUrlBuilder {
     private final NewsConfiguration newsConfiguration;
 
     public String buildNewsUrl(int numberOfNews) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(newsConfiguration.getRadiotApiUrl())
-                .append(newsConfiguration.getRadiotArticlesSuffix())
-                .append(String.valueOf(numberOfNews));
-
         String result = (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
-                .host()
+                .host(newsConfiguration.getRadiotNewsApiHost())
+                .addPathPart(newsConfiguration.getRadiotArticlesPathPart())
+                .addPathPart(String.valueOf(numberOfNews))
                 .build().getUrl();
-        return builder.toString();
+        return result;
     }
 
     public String buildPodcastUrl() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(newsConfiguration.getRadiotPodcastsApiUrl())
-                .append(newsConfiguration.getRadiotPodcastsSuffix());
-        return builder.toString();
+        String result = (new UrlBuilder.Builder())
+                .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
+                .host(newsConfiguration.getRadiotPodcastsApiHost())
+                .addPathPart(newsConfiguration.getRadiotPodcastsPathPart())
+                .addPathPart(String.valueOf(10))
+                .build().getUrl();
+        return result;
     }
 }
