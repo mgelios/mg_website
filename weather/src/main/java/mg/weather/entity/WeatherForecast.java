@@ -20,7 +20,6 @@ public class WeatherForecast {
     private UUID uuid;
     private Timestamp time;
     private double temperature;
-    //TODO: rename field or column in liquibase script
     private double minimalTemperature;
     private double maximumTemperature;
     private double pressure;

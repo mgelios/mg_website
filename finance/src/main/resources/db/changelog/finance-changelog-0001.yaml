@@ -1,5 +1,3 @@
-#TODO: change serial id to uuid
-
 databaseChangeLog:
   - changeSet:
       id: finance-init

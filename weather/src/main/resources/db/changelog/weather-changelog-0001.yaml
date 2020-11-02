@@ -87,10 +87,10 @@ databaseChangeLog:
                   name: temperature
                   type: real
               - column:
-                  name: min_temp
+                  name: minimal_temperature
                   type: real
               - column:
-                  name: max_temp
+                  name: maximum_temperature
                   type: real
               - column:
                   name: pressure
