@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
-import mg.blog.dbentity.CommentDBEntity;
-import mg.blog.model.Comment;
+import mg.blog.entity.CommentDBEntity;
+import mg.blog.dto.Comment;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

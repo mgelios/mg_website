@@ -1,6 +1,6 @@
 package mg.blog.repository;
 
-import mg.blog.dbentity.CategoryDBEntity;
+import mg.blog.entity.CategoryDBEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

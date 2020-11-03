@@ -1,8 +1,8 @@
 package mg.blog.controller;
 
-import mg.blog.model.Article;
-import mg.blog.model.Category;
-import mg.blog.model.Subcategory;
+import mg.blog.dto.ArticleDto;
+import mg.blog.dto.Category;
+import mg.blog.dto.Subcategory;
 import mg.blog.service.ArticleService;
 import mg.blog.service.CategoryService;
 import mg.blog.service.SubcategoryService;
@@ -27,7 +27,7 @@ public class BlogRestController {
     }
 
     @PostMapping("/article/{id}")
-    public Object createArticle(@RequestBody Article article) {
+    public Object createArticle(@RequestBody ArticleDto articleDto) {
         return null;
     }
 

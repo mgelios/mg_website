@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
-import mg.blog.dbentity.SubcategoryDBEntity;
-import mg.blog.model.Subcategory;
+import mg.blog.entity.SubcategoryDBEntity;
+import mg.blog.dto.Subcategory;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

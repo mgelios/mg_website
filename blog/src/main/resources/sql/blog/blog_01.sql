@@ -40,7 +40,7 @@ create table mg_blog_comment (
   id serial not null,
   text text,
   last_updated timestamp,
-  article integer,
+  articleDto integer,
   author integer,
   primary key (id)
 );

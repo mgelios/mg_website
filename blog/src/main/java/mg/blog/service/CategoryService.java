@@ -1,8 +1,8 @@
 package mg.blog.service;
 
-import mg.blog.dbentity.CategoryDBEntity;
+import mg.blog.entity.CategoryDBEntity;
 import mg.blog.mapper.CategoryMapper;
-import mg.blog.model.Category;
+import mg.blog.dto.Category;
 import mg.blog.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

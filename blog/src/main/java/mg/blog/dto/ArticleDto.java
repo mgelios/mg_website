@@ -1,11 +1,11 @@
-package mg.blog.model;
+package mg.blog.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Article {
+public class ArticleDto {
 
     private Long id;
 //    private LocalUser author;

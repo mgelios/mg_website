@@ -1,4 +1,4 @@
-package mg.blog.model;
+package mg.blog.dto;
 
 import lombok.Data;
 
