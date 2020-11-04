@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
 import mg.blog.dto.ArticleDto;
-import mg.blog.entity.ArticleDBEntity;
+import mg.blog.entity.Article;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,9 +11,9 @@ public abstract class ArticleMapper {
 
     public static final ArticleMapper INSTANCE = Mappers.getMapper(ArticleMapper.class);
 
-    public abstract ArticleDBEntity mapToEntity(ArticleDto dto);
+    public abstract Article mapToEntity(ArticleDto dto);
 
-    public abstract ArticleDto mapToDTO(ArticleDBEntity entity);
+    public abstract ArticleDto mapToDTO(Article entity);
 
 //    @AfterMapping
 //    private void addBackReference (@MappingTarget ArticleDBEntity entity) {

@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <v-container>
-            <v-btn v-on:click="openCategoryCreationDialog" text><v-icon>add</v-icon>Add category</v-btn>
+            <v-btn v-on:click="openCategoryCreationDialog" text><v-icon>add</v-icon>Add categoryDto</v-btn>
             <v-list-group
                     no-action
                     value="true"
@@ -47,7 +47,7 @@
                 <v-card>
                     <v-card-title>
                         <div class="headline">Add subcategory</div>
-                        <span class="subtitle-1">Parent category: category</span>
+                        <span class="subtitle-1">Parent categoryDto: categoryDto</span>
                     </v-card-title>
                     <v-card-text>
                         <v-text-field outlined label="icon"></v-text-field>
@@ -64,7 +64,7 @@
             <v-dialog v-model="categoryCreationDialogOpened">
                 <v-card>
                     <v-card-title>
-                        <span class="headline">Add category</span>
+                        <span class="headline">Add categoryDto</span>
                     </v-card-title>
                     <v-card-text>
                         <v-text-field outlined label="icon"></v-text-field>
@@ -73,13 +73,13 @@
                     </v-card-text>
                     <v-card-actions>
                         <div class="flex-grow-1"></div>
-                        <v-btn color="blue darken-1" text>Create category</v-btn>
+                        <v-btn color="blue darken-1" text>Create categoryDto</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
             <v-dialog v-model="categoryRemovalDialogOpened">
                 <v-card>
-                    <v-card-title>Delete category</v-card-title>
+                    <v-card-title>Delete categoryDto</v-card-title>
                     <v-card-text></v-card-text>
                     <v-card-actions></v-card-actions>
                 </v-card>
@@ -111,34 +111,34 @@
                 subcategoryRemovalDialogOpened: false,
                 testCategories: [
                     {
-                        name: 'first category',
+                        name: 'first categoryDto',
                         description: 'some desc',
                         icon: 'account_circle',
                         subcategories: [
                             {
-                                name: 'first category first subcategory',
+                                name: 'first categoryDto first subcategory',
                                 description: 'some desc',
                                 icon: 'all_inbox'
                             },
                             {
-                                name: 'first category second subcategory',
+                                name: 'first categoryDto second subcategory',
                                 description: 'some desc',
                                 icon: 'exit_to_app'
                             }
                         ]
                     },
                     {
-                        name: 'second category',
+                        name: 'second categoryDto',
                         description: 'some desc',
                         icon: 'alarm',
                         subcategories: [
                             {
-                                name: 'second category first subcategory',
+                                name: 'second categoryDto first subcategory',
                                 description: 'some desc',
                                 icon: 'motorcycle'
                             },
                             {
-                                name: 'second category second subcategory',
+                                name: 'second categoryDto second subcategory',
                                 description: 'some desc',
                                 icon: 'label'
                             }

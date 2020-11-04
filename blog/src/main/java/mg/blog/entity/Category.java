@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="mg_blog_category")
-public class CategoryDBEntity {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

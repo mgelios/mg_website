@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
-import mg.blog.entity.CategoryDBEntity;
-import mg.blog.dto.Category;
+import mg.blog.entity.Category;
+import mg.blog.dto.CategoryDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class CategoryMapper {
 
     public static final CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
-    public abstract CategoryDBEntity mapToEntity(Category dto);
+    public abstract Category mapToEntity(CategoryDto dto);
 
-    public abstract Category mapToDTO(CategoryDBEntity entity);
+    public abstract CategoryDto mapToDTO(Category entity);
 }

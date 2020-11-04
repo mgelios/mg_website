@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name="mg_blog_article")
-public class ArticleDBEntity {
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

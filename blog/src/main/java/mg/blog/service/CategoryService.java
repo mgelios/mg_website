@@ -1,8 +1,8 @@
 package mg.blog.service;
 
-import mg.blog.entity.CategoryDBEntity;
+import mg.blog.dto.CategoryDto;
+import mg.blog.entity.Category;
 import mg.blog.mapper.CategoryMapper;
-import mg.blog.dto.Category;
 import mg.blog.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public CategoryDBEntity getCategory(Long categoryId) {
+    public Category getCategory(Long categoryId) {
         return categoryRepository.findById(categoryId).get();
     }
 
-    public List<Category> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
         return categoryRepository.findAll().stream()
                 .map(CategoryMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
@@ -35,8 +35,8 @@ public class CategoryService {
 
     }
 
-    public Category createCategory(Category category) {
-        CategoryDBEntity dbCategory = CategoryMapper.INSTANCE.mapToEntity(category);
+    public CategoryDto createCategory(CategoryDto categoryDto) {
+        Category dbCategory = CategoryMapper.INSTANCE.mapToEntity(categoryDto);
         dbCategory = categoryRepository.save(dbCategory);
         return CategoryMapper.INSTANCE.mapToDTO(dbCategory);
     }

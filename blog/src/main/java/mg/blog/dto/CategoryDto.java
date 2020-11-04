@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Category {
+public class CategoryDto {
 
     private Long id;
     private String name;

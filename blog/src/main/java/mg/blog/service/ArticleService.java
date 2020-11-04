@@ -1,7 +1,7 @@
 package mg.blog.service;
 
 import mg.blog.dto.ArticleDto;
-import mg.blog.entity.ArticleDBEntity;
+import mg.blog.entity.Article;
 import mg.blog.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public ArticleDBEntity getArticle(Long articleId) {
+    public Article getArticle(Long articleId) {
         return articleRepository.findById(articleId).get();
     }
 
@@ -21,8 +21,8 @@ public class ArticleService {
         return null;
     }
 
-    public ArticleDBEntity updateArticle(String content, Long articleId) {
-        ArticleDBEntity dbArticle = articleRepository.findById(articleId).get();
+    public Article updateArticle(String content, Long articleId) {
+        Article dbArticle = articleRepository.findById(articleId).get();
         dbArticle.setContent(content);
         return articleRepository.save(dbArticle);
     }
