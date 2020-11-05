@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
-import mg.blog.entity.SubcategoryDBEntity;
-import mg.blog.dto.Subcategory;
+import mg.blog.dto.SubcategoryDto;
+import mg.blog.entity.Subcategory;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class SubcategoryMapper {
 
     public static final SubcategoryMapper INSTANCE = Mappers.getMapper(SubcategoryMapper.class);
 
-    public abstract SubcategoryDBEntity mapToEntity(Subcategory dto);
+    public abstract Subcategory mapToEntity(SubcategoryDto dto);
 
-    public abstract Subcategory mapToDTO(SubcategoryDBEntity entity);
+    public abstract SubcategoryDto mapToDTO(Subcategory entity);
 }

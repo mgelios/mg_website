@@ -11,5 +11,5 @@ public class CategoryDto {
     private String name;
     private String icon;
     private String description;
-    private List<Subcategory> subcategories;
+    private List<SubcategoryDto> subcategories;
 }

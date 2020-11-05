@@ -1,7 +1,7 @@
 package mg.blog.mapper;
 
-import mg.blog.entity.CommentDBEntity;
-import mg.blog.dto.Comment;
+import mg.blog.entity.Comment;
+import mg.blog.dto.CommentDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public abstract class CommentMapper {
 
     public static final CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    public abstract CommentDBEntity mapToEntity(Comment dto);
+    public abstract Comment mapToEntity(CommentDto dto);
 
-    public abstract Comment mapToDTO(CommentDBEntity entity);
+    public abstract CommentDto mapToDTO(Comment entity);
 }

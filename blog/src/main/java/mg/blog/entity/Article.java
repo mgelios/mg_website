@@ -30,7 +30,7 @@ public class Article {
     @JoinColumn(name = "subcategory", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private SubcategoryDBEntity subcategory;
+    private Subcategory subcategory;
 //    @ManyToOne
 //    private Set<TagDBEntity> tags;
 //    private List<CommentDBEntity> comments;

@@ -2,7 +2,7 @@ package mg.blog.controller;
 
 import mg.blog.dto.ArticleDto;
 import mg.blog.dto.CategoryDto;
-import mg.blog.dto.Subcategory;
+import mg.blog.dto.SubcategoryDto;
 import mg.blog.service.ArticleService;
 import mg.blog.service.CategoryService;
 import mg.blog.service.SubcategoryService;
@@ -52,8 +52,8 @@ public class BlogRestController {
     }
 
     @PostMapping("/subcategory/{id}")
-    public Object createSubcategory(@RequestBody Subcategory subcategory) {
-        subcategory.getDescription();
+    public Object createSubcategory(@RequestBody SubcategoryDto subcategoryDto) {
+        subcategoryDto.getDescription();
         return null;
     }
 }

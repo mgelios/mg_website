@@ -46,7 +46,7 @@
             <v-dialog v-model="subcategoryDialogOpened">
                 <v-card>
                     <v-card-title>
-                        <div class="headline">Add subcategory</div>
+                        <div class="headline">Add subcategoryDto</div>
                         <span class="subtitle-1">Parent categoryDto: categoryDto</span>
                     </v-card-title>
                     <v-card-text>
@@ -57,7 +57,7 @@
                     <v-card-actions>
                         <v-btn color="blue darken-1" text @click="dialogOpened = false">Cancel</v-btn>
                         <div class="flex-grow-1"></div>
-                        <v-btn color="blue darken-1" text>Create subcategory</v-btn>
+                        <v-btn color="blue darken-1" text>Create subcategoryDto</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -86,7 +86,7 @@
             </v-dialog>
             <v-dialog v-model="subcategoryRemovalDialogOpened">
                 <v-card>
-                    <v-card-title>Delete subcategory</v-card-title>
+                    <v-card-title>Delete subcategoryDto</v-card-title>
                     <v-card-text></v-card-text>
                     <v-card-actions></v-card-actions>
                 </v-card>
@@ -116,12 +116,12 @@
                         icon: 'account_circle',
                         subcategories: [
                             {
-                                name: 'first categoryDto first subcategory',
+                                name: 'first categoryDto first subcategoryDto',
                                 description: 'some desc',
                                 icon: 'all_inbox'
                             },
                             {
-                                name: 'first categoryDto second subcategory',
+                                name: 'first categoryDto second subcategoryDto',
                                 description: 'some desc',
                                 icon: 'exit_to_app'
                             }
@@ -133,12 +133,12 @@
                         icon: 'alarm',
                         subcategories: [
                             {
-                                name: 'second categoryDto first subcategory',
+                                name: 'second categoryDto first subcategoryDto',
                                 description: 'some desc',
                                 icon: 'motorcycle'
                             },
                             {
-                                name: 'second categoryDto second subcategory',
+                                name: 'second categoryDto second subcategoryDto',
                                 description: 'some desc',
                                 icon: 'label'
                             }

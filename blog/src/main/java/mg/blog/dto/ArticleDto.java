@@ -14,6 +14,6 @@ public class ArticleDto {
     private String content;
     private LocalDateTime lastUpdated;
 //    private Set<Tag> tags;
-    private Subcategory subcategory;
+    private SubcategoryDto subcategoryDto;
 //    private List<Comment> comments;
 }

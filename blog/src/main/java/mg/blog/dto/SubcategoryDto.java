@@ -3,7 +3,7 @@ package mg.blog.dto;
 import lombok.Data;
 
 @Data
-public class Subcategory {
+public class SubcategoryDto {
 
     private Long id;
     private String name;

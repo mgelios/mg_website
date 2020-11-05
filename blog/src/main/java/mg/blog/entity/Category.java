@@ -21,5 +21,5 @@ public class Category {
     @Column(name = "icon")
     private String icon;
     @OneToMany
-    private List<SubcategoryDBEntity> subcategories;
+    private List<Subcategory> subcategories;
 }
