@@ -3,7 +3,6 @@ databaseChangeLog:
       id: weather-init
       author: mgelios
       changes:
-
         - createTable:
             tableName: mg_current_weather
             columns:
@@ -67,7 +66,6 @@ databaseChangeLog:
               - column:
                   name: uvi
                   type: real
-
         - createTable:
             tableName: mg_weather_forecast
             columns:
@@ -122,9 +120,8 @@ databaseChangeLog:
               - column:
                   name: update_time
                   type: timestamp
-
-        rollback:
-          - dropTable:
-              tableName: mg_weather_forecast
-          - dropTable:
-              tableName: mg_current_weather
+      rollback:
+        - dropTable:
+            tableName: mg_weather_forecast
+        - dropTable:
+            tableName: mg_current_weather
