@@ -3,7 +3,6 @@ databaseChangeLog:
       id: finance-init
       author: mgelios
       changes:
-
         - createTable:
             tableName: mg_currency
             columns:
@@ -31,7 +30,6 @@ databaseChangeLog:
               - column:
                   name: rate
                   type: real
-
         - createTable:
             tableName: mg_currency_conversion
             columns:
@@ -50,7 +48,6 @@ databaseChangeLog:
               - column:
                   name: value
                   type: real
-
         - createTable:
             tableName: mg_currency_statistics
             columns:
@@ -69,12 +66,11 @@ databaseChangeLog:
               - column:
                   name: rate
                   type: real
-
-        rollback:
-          - dropTable:
-              tableName: mg_currency_statistics
-          - dropTable:
-              tableName: mg_currency_conversion
-          - dropTable:
-              tableName: mg_currency
+      rollback:
+        - dropTable:
+            tableName: mg_currency_statistics
+        - dropTable:
+            tableName: mg_currency_conversion
+        - dropTable:
+            tableName: mg_currency
 
