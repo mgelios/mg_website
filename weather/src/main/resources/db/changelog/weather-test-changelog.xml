@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet  id="weather-init"  author="mgelios">
+        <createTable tableName="mg_current_weather">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="time" type="timestamp" />
+            <column name="city_name" type="text" />
+            <column name="longitude" type="real" />
+            <column name="latitude" type="real" />
+            <column name="main_info" type="text" />
+            <column name="description" type="text" />
+            <column name="icon" type="text" />
+            <column name="temperature" type="real" />
+            <column name="pressure" type="real" />
+            <column name="humidity" type="real" />
+            <column name="min_temp" type="real" />
+            <column name="max_temp" type="real" />
+            <column name="visibility" type="real" />
+            <column name="wind_speed" type="real" />
+            <column name="wind_degree" type="real" />
+            <column name="sunrise" type="timestamp" />
+            <column name="sunset" type="timestamp" />
+            <column name="uvi" type="real" />
+        </createTable>
+
+        <createTable tableName="mg_weather_forecast">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="time" type="timestamp" />
+            <column name="city_name" type="text" />
+            <column name="temperature" type="real" />
+            <column name="minimal_temperature" type="real" />
+            <column name="maximum_temperature" type="real" />
+            <column name="pressure" type="real" />
+            <column name="sea_level" type="real" />
+            <column name="ground_level" type="real" />
+            <column name="humidity" type="real" />
+            <column name="main_info" type="text" />
+            <column name="description" type="text" />
+            <column name="icon" type="text" />
+            <column name="wind_speed" type="real" />
+            <column name="wind_degree" type="real" />
+            <column name="update_time" type="timestamp" />
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="mg_weather_forecast" />
+            <dropTable tableName="mg_current_weather" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
