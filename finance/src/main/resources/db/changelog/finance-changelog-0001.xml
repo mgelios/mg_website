@@ -19,5 +19,14 @@
             <column name="name" type="text" />
             <column name="rate" type="real" />
         </createTable>
+
+        <createTable tableName="mg_currency_conversion">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="currency_from" type="integer" />
+            <column name="currency_to" type="integer" />
+            <column name="value" type="real" />
+        </createTable>
     </changeSet>
 </databaseChangeLog>
