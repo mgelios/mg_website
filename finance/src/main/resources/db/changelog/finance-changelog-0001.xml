@@ -28,5 +28,14 @@
             <column name="currency_to" type="integer" />
             <column name="value" type="real" />
         </createTable>
+
+        <createTable tableName="mg_currency_statistics">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="date" type="timestamp" />
+            <column name="currency" type="integer" />
+            <column name="rate" type="real" />
+        </createTable>
     </changeSet>
 </databaseChangeLog>
