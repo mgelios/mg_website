@@ -37,5 +37,11 @@
             <column name="currency" type="integer" />
             <column name="rate" type="real" />
         </createTable>
+
+        <rollback>
+            <dropTable tableName="mg_currency_statistics" />
+            <dropTable tableName="mg_currency_conversion" />
+            <dropTable tableName="mg_currency" />
+        </rollback>
     </changeSet>
 </databaseChangeLog>
