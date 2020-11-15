@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet  id="news-init"  author="mgelios">
+        <createTable tableName="mg_radiot_article">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="title" type="text" />
+            <column name="content" type="text" />
+            <column name="snippet" type="text" />
+            <column name="main_picture" type="text" />
+            <column name="link" type="text" />
+            <column name="author" type="text" />
+            <column name="original_time" type="timestamp" />
+            <column name="radiot_time" type="timestamp" />
+            <column name="feed" type="text" />
+            <column name="slug" type="text" />
+            <column name="comments" type="bigint" />
+            <column name="likes" type="bigint" />
+            <column name="last_updated" type="timestamp" />
+        </createTable>
+
+        <createTable tableName="mg_radiot_podcast">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="url" type="text" />
+            <column name="title" type="text" />
+            <column name="date" type="timestamp" />
+            <column name="image" type="text" />
+            <column name="body" type="text" />
+            <column name="show_notes" type="text" />
+            <column name="audio_url" type="text" />
+        </createTable>
+
+        <createTable tableName="mg_radiot_time_label">
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="topic" type="text" />
+            <column name="time" type="timestamp" />
+            <column name="duration" type="bigint" />
+            <column name="podcast" type="integer" />
+        </createTable>
+
+
+        <rollback>
+            <dropTable tableName="mg_radiot_time_label" />
+            <dropTable tableName="mg_radiot_podcast" />
+            <dropTable tableName="mg_radiot_article" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
