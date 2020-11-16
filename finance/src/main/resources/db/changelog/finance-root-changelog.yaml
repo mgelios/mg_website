@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: "db/changelog/finance-changelog-0001.yaml"
