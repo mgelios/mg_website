@@ -1,7 +1,7 @@
 package mg.security.custom;
 
 import lombok.AllArgsConstructor;
-import mg.profile.service.MGUserDetailsService;
+import mg.profile.service.BasicUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class MGBasicAuthenticationProvider implements AuthenticationProvider {
+public class BasicAuthenticationProvider implements AuthenticationProvider {
 
-    private final MGUserDetailsService userDetailsService;
+    private final BasicUserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 

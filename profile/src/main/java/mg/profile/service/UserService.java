@@ -1,11 +1,11 @@
 package mg.profile.service;
 
+import lombok.AllArgsConstructor;
 import mg.profile.converter.UserDtoToEntity;
 import mg.profile.converter.UserEntityToDto;
 import mg.profile.entity.User;
 import mg.profile.dto.LocalUserDto;
 import mg.profile.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,16 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserEntityToDto userEntityToDTO;
-
-    @Autowired
-    private UserDtoToEntity userDTOToEntity;
+    private final UserRepository userRepository;
+    private final UserEntityToDto userEntityToDTO;
+    private final UserDtoToEntity userDTOToEntity;
 
     public List<LocalUserDto> getUsersList() {
         List<LocalUserDto> users = new ArrayList<>();
@@ -34,9 +30,7 @@ public class UserService {
 
     public LocalUserDto findUserByEmail(String email) {
         Optional<User> dbUser = userRepository.findByEmail(email);
-        if (dbUser.isPresent()){
-            return userEntityToDTO.convert(dbUser.get());
-        } else return null;
+        return dbUser.map(userEntityToDTO::convert).orElse(null);
     }
 
     public void saveUser(LocalUserDto user) {

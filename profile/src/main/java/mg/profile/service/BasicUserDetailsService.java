@@ -1,9 +1,9 @@
 package mg.profile.service;
 
+import lombok.AllArgsConstructor;
 import mg.profile.converter.UserEntityToDto;
 import mg.profile.entity.User;
 import mg.profile.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,12 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class MGUserDetailsService implements UserDetailsService {
+@AllArgsConstructor
+public class BasicUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserEntityToDto userEntityToDTO;
+    private final UserRepository userRepository;
+    private final UserEntityToDto userEntityToDTO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
