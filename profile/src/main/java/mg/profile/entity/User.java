@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -11,31 +12,12 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "username", nullable = false, unique = true)
+    @GeneratedValue
+    private UUID uuid;
     private String username;
-
-    @Column(name = "password", nullable=false)
     private String password;
-
-    @Column(name = "firstname")
     private String firstName;
-
-    @Column(name = "lastname")
     private String lastName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "enabled")
     private boolean enabled;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "mg_user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
 }
