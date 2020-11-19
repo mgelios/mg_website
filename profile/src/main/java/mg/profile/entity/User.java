@@ -1,19 +1,23 @@
 package mg.profile.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import mg.profile.common.Role;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="mg_user")
 public class User {
 
     @Id
     @GeneratedValue
     private UUID uuid;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private String username;
     private String password;
     private String firstName;

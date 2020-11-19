@@ -1,8 +1,8 @@
 package mg.profile.service;
 
 import lombok.AllArgsConstructor;
-import mg.profile.converter.UserEntityToDto;
 import mg.profile.entity.User;
+import mg.profile.mapper.UserMapper;
 import mg.profile.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +16,6 @@ import java.util.Optional;
 public class BasicUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final UserEntityToDto userEntityToDTO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -24,7 +23,7 @@ public class BasicUserDetailsService implements UserDetailsService {
         if (!user.isPresent()){
             throw new UsernameNotFoundException(username);
         }
-        return userEntityToDTO.convert(user.get());
+        return UserMapper.INSTANCE.mapToDto(user.get());
     }
 }
 

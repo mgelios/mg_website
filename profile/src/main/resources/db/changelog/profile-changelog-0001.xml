@@ -9,7 +9,15 @@
 
     <changeSet id="profile-init" author="mgelios">
         <createTable tableName="mg_user">
-            <column></column>
+            <column name="uuid" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="username" type="text" />
+            <column name="password" type="text" />
+            <column name="first_name" type="text" />
+            <column name="last_name" type="text" />
+            <column name="email" type="text" />
+            <column name="enabled" type="boolean" />
         </createTable>
     </changeSet>
 </databaseChangeLog>

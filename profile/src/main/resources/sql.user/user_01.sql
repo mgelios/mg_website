@@ -1,12 +1,4 @@
-drop table if exists mg_user_role;
-drop table if exists mg_role;
 drop table if exists mg_user;
-
-create table mg_role(
-  id serial,
-  name varchar(200),
-  primary key(id)
-);
 
 create table mg_user(
   id serial,
@@ -17,10 +9,4 @@ create table mg_user(
   email varchar(200),
   enabled boolean,
   primary key(id)
-);
-
-create table mg_user_role(
-  user_id integer references mg_user(id),
-  role_id integer references mg_role(id),
-  primary key(user_id,role_id)
 );
