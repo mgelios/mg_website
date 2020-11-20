@@ -1,8 +1,8 @@
 package mg.profile.conrtoller;
 
-import mg.profile.dto.LocalUserDto;
+import lombok.AllArgsConstructor;
+import mg.profile.dto.UserDto;
 import mg.profile.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin("http://localhost:3000/#/profile")
+@AllArgsConstructor
 public class AdminController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @RequestMapping(value="/login", method = RequestMethod.OPTIONS)
     public void loginCheck(HttpServletRequest request, HttpServletResponse response) {
@@ -30,7 +30,7 @@ public class AdminController {
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        LocalUserDto user = userService.findUserByEmail(auth.getName());
+        UserDto user = new UserDto(); // userService.findUserByEmail(auth.getName());
         modelAndView.addObject("user", user);
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
