@@ -1,11 +1,8 @@
 package mg.weather;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import mg.utils.properties.YamlPropertyLoaderFactory;
-import mg.weather.task.WeatherSyncTask;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,9 +13,6 @@ import org.springframework.context.annotation.PropertySource;
 @Getter
 @Setter
 public class WeatherConfiguration{
-
-    @Autowired
-    WeatherSyncTask weatherSyncTask;
 
     private String host;
     private String weatherPathPart;

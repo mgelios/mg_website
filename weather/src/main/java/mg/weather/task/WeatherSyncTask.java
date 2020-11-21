@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Slf4j
-@Component
+//@Slf4j
+//@Component
 public class WeatherSyncTask {
 
-    @Autowired
-    CurrentWeatherService currentWeatherService;
-    @Autowired
-    WeatherForecastService weatherForecastService;
-
-    @Scheduled(cron = "* * 0 * * ?")
-    public void syncWeatherInfo(){
-        log.info("*** weather task running *** " + LocalDateTime.now().toString());
-        currentWeatherService.updateDefaultCurrentWeather();
-        weatherForecastService.updateDefaultWeatherForecast();
-    }
+//    @Autowired
+//    CurrentWeatherService currentWeatherService;
+//    @Autowired
+//    WeatherForecastService weatherForecastService;
+//
+//    @Scheduled(cron = "* * 0 * * ?")
+//    public void syncWeatherInfo(){
+//        log.info("*** weather task running *** " + LocalDateTime.now().toString());
+//        currentWeatherService.updateDefaultCurrentWeather();
+//        weatherForecastService.updateDefaultWeatherForecast();
+//    }
 }
