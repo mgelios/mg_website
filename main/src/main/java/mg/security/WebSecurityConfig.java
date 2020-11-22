@@ -1,9 +1,8 @@
 package mg.security;
 
-import lombok.AllArgsConstructor;
 import mg.BasicCORSFilter;
-import mg.security.custom.MGAuthenticationFailureHandler;
-import mg.security.custom.MGAuthenticationSuccessHandler;
+import mg.security.custom.BasicAuthenticationFailureHandler;
+import mg.security.custom.BasicAuthenticationSuccessHandler;
 import mg.security.custom.BasicAuthenticationProvider;
 import mg.security.custom.MGBasicAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BasicAuthenticationProvider authenticationProvider;
     @Autowired
-    private MGAuthenticationSuccessHandler authSuccessHandler;
+    private BasicAuthenticationSuccessHandler authSuccessHandler;
     @Autowired
-    private MGAuthenticationFailureHandler authFailureHandler;
+    private BasicAuthenticationFailureHandler authFailureHandler;
     @Autowired
     private BasicCORSFilter basicCORSFilter;
 

@@ -15,7 +15,6 @@ import java.util.UUID;
 @Setter
 @Builder
 @Table(name="mg_current_weather")
-@Indexed
 public class CurrentWeather {
 
     @Id

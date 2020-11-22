@@ -15,11 +15,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-hibernate:
-  search:
-    default:
-      directory_provider: "filesystem"
-      indexBase: "c:\\etc\\hiber_path\\"
 springfox:
   documentation:
     swagger:

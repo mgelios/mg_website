@@ -11,21 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Slf4j
-@Component
-public class WeatherHibernateSearchInit implements ApplicationListener<ContextRefreshedEvent> {
+//@Slf4j
+//@Component
+public class WeatherHibernateSearchInit /*implements ApplicationListener<ContextRefreshedEvent> */{
 
-    @PersistenceContext
-    EntityManager entityManager;
-
-    @Override
-    @Transactional
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-        try {
-            fullTextEntityManager.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            log.error("Indexing start failed");
-        }
-    }
+//    @PersistenceContext
+//    EntityManager entityManager;
+//
+//    @Override
+//    @Transactional
+//    public void onApplicationEvent(ContextRefreshedEvent event) {
+//        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+//        try {
+//            fullTextEntityManager.createIndexer().startAndWait();
+//        } catch (InterruptedException e) {
+//            log.error("Indexing start failed");
+//        }
+//    }
 }
