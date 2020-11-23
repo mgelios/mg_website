@@ -17,6 +17,7 @@
             <column name="first_name" type="text" />
             <column name="last_name" type="text" />
             <column name="email" type="text" />
+            <column name="role" type="text" />
             <column name="enabled" type="boolean" />
         </createTable>
     </changeSet>

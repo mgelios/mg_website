@@ -25,7 +25,7 @@ public class BasicAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
         UserDetails user = userDetailsService.loadUserByUsername(name);
-        if (user != null) {
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
         }
         return null;
