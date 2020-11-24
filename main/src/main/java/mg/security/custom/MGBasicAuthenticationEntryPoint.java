@@ -26,7 +26,7 @@ public class MGBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoi
 
     @Override
     public void afterPropertiesSet(){
-        setRealmName("mgrealm");
+        setRealmName("mg_realm");
         super.afterPropertiesSet();
     }
 }
