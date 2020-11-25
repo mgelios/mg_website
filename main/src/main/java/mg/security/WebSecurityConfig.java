@@ -1,7 +1,7 @@
 package mg.security;
 
 import mg.BasicCORSFilter;
-import mg.security.custom.BasicAuthenticationFailureHandler;
+import mg.security.custom.AuthenticationFailureHandler;
 import mg.security.custom.BasicAuthenticationSuccessHandler;
 import mg.security.custom.BasicAuthenticationProvider;
 import mg.security.custom.MGBasicAuthenticationEntryPoint;
@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BasicAuthenticationSuccessHandler authSuccessHandler;
     @Autowired
-    private BasicAuthenticationFailureHandler authFailureHandler;
+    private AuthenticationFailureHandler authFailureHandler;
     @Autowired
     private BasicCORSFilter basicCORSFilter;
 
@@ -85,5 +86,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DigestAuthenticationFilter digestAuthenticationFilter() {
+        DigestAuthenticationFilter digestAuthenticationFilter = new DigestAuthenticationFilter();
+        digestAuthenticationFilter.setAuthenticationEntryPoint(authenticationEntryPoint);
+        return digestAuthenticationFilter;
     }
 }
