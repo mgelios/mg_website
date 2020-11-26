@@ -1,6 +1,7 @@
 package mg.security;
 
 import mg.BasicCORSFilter;
+import mg.profile.service.BasicUserDetailsService;
 import mg.security.custom.AuthenticationFailureHandler;
 import mg.security.custom.BasicAuthenticationSuccessHandler;
 import mg.security.custom.BasicAuthenticationProvider;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
 @Configuration
@@ -57,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler authFailureHandler;
     @Autowired
     private BasicCORSFilter basicCORSFilter;
+    @Autowired
+    private BasicUserDetailsService basicUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -89,9 +93,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public DigestAuthenticationEntryPoint digestEntryPoint() {
+        DigestAuthenticationEntryPoint digestAuthenticationEntryPoint = new DigestAuthenticationEntryPoint();
+        digestAuthenticationEntryPoint.setKey("acegi");
+        digestAuthenticationEntryPoint.setRealmName("mg_realm");
+        digestAuthenticationEntryPoint.setNonceValiditySeconds(10);
+        return digestAuthenticationEntryPoint;
+    }
+
+    @Bean
     public DigestAuthenticationFilter digestAuthenticationFilter() {
         DigestAuthenticationFilter digestAuthenticationFilter = new DigestAuthenticationFilter();
-        digestAuthenticationFilter.setAuthenticationEntryPoint(authenticationEntryPoint);
+        digestAuthenticationFilter.setAuthenticationEntryPoint(digestEntryPoint());
+        digestAuthenticationFilter.setUserDetailsService(basicUserDetailsService);
         return digestAuthenticationFilter;
     }
 }
