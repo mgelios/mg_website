@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
@@ -80,7 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
                 .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                .and().csrf().disable();
+                .and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
+                .csrf().disable();
     }
 
     @Override
