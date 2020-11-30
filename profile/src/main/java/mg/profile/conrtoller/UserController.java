@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//TODO: istead of using static pages move controller to rest endpoints
 @RestController
 @RequestMapping("/user")
 @CrossOrigin("http://localhost:3000")
@@ -19,12 +18,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
+//    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
+//    public ModelAndView login(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("login");
+//        return modelAndView;
+//    }
 //
 //    @RequestMapping(value={"/registration"}, method = RequestMethod.GET)
 //    public ModelAndView registration(){

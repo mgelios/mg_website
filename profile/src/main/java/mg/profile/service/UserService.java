@@ -1,18 +1,25 @@
 package mg.profile.service;
 
 import lombok.AllArgsConstructor;
+import mg.profile.entity.User;
 import mg.profile.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+
+    public User findUserByUuid(UUID uuid) {
+        userRepository.findById(uuid);
+        return null;
+    }
 //    private final UserEntityToDto userEntityToDTO;
 //    private final UserDtoToEntity userDTOToEntity;
 //
