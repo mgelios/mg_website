@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import mg.profile.dto.UserDto;
 import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,5 +18,10 @@ public class UserRestController {
     @GetMapping("/{uuid}")
     public UserDto getUserByUuid(@PathVariable String uuid) {
         return UserMapper.INSTANCE.mapToDto(userService.findUserByUuid(UUID.fromString(uuid)));
+    }
+
+    @PostMapping
+    public UserDto createUser(@RequestBody UserDto dto) {
+        return UserMapper.INSTANCE.mapToDto(userService.createUser(dto));
     }
 }

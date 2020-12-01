@@ -1,9 +1,12 @@
 package mg.profile.service;
 
 import lombok.AllArgsConstructor;
+import mg.profile.dto.UserDto;
 import mg.profile.entity.User;
+import mg.profile.mapper.UserMapper;
 import mg.profile.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +19,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public User findUserByUuid(UUID uuid) {
         userRepository.findById(uuid);
         return null;
+    }
+
+    @Transactional
+    public User createUser(UserDto userDto) {
+        User userToSave = UserMapper.INSTANCE.mapToEntity(userDto);
+        return userRepository.save(userToSave);
     }
 //    private final UserEntityToDto userEntityToDTO;
 //    private final UserDtoToEntity userDTOToEntity;
