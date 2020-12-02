@@ -24,4 +24,9 @@ public class UserRestController {
     public UserDto createUser(@RequestBody UserDto dto) {
         return UserMapper.INSTANCE.mapToDto(userService.createUser(dto));
     }
+
+    @PutMapping
+    public UserDto updateUser(@RequestBody UserDto dto) {
+        return UserMapper.INSTANCE.mapToDto(userService.updateUser(dto));
+    }
 }

@@ -21,13 +21,19 @@ public class UserService {
 
     @Transactional
     public User findUserByUuid(UUID uuid) {
-        userRepository.findById(uuid);
-        return null;
+        Optional<User> user = userRepository.findById(uuid);
+        return user.get();
     }
 
     @Transactional
     public User createUser(UserDto userDto) {
         User userToSave = UserMapper.INSTANCE.mapToEntity(userDto);
+        return userRepository.save(userToSave);
+    }
+
+    @Transactional
+    public User updateUser(UserDto dto) {
+        User userToSave = UserMapper.INSTANCE.mapToEntity(dto);
         return userRepository.save(userToSave);
     }
 //    private final UserEntityToDto userEntityToDTO;
