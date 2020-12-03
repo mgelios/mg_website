@@ -29,4 +29,9 @@ public class UserRestController {
     public UserDto updateUser(@RequestBody UserDto dto) {
         return UserMapper.INSTANCE.mapToDto(userService.updateUser(dto));
     }
+
+    @DeleteMapping("/{uuid}")
+    public void deleteUserByUuid(@PathVariable String uuid) {
+        userService.deleteUser(UUID.fromString(uuid));
+    }
 }

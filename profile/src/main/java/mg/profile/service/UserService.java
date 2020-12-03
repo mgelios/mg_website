@@ -8,8 +8,6 @@ import mg.profile.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,33 +34,9 @@ public class UserService {
         User userToSave = UserMapper.INSTANCE.mapToEntity(dto);
         return userRepository.save(userToSave);
     }
-//    private final UserEntityToDto userEntityToDTO;
-//    private final UserDtoToEntity userDTOToEntity;
-//
-//    public List<LocalUserDto> getUsersList() {
-//        List<LocalUserDto> users = new ArrayList<>();
-//        userRepository.findAll().forEach(user -> {
-//            users.add(userEntityToDTO.convert(user));
-//        });
-//        return users;
-//    }
-//
-//    public LocalUserDto findUserByEmail(String email) {
-//        Optional<User> dbUser = userRepository.findByEmail(email);
-//        return dbUser.map(userEntityToDTO::convert).orElse(null);
-//    }
-//
-//    public void saveUser(LocalUserDto user) {
-//        User dbUser = userDTOToEntity.convert(user);
-//        userRepository.save(dbUser);
-//    }
-//
-//    public LocalUserDto mergeUpdatedUser(LocalUserDto userUpdated, LocalUserDto oldUser){
-//        oldUser.setEmail(userUpdated.getEmail());
-//        oldUser.setFirstName(userUpdated.getFirstName());
-//        oldUser.setLastName(userUpdated.getLastName());
-//        User dbUser = userDTOToEntity.convert(oldUser);
-//        userRepository.save(dbUser);
-//        return oldUser;
-//    }
+
+    @Transactional
+    public void deleteUser(UUID uuid) {
+        userRepository.deleteById(uuid);
+    }
 }
