@@ -1,16 +1,28 @@
 package mg.utils.api.consumer;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("/api/v1/api-consumer")
 @AllArgsConstructor
 public class ApiConsumerRestController {
 
+    private final ApiConsumerService apiConsumerService;
+
+    @GetMapping("/list")
+    public List<ApiConsumerDto> getListOfApiConsumers() {
+        return null;
+    }
+
     @PostMapping
-    public ApiConsumerDto createApiConsumer(RequestBody ApiConsumerDto) {
+    public ApiConsumerDto createApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
+        return null;
+    }
+
+    @PutMapping
+    public ApiConsumerDto updateApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
         return null;
     }
 }
