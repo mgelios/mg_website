@@ -13,6 +13,14 @@ public class ApiConsumerService {
 
     private final ApiConsumerRepository apiConsumerRepository;
 
+    public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
+        return null;
+    }
+
+    public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
+        return null;
+    }
+
     public void performApiCall(String name, ApiConsumerAuthType authType) {
         Optional<ApiConsumer> optionalOfConsumer = apiConsumerRepository.findByName(name);
         if (!optionalOfConsumer.isPresent()) {

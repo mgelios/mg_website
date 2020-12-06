@@ -25,4 +25,9 @@ public class ApiConsumerRestController {
     public ApiConsumerDto updateApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
         return null;
     }
+
+    @DeleteMapping("/{uuid}")
+    public void deleteApiConsumer(@PathVariable String uuid) {
+
+    }
 }
