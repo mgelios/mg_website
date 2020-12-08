@@ -18,12 +18,12 @@ public class ApiConsumerRestController {
 
     @PostMapping
     public ApiConsumerDto createApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return null;
+        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.createApiConsumer(apiConsumerDto));
     }
 
     @PutMapping
     public ApiConsumerDto updateApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return null;
+        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
     }
 
     @DeleteMapping("/{uuid}")

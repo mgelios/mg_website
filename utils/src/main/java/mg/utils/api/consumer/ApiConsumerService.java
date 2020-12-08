@@ -14,11 +14,13 @@ public class ApiConsumerService {
     private final ApiConsumerRepository apiConsumerRepository;
 
     public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
-        return null;
+        ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
+        return apiConsumerRepository.save(apiConsumer);
     }
 
     public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
-        return null;
+        ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
+        return apiConsumerRepository.save(apiConsumer);
     }
 
     public void performApiCall(String name, ApiConsumerAuthType authType) {
