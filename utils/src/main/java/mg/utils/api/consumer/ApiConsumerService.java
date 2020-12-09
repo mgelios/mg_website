@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -12,6 +13,10 @@ import java.util.Optional;
 public class ApiConsumerService {
 
     private final ApiConsumerRepository apiConsumerRepository;
+
+    public List<ApiConsumer> getListOfApiConsumers() {
+        return apiConsumerRepository.findAllByUuidNotNull();
+    }
 
     public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
         ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);

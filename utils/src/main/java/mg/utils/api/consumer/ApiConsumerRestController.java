@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController("/api/v1/api-consumer")
 @AllArgsConstructor
@@ -13,7 +14,9 @@ public class ApiConsumerRestController {
 
     @GetMapping("/list")
     public List<ApiConsumerDto> getListOfApiConsumers() {
-        return null;
+        return apiConsumerService.getListOfApiConsumers().stream()
+                .map(ApiConsumerMapper.INSTANCE::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @PostMapping
