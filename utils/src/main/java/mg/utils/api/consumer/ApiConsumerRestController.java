@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController("/api/v1/api-consumer")
@@ -19,6 +20,11 @@ public class ApiConsumerRestController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/{uuid}")
+    public ApiConsumerDto getApiConsumerByUuid(@PathVariable String uuid) {
+        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
+    }
+
     @PostMapping
     public ApiConsumerDto createApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
         return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.createApiConsumer(apiConsumerDto));
@@ -31,6 +37,6 @@ public class ApiConsumerRestController {
 
     @DeleteMapping("/{uuid}")
     public void deleteApiConsumer(@PathVariable String uuid) {
-
+        apiConsumerService.deleteApiConsumer(UUID.fromString(uuid));
     }
 }

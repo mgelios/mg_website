@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -18,6 +19,10 @@ public class ApiConsumerService {
         return apiConsumerRepository.findAllByUuidNotNull();
     }
 
+    public ApiConsumer findByUuid(UUID uuid) {
+        return apiConsumerRepository.findById(uuid).orElse(null);
+    }
+
     public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
         ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
         return apiConsumerRepository.save(apiConsumer);
@@ -26,6 +31,10 @@ public class ApiConsumerService {
     public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
         ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
         return apiConsumerRepository.save(apiConsumer);
+    }
+
+    public void deleteApiConsumer(UUID uuid) {
+        apiConsumerRepository.findById(uuid).ifPresent(apiConsumerRepository::delete);
     }
 
     public void performApiCall(String name, ApiConsumerAuthType authType) {
