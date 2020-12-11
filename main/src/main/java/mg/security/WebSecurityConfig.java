@@ -28,18 +28,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_ALL = {
             "/resources/**",
-            "/api/v1/**",
             "/static/**",
             "/public/**",
             "/css/**",
             "/images/**",
-            "/service/calc",
-            "/user/login",
-            "/user/registration",
-            "/weather/current",
-            "/currency/values",
             "/swagger-resources/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/api/v1/weather/**",
+            "/api/v1/finance/**",
+            "/api/v1/news/**",
+            "/api/v1/profile/**"
     };
 
     private static final String[] AUTH_AUTHENTICATED = {
@@ -48,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_ADMIN = {
             "/user/list",
-            "/admin/**"
+            "/admin/**",
+            "/api/v1/api-consumer/**"
     };
 
     @Autowired
