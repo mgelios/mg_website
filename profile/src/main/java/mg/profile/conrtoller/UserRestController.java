@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController("/api/v1/profile")
+@RestController
 @AllArgsConstructor
+@RequestMapping("/api/v1/profile")
 public class UserRestController {
 
     private final UserService userService;

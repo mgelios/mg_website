@@ -36,12 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/api/v1/weather/**",
             "/api/v1/finance/**",
-            "/api/v1/news/**",
-            "/api/v1/profile/**"
+            "/api/v1/news/**"
     };
 
     private static final String[] AUTH_AUTHENTICATED = {
-            "/user/details"
+            "/user/details",
+            "/api/v1/profile/**"
     };
 
     private static final String[] AUTH_ADMIN = {
