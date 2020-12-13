@@ -1,6 +1,5 @@
 package mg.security.custom;
 
-import lombok.AllArgsConstructor;
 import mg.profile.service.BasicUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

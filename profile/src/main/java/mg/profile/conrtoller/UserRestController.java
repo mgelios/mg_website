@@ -14,20 +14,21 @@ import java.util.UUID;
 public class UserRestController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @GetMapping("/{uuid}")
     public UserDto getUserByUuid(@PathVariable String uuid) {
-        return UserMapper.INSTANCE.mapToDto(userService.findUserByUuid(UUID.fromString(uuid)));
+        return userMapper.mapToDto(userService.findUserByUuid(UUID.fromString(uuid)));
     }
 
     @PostMapping
     public UserDto createUser(@RequestBody UserDto dto) {
-        return UserMapper.INSTANCE.mapToDto(userService.createUser(dto));
+        return userMapper.mapToDto(userService.createUser(dto));
     }
 
     @PutMapping
     public UserDto updateUser(@RequestBody UserDto dto) {
-        return UserMapper.INSTANCE.mapToDto(userService.updateUser(dto));
+        return userMapper.mapToDto(userService.updateUser(dto));
     }
 
     @DeleteMapping("/{uuid}")

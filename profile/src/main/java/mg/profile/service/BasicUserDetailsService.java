@@ -16,6 +16,7 @@ import java.util.Optional;
 public class BasicUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,7 +24,7 @@ public class BasicUserDetailsService implements UserDetailsService {
         if (!user.isPresent()){
             throw new UsernameNotFoundException(username);
         }
-        return UserMapper.INSTANCE.mapToDto(user.get());
+        return userMapper.mapToDto(user.get());
     }
 }
 

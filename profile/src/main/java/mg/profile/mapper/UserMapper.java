@@ -3,14 +3,11 @@ package mg.profile.mapper;
 import mg.profile.dto.UserDto;
 import mg.profile.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
-public abstract class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    public static final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    UserDto mapToDto(User entity);
 
-    public abstract UserDto mapToDto(User entity);
-
-    public abstract User mapToEntity(UserDto dto);
+    User mapToEntity(UserDto dto);
 }

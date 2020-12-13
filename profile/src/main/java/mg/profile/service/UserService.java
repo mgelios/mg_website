@@ -16,6 +16,7 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Transactional
     public User findUserByUuid(UUID uuid) {
@@ -25,13 +26,13 @@ public class UserService {
 
     @Transactional
     public User createUser(UserDto userDto) {
-        User userToSave = UserMapper.INSTANCE.mapToEntity(userDto);
+        User userToSave = userMapper.mapToEntity(userDto);
         return userRepository.save(userToSave);
     }
 
     @Transactional
     public User updateUser(UserDto dto) {
-        User userToSave = UserMapper.INSTANCE.mapToEntity(dto);
+        User userToSave = userMapper.mapToEntity(dto);
         return userRepository.save(userToSave);
     }
 
