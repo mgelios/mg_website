@@ -4,14 +4,11 @@ import mg.utils.mapper.DateMapper;
 import mg.weather.entity.CurrentWeather;
 import mg.weather.dto.CurrentWeatherDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses=DateMapper.class)
-public abstract class CurrentWeatherMapper {
+@Mapper(uses=DateMapper.class, componentModel = "spring")
+public interface CurrentWeatherMapper {
 
-    public static final CurrentWeatherMapper INSTANCE = Mappers.getMapper(CurrentWeatherMapper.class);
+    CurrentWeather mapToEntity(CurrentWeatherDto dto);
 
-    public abstract CurrentWeather mapToEntity(CurrentWeatherDto dto);
-
-    public abstract CurrentWeatherDto mapToDTO(CurrentWeather entity);
+    CurrentWeatherDto mapToDTO(CurrentWeather entity);
 }

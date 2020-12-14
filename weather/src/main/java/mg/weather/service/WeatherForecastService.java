@@ -33,6 +33,7 @@ public class WeatherForecastService {
     private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final WeatherForecastRepository weatherForecastRepository;
     private final WeatherConfiguration weatherConfiguration;
+    private final WeatherForecastMapper weatherForecastMapper;
 
     public List<WeatherForecastDto> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
@@ -49,7 +50,7 @@ public class WeatherForecastService {
             weatherForecastList = updateWeatherForecastByCityName(cityName);
         }
         return weatherForecastList.stream()
-                .map(WeatherForecastMapper.INSTANCE::mapToDTO)
+                .map(weatherForecastMapper::mapToDTO)
                 .collect(Collectors.toList());
     }
 

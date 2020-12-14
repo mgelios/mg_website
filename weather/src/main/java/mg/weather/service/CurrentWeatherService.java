@@ -26,6 +26,7 @@ public class CurrentWeatherService {
     private final JSONHelper jsonHelper;
     private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final CurrentWeatherRepository currentWeatherRepository;
+    private final CurrentWeatherMapper currentWeatherMapper;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
@@ -40,7 +41,7 @@ public class CurrentWeatherService {
         if (result == null || result.getTime().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
             result = updateCurrentWeatherByCityName(cityName);
         }
-        return CurrentWeatherMapper.INSTANCE.mapToDTO(result);
+        return currentWeatherMapper.mapToDTO(result);
     }
 
     public void updateDefaultCurrentWeather() {
