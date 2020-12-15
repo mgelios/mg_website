@@ -4,14 +4,11 @@ import mg.finance.entity.CurrencyConversion;
 import mg.finance.dto.CurrencyConversionDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {DateMapper.class, CurrencyMapper.class})
-public abstract class CurrencyConversionMapper {
+@Mapper(uses = {DateMapper.class, CurrencyMapper.class}, componentModel = "spring")
+public interface CurrencyConversionMapper {
 
-    public static final CurrencyConversionMapper INSTANCE = Mappers.getMapper(CurrencyConversionMapper.class);
+    CurrencyConversion mapToEntity(CurrencyConversionDto dto);
 
-    public abstract CurrencyConversion mapToEntity(CurrencyConversionDto dto);
-
-    public abstract CurrencyConversionDto mapToDTO(CurrencyConversion entity);
+    CurrencyConversionDto mapToDTO(CurrencyConversion entity);
 }

@@ -6,10 +6,8 @@ import mg.utils.mapper.DateMapper;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {DateMapper.class, RadiotPodcastTimeLabelMapper.class})
+@Mapper(uses = {DateMapper.class, RadiotPodcastTimeLabelMapper.class}, componentModel = "spring")
 public abstract class RadiotPodcastMapper {
-
-    public static final RadiotPodcastMapper INSTANCE = Mappers.getMapper(RadiotPodcastMapper.class);
 
     public abstract RadiotPodcastDto mapToDTO(RadiotPodcast entity);
 

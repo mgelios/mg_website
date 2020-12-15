@@ -4,14 +4,11 @@ import mg.news.entity.RadiotArticle;
 import mg.news.dto.RadiotArticleDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = DateMapper.class)
-public abstract class RadiotArticleMapper {
+@Mapper(uses = DateMapper.class, componentModel = "spring")
+public interface RadiotArticleMapper {
 
-    public static final RadiotArticleMapper INSTANCE = Mappers.getMapper(RadiotArticleMapper.class);
+    RadiotArticle mapToEntity(RadiotArticleDto dto);
 
-    public abstract RadiotArticle mapToEntity(RadiotArticleDto dto);
-
-    public abstract RadiotArticleDto mapToDTO(RadiotArticle entity);
+    RadiotArticleDto mapToDTO(RadiotArticle entity);
 }

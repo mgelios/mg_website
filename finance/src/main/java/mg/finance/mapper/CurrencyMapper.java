@@ -5,15 +5,12 @@ import mg.finance.dto.CurrencyDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = DateMapper.class)
-public abstract class CurrencyMapper {
-
-    public static final CurrencyMapper INSTANCE = Mappers.getMapper(CurrencyMapper.class);
+@Mapper(uses = DateMapper.class, componentModel = "spring")
+public interface CurrencyMapper {
 
     @Mapping(target = "statistics", ignore = true)
-    public abstract Currency mapToEntity(CurrencyDto dto);
+    Currency mapToEntity(CurrencyDto dto);
 
-    public abstract CurrencyDto mapToDTO(Currency entity);
+    CurrencyDto mapToDTO(Currency entity);
 }

@@ -22,6 +22,7 @@ public class CurrencyConversionService {
     private final FinanceConfiguration financeConfiguration;
     private final CurrencyService currencyService;
     private final CurrencyConversionRepository currencyConversionRepository;
+    private final CurrencyConversionMapper currencyConversionMapper;
 
     public List<CurrencyConversionDto> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()
@@ -38,9 +39,9 @@ public class CurrencyConversionService {
             Optional<CurrencyConversion> optionalConversion =
                     currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
             if (optionalConversion.isPresent()) {
-                return CurrencyConversionMapper.INSTANCE.mapToDTO(optionalConversion.get());
+                return currencyConversionMapper.mapToDTO(optionalConversion.get());
             } else {
-                return CurrencyConversionMapper.INSTANCE.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
+                return currencyConversionMapper.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
             }
         } else {
             return null;

@@ -30,6 +30,7 @@ public class CurrencyService {
     private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
     private final CurrencyRepository currencyRepository;
+    private final CurrencyMapper currencyMapper;
 
     public List<CurrencyDto> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
@@ -38,7 +39,7 @@ public class CurrencyService {
     }
 
     public CurrencyDto getCurrencyByAbbreviation(String abbreviation) {
-        return CurrencyMapper.INSTANCE.mapToDTO(getCurrencyDBEntityByAbbreviation(abbreviation));
+        return currencyMapper.mapToDTO(getCurrencyDBEntityByAbbreviation(abbreviation));
     }
 
     public Currency getCurrencyDBEntityByAbbreviation(String abbreviation) {

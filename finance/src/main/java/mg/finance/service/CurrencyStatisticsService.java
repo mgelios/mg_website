@@ -33,6 +33,7 @@ public class CurrencyStatisticsService {
     private final JSONHelper jsonHelper;
     private final CurrencyService currencyService;
     private final CurrencyStatisticsRepository currencyStatisticsRepository;
+    private final CurrencyStatisticsMapper currencyStatisticsMapper;
 
     public Map<String, List<CurrencyStatisticsDto>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
@@ -46,7 +47,7 @@ public class CurrencyStatisticsService {
             result = updateCurrencyStatistics(abbreviation);
         }
         return result.stream()
-                .map(CurrencyStatisticsMapper.INSTANCE::mapToDTO)
+                .map(currencyStatisticsMapper::mapToDTO)
                 .collect(Collectors.toList());
     }
 
