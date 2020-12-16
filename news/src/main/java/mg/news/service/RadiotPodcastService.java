@@ -33,6 +33,7 @@ public class RadiotPodcastService {
     private final RadiotUrlBuilder radiotUrlBuilder;
     private final RadiotPodcastRepository radiotPodcastRepository;
     private final RadiotPodcastTimeLabelRepository radiotPodcastTimeLabelRepository;
+    private final RadiotPodcastMapper radiotPodcastMapper;
 
     public List<RadiotPodcastDto> getRadiotPodcasts() {
         List<RadiotPodcast> podcasts = new ArrayList<>();
@@ -42,7 +43,7 @@ public class RadiotPodcastService {
             podcasts = updateRadiotPodcasts();
         }
         return podcasts.stream()
-                .map(RadiotPodcastMapper.INSTANCE::mapToDTO)
+                .map(radiotPodcastMapper::mapToDTO)
                 .collect(Collectors.toList());
     }
 

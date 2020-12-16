@@ -7,10 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = DateMapper.class)
+@Mapper(uses = DateMapper.class, componentModel = "spring")
 public abstract class RadiotPodcastTimeLabelMapper {
-
-    public static final RadiotPodcastTimeLabelMapper INSTANCE = Mappers.getMapper(RadiotPodcastTimeLabelMapper.class);
 
     @Mapping(target = "podcast", ignore = true)
     public abstract RadiotPodcastTimeLabelDto mapToDTO(RadiotPodcastTimeLabel entity);

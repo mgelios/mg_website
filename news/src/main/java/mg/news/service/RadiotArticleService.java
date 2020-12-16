@@ -28,6 +28,7 @@ public class RadiotArticleService {
     private final JSONHelper jsonHelper;
     private final RadiotUrlBuilder radiotUrlBuilder;
     private final RadiotArticleRepository radiotArticleRepository;
+    private final RadiotArticleMapper radiotArticleMapper;
 
     public List<RadiotArticleDto> getRadiotArticlesList() {
         List<RadiotArticle> dbArticles = new ArrayList<>();
@@ -44,7 +45,7 @@ public class RadiotArticleService {
             dbArticles = fillRadiotArticles();
         }
         return dbArticles.stream()
-                .map(RadiotArticleMapper.INSTANCE::mapToDTO)
+                .map(radiotArticleMapper::mapToDTO)
                 .collect(Collectors.toList());
     }
 
