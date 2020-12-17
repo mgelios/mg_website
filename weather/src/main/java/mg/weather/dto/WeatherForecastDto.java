@@ -1,13 +1,16 @@
 package mg.weather.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 public class WeatherForecastDto {
 
-    private Long id;
+    private UUID uuid;
     private LocalDateTime time;
     private double temperature;
     private double minimalTemperature;
