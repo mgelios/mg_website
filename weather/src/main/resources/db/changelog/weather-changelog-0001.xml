@@ -9,7 +9,7 @@
 
     <changeSet  id="weather-init"  author="mgelios">
         <createTable tableName="mg_current_weather">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="time" type="timestamp" />
@@ -33,7 +33,7 @@
         </createTable>
 
         <createTable tableName="mg_weather_forecast">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="time" type="timestamp" />

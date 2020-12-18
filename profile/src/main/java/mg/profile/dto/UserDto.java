@@ -1,5 +1,7 @@
 package mg.profile.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import mg.profile.common.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class UserDto implements UserDetails {
 
     private UUID uuid;
@@ -50,6 +54,6 @@ public class UserDto implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.enabled;
     }
 }

@@ -79,8 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).authenticated()
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                .and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
+                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint).and()
+                //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
                 .csrf().disable();
     }
 
