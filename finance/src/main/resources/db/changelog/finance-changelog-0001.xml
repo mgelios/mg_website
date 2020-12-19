@@ -9,7 +9,7 @@
 
     <changeSet  id="finance-init"  author="mgelios">
         <createTable tableName="mg_currency">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="system_id" type="integer" />
@@ -21,7 +21,7 @@
         </createTable>
 
         <createTable tableName="mg_currency_conversion">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="currency_from" type="integer" />
@@ -30,7 +30,7 @@
         </createTable>
 
         <createTable tableName="mg_currency_statistics">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="date" type="timestamp" />

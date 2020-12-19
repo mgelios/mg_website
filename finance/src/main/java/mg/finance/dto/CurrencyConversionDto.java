@@ -1,14 +1,16 @@
 package mg.finance.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import java.util.UUID;
+
+@Getter
+@Setter
 public class CurrencyConversionDto {
 
-    private Long id;
-
+    private UUID uuid;
     private CurrencyDto currencyFrom;
     private CurrencyDto currencyTo;
-
     private double value;
 }
