@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,8 +16,8 @@ import java.sql.Timestamp;
 public class RadiotArticle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID uuid;
     private String title;
     private String content;
     private String snippet;

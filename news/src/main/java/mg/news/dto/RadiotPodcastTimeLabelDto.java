@@ -1,13 +1,16 @@
 package mg.news.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 public class RadiotPodcastTimeLabelDto {
 
-    private Long id;
+    private UUID uuid;
     private RadiotPodcastDto podcast;
     private String topic;
     private Long duration;

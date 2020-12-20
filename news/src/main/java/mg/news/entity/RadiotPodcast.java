@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,8 +15,8 @@ import java.util.Set;
 public class RadiotPodcast {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID uuid;
     private String url;
     private String title;
     private Timestamp date;

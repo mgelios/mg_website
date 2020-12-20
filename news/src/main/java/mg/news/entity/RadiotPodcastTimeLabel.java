@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -13,8 +14,8 @@ import java.sql.Timestamp;
 public class RadiotPodcastTimeLabel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID uuid;
     private String topic;
     private Long duration;
     private Timestamp time;

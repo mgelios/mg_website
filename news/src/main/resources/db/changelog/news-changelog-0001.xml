@@ -9,7 +9,7 @@
 
     <changeSet  id="news-init"  author="mgelios">
         <createTable tableName="mg_radiot_article">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="title" type="text" />
@@ -28,7 +28,7 @@
         </createTable>
 
         <createTable tableName="mg_radiot_podcast">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="url" type="text" />
@@ -41,7 +41,7 @@
         </createTable>
 
         <createTable tableName="mg_radiot_time_label">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="topic" type="text" />
