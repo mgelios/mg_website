@@ -9,7 +9,7 @@
 
     <changeSet  id="utils-init"  author="mgelios">
         <createTable tableName="mg_api_consumer">
-            <column name="uuid" type="binary(16)">
+            <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="name" type="text" />

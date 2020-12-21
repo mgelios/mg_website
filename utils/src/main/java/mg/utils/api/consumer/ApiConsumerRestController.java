@@ -12,27 +12,28 @@ import java.util.stream.Collectors;
 public class ApiConsumerRestController {
 
     private final ApiConsumerService apiConsumerService;
+    private final ApiConsumerMapper apiConsumerMapper;
 
     @GetMapping("/list")
     public List<ApiConsumerDto> getListOfApiConsumers() {
         return apiConsumerService.getListOfApiConsumers().stream()
-                .map(ApiConsumerMapper.INSTANCE::mapToDto)
+                .map(apiConsumerMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{uuid}")
     public ApiConsumerDto getApiConsumerByUuid(@PathVariable String uuid) {
-        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
+        return apiConsumerMapper.mapToDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
     }
 
     @PostMapping
     public ApiConsumerDto createApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.createApiConsumer(apiConsumerDto));
+        return apiConsumerMapper.mapToDto(apiConsumerService.createApiConsumer(apiConsumerDto));
     }
 
     @PutMapping
     public ApiConsumerDto updateApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return ApiConsumerMapper.INSTANCE.mapToDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
+        return apiConsumerMapper.mapToDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
     }
 
     @DeleteMapping("/{uuid}")

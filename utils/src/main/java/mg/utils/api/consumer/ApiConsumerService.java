@@ -14,6 +14,7 @@ import java.util.UUID;
 public class ApiConsumerService {
 
     private final ApiConsumerRepository apiConsumerRepository;
+    private final ApiConsumerMapper apiConsumerMapper;
 
     public List<ApiConsumer> getListOfApiConsumers() {
         return apiConsumerRepository.findAllByUuidNotNull();
@@ -24,12 +25,12 @@ public class ApiConsumerService {
     }
 
     public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
-        ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
+        ApiConsumer apiConsumer = apiConsumerMapper.mapToEntity(apiConsumerDto);
         return apiConsumerRepository.save(apiConsumer);
     }
 
     public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
-        ApiConsumer apiConsumer = ApiConsumerMapper.INSTANCE.mapToEntity(apiConsumerDto);
+        ApiConsumer apiConsumer = apiConsumerMapper.mapToEntity(apiConsumerDto);
         return apiConsumerRepository.save(apiConsumer);
     }
 
