@@ -10,7 +10,6 @@ import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
