@@ -33,6 +33,7 @@
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
+            <column name="currency_id" type="integer" />
             <column name="date" type="timestamp" />
             <column name="currency" type="integer" />
             <column name="rate" type="real" />

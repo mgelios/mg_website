@@ -1,12 +1,14 @@
 package mg.news.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 public class RadiotPodcastDto {
 
     private UUID uuid;

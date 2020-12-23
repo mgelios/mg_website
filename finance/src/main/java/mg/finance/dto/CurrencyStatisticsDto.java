@@ -11,6 +11,7 @@ import java.util.UUID;
 public class CurrencyStatisticsDto {
 
     private UUID uuid;
+    private Long currencyId;
     private LocalDateTime date;
     private CurrencyDto currency;
     private double rate;

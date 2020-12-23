@@ -73,7 +73,7 @@ public class CurrencyStatisticsService {
                         .date(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"))
                         .currency(currency)
                         .rate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"))
-                        .id(jsonHelper.getLong(jsonItem, "Cur_ID"))
+                        .currencyId(jsonHelper.getLong(jsonItem, "Cur_ID"))
                         .build();
                 result.add(currencyStatisticsRepository.save(statisticsDBEntity));
             }

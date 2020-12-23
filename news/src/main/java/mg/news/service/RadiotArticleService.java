@@ -32,7 +32,7 @@ public class RadiotArticleService {
 
     public List<RadiotArticleDto> getRadiotArticlesList() {
         List<RadiotArticle> dbArticles = new ArrayList<>();
-        Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByIdDesc();
+        Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByOriginalTimeDesc();
         if (dbOptionalSingularArticle.isPresent()) {
             RadiotArticle dbSingularArticle = dbOptionalSingularArticle.get();
             if (dbSingularArticle.getLastUpdated().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {

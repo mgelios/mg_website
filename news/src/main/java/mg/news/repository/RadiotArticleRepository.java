@@ -5,9 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface RadiotArticleRepository extends CrudRepository<RadiotArticle, Long> {
+public interface RadiotArticleRepository extends CrudRepository<RadiotArticle, UUID> {
 
-    Optional<RadiotArticle> findTopByOrderByIdDesc();
+    Optional<RadiotArticle> findTopByOrderByOriginalTimeDesc();
 }
