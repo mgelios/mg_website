@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -81,6 +82,14 @@ public class BasicJSONHelper implements JSONHelper {
     @Override
     public Timestamp getTimestampOfEpochSecond(JSONObject object, String path) {
         return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
+    }
+
+    @Override
+    public OffsetDateTime getOffsetDateTimeOfEpochSecond(JSONObject object, String path) {
+        return OffsetDateTime.of(
+                LocalDateTime.ofEpochSecond(getLong(object, path), 0, ZoneOffset.ofHours(0)),
+                ZoneOffset.ofHours(0)
+        );
     }
 
     @Override

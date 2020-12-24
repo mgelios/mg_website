@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +76,7 @@ public class WeatherForecastService {
             for (int i = 0; i < numberOfRecords; i++) {
                 JSONObject forecast = forecasts.getJSONObject(i);
                 WeatherForecast dbEntity = WeatherForecast.builder()
-                        .time(jsonHelper.getTimestampOfEpochSecond(forecast, "dt"))
+                        .time(jsonHelper.getOffsetDateTimeOfEpochSecond(forecast, "dt"))
                         .temperature(jsonHelper.getDouble(forecast, "main.temp"))
                         .minimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"))
                         .maximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"))
@@ -89,7 +90,7 @@ public class WeatherForecastService {
                         .windSpeed(jsonHelper.getDouble(forecast, "wind.speed"))
                         .windDegree(jsonHelper.getDouble(forecast, "wind.deg"))
                         .cityName(city)
-                        .updateTime(Timestamp.from(Instant.now()))
+                        .updateTime(OffsetDateTime.now())
                         .build();
                 dbEntity = weatherForecastRepository.save(dbEntity);
                 result.add(dbEntity);

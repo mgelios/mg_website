@@ -3,7 +3,7 @@ package mg.weather.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CurrentWeatherDto {
 
     private UUID uuid;
-    private LocalDateTime time;
+    private OffsetDateTime time;
     private String cityName;
     private double longitude;
     private double latitude;
@@ -26,7 +26,7 @@ public class CurrentWeatherDto {
     private double visibility;
     private double windSpeed;
     private double windDegree;
-    private LocalDateTime sunrise;
-    private LocalDateTime sunset;
+    private OffsetDateTime sunrise;
+    private OffsetDateTime sunset;
     private double uvi;
 }

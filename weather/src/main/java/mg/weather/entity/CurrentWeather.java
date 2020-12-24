@@ -3,12 +3,10 @@ package mg.weather.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-
 
 @Entity
 @Getter
@@ -20,7 +18,7 @@ public class CurrentWeather {
     @Id
     @GeneratedValue
     private UUID uuid;
-    private Timestamp time;
+    private OffsetDateTime time;
     private String cityName;
     private double longitude;
     private double latitude;
@@ -35,7 +33,7 @@ public class CurrentWeather {
     private double visibility;
     private double windSpeed;
     private double windDegree;
-    private Timestamp sunrise;
-    private Timestamp sunset;
+    private OffsetDateTime sunrise;
+    private OffsetDateTime sunset;
     private double uvi;
 }

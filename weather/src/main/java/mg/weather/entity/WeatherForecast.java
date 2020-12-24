@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +19,7 @@ public class WeatherForecast {
     @Id
     @GeneratedValue
     private UUID uuid;
-    private Timestamp time;
+    private OffsetDateTime time;
     private double temperature;
     private double minimalTemperature;
     private double maximumTemperature;
@@ -32,5 +33,5 @@ public class WeatherForecast {
     private double windSpeed;
     private double windDegree;
     private String cityName;
-    private Timestamp updateTime;
+    private OffsetDateTime updateTime;
 }

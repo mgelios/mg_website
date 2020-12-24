@@ -72,9 +72,9 @@ public class CurrentWeatherService {
                     .visibility(jsonHelper.getDouble(json, "visibility"))
                     .windSpeed(jsonHelper.getDouble(json, "wind.speed"))
                     .windDegree(jsonHelper.getDouble(json, "wind.deg"))
-                    .time(jsonHelper.getTimestampOfEpochSecond(json, "dt"))
-                    .sunrise(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunrise"))
-                    .sunset(jsonHelper.getTimestampOfEpochSecond(json, "sys.sunset"))
+                    .time(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "dt"))
+                    .sunrise(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "sys.sunrise"))
+                    .sunset(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "sys.sunset"))
                     .cityName(jsonHelper.getString(json, "name").toLowerCase())
                     .build();
             dbEntity.setUvi(getUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));

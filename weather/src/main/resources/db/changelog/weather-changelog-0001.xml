@@ -12,7 +12,7 @@
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="time" type="timestamp" />
+            <column name="time" type="timestamptz" />
             <column name="city_name" type="text" />
             <column name="longitude" type="real" />
             <column name="latitude" type="real" />
@@ -27,8 +27,8 @@
             <column name="visibility" type="real" />
             <column name="wind_speed" type="real" />
             <column name="wind_degree" type="real" />
-            <column name="sunrise" type="timestamp" />
-            <column name="sunset" type="timestamp" />
+            <column name="sunrise" type="timestamptz" />
+            <column name="sunset" type="timestamptz" />
             <column name="uvi" type="real" />
         </createTable>
 
@@ -36,7 +36,7 @@
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="time" type="timestamp" />
+            <column name="time" type="timestamptz" />
             <column name="city_name" type="text" />
             <column name="temperature" type="real" />
             <column name="minimal_temperature" type="real" />
@@ -50,7 +50,7 @@
             <column name="icon" type="text" />
             <column name="wind_speed" type="real" />
             <column name="wind_degree" type="real" />
-            <column name="update_time" type="timestamp" />
+            <column name="update_time" type="timestamptz" />
         </createTable>
 
         <rollback>
