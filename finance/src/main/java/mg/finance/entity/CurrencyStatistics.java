@@ -3,7 +3,7 @@ package mg.finance.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +17,7 @@ public class CurrencyStatistics {
     @GeneratedValue
     private UUID uuid;
     private Long currencyId;
-    private Timestamp date;
+    private OffsetDateTime date;
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

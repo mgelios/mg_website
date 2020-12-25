@@ -13,7 +13,7 @@
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="system_id" type="integer" />
-            <column name="date" type="timestamp" />
+            <column name="date" type="timestamptz" />
             <column name="abbreviation" type="text" />
             <column name="scale" type="real" />
             <column name="name" type="text" />
@@ -34,7 +34,7 @@
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="currency_id" type="integer" />
-            <column name="date" type="timestamp" />
+            <column name="date" type="timestamptz" />
             <column name="currency" type="integer" />
             <column name="rate" type="real" />
         </createTable>
