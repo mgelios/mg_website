@@ -3,7 +3,7 @@ package mg.news.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class RadiotPodcastDto {
     private UUID uuid;
     private String url;
     private String title;
-    private LocalDateTime date;
+    private OffsetDateTime date;
     private String image;
     private String body;
     private String showNotes;

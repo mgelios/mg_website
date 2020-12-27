@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -24,11 +24,11 @@ public class RadiotArticle {
     private String mainPicture;
     private String link;
     private String author;
-    private Timestamp originalTime;
-    private Timestamp radiotTime;
+    private OffsetDateTime originalTime;
+    private OffsetDateTime radiotTime;
     private String feed;
     private String slug;
     private Long comments;
     private Long likes;
-    private Timestamp lastUpdated;
+    private OffsetDateTime lastUpdated;
 }

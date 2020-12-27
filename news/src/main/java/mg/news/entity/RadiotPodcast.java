@@ -3,7 +3,7 @@ package mg.news.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,7 +19,7 @@ public class RadiotPodcast {
     private UUID uuid;
     private String url;
     private String title;
-    private Timestamp date;
+    private OffsetDateTime date;
     private String image;
     private String body;
     private String showNotes;

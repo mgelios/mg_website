@@ -3,7 +3,7 @@ package mg.news.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -17,11 +17,11 @@ public class RadiotArticleDto {
     private String mainPicture;
     private String link;
     private String author;
-    private LocalDateTime originalTime;
-    private LocalDateTime radiotTime;
+    private OffsetDateTime originalTime;
+    private OffsetDateTime radiotTime;
     private String feed;
     private String slug;
     private Long comments;
     private Long likes;
-    private LocalDateTime lastUpdated;
+    private OffsetDateTime lastUpdated;
 }
