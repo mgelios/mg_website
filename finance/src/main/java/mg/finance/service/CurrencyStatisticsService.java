@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +72,8 @@ public class CurrencyStatisticsService {
             for (Object item : jsonArray) {
                 JSONObject jsonItem = (JSONObject) item;
                 CurrencyStatistics statisticsDBEntity = CurrencyStatistics.builder()
-                        .date(jsonHelper.getTimestampFromFormat(jsonItem, "Date", "yyyy-MM-dd'T'HH:mm:ss"))
+                        .date(OffsetDateTime.parse(jsonHelper.getString(jsonItem, "Date").replace("T", " "),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
                         .currency(currency)
                         .rate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"))
                         .currencyId(jsonHelper.getLong(jsonItem, "Cur_ID"))
