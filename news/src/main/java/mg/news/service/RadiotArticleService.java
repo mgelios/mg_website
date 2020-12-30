@@ -12,9 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -66,9 +65,9 @@ public class RadiotArticleService {
                         .slug(jsonHelper.getString(jsonArticle, "slug"))
                         .snippet(jsonHelper.getString(jsonArticle, "snippet"))
                         .title(jsonHelper.getString(jsonArticle, "title"))
-                        .originalTime(Timestamp.from(Instant.now()))
-                        .radiotTime(Timestamp.from(Instant.now()))
-                        .lastUpdated(Timestamp.from(Instant.now()))
+                        .originalTime(OffsetDateTime.now())
+                        .radiotTime(OffsetDateTime.now())
+                        .lastUpdated(OffsetDateTime.now())
                         .build();
                 dbArticle = radiotArticleRepository.save(dbArticle);
                 radiotArticleList.add(dbArticle);

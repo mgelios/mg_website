@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class WeatherForecastDto {
 
     private UUID uuid;
-    private LocalDateTime time;
+    private OffsetDateTime time;
     private double temperature;
     private double minimalTemperature;
     private double maximumTemperature;
@@ -25,5 +26,5 @@ public class WeatherForecastDto {
     private double windSpeed;
     private double windDegree;
     private String cityName;
-    private LocalDateTime updateTime;
+    private OffsetDateTime updateTime;
 }

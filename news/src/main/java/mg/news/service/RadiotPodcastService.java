@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +66,7 @@ public class RadiotPodcastService {
                         .showNotes(jsonHelper.getString(jsonItem, "show_notes"))
                         .title(jsonHelper.getString(jsonItem, "title"))
                         .url(jsonHelper.getString(jsonItem, "url"))
-                        .date(Timestamp.from(Instant.now()))
+                        .date(OffsetDateTime.now())
                         .build();
                 radiotPodcast = radiotPodcastRepository.save(radiotPodcast);
                 timeLabels = saveRadiotPodcastTimeLabels(jsonHelper.getJSONArray(jsonItem, "time_labels"), radiotPodcast);
