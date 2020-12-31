@@ -1,4 +1,4 @@
-import blog from '../../api/blog';
+import blog from '../../api/service/blog';
 
 const state = {
     categories : [],

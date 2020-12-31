@@ -1,4 +1,4 @@
-import crypto from '../../api/crypto';
+import crypto from '../../api/service/crypto';
 
 const state = {
     all: [],

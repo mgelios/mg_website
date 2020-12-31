@@ -1,4 +1,4 @@
-import weather from '../../api/weather';
+import weather from '../../api/service/weather';
 
 const state = {
     currentWeather: {},

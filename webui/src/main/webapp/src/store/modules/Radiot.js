@@ -1,4 +1,4 @@
-import weather from '../../api/radiot';
+import weather from '../../api/service/radiot';
 
 const state = {
     articles: []
