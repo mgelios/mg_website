@@ -6,6 +6,9 @@ import Currency from './modules/Currency'
 import Radiot from './modules/Radiot'
 import Blog from './modules/Blog'
 
+import { weather } from './weather'
+import { currency } from "./currency";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +17,8 @@ export default new Vuex.Store({
         Weather,
         Currency,
         Radiot,
-        Blog
+        Blog,
+        weather,
+        currency,
     }
 })
