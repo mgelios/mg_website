@@ -1,7 +1,8 @@
 import { types } from "./types";
 
 export const actions = Object.freeze({
-    fetchCurrentWeather
+    fetchCurrentWeather,
+    fetchWeatherForecast,
 });
 
 async function fetchCurrentWeather({ commit }) {
