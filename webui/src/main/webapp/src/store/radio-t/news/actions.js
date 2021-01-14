@@ -1,7 +1,7 @@
 import { types } from './types';
 
 export const actions = Object.freeze({
-
+    fetchArticles,
 });
 
 async function fetchArticles({ commit }){
