@@ -3,7 +3,6 @@ package mg.weather.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -12,7 +11,10 @@ import java.util.UUID;
 public class WeatherForecastDto {
 
     private UUID uuid;
-    private OffsetDateTime time;
+    private String mainInfo;
+    private String description;
+    private String icon;
+    private String cityName;
     private double temperature;
     private double minimalTemperature;
     private double maximumTemperature;
@@ -20,11 +22,8 @@ public class WeatherForecastDto {
     private double seaLevel;
     private double groundLevel;
     private double humidity;
-    private String mainInfo;
-    private String description;
-    private String icon;
     private double windSpeed;
     private double windDegree;
-    private String cityName;
+    private OffsetDateTime time;
     private OffsetDateTime updateTime;
 }

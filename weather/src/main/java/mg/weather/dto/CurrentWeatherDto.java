@@ -11,13 +11,12 @@ import java.util.UUID;
 public class CurrentWeatherDto {
 
     private UUID uuid;
-    private OffsetDateTime time;
-    private String cityName;
-    private double longitude;
-    private double latitude;
     private String mainInfo;
     private String description;
     private String icon;
+    private String cityName;
+    private double longitude;
+    private double latitude;
     private double temperature;
     private double pressure;
     private double humidity;
@@ -26,7 +25,8 @@ public class CurrentWeatherDto {
     private double visibility;
     private double windSpeed;
     private double windDegree;
+    private double uvi;
+    private OffsetDateTime time;
     private OffsetDateTime sunrise;
     private OffsetDateTime sunset;
-    private double uvi;
 }
