@@ -11,10 +11,10 @@ import java.util.UUID;
 public class CurrencyDto {
 
     private UUID uuid;
-    private long systemId;
     private OffsetDateTime date;
     private String abbreviation;
-    private double scale;
     private String name;
+    private long systemId;
+    private double scale;
     private double rate;
 }
