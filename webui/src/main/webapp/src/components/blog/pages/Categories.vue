@@ -169,7 +169,7 @@
             }
         },
         mounted: function() {
-            //this.$store.dispatch('Currency/getCurrencyConversions');
+            //this.$store.dispatch('CurrencyModel/getCurrencyConversions');
         }
     }
 </script>

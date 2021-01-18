@@ -1,4 +1,4 @@
-export class Currency {
+export class CurrencyModel {
 
     /**
      * @param {Object} config

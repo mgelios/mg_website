@@ -1,6 +1,6 @@
-import {Currency} from "./currency";
+import {CurrencyModel} from "./currencyModel";
 
-export class CurrencyConversion {
+export class CurrencyConversionModel {
 
     /**
      * @param {Object} config
@@ -13,8 +13,8 @@ export class CurrencyConversion {
     constructor(config) {
         config = config || {};
         this.uuid = config.uuid;
-        this.currencyFrom = config.currencyFrom ? new Currency(config.currencyFrom) : null;
-        this.currencyTo = config.currencyTo ? new Currency(config.currencyTo) : null;
+        this.currencyFrom = config.currencyFrom ? new CurrencyModel(config.currencyFrom) : null;
+        this.currencyTo = config.currencyTo ? new CurrencyModel(config.currencyTo) : null;
         this.value = config.value;
     }
 }
