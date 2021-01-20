@@ -81,8 +81,15 @@ subprojects {
         runtime('com.h2database:h2')
         runtime('org.springframework.boot:spring-boot-devtools')
 
+//---------------------------------------------------------------------------
+//  !!! IMPORTANT NOTE: jsonwebtoken impl is new version of io.jsonwebtoken
+//  library, usage at the moment just to test token auth
+//---------------------------------------------------------------------------
+        runtime('io.jsonwebtoken:jjwt-impl:0.11.2')
+
         compileOnly('org.projectlombok:lombok:1.18.12')
         annotationProcessor('org.projectlombok:lombok:1.18.12')
+
 
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
