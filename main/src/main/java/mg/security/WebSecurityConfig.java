@@ -2,10 +2,7 @@ package mg.security;
 
 import mg.BasicCORSFilter;
 import mg.profile.service.BasicUserDetailsService;
-import mg.security.custom.AuthenticationFailureHandler;
-import mg.security.custom.BasicAuthenticationSuccessHandler;
-import mg.security.custom.BasicAuthenticationProvider;
-import mg.security.custom.MGBasicAuthenticationEntryPoint;
+import mg.security.custom.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
@@ -74,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(basicCORSFilter, LogoutFilter.class)
+                .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
