@@ -34,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/api/v1/weather/**",
             "/api/v1/finance/**",
-            "/api/v1/news/**"
+            "/api/v1/news/**",
+            "/api/v1/token/**"
     };
 
     private static final String[] AUTH_AUTHENTICATED = {
@@ -69,17 +70,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(basicCORSFilter, LogoutFilter.class)
+//                .sessionManagement()
+//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .addFilterBefore(basicCORSFilter, LogoutFilter.class)
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
-                    .antMatchers(AUTH_AUTHENTICATED).authenticated()
+                    .antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint).and()
+                //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint).and()
                 //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
+                .and()
                 .csrf().disable();
     }
 

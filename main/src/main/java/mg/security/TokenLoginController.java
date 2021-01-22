@@ -1,8 +1,10 @@
 package mg.security;
 
+import com.vladsch.flexmark.util.collection.MapEntry;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import mg.profile.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +23,10 @@ public class TokenLoginController {
 
     @PostMapping("/login")
     public Object login(@RequestParam("username") String username, @RequestParam("password") String password) {
-
-        return null;
+        String token = getJWTToken(username);
+        User user = new User();
+        user.setUsername(username);
+        return new MapEntry<Object, Object>(user, token);
     }
 
     private String getJWTToken(String username) {

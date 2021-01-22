@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Component
 public class FinanceSyncTask {
 
-    @Scheduled(cron = "0 * * * * ?")
+//    @Scheduled(cron = "0 * * * * ?")
     public void syncWeatherInfo(){
         log.info("*** finance task running *** " + LocalDateTime.now().toString());
     }
