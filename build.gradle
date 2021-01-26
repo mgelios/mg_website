@@ -86,6 +86,7 @@ subprojects {
 //  library, usage at the moment just to test token auth
 //---------------------------------------------------------------------------
         runtime('io.jsonwebtoken:jjwt-impl:0.11.2')
+        runtime('io.jsonwebtoken:jjwt-jackson:0.11.2')
 
         compileOnly('org.projectlombok:lombok:1.18.12')
         annotationProcessor('org.projectlombok:lombok:1.18.12')

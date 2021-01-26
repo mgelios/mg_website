@@ -72,14 +72,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
 //                .sessionManagement()
 //                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .addFilterBefore(basicCORSFilter, LogoutFilter.class)
+//                .addFilterBefore(basicCORSFilter, LogoutFilter.class)
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
-                    .antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
+                    //.antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
+                    .antMatchers(AUTH_AUTHENTICATED).hasRole("ADMIN")
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint).and()
+                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                 //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
                 .and()
                 .csrf().disable();

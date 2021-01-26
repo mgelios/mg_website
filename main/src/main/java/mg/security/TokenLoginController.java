@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/token")
 public class TokenLoginController {
+
+    //TODO : make secure shared class with uuid as secret key to parse requests
+    private final String secretKeyRaw = UUID.randomUUID().toString();
 
     @PostMapping("/login")
     public Object login(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -30,7 +34,6 @@ public class TokenLoginController {
     }
 
     private String getJWTToken(String username) {
-        String secretKeyRaw = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("USER");
 
