@@ -1,6 +1,7 @@
 package mg.security.custom;
 
 import io.jsonwebtoken.*;
+import mg.security.TokenLoginController;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +19,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    private final String SECRET = "mySecretKey";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -35,9 +35,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.clearContext();
             }
             filterChain.doFilter(request, response);
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 .getHeader(HEADER)
                 .replace(PREFIX, "");
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET.getBytes())
+                .setSigningKey(TokenLoginController.secretKeyRaw.getBytes())
                 .build()
                 .parseClaimsJws(jwtToken).getBody();
     }

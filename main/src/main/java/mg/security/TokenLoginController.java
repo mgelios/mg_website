@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class TokenLoginController {
 
     //TODO : make secure shared class with uuid as secret key to parse requests
-    private final String secretKeyRaw = UUID.randomUUID().toString();
+    public static final String secretKeyRaw = UUID.randomUUID().toString();
 
     @PostMapping("/login")
     public Object login(@RequestParam("username") String username, @RequestParam("password") String password) {

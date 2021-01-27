@@ -77,10 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
-                    //.antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
-                    .antMatchers(AUTH_AUTHENTICATED).hasRole("ADMIN")
+                    .antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                 //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
                 .and()
                 .csrf().disable();
