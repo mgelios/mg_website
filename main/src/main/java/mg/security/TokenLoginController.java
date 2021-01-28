@@ -35,7 +35,7 @@ public class TokenLoginController {
 
     private String getJWTToken(String username) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList("USER");
+                .commaSeparatedStringToAuthorityList("ROLE_USER");
 
         SecretKey secretKey = Keys.hmacShaKeyFor(secretKeyRaw.getBytes());
 
