@@ -1,4 +1,4 @@
-package mg.security;
+package mg.security.token;
 
 import com.vladsch.flexmark.util.collection.MapEntry;
 import io.jsonwebtoken.Jwts;

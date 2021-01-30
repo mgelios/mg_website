@@ -1,4 +1,4 @@
-package mg.security.custom;
+package mg.security.basic;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

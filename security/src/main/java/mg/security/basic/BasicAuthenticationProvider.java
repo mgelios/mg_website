@@ -1,4 +1,4 @@
-package mg.security.custom;
+package mg.security.basic;
 
 import mg.profile.service.BasicUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

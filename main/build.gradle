@@ -5,9 +5,12 @@ plugins {
 dependencies {
     compile project(':utils')
     compile project(':profile')
+    compile project(':security')
+
     compile project(':weather')
     compile project(':finance')
     compile project(':news')
+
     compile project(':blog')
 }
 

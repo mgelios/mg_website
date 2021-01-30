@@ -2,10 +2,14 @@ rootProject.name="app"
 
 include ':main'
 project(':main').projectDir = file('main')
+
 include ':utils'
 project(':utils').projectDir = file('utils')
 include ':profile'
 project(':profile').projectDir = file('profile')
+include ':security'
+project(':security').projectDir = file('security')
+
 include ':weather'
 project(':weather').projectDir = file('weather')
 include ':finance'
@@ -13,8 +17,8 @@ project(':finance').projectDir = file('finance')
 include ':news'
 project(':news').projectDir = file('news')
 
-
 include ':webui'
 project(':webui').projectDir = file('webui')
+
 include 'blog'
 

@@ -1,4 +1,4 @@
-package mg.security.custom;
+package mg.security.error;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

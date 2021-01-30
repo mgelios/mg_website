@@ -1,8 +1,10 @@
-package mg.security;
+package mg;
 
 import mg.BasicCORSFilter;
 import mg.profile.service.BasicUserDetailsService;
-import mg.security.custom.*;
+import mg.security.basic.BasicAuthenticationProvider;
+import mg.security.basic.BasicAuthenticationSuccessHandler;
+import mg.security.token.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
@@ -50,13 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     @Autowired
-    private MGBasicAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
     private BasicAuthenticationProvider authenticationProvider;
     @Autowired
     private BasicAuthenticationSuccessHandler authSuccessHandler;
-    @Autowired
-    private AuthenticationFailureHandler authFailureHandler;
     @Autowired
     private BasicCORSFilter basicCORSFilter;
     @Autowired

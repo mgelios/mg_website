@@ -1,4 +1,4 @@
-package mg.security.custom;
+package mg.security.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
