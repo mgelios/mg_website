@@ -16,16 +16,15 @@ import java.util.stream.Collectors;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-    private final String HEADER = "Authorization";
-    private final String PREFIX = "Bearer ";
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            if (checkJWTToken(request, response)) {
+            if (isJWTTokenPresent(request, response)) {
                 Claims claims = validateToken(request);
-                if (claims.get("authorities") != null) {
+                if (claims.get(JWTCommon.AUTHORITIES_CLAIM_NAME) != null) {
                     setUpSpringAuthentication(claims);
                 } else {
                     SecurityContextHolder.clearContext();
@@ -42,17 +41,17 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private Claims validateToken(HttpServletRequest request) {
         String jwtToken = request
-                .getHeader(HEADER)
-                .replace(PREFIX, "");
+                .getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME)
+                .replace(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX, "");
         return Jwts.parserBuilder()
-                .setSigningKey(TokenLoginController.secretKeyRaw.getBytes())
+                .setSigningKey(JWTCommon.SIGNING_KEY.getBytes())
                 .build()
                 .parseClaimsJws(jwtToken).getBody();
     }
 
     private void setUpSpringAuthentication(Claims claims) {
         @SuppressWarnings("unchecked")
-        List<String> authoritiesStrings = claims.get("authorities", List.class);
+        List<String> authoritiesStrings = claims.get(JWTCommon.AUTHORITIES_CLAIM_NAME, List.class);
         List<SimpleGrantedAuthority> authorities = authoritiesStrings.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -63,8 +62,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
-    private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse response) {
-        String authenticationHeader = request.getHeader(HEADER);
-        return authenticationHeader != null && authenticationHeader.startsWith(PREFIX);
+    private boolean isJWTTokenPresent(HttpServletRequest request, HttpServletResponse response) {
+        String authenticationHeader = request.getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME);
+        return authenticationHeader != null && authenticationHeader.startsWith(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX);
     }
 }

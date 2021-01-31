@@ -1,9 +1,7 @@
 package mg;
 
-import mg.BasicCORSFilter;
 import mg.profile.service.BasicUserDetailsService;
 import mg.security.basic.BasicAuthenticationProvider;
-import mg.security.basic.BasicAuthenticationSuccessHandler;
 import mg.security.token.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -52,10 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BasicAuthenticationProvider authenticationProvider;
     @Autowired
-    private BasicAuthenticationSuccessHandler authSuccessHandler;
-    @Autowired
-    private BasicCORSFilter basicCORSFilter;
-    @Autowired
     private BasicUserDetailsService basicUserDetailsService;
 
     @Override
@@ -63,20 +57,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider);
     }
 
+
+    //examples of
+    //.addFilterBefore(basicCORSFilter, LogoutFilter.class)
+    //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+    //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//                .addFilterBefore(basicCORSFilter, LogoutFilter.class)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(AUTH_ALL).permitAll()
                     .antMatchers(AUTH_AUTHENTICATED).hasAnyRole("ADMIN", "USER", "AUTHOR")
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
-                //.and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                //.and().addFilterAfter(digestAuthenticationFilter(), BasicAuthenticationFilter.class)
                 .and()
                 .csrf().disable();
     }
