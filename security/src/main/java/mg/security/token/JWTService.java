@@ -3,15 +3,14 @@ package mg.security.token;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import mg.profile.dto.UserDto;
 import mg.profile.entity.User;
-import mg.profile.service.BasicUserDetailsService;
+import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
 import mg.security.token.dto.JWTLoginRequest;
-import org.springframework.security.core.AuthenticationException;
+import mg.security.token.dto.JWTLoginResponse;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +28,38 @@ public class JWTService {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserMapper userMapper;
+
+    public JWTLoginResponse generateLoginResponse(JWTLoginRequest loginRequest) {
+        String token = generateJWTToken(loginRequest);
+        if (token != null) {
+            return JWTLoginResponse.builder()
+                    .token(token)
+                    .profile(userMapper.mapToDto(userService.findUserByUsername(loginRequest.getUsername())))
+                    .build();
+        } else {
+            return null;
+        }
+    }
 
     public String generateJWTToken(JWTLoginRequest loginRequest) {
         List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(loginRequest);
-        SecretKey secretKey = Keys.hmacShaKeyFor(JWTCommon.SIGNING_KEY.getBytes());
-
-        String token = Jwts.builder()
-                .setId(JWT_ID)
-                .setSubject(loginRequest.getUsername())
-                .claim(JWTCommon.AUTHORITIES_CLAIM_NAME, grantedAuthorities.stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .collect(Collectors.toList()))
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME_MILLIS))
-                .signWith(secretKey)
-                .compact();
-
-        return JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX + token;
+        if (grantedAuthorities != null) {
+            SecretKey secretKey = Keys.hmacShaKeyFor(JWTCommon.SIGNING_KEY.getBytes());
+            String token = Jwts.builder()
+                    .setId(JWT_ID)
+                    .setSubject(loginRequest.getUsername())
+                    .claim(JWTCommon.AUTHORITIES_CLAIM_NAME, grantedAuthorities.stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .collect(Collectors.toList()))
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME_MILLIS))
+                    .signWith(secretKey)
+                    .compact();
+            return JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX + token;
+        } else {
+            return null;
+        }
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(JWTLoginRequest loginRequest) {
@@ -54,6 +68,6 @@ public class JWTService {
             return AuthorityUtils.commaSeparatedStringToAuthorityList(
                     JWTCommon.ROLE_PREFIX + user.getRole().toString());
         }
-        return AuthorityUtils.commaSeparatedStringToAuthorityList("");
+        return null;
     }
 }

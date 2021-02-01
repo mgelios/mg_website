@@ -12,10 +12,8 @@ public class JWTLoginController {
 
     private final JWTService jwtService;
 
-    //TODO : chagne returning dto to more complex, probably add userDto to cut unnecessary additional requests
     @PostMapping("/login")
     public JWTLoginResponse login(@RequestBody JWTLoginRequest loginRequest) {
-        String token = jwtService.generateJWTToken(loginRequest);
-        return new JWTLoginResponse(token);
+        return jwtService.generateLoginResponse(loginRequest);
     }
 }
