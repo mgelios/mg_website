@@ -5,6 +5,7 @@ import mg.profile.dto.UserDto;
 import mg.profile.entity.User;
 import mg.profile.mapper.UserMapper;
 import mg.profile.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,15 @@ public class UserService {
     @Transactional
     public User findUserByUuid(UUID uuid) {
         Optional<User> user = userRepository.findById(uuid);
+        return user.get();
+    }
+
+    @Transactional
+    public User findUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
         return user.get();
     }
 
