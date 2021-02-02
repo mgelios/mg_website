@@ -2,6 +2,7 @@ package mg.security.token.dto;
 
 import lombok.*;
 import mg.profile.dto.UserDto;
+import mg.profile.dto.UserResponseDto;
 
 @Getter
 @Setter
@@ -10,5 +11,5 @@ import mg.profile.dto.UserDto;
 public class JWTLoginResponse {
 
     private String token;
-    private UserDto profile;
+    private UserResponseDto profile;
 }

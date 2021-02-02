@@ -35,7 +35,7 @@ public class JWTService {
         if (token != null) {
             return JWTLoginResponse.builder()
                     .token(token)
-                    .profile(userMapper.mapToDto(userService.findUserByUsername(loginRequest.getUsername())))
+                    .profile(userMapper.mapToResponseDto(userService.findUserByUsername(loginRequest.getUsername())))
                     .build();
         } else {
             return null;
