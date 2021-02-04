@@ -12,35 +12,26 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/profile")
-public class UserRestController {
+@RequestMapping("/api/v1/authorized/profile")
+public class AuthorizedUserRestController {
 
     private final UserService userService;
     private final UserMapper userMapper;
 
-//    @GetMapping("/{uuid}")
-//    public UserDto getUserByUuid(@PathVariable String uuid) {
-//        return userMapper.mapToDto(userService.findUserByUuid(UUID.fromString(uuid)));
-//    }
-
     @GetMapping
-    public UserResponseDto getAuthorizedUserProfile() {
+    public UserResponseDto getUserProfile() {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         return userMapper.mapToResponseDto(userService.findUserByUsername(username));
     }
 
-    @PostMapping
-    public UserDto createUser(@RequestBody UserDto dto) {
-        return userMapper.mapToDto(userService.createUser(dto));
-    }
-
     @PutMapping
-    public UserDto updateUser(@RequestBody UserDto dto) {
+    public UserDto updateUserProfile(@RequestBody UserDto dto) {
         return userMapper.mapToDto(userService.updateUser(dto));
     }
 
-    @DeleteMapping("/{uuid}")
-    public void deleteUserByUuid(@PathVariable String uuid) {
-        userService.deleteUser(UUID.fromString(uuid));
+    @DeleteMapping
+    public void deleteUserProfile() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        userService.deleteUser(username);
     }
 }
