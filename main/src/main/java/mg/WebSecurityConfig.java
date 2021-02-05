@@ -38,13 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_AUTHENTICATED = {
             "/user/details",
-            "/api/v1/profile/**"
+            "/api/v1/authorized/profile/**"
     };
 
     private static final String[] AUTH_ADMIN = {
             "/user/list",
             "/admin/**",
-            "/api/v1/api-consumer/**"
+            "/api/v1/api-consumer/**",
+            "/api/v1/admin/profile/**"
     };
 
     @Autowired

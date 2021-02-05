@@ -43,7 +43,7 @@ public class UserService {
         return userRepository.save(userToSave);
     }
 
-    public void deleteUser(UUID uuid) {
+    public void deleteUserByUuid(UUID uuid) {
         userRepository.deleteById(uuid);
     }
 
