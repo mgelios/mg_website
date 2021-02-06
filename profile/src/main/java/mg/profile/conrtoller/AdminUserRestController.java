@@ -7,6 +7,7 @@ import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -23,7 +24,7 @@ public class AdminUserRestController {
     }
 
     @PostMapping
-    public UserResponseDto createUserProfile(@RequestBody UserDto userDto) {
+    public UserResponseDto createUserProfile(@Valid @RequestBody UserDto userDto) {
         return userMapper.mapToResponseDto(userService.createUser(userDto));
     }
 
