@@ -1,6 +1,7 @@
 package mg.profile.conrtoller;
 
 import lombok.AllArgsConstructor;
+import mg.profile.dto.UserCreationRequestDto;
 import mg.profile.dto.UserDto;
 import mg.profile.dto.UserResponseDto;
 import mg.profile.mapper.UserMapper;
@@ -24,8 +25,8 @@ public class AdminUserRestController {
     }
 
     @PostMapping
-    public UserResponseDto createUserProfile(@Valid @RequestBody UserDto userDto) {
-        return userMapper.mapToResponseDto(userService.createUser(userDto));
+    public UserResponseDto createUserProfile(@Valid @RequestBody UserCreationRequestDto userCreationDto) {
+        return userMapper.mapToResponseDto(userService.createUser(userCreationDto));
     }
 
     @PutMapping

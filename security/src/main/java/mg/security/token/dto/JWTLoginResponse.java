@@ -1,7 +1,6 @@
 package mg.security.token.dto;
 
 import lombok.*;
-import mg.profile.dto.UserDto;
 import mg.profile.dto.UserResponseDto;
 
 @Getter

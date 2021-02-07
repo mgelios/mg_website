@@ -1,5 +1,6 @@
 package mg.profile.mapper;
 
+import mg.profile.dto.UserCreationRequestDto;
 import mg.profile.dto.UserDto;
 import mg.profile.dto.UserResponseDto;
 import mg.profile.entity.User;
@@ -10,9 +11,11 @@ public interface UserMapper {
 
     UserDto mapToDto(User entity);
 
+    UserResponseDto mapToResponseDto(User entity);
+
     User mapToEntity(UserDto dto);
 
-    UserResponseDto mapToResponseDto(User entity);
+    User mapToEntity(UserCreationRequestDto dto);
 
     User mapToEntity(UserResponseDto dto);
 }

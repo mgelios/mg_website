@@ -33,7 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/weather/**",
             "/api/v1/finance/**",
             "/api/v1/news/**",
-            "/api/v1/token/**"
+            "/api/v1/token/**",
+            "/api/v1/guest/profile/**"
     };
 
     private static final String[] AUTH_AUTHENTICATED = {
