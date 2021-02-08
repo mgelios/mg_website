@@ -30,8 +30,9 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByUuid(UUID uuid) {
-        Optional<User> user = userRepository.findById(uuid);
-        return user.get();
+        User user = userRepository.findById(uuid)
+                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
+        return user;
     }
 
     public User findUserByUsername(String username) throws UsernameNotFoundException {

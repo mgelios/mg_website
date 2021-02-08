@@ -1,9 +1,7 @@
 package mg.profile.conrtoller;
 
 import lombok.AllArgsConstructor;
-import mg.profile.dto.UserCreationRequestDto;
-import mg.profile.dto.UserDto;
-import mg.profile.dto.UserResponseDto;
+import mg.profile.dto.*;
 import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +28,13 @@ public class AdminUserRestController {
     }
 
     @PutMapping
-    public UserResponseDto updateUserProfile(@RequestBody UserDto userDto) {
-        return userMapper.mapToResponseDto(userService.updateUser(userDto));
+    public UserResponseDto updateUserProfile(@Valid @RequestBody UserUpdateRequestDto dto) {
+        return userMapper.mapToResponseDto(userService.updateUser(dto));
+    }
+
+    @PatchMapping
+    public UserResponseDto updateUserPassword(@Valid @RequestBody UserPasswordUpdateRequestDto dto) {
+        return userMapper.mapToResponseDto(userService.updatePassword(dto));
     }
 
     @DeleteMapping("/{uuid}")

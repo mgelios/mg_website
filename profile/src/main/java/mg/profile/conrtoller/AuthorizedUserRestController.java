@@ -1,7 +1,6 @@
 package mg.profile.conrtoller;
 
 import lombok.AllArgsConstructor;
-import mg.profile.dto.UserDto;
 import mg.profile.dto.UserPasswordUpdateRequestDto;
 import mg.profile.dto.UserResponseDto;
 import mg.profile.dto.UserUpdateRequestDto;
@@ -11,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 @RestController
 @AllArgsConstructor
@@ -28,11 +28,15 @@ public class AuthorizedUserRestController {
 
     @PutMapping
     public UserResponseDto updateUserProfile(@Valid @RequestBody UserUpdateRequestDto dto) {
+        String usernameToCheck = userService.findUserByUuid(dto.getUuid()).getUsername();
+        isUserAllowedToPerformAction(usernameToCheck);
         return userMapper.mapToResponseDto(userService.updateUser(dto));
     }
 
     @PatchMapping
     public UserResponseDto updateUserPassword(@Valid @RequestBody UserPasswordUpdateRequestDto dto) {
+        String usernameToCheck = userService.findUserByUuid(dto.getUuid()).getUsername();
+        isUserAllowedToPerformAction(usernameToCheck);
         return userMapper.mapToResponseDto(userService.updatePassword(dto));
     }
 
@@ -40,5 +44,12 @@ public class AuthorizedUserRestController {
     public void deleteUserProfile() {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         userService.deleteUser(username);
+    }
+
+    private void isUserAllowedToPerformAction(String usernameToCheck) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        if (!usernameToCheck.equals(username)) {
+            throw new ValidationException("request is not valid");
+        }
     }
 }
