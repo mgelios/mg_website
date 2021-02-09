@@ -2,10 +2,7 @@ package mg.profile.service;
 
 import lombok.AllArgsConstructor;
 import mg.profile.common.Role;
-import mg.profile.dto.UserCreationRequestDto;
-import mg.profile.dto.UserDto;
-import mg.profile.dto.UserPasswordUpdateRequestDto;
-import mg.profile.dto.UserUpdateRequestDto;
+import mg.profile.dto.*;
 import mg.profile.entity.User;
 import mg.profile.mapper.UserMapper;
 import mg.profile.repository.UserRepository;
@@ -82,10 +79,14 @@ public class UserService {
     public User updatePassword(UserPasswordUpdateRequestDto dto) {
         User userToUpdate = userRepository.findById(dto.getUuid())
                 .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(userToUpdate.getUsername())) {
-            throw new ValidationException("uuid you provided is not valid");
-        }
         userToUpdate.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        return userRepository.save(userToUpdate);
+    }
+
+    public User updateRole(UserRoleUpdateRequestDto dto) {
+        User userToUpdate = userRepository.findById(dto.getUuid())
+                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
+        userToUpdate.setRole(dto.getRole());
         return userRepository.save(userToUpdate);
     }
 

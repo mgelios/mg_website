@@ -32,9 +32,14 @@ public class AdminUserRestController {
         return userMapper.mapToResponseDto(userService.updateUser(dto));
     }
 
-    @PatchMapping
+    @PatchMapping("/password")
     public UserResponseDto updateUserPassword(@Valid @RequestBody UserPasswordUpdateRequestDto dto) {
         return userMapper.mapToResponseDto(userService.updatePassword(dto));
+    }
+
+    @PatchMapping("/role")
+    public UserResponseDto updateUserRole(@Valid @RequestBody UserRoleUpdateRequestDto dto) {
+        return userMapper.mapToResponseDto(userService.updateRole(dto));
     }
 
     @DeleteMapping("/{uuid}")

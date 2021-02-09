@@ -29,14 +29,14 @@ public class AuthorizedUserRestController {
     @PutMapping
     public UserResponseDto updateUserProfile(@Valid @RequestBody UserUpdateRequestDto dto) {
         String usernameToCheck = userService.findUserByUuid(dto.getUuid()).getUsername();
-        isUserAllowedToPerformAction(usernameToCheck);
+        checkIfUserAllowedToPerformAction(usernameToCheck);
         return userMapper.mapToResponseDto(userService.updateUser(dto));
     }
 
     @PatchMapping
     public UserResponseDto updateUserPassword(@Valid @RequestBody UserPasswordUpdateRequestDto dto) {
         String usernameToCheck = userService.findUserByUuid(dto.getUuid()).getUsername();
-        isUserAllowedToPerformAction(usernameToCheck);
+        checkIfUserAllowedToPerformAction(usernameToCheck);
         return userMapper.mapToResponseDto(userService.updatePassword(dto));
     }
 
@@ -46,7 +46,7 @@ public class AuthorizedUserRestController {
         userService.deleteUser(username);
     }
 
-    private void isUserAllowedToPerformAction(String usernameToCheck) {
+    private void checkIfUserAllowedToPerformAction(String usernameToCheck) {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         if (!usernameToCheck.equals(username)) {
             throw new ValidationException("request is not valid");
