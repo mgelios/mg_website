@@ -9,7 +9,7 @@ This is test version of readme
 * [Front-end documentation](doc/front-end.md)
 * [Tips and tricks root doc](doc/tips-and-tricks.md)
 
-##Used technologies
+## Used technologies
 
 #### Back-end:
 - Spring Boot
@@ -26,3 +26,11 @@ This is test version of readme
 - Vue ChartJS
 - Vuex
 - Axios
+
+## Powered by Intellij IDEA
+<p align="center">
+    <a href="https://www.jetbrains.com/?from=mgwebsite">
+        <img src="doc/icon-intellij-idea.png" width="75">
+    </a>
+</p>
+
