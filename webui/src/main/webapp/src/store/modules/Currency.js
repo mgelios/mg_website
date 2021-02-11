@@ -1,4 +1,4 @@
-import currency from '../../api/service/currency';
+import currency from '../../api/service/currencyApiService';
 
 const state = {
     rates: [],

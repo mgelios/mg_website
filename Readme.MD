@@ -2,7 +2,7 @@
 
 This is test version of readme
 
-## [Previous version of this project](https://mgelios.pythonanywhere.com)
+## [Previous version of this project](https://github.com/mgelios/my-first-blog)
 
 ## For additional info visit next docs
 * [Back-end documentation](doc/back-end.md)

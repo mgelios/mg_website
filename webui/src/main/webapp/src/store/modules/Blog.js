@@ -1,4 +1,4 @@
-import blog from '../../api/service/blog';
+import blogApiService from '../../api/service/blogApiService';
 
 const state = {
     categories : [],
@@ -9,12 +9,12 @@ const getters = {};
 
 const actions = {
     triggerCategoryCreation(context, categoryData) {
-        blog.createCategory(category => {
+        blogApiService.createCategory(category => {
             context.commit('createCategory', category);
         }, categoryData);
     },
     triggerCategoryReceiving(context) {
-        blog.getCategories(categories => {
+        blogApiService.getCategories(categories => {
             context.commit('setCategories', categories);
         })
     }

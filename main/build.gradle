@@ -11,6 +11,8 @@ dependencies {
     compile project(':finance')
     compile project(':news')
 
+    compile project(':bot')
+
     compile project(':blog')
 }
 

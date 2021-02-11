@@ -10,6 +10,9 @@ project(':profile').projectDir = file('profile')
 include ':security'
 project(':security').projectDir = file('security')
 
+include ':bot'
+project(':bot').projectDir = file('bot')
+
 include ':weather'
 project(':weather').projectDir = file('weather')
 include ':finance'

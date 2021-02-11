@@ -1,4 +1,4 @@
-import crypto from '../../api/service/crypto';
+import cryptoApiService from '../../api/service/cryptoApiService';
 
 const state = {
     all: [],
@@ -10,12 +10,12 @@ const getters = {
 
 const actions = {
     getAllCryptoCurrencies(context) {
-        crypto.getCryptoCurrencies(currencies => {
+        cryptoApiService.getCryptoCurrencies(currencies => {
             context.commit('setCryptoCurrencies', currencies);
         })
     },
     getCryptoMarket(context) {
-        crypto.getCryptoMarket(market => {
+        cryptoApiService.getCryptoMarket(market => {
             context.commit('setCryptoMarket', market);
         })
     }
