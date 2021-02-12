@@ -8,6 +8,7 @@ import Blog from './modules/Blog'
 
 import { weather } from './weather'
 import { currency } from "./currency";
+import { profile } from './profile';
 
 Vue.use(Vuex)
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
         Blog,
         weather,
         currency,
+        profile,
     }
 })

@@ -6,9 +6,9 @@
         <v-card-text>
             <v-form>
                 <v-text-field
-                        v-model="login"
+                        v-model="username"
                         prepend-icon="person"
-                        label="Login"
+                        label="Username"
                         required
                         :counter="50">
                 </v-text-field>
@@ -31,31 +31,25 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'Login',
         data: function() {
             return {
                 showPassword: false,
-                login: '',
+                username: '',
                 password: ''
             };
         },
         methods: {
-            doLogin: function() {
-                const self = this;
-                var bodyFormData = new FormData();
-                bodyFormData.set('username', this.login);
-                bodyFormData.set('password', this.password);
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8080/login',
-                    data: bodyFormData
-                }).then(function(response) {
-                    if (response.status === 200) {
-                        self.$router.push({ name: 'dashboard'});
-                    }
+            ...mapActions('profile', ['performLogin']),
+
+            doLogin() {
+                console.log(this.login);
+                this.performLogin({
+                    username: this.username,
+                    password: this.password,
                 });
             }
         }

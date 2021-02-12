@@ -1,7 +1,7 @@
-export async function requestExceptionWrapper(response) {
+export async function requestExceptionWrapper(request, dataMapper) {
     try {
-        const data = response.data;
-
+        const data = await request();
+        console.log(data, dataMapper);
         return {
             success: true,
             data
