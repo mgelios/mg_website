@@ -1,4 +1,4 @@
 export const state = {
-    profile: null,
+    activeProfile: null,
     authToken: null,
 };

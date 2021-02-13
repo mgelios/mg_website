@@ -1,12 +1,19 @@
 import { types } from "./types";
 
 export const mutations = {
-    [types.SET_PROFILE](state, value) {
-        state.profile = value;
+    [types.SET_ACTIVE_PROFILE](state, value) {
+        state.activeProfile = value;
     },
 
-    [types.REMOVE_PROFILE](state) {
-        state.profile = null;
+    [types.SET_AUTH_TOKEN](state, value) {
+        state.authToken = value;
+    },
+
+    [types.REMOVE_ACTIVE_PROFILE](state) {
+        state.activeProfile = null;
+    },
+
+    [types.REMOVE_AUTH_TOKEN](state) {
         state.authToken = null;
     }
 };

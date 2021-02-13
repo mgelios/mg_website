@@ -76,6 +76,7 @@
 </template>
 
 <script>
+
     export default {
         name: 'Dashboard',
         data: function () {
@@ -107,7 +108,7 @@
                     },
                 ]
             }
-        }
+        },
     }
 </script>
 
