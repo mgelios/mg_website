@@ -37,7 +37,7 @@
                 default: null
             },
             height: null,
-            width: 100%,
+            width: "100%",
             aspectRatio: {
                 default: 2
             }

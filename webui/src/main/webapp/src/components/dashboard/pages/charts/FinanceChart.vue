@@ -38,7 +38,9 @@
                 default: 2
             },
             height: null,
-            width: '100%',
+            width: {
+                default: '100%'
+            },
             chartData: {
                 type: Array,
                 default: null

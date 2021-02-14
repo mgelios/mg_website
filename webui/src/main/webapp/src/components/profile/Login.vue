@@ -54,7 +54,6 @@
             ...mapActions('profile', ['performLogin']),
 
             doLogin() {
-                console.log(this.login);
                 this.performLogin({
                     username: this.username,
                     password: this.password,

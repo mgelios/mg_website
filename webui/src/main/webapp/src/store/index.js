@@ -9,6 +9,7 @@ import Blog from './modules/Blog'
 import { weather } from './weather'
 import { currency } from "./currency";
 import { profile } from './profile';
+import { app } from "./app";
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         Currency,
         Radiot,
         Blog,
+        app,
         weather,
         currency,
         profile,

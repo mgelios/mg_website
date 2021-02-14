@@ -6,11 +6,11 @@ export const actions = Object.freeze({
 });
 
 async function fetchCurrentWeather({ commit }) {
-    const currentWeather = await smth;
+    const currentWeather = '234';
     commit(types.SET_CURRENT_WEATHER, currentWeather);
 }
 
 async function fetchWeatherForecast({ commit }) {
-    const weatherForecast = await smth;
+    const weatherForecast = '234234';
     commit(types.SET_WEATHER_FORECAST, weatherForecast);
 }

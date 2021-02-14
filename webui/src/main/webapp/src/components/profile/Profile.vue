@@ -8,13 +8,13 @@
             <v-toolbar-title>Profile</v-toolbar-title>
             <div class="flex-grow-1"></div>
             <v-btn
-                    v-if="!activeProfile"
+                    v-if="!appData || !appData.authToken"
                     elevation="2"
                     @click="router.push({name: 'login'})">
                 Login
             </v-btn>
             <v-btn
-                    v-if="activeProfile"
+                    v-if="appData && appData.authToken"
                     elevation="2"
                     @click="handleLogoutClick">
                 Log out
@@ -40,6 +40,7 @@
         }),
         computed: {
             ...mapState('profile', ['activeProfile']),
+            ...mapState('app', ['appData']),
         },
         methods: {
             ...mapActions('profile', ['performLogout']),

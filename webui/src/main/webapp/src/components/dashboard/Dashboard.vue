@@ -31,8 +31,7 @@
 
         <v-navigation-drawer
                 app
-                v-model="navDrawer"
-                v-model:mini-variant="miniToolbar">
+                v-model="navDrawer">
             <v-list>
                 <v-list-item avatar>
                     <v-list-item-avatar>
