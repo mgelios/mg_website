@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <v-app>
         <v-app-bar app flat>
             <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
             <div class="flex-grow-1"></div>
@@ -25,6 +24,7 @@
                     </v-list>
                 </v-card>
             </v-menu>
+            <v-icon large @click="router.push({name: 'login'})">perm_identity</v-icon>
             <v-icon large @click="router.push({name: 'profile'})">perm_identity</v-icon>
             <!--<HelloWorld/>-->
         </v-app-bar>
@@ -32,7 +32,7 @@
         <v-navigation-drawer
                 app
                 v-model="navDrawer"
-                :mini-variant.sync="miniToolbar">
+                v-model:mini-variant="miniToolbar">
             <v-list>
                 <v-list-item avatar>
                     <v-list-item-avatar>
@@ -72,7 +72,7 @@
                 class="justify-center">
             &copy;MGeliOS 2019
         </v-footer>
-    </div>
+    </v-app>
 </template>
 
 <script>

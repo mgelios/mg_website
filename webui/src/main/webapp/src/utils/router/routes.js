@@ -7,6 +7,7 @@ import Blog from "../../components/blog/Blog";
 import Test from "../../components/blog/pages/Test";
 import BlogCategories from "../../components/blog/pages/Categories";
 import Profile from "../../components/profile/Profile";
+import Login from "../../components/profile/Login";
 
 export const routes = [
     {
@@ -57,5 +58,10 @@ export const routes = [
         path: '/profile',
         name: 'profile',
         component: Profile
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
     }
 ];

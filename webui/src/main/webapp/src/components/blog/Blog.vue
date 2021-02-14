@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-app>
         <v-app-bar app flat>
             <v-app-bar-nav-icon @click.native="navDrawer = !navDrawer"></v-app-bar-nav-icon>
             <div class="flex-grow-1"></div>
@@ -52,7 +52,7 @@
         </v-navigation-drawer>
         <router-view>
         </router-view>
-    </div>
+    </v-app>
 </template>
 
 <script>

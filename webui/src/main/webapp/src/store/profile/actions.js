@@ -1,5 +1,5 @@
 import { types } from './types';
-import { login } from '../../api/service/profile';
+import { login, profile } from '../../api/service/profile';
 import { router } from '../../utils/router/router';
 
 export const actions = Object.freeze({
@@ -19,7 +19,7 @@ async function performLogin({ commit }, credentials) {
 }
 
 async function fetchProfile({ commit, state }, id) {
-    const response = await login.get(id, {
+    const response = await profile.get(id, {
         headers: {
             Authorization: state.authToken
         }

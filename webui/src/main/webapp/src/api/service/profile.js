@@ -6,5 +6,12 @@ export const login = new ApiService(
     request => request
 );
 
+export const profile = new ApiService(
+    '/api/v1/authorized/profile',
+    response => response,
+    request => request
+);
+
+
 
 
