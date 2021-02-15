@@ -27,6 +27,10 @@ async function fetchProfile({ commit, state }, id) {
     if (response.success) {
         commit(types.REMOVE_ACTIVE_PROFILE);
         commit(types.SET_ACTIVE_PROFILE, response.data);
+    } else if (response.error && response.error.response.status === 401) {
+        commit(types.REMOVE_ACTIVE_PROFILE);
+        commit(types.REMOVE_AUTH_TOKEN);
+        commit('app/REMOVE_APP_DATA', null,  { root: true });
     }
 }
 

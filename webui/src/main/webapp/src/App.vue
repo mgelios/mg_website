@@ -17,7 +17,7 @@ export default {
     computed: {
         ...mapState('app', ['appData']),
     },
-    mounted() {
+    created() {
         if (localStorage.getItem('appData') && !this.appData) {
             this.restoreDataFromLocalStorage(JSON.parse(localStorage.getItem('appData')));
         } else if (!localStorage.getItem('appData') && this.appData) {

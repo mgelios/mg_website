@@ -11,9 +11,7 @@ export const mutations = {
             state.appData = {};
         }
         state.appData.authToken = value;
-        console.log(state.appData);
         localStorage.setItem('appData', JSON.stringify(state.appData));
-        console.log(localStorage.getItem('appData'));
     },
 
     [types.REMOVE_APP_DATA](state) {

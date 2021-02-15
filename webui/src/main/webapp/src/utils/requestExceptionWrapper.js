@@ -7,7 +7,7 @@ export async function requestExceptionWrapper(request, dataMapper = data => data
             data
         }
     } catch (error) {
-        console.error('Request error: ', error);
+        console.error('Request error: ', error.message);
         return {
             success: false,
             error

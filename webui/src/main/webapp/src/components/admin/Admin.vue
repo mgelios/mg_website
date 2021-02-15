@@ -1,10 +1,11 @@
 <template>
     <v-app>
-        <ProfileSidebar v-bind:navigationDrawerActive="navigationDrawerActive">
-        </ProfileSidebar>
+        <v-navigation-drawer app v-model="navigationDrawerActive">
+
+        </v-navigation-drawer>
         <v-app-bar app>
             <v-app-bar-nav-icon @click="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
-            <v-toolbar-title>Profile</v-toolbar-title>
+            <v-toolbar-title>Admin</v-toolbar-title>
             <div class="flex-grow-1"></div>
             <v-btn
                     v-if="!appData || !appData.authToken"
@@ -20,9 +21,7 @@
             </v-btn>
         </v-app-bar>
         <v-main>
-            <router-view>
 
-            </router-view>
         </v-main>
     </v-app>
 </template>
@@ -30,16 +29,14 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     import { router } from "../../utils/router/router";
-    import ProfileSidebar from "./ProfileSidebar";
 
     export default {
-        name: 'Profile',
+        name: 'Admin',
         components: {
-            ProfileSidebar
         },
         data: () => ({
             router: router,
-            navigationDrawerActive: true,
+            navigationDrawerActive: false,
         }),
         computed: {
             ...mapState('profile', ['activeProfile']),

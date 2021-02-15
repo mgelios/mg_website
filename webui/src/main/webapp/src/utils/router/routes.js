@@ -8,6 +8,8 @@ import Test from "../../components/blog/pages/Test";
 import BlogCategories from "../../components/blog/pages/Categories";
 import Profile from "../../components/profile/Profile";
 import Login from "../../components/profile/Login";
+import Admin from "../../components/admin/Admin";
+import View from "../../components/profile/View";
 
 export const routes = [
     {
@@ -57,7 +59,19 @@ export const routes = [
     {
         path: '/profile',
         name: 'profile',
-        component: Profile
+        component: Profile,
+        children: [
+            {
+                path: 'view',
+                name: 'profileView',
+                component: View
+            },
+        ]
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Admin
     },
     {
         path: '/login',
