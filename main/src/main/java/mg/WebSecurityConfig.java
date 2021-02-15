@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_ADMIN = {
             "/user/list",
             "/admin/**",
-            "/api/v1/api-consumer/**",
+            "/api/v1/admin/api-consumer/**",
             "/api/v1/admin/profile/**"
     };
 

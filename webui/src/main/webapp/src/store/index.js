@@ -10,6 +10,7 @@ import { weather } from './weather'
 import { currency } from "./currency";
 import { profile } from './profile';
 import { app } from "./app";
+import { apiConsumer } from "./apiConsumer";
 
 Vue.use(Vuex)
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
         weather,
         currency,
         profile,
+        apiConsumer,
     }
 })
