@@ -11,4 +11,5 @@
     <include file="classpath:db/changelog/weather-root-changelog.xml" />
     <include file="classpath:db/changelog/finance-root-changelog.xml" />
     <include file="classpath:db/changelog/news-root-changelog.xml" />
+    <include file="classpath:db/changelog/utils-root-changelog.xml" />
 </databaseChangeLog>

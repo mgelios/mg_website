@@ -28,6 +28,13 @@ export class ApiService {
         );
     }
 
+    async getList(axiosConfig) {
+        return requestExceptionWrapper(
+            () => axios.get(this.basePath + '/list', this.transformConfig(axiosConfig)),
+            response => response.map(this.responseMapper)
+        );
+    }
+
     async post(requestBody, axiosConfig) {
         return requestExceptionWrapper(
             () => axios.post(this.basePath, this.requestMapper(requestBody), this.transformConfig(axiosConfig)),

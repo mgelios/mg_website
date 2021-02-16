@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RestController("/api/v1/admin/api-consumer")
+@RestController
 @AllArgsConstructor
+@RequestMapping("/api/v1/admin/api-consumer")
 public class ApiConsumerRestController {
 
     private final ApiConsumerService apiConsumerService;

@@ -56,12 +56,15 @@
         }),
         computed: {
             ...mapState('profile', ['activeProfile']),
+            ...mapState('apiConsumer', ['apiConsumers']),
         },
         mounted() {
             this.fetchProfile('');
+            this.fetchApiConsumers();
         },
         methods: {
             ...mapActions('profile', ['fetchProfile']),
+            ...mapActions('apiConsumer', ['fetchApiConsumers']),
         }
     }
 </script>
