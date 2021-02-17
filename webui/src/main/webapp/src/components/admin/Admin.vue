@@ -1,8 +1,7 @@
 <template>
     <v-app>
-        <v-navigation-drawer app v-model="navigationDrawerActive">
-
-        </v-navigation-drawer>
+        <AdminSidebar v-bind:navigationDrawerActive="navigationDrawerActive">
+        </AdminSidebar>
         <v-app-bar app>
             <v-app-bar-nav-icon @click="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
             <v-toolbar-title>Admin</v-toolbar-title>
@@ -21,7 +20,9 @@
             </v-btn>
         </v-app-bar>
         <v-main>
+            <router-view>
 
+            </router-view>
         </v-main>
     </v-app>
 </template>
@@ -29,10 +30,12 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     import { router } from "../../utils/router/router";
+    import AdminSidebar from "./AdminSidebar";
 
     export default {
         name: 'Admin',
         components: {
+            AdminSidebar
         },
         data: () => ({
             router: router,

@@ -10,6 +10,8 @@ import Profile from "../../components/profile/Profile";
 import Login from "../../components/profile/Login";
 import Admin from "../../components/admin/Admin";
 import View from "../../components/profile/View";
+import ApiConsumer from "../../components/admin/apiConsumer/ApiConsumer";
+import AddApiConsumer from "../../components/admin/apiConsumer/AddApiConsumer";
 
 export const routes = [
     {
@@ -71,7 +73,19 @@ export const routes = [
     {
         path: '/admin',
         name: 'admin',
-        component: Admin
+        component: Admin,
+        children: [
+            {
+                path: 'api-consumer',
+                name: 'apiConsumer',
+                component: ApiConsumer
+            },
+            {
+                path: 'api-consumer/add',
+                name: 'addApiConsumer',
+                component: AddApiConsumer
+            },
+        ]
     },
     {
         path: '/login',

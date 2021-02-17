@@ -7,14 +7,19 @@
                     <v-list-item-content>Profile root</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link @click="router.push({ name: 'profileView' })">
-                <v-list-item-content>
-                    <v-list-item-content>Profile view</v-list-item-content>
-                </v-list-item-content>
-            </v-list-item>
             <v-list-item link @click="router.push({ name: 'admin' })">
                 <v-list-item-content>
                     <v-list-item-content>Admin root</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item link @click="router.push({ name: 'apiConsumer' })">
+                <v-list-item-content>
+                    <v-list-item-content>Api consumer</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item link @click="router.push({ name: 'addApiConsumer' })">
+                <v-list-item-content>
+                    <v-list-item-content>Add api consumer</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -25,7 +30,7 @@
     import { router } from "../../utils/router/router";
 
     export default {
-        name: 'ProfileSidebar',
+        name: 'AdminSidebar',
         components: {
         },
         props: {

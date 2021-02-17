@@ -1,3 +1,4 @@
 export const types = Object.freeze({
     SAVE_API_CONSUMERS: 'SAVE_API_CONSUMERS',
+    INIT_API_CONSUMER_TO_ADD: 'INIT_API_CONSUMER_TO_ADD',
 });

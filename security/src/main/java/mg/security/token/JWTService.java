@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class JWTService {
 
     private static final String JWT_ID = "mg_jwt_id";
-    private static final int TOKEN_EXPIRATION_TIME_MILLIS = 600000;
+    private static final int TOKEN_EXPIRATION_TIME_MILLIS = 6000000;
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

@@ -3,7 +3,7 @@
         <ProfileSidebar v-bind:navigationDrawerActive="navigationDrawerActive">
         </ProfileSidebar>
         <v-app-bar app>
-            <v-app-bar-nav-icon @click="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.native="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
             <v-toolbar-title>Profile</v-toolbar-title>
             <div class="flex-grow-1"></div>
             <v-btn
