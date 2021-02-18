@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,34 +22,53 @@ public class ApiConsumerService {
     }
 
     public ApiConsumer findByUuid(UUID uuid) {
-        return apiConsumerRepository.findById(uuid).orElse(null);
+        return apiConsumerRepository.findById(uuid)
+                .orElseThrow(() -> new ValidationException("Requested api consumer is absent"));
+    }
+
+    public ApiConsumer findByName(String apiConsumerName) {
+        return apiConsumerRepository.findByName(apiConsumerName)
+                .orElseThrow(() -> new ValidationException("Requested api consumer is absent"));
     }
 
     public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
-        ApiConsumer apiConsumer = apiConsumerMapper.mapToEntity(apiConsumerDto);
-        return apiConsumerRepository.save(apiConsumer);
+        apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(o -> {
+            throw new ValidationException("Api consumer's name you've sent is already present");
+        });
+        ApiConsumer apiConsumerToCreate = apiConsumerMapper.mapToEntity(apiConsumerDto);
+        return apiConsumerRepository.save(apiConsumerToCreate);
     }
 
     public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
-        ApiConsumer apiConsumer = apiConsumerMapper.mapToEntity(apiConsumerDto);
-        return apiConsumerRepository.save(apiConsumer);
+        ApiConsumer apiConsumerToUpdate = apiConsumerRepository.findById(apiConsumerDto.getUuid())
+                .orElseThrow(() -> new ValidationException("Api consumer you're trying to update not exists"));
+        apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(apiConsumerToCheck -> {
+            if (!apiConsumerToCheck.getUuid().equals(apiConsumerDto.getUuid())) {
+                throw new ValidationException("Another api consumer with name you've provided already exists");
+            }
+        });
+        apiConsumerToUpdate.setApiKey(apiConsumerDto.getApiKey());
+        apiConsumerToUpdate.setToken(apiConsumerDto.getToken());
+        apiConsumerToUpdate.setName(apiConsumerDto.getName());
+        apiConsumerToUpdate.setClientId(apiConsumerDto.getClientId());
+        apiConsumerToUpdate.setClientSecret(apiConsumerDto.getClientSecret());
+        return apiConsumerRepository.save(apiConsumerToUpdate);
     }
 
     public void deleteApiConsumer(UUID uuid) {
-        apiConsumerRepository.findById(uuid).ifPresent(apiConsumerRepository::delete);
+        apiConsumerRepository.delete(
+                apiConsumerRepository.findById(uuid)
+                        .orElseThrow(() -> new ValidationException("Api consumer you're trying to delete is not exists"))
+        );
     }
 
     public String fillUrlWithApiConsumerData(String url, String apiConsumerName, ApiConsumerAuthType authType) {
-        Optional<ApiConsumer> optionalOfConsumer = apiConsumerRepository.findByName(apiConsumerName);
-        if (!optionalOfConsumer.isPresent()) {
-            log.error("No api consumer with name {} present", apiConsumerName);
-            return null;
-        }
-        ApiConsumer apiConsumer = optionalOfConsumer.get();
+        String result = null;
+        ApiConsumer apiConsumer = findByName(apiConsumerName);
         if (ApiConsumerAuthType.API_KEY.equals(authType)) {
-            return String.format(url, apiConsumer.getApiKey());
+            result = String.format(url, apiConsumer.getApiKey());
         }
-        return null;
+        return result;
     }
 
     public void performApiCall(String name, ApiConsumerAuthType authType) {
