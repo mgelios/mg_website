@@ -1,5 +1,12 @@
 <template>
-    <div>{{apiConsumers}}</div>
+    <v-list dense>
+        <div>{{apiConsumers}}</div>
+        <v-list-item-group>
+            <v-list-item v-for="apiConsumer in apiConsumers" :key="apiConsumer">
+                <v-list-item-content>{{apiConsumer.uuid}}  {{apiConsumer.name}}</v-list-item-content>
+            </v-list-item>
+        </v-list-item-group>
+    </v-list>
 </template>
 
 <script>

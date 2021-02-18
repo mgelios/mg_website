@@ -1,9 +1,9 @@
 <template>
     <v-app>
-        <AdminSidebar v-bind:navigationDrawerActive="navigationDrawerActive">
+        <AdminSidebar v-bind:navigationDrawerActive.sync="navigationDrawerActive" v-on:toggled="setNavigationDrawer">
         </AdminSidebar>
         <v-app-bar app>
-            <v-app-bar-nav-icon @click="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.native="setNavigationDrawer(!navigationDrawerActive)"></v-app-bar-nav-icon>
             <v-toolbar-title>Admin</v-toolbar-title>
             <div class="flex-grow-1"></div>
             <v-btn
@@ -47,8 +47,13 @@
         },
         methods: {
             ...mapActions('profile', ['performLogout']),
+
             handleLogoutClick: function() {
                 this.performLogout();
+            },
+
+            setNavigationDrawer: function(value) {
+                this.navigationDrawerActive = value;
             }
         }
     }

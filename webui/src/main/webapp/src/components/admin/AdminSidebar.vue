@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer app v-model="navigationDrawerActive">
+    <v-navigation-drawer app v-model="navigationActive" v-on:input="handleInputEvent">
         <v-divider></v-divider>
         <v-list dense nav>
             <v-list-item link @click="router.push({ name: 'profile' })">
@@ -40,6 +40,21 @@
         },
         data: () => ({
             router: router,
-        })
+        }),
+        computed: {
+            navigationActive: {
+                get() {
+                    return this.navigationDrawerActive;
+                },
+                set() {
+
+                }
+            }
+        },
+        methods: {
+            handleInputEvent: function(value) {
+                this.$emit('toggled', value);
+            }
+        }
     }
 </script>

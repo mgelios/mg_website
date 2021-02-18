@@ -22,8 +22,8 @@
             <column name="temperature" type="real" />
             <column name="pressure" type="real" />
             <column name="humidity" type="real" />
-            <column name="min_temp" type="real" />
-            <column name="max_temp" type="real" />
+            <column name="minimal_temperature" type="real" />
+            <column name="maximum_temperature" type="real" />
             <column name="visibility" type="real" />
             <column name="wind_speed" type="real" />
             <column name="wind_degree" type="real" />

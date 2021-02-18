@@ -3,6 +3,8 @@ package mg.weather.service;
 import lombok.AllArgsConstructor;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
+import mg.utils.api.consumer.ApiConsumerAuthType;
+import mg.utils.api.consumer.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
 import mg.weather.entity.WeatherForecast;
 import mg.weather.mapper.WeatherForecastMapper;
@@ -35,6 +37,8 @@ public class WeatherForecastService {
     private final WeatherForecastRepository weatherForecastRepository;
     private final WeatherConfiguration weatherConfiguration;
     private final WeatherForecastMapper weatherForecastMapper;
+    private final ApiConsumerService apiConsumerService;
+
 
     public List<WeatherForecastDto> getDefaultWeatherForecast() {
         return getWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
@@ -60,11 +64,16 @@ public class WeatherForecastService {
     }
 
     public List<WeatherForecast> updateWeatherForecastByCityName(String cityName) {
-        JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildForecastUrl(cityName));
+        String url = apiConsumerService.fillUrlWithApiConsumerData(
+                weatherUrlBuilder.buildForecastUrl(cityName),
+                weatherConfiguration.getApiClientName(),
+                ApiConsumerAuthType.API_KEY
+        );
+        JSONObject weatherForecastJson = jsonConsumer.getJsonObject(url);
         if (weatherForecastRepository.findAllByCityName(cityName).size() != 0) {
             weatherForecastRepository.deleteAllByCityName(cityName);
         }
-        return saveWeatherForecasts(currentWeatherJson);
+        return saveWeatherForecasts(weatherForecastJson);
     }
 
     private List<WeatherForecast> saveWeatherForecasts(JSONObject json) {

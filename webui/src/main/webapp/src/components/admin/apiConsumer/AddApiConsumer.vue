@@ -1,6 +1,6 @@
 <template>
     <v-form>
-        <div class="pa-4">
+        <div class="pa-4" v-if="apiConsumerToAdd">
             <v-text-field
                     label='Name'
                     v-model='apiConsumerToAdd.name'
@@ -56,9 +56,10 @@
             this.initApiConsumerToAdd();
         },
         methods: {
-            ...mapActions('apiConsumer', ['initApiConsumerToAdd']),
+            ...mapActions('apiConsumer', ['initApiConsumerToAdd', 'saveApiConsumer']),
             testButtonClick: function() {
                 console.log(this.apiConsumerToAdd);
+                this.saveApiConsumer();
             }
         }
     }

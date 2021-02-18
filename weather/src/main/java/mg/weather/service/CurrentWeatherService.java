@@ -3,6 +3,8 @@ package mg.weather.service;
 import lombok.AllArgsConstructor;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
+import mg.utils.api.consumer.ApiConsumerAuthType;
+import mg.utils.api.consumer.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
 import mg.weather.entity.CurrentWeather;
 import mg.weather.mapper.CurrentWeatherMapper;
@@ -27,6 +29,7 @@ public class CurrentWeatherService {
     private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final CurrentWeatherRepository currentWeatherRepository;
     private final CurrentWeatherMapper currentWeatherMapper;
+    private final ApiConsumerService apiConsumerService;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
@@ -49,7 +52,12 @@ public class CurrentWeatherService {
     }
 
     public CurrentWeather updateCurrentWeatherByCityName(String cityName) {
-        JSONObject currentWeatherJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildCurrentWeatherUrl(cityName));
+        String url = apiConsumerService.fillUrlWithApiConsumerData(
+                weatherUrlBuilder.buildCurrentWeatherUrl(cityName),
+                weatherConfiguration.getApiClientName(),
+                ApiConsumerAuthType.API_KEY
+        );
+        JSONObject currentWeatherJson = jsonConsumer.getJsonObject(url);
         if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
             currentWeatherRepository.deleteAllByCityName(cityName);
         }
@@ -86,7 +94,12 @@ public class CurrentWeatherService {
 
     private double getUvi(double lat, double lon) {
         double uvi = 0.0;
-        JSONObject currentUviJson = jsonConsumer.getJsonObject(weatherUrlBuilder.buildUviUrl(String.valueOf(lat), String.valueOf(lon)));
+        String url = apiConsumerService.fillUrlWithApiConsumerData(
+                weatherUrlBuilder.buildUviUrl(String.valueOf(lat), String.valueOf(lon)),
+                weatherConfiguration.getApiClientName(),
+                ApiConsumerAuthType.API_KEY
+        );
+        JSONObject currentUviJson = jsonConsumer.getJsonObject(url);
         uvi = currentUviJson != null ? jsonHelper.getDouble(currentUviJson, "value") : 0.0;
         return uvi;
     }

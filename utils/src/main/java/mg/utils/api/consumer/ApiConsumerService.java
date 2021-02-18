@@ -38,6 +38,19 @@ public class ApiConsumerService {
         apiConsumerRepository.findById(uuid).ifPresent(apiConsumerRepository::delete);
     }
 
+    public String fillUrlWithApiConsumerData(String url, String apiConsumerName, ApiConsumerAuthType authType) {
+        Optional<ApiConsumer> optionalOfConsumer = apiConsumerRepository.findByName(apiConsumerName);
+        if (!optionalOfConsumer.isPresent()) {
+            log.error("No api consumer with name {} present", apiConsumerName);
+            return null;
+        }
+        ApiConsumer apiConsumer = optionalOfConsumer.get();
+        if (ApiConsumerAuthType.API_KEY.equals(authType)) {
+            return String.format(url, apiConsumer.getApiKey());
+        }
+        return null;
+    }
+
     public void performApiCall(String name, ApiConsumerAuthType authType) {
         Optional<ApiConsumer> optionalOfConsumer = apiConsumerRepository.findByName(name);
         if (!optionalOfConsumer.isPresent()) {
@@ -58,6 +71,8 @@ public class ApiConsumerService {
                 break;
         }
     }
+
+
 
     private void performApiCallWithApiKey(String apiKey) {
 
