@@ -1,8 +1,12 @@
 package mg.utils.api.consumer;
 
 import lombok.AllArgsConstructor;
+import mg.utils.api.consumer.dto.ApiConsumerCreationRequestDto;
+import mg.utils.api.consumer.dto.ApiConsumerResponseDto;
+import mg.utils.api.consumer.dto.ApiConsumerUpdateRequestDto;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -16,25 +20,25 @@ public class ApiConsumerRestController {
     private final ApiConsumerMapper apiConsumerMapper;
 
     @GetMapping("/list")
-    public List<ApiConsumerDto> getListOfApiConsumers() {
+    public List<ApiConsumerResponseDto> getListOfApiConsumers() {
         return apiConsumerService.getListOfApiConsumers().stream()
-                .map(apiConsumerMapper::mapToDto)
+                .map(apiConsumerMapper::mapToResponseDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{uuid}")
-    public ApiConsumerDto getApiConsumerByUuid(@PathVariable String uuid) {
-        return apiConsumerMapper.mapToDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
+    public ApiConsumerResponseDto getApiConsumerByUuid(@PathVariable String uuid) {
+        return apiConsumerMapper.mapToResponseDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
     }
 
     @PostMapping
-    public ApiConsumerDto createApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return apiConsumerMapper.mapToDto(apiConsumerService.createApiConsumer(apiConsumerDto));
+    public ApiConsumerResponseDto createApiConsumer(@Valid @RequestBody ApiConsumerCreationRequestDto apiConsumerDto) {
+        return apiConsumerMapper.mapToResponseDto(apiConsumerService.createApiConsumer(apiConsumerDto));
     }
 
     @PutMapping
-    public ApiConsumerDto updateApiConsumer(@RequestBody ApiConsumerDto apiConsumerDto) {
-        return apiConsumerMapper.mapToDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
+    public ApiConsumerResponseDto updateApiConsumer(@Valid @RequestBody ApiConsumerUpdateRequestDto apiConsumerDto) {
+        return apiConsumerMapper.mapToResponseDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
     }
 
     @DeleteMapping("/{uuid}")

@@ -1,4 +1,4 @@
-package mg.utils.api.consumer;
+package mg.utils.api.consumer.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class ApiConsumerDto {
+public class ApiConsumerResponseDto {
 
     private UUID uuid;
     private String name;

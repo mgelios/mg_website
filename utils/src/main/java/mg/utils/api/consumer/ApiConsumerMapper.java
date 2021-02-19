@@ -1,12 +1,22 @@
 package mg.utils.api.consumer;
 
+import mg.utils.api.consumer.dto.ApiConsumerCreationRequestDto;
+import mg.utils.api.consumer.dto.ApiConsumerResponseDto;
+import mg.utils.api.consumer.dto.ApiConsumerUpdateRequestDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ApiConsumerMapper {
 
-    public abstract ApiConsumerDto mapToDto(ApiConsumer entity);
+    ApiConsumerCreationRequestDto mapToCreationRequestDto(ApiConsumer entity);
 
-    public abstract ApiConsumer mapToEntity(ApiConsumerDto dto);
+    ApiConsumer mapToEntity(ApiConsumerCreationRequestDto dto);
+
+    ApiConsumerUpdateRequestDto mapToUpdateRequestDto(ApiConsumer entity);
+
+    ApiConsumer mapToEntity(ApiConsumerUpdateRequestDto dto);
+
+    ApiConsumerResponseDto mapToResponseDto(ApiConsumer entity);
+
+    ApiConsumer mapToEntity(ApiConsumerResponseDto dto);
 }

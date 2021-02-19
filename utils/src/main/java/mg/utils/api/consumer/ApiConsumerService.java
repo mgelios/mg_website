@@ -2,6 +2,8 @@ package mg.utils.api.consumer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mg.utils.api.consumer.dto.ApiConsumerCreationRequestDto;
+import mg.utils.api.consumer.dto.ApiConsumerUpdateRequestDto;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
@@ -31,7 +33,7 @@ public class ApiConsumerService {
                 .orElseThrow(() -> new ValidationException("Requested api consumer is absent"));
     }
 
-    public ApiConsumer createApiConsumer(ApiConsumerDto apiConsumerDto) {
+    public ApiConsumer createApiConsumer(ApiConsumerCreationRequestDto apiConsumerDto) {
         apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(o -> {
             throw new ValidationException("Api consumer's name you've sent is already present");
         });
@@ -39,7 +41,7 @@ public class ApiConsumerService {
         return apiConsumerRepository.save(apiConsumerToCreate);
     }
 
-    public ApiConsumer updateApiConsumer(ApiConsumerDto apiConsumerDto) {
+    public ApiConsumer updateApiConsumer(ApiConsumerUpdateRequestDto apiConsumerDto) {
         ApiConsumer apiConsumerToUpdate = apiConsumerRepository.findById(apiConsumerDto.getUuid())
                 .orElseThrow(() -> new ValidationException("Api consumer you're trying to update not exists"));
         apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(apiConsumerToCheck -> {
