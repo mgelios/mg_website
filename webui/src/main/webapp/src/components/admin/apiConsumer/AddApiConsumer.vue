@@ -58,7 +58,6 @@
         methods: {
             ...mapActions('apiConsumer', ['initApiConsumerToAdd', 'saveApiConsumer']),
             testButtonClick: function() {
-                console.log(this.apiConsumerToAdd);
                 this.saveApiConsumer();
             }
         }

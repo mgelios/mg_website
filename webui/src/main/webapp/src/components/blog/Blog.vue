@@ -11,7 +11,7 @@
                 </template>
                 <v-card>
                     <v-list>
-                        <v-list-item @click="router.push({name: 'dashboardMainPage'})">
+                        <v-list-item @click="router.push({name: pages.Dashboard.Main})">
                             <v-list-item-avatar>
                                 <v-icon>dashboard</v-icon>
                             </v-list-item-avatar>
@@ -56,14 +56,16 @@
 </template>
 
 <script>
-
+    import { router } from "../../utils/router/router";
+    import { pages } from "../../utils/router/pages";
 
     export default {
         name: 'Blog',
         data () {
             return {
                 menu: false,
-                router: this.$router,
+                router: router,
+                pages: pages,
                 navDrawer: true,
                 items: [
                     { title: 'Home', icon: 'mdi-home-city' },

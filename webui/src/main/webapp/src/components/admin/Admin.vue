@@ -9,7 +9,7 @@
             <v-btn
                     v-if="!appData || !appData.authToken"
                     elevation="2"
-                    @click="router.push({name: 'login'})">
+                    @click="router.push({name: pages.Profile.Login})">
                 Login
             </v-btn>
             <v-btn
@@ -30,6 +30,7 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     import { router } from "../../utils/router/router";
+    import { pages } from "../../utils/router/pages";
     import AdminSidebar from "./AdminSidebar";
 
     export default {
@@ -39,6 +40,7 @@
         },
         data: () => ({
             router: router,
+            pages: pages,
             navigationDrawerActive: false,
         }),
         computed: {

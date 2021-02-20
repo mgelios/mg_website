@@ -13,7 +13,7 @@
                 </template>
                 <v-card>
                     <v-list>
-                        <v-list-item @click="router.push({name: 'blog'})">
+                        <v-list-item @click="router.push({name: pages.Blog.Main})">
                             <v-list-item-avatar>
                                 <v-icon>chrome_reader_mode</v-icon>
                             </v-list-item-avatar>
@@ -24,8 +24,8 @@
                     </v-list>
                 </v-card>
             </v-menu>
-            <v-icon large @click="router.push({name: 'login'})">perm_identity</v-icon>
-            <v-icon large @click="router.push({name: 'profile'})">perm_identity</v-icon>
+            <v-icon large @click="router.push({name: pages.Profile.Login })">perm_identity</v-icon>
+            <v-icon large @click="router.push({name: pages.Profile.Main })">perm_identity</v-icon>
             <!--<HelloWorld/>-->
         </v-app-bar>
 
@@ -35,7 +35,7 @@
             <v-list>
                 <v-list-item avatar>
                     <v-list-item-avatar>
-                        <v-icon x-large @click="router.push({name: 'dashboardMainPage'})">dashboard</v-icon>
+                        <v-icon x-large @click="router.push({name: pages.Dashboard.Main })">dashboard</v-icon>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>Dashboard</v-list-item-title>
@@ -75,12 +75,15 @@
 </template>
 
 <script>
+    import { router } from "../../utils/router/router";
+    import { pages } from "../../utils/router/pages";
 
     export default {
         name: 'Dashboard',
         data: function () {
             return {
-                router: this.$router,
+                router: router,
+                pages: pages,
                 menu: false,
                 navDrawer: true,
                 miniToolbar: true,
@@ -88,17 +91,17 @@
                     {
                         title: 'Weather',
                         icon: 'cloud',
-                        route: 'dashboardWeatherPage'
+                        route: pages.Dashboard.Weather
                     },
                     {
                         title: 'Finance',
                         icon: 'euro_symbol',
-                        route: 'dashboardFinancePage'
+                        route: pages.Dashboard.Finance
                     },
                     {
                         title: 'Crypto market',
                         icon: 'list_alt',
-                        route: 'dashboardCryptoMarketPage'
+                        route: pages.Dashboard.Crypto
                     },
                     {
                         title: 'Radio-T',

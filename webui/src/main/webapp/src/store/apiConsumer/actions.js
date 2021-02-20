@@ -1,7 +1,9 @@
 import { apiConsumer } from "../../api/service/apiConsumer";
 import { types } from "./types";
 import { ApiConsumerModel } from "../../models/apiConsumer/apiConsumerModel";
+
 import { router } from "../../utils/router/router";
+import { pages } from "../../utils/router/pages";
 
 export const actions = Object.freeze({
     fetchApiConsumers,
@@ -27,7 +29,7 @@ async function saveApiConsumer({ state, rootState }) {
         }
     });
     if (response.success) {
-        router.push({ name: 'admin' });
+        await router.push({ name: pages.Admin.Main });
     }
 }
 
