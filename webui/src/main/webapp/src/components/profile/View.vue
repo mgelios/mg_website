@@ -1,61 +1,24 @@
 <template>
     <v-form>
-        <div class="pa-4" v-if="activeProfile">
-            <v-text-field
-                    label='UUID'
-                    v-model='activeProfile.uuid'
-                    outlined
-                    dense
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    label='Username'
-                    v-model='activeProfile.username'
-                    outlined
-                    dense
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    label='email'
-                    v-model='activeProfile.email'
-                    outlined
-                    dense
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    label='Role'
-                    v-model='activeProfile.role'
-                    outlined
-                    dense
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    label='First name'
-                    v-model='activeProfile.firstName'
-                    outlined
-                    dense
-            ></v-text-field>
-            <v-text-field
-                    label='Last name'
-                    v-model='activeProfile.lastName'
-                    outlined
-                    dense
-            ></v-text-field>
-        </div>
+        <InputsContainer v-if="viewPageInputsConfig" v-bind:configuration="viewPageInputsConfig" />
     </v-form>
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex';
+    import { mapState, mapActions, mapGetters } from 'vuex';
+
+    import InputsContainer from "../common/inputs/InputsContainer";
 
     export default {
         name: 'ProfileView',
-        components: {},
+        components: {
+            InputsContainer,
+        },
         data: () => ({
-
         }),
         computed: {
             ...mapState('profile', ['activeProfile']),
+            ...mapGetters('profile', ['viewPageInputsConfig']),
         },
         mounted() {
             this.fetchProfile('');

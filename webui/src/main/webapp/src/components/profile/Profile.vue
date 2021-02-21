@@ -1,7 +1,9 @@
 <template>
     <v-app>
-        <ProfileSidebar v-bind:navigationDrawerActive="navigationDrawerActive">
-        </ProfileSidebar>
+        <ProfileSidebar
+                v-bind:navigationDrawerActive="navigationDrawerActive"
+                v-on:toggled="setNavigationDrawer"
+        />
         <v-app-bar app>
             <v-app-bar-nav-icon @click.native="navigationDrawerActive = !navigationDrawerActive"></v-app-bar-nav-icon>
             <v-toolbar-title>Profile</v-toolbar-title>
@@ -51,6 +53,10 @@
             ...mapActions('profile', ['performLogout']),
             handleLogoutClick: function() {
                 this.performLogout();
+            },
+
+            setNavigationDrawer: function(value) {
+                this.navigationDrawerActive = value;
             }
         }
     }

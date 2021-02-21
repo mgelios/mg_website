@@ -1,7 +1,9 @@
 <template>
     <v-app>
-        <AdminSidebar v-bind:navigationDrawerActive.sync="navigationDrawerActive" v-on:toggled="setNavigationDrawer">
-        </AdminSidebar>
+        <AdminSidebar
+                v-bind:navigationDrawerActive.sync="navigationDrawerActive"
+                v-on:toggled="setNavigationDrawer"
+        />
         <v-app-bar app>
             <v-app-bar-nav-icon @click.native="setNavigationDrawer(!navigationDrawerActive)"></v-app-bar-nav-icon>
             <v-toolbar-title>Admin</v-toolbar-title>
@@ -41,7 +43,7 @@
         data: () => ({
             router: router,
             pages: pages,
-            navigationDrawerActive: false,
+            navigationDrawerActive: true,
         }),
         computed: {
             ...mapState('profile', ['activeProfile']),
