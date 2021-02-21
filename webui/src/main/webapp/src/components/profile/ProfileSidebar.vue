@@ -17,6 +17,11 @@
                     <v-list-item-content>Admin root</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item link @click="router.push({ name: pages.Info.Main })">
+                <v-list-item-content>
+                    <v-list-item-content>Info root</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>

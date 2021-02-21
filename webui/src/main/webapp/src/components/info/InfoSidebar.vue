@@ -12,31 +12,16 @@
                     <v-list-item-content>Admin root</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link @click="router.push({ name: pages.Admin.ApiConsumerMain })">
-                <v-list-item-content>
-                    <v-list-item-content>Api consumer</v-list-item-content>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item link @click="router.push({ name: pages.Admin.ApiConsumerAdd })">
-                <v-list-item-content>
-                    <v-list-item-content>Add api consumer</v-list-item-content>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item link @click="router.push({ name: pages.Info.Main })">
-                <v-list-item-content>
-                    <v-list-item-content>Info root</v-list-item-content>
-                </v-list-item-content>
-            </v-list-item>
         </v-list>
     </v-navigation-drawer>
-</template>
 
+</template>
 <script>
     import { router } from "../../utils/router/router";
     import { pages } from "../../utils/router/pages";
 
     export default {
-        name: 'AdminSidebar',
+        name: 'InfoSidebar',
         components: {
         },
         props: {
@@ -60,6 +45,6 @@
             handleInputEvent: function(value) {
                 this.$emit('toggled', value);
             }
-        }
+        },
     }
 </script>
