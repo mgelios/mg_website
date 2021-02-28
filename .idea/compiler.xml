@@ -9,16 +9,16 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.4.1.Final/a177f0daf39b807f19906fc3a7c6af8985bd8c4a/mapstruct-processor-1.4.1.Final.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
         </processorPath>
-        <module name="app-blog_main" />
-        <module name="app-news_main" />
-        <module name="app-utils_main" />
-        <module name="app-profile_main" />
-        <module name="app-bot_main" />
-        <module name="app-security_main" />
-        <module name="app-finance_main" />
-        <module name="app-weather_main" />
-        <module name="app-main_main" />
-        <module name="app-webui_main" />
+        <module name="bot_main" />
+        <module name="profile_main" />
+        <module name="weather_main" />
+        <module name="news_main" />
+        <module name="security_main" />
+        <module name="webui_main" />
+        <module name="main_main" />
+        <module name="utils_main" />
+        <module name="finance_main" />
+        <module name="blog_main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8" />
