@@ -1,4 +1,5 @@
 import { types } from "./types";
+import { currentWeather, weatherForecast } from "../../api/service/weather";
 
 export const actions = Object.freeze({
     fetchCurrentWeather,
@@ -6,11 +7,15 @@ export const actions = Object.freeze({
 });
 
 async function fetchCurrentWeather({ commit }) {
-    const currentWeather = '234';
-    commit(types.SET_CURRENT_WEATHER, currentWeather);
+    const currentWeatherResponse = await currentWeather.get('');
+    if (currentWeatherResponse.success) {
+        commit(types.SET_CURRENT_WEATHER, currentWeatherResponse.data);
+    }
 }
 
 async function fetchWeatherForecast({ commit }) {
-    const weatherForecast = '234234';
-    commit(types.SET_WEATHER_FORECAST, weatherForecast);
+    const weatherForecastResponse = await weatherForecast.getList();
+    if (weatherForecastResponse.success) {
+        commit(types.SET_WEATHER_FORECAST, weatherForecastResponse.data);
+    }
 }

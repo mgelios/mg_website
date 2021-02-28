@@ -12,6 +12,12 @@
                     <v-list-item-content>Admin root</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
+
+            <v-list-item link @click="router.push({ name: pages.Info.Weather })">
+                <v-list-item-content>
+                    <v-list-item-content>Weather</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 
