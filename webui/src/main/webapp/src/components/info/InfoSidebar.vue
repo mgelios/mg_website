@@ -18,6 +18,11 @@
                     <v-list-item-content>Weather</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item link @click="router.push({ name: pages.Info.Currency })">
+                <v-list-item-content>
+                    <v-list-item-content>Currency</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 

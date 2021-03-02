@@ -1,4 +1,5 @@
 import { types } from './types';
+import { currency, currencyStatistics, currencyConversion } from "../../api/service/currency";
 
 export const actions = Object.freeze({
     fetchExchangeRates,
@@ -7,16 +8,22 @@ export const actions = Object.freeze({
 });
 
 async function fetchExchangeRates({ commit }) {
-    const exchangeRates = null;
-    commit(types.SET_EXCHANGE_RATES, exchangeRates);
+    const exchangeRatesResponse = await currency.getList();
+    if (exchangeRatesResponse.success) {
+        commit(types.SET_EXCHANGE_RATES, exchangeRatesResponse.data);
+    }
 }
 
 async function fetchCurrencyConversions({ commit }) {
-    const currencyConversions = null;
-    commit(types.SET_CURRENCY_STATISTICS, currencyConversions);
+    const currencyConversionsResponse = await currencyConversion.getList();
+    if (currencyConversionsResponse.success) {
+        commit(types.SET_CURRENCY_STATISTICS, currencyConversionsResponse.data);
+    }
 }
 
 async function fetchCurrencyStatistics({ commit }) {
-    const currencyStatistics = null;
-    commit(types.SET_CURRENCY_STATISTICS, currencyStatistics);
+    const currencyStatisticsResponse = await currencyStatistics.getList();
+    if (currencyStatisticsResponse.success) {
+        commit(types.SET_CURRENCY_STATISTICS, currencyStatisticsResponse.data);
+    }
 }

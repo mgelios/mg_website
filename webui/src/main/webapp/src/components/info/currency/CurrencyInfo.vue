@@ -1,5 +1,8 @@
 <template>
     <div>
+        {{currencyRates}}
+        {{currencyConversions}}
+        {{monthStatisticsEUR}}
     </div>
 </template>
 <script>
@@ -15,14 +18,15 @@
             }
         },
         computed: {
-            ...mapState('weather', ['currentWeather', 'weatherForecast']),
+            ...mapState('currency', ['currencyRates', 'currencyConversions', 'monthStatisticsEUR', 'monthStatisticsUSD']),
         },
         mounted() {
-            this.fetchCurrentWeather();
-            this.fetchWeatherForecast();
+            this.fetchExchangeRates();
+            this.fetchCurrencyConversions();
+            this.fetchCurrencyStatistics();
         },
         methods: {
-            ...mapActions('weather', ['fetchCurrentWeather', 'fetchWeatherForecast']),
+            ...mapActions('currency', ['fetchExchangeRates', 'fetchCurrencyConversions', 'fetchCurrencyStatistics']),
 
         }
     }

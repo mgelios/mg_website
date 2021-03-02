@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -68,11 +70,13 @@ public class CurrencyService {
     }
 
     public Currency saveCurrencyDBEntity(JSONObject json) {
-        OffsetDateTime.parse(jsonHelper.getString(json, "Date").replace("T", " "), DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
+        LocalDateTime exampleLocalDateTime = LocalDateTime.parse(jsonHelper.getString(json, "Date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        OffsetDateTime exampleOffsetDateTime = OffsetDateTime.of(exampleLocalDateTime, ZoneOffset.ofHours(3));
         if (json != null) {
             Currency dbEntity = Currency.builder()
                     .systemId(jsonHelper.getInt(json, "Cur_ID"))
-                    .date(OffsetDateTime.parse(jsonHelper.getString(json, "Date").replace("T", " "),
+                    .date(OffsetDateTime.parse(
+                            jsonHelper.getString(json, "Date").replace("T", " "),
                             DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
                     .abbreviation(jsonHelper.getString(json, "Cur_Abbreviation"))
                     .scale(jsonHelper.getDouble(json, "Cur_Scale"))
