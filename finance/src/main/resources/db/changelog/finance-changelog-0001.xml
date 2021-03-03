@@ -24,8 +24,8 @@
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="currency_from" type="integer" />
-            <column name="currency_to" type="integer" />
+            <column name="currency_from" type="uuid" />
+            <column name="currency_to" type="uuid" />
             <column name="value" type="real" />
         </createTable>
 
@@ -35,7 +35,7 @@
             </column>
             <column name="currency_id" type="integer" />
             <column name="date" type="timestamptz" />
-            <column name="currency" type="integer" />
+            <column name="currency" type="uuid" />
             <column name="rate" type="real" />
         </createTable>
 

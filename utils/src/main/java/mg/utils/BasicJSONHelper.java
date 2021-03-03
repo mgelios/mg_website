@@ -80,6 +80,16 @@ public class BasicJSONHelper implements JSONHelper {
     }
 
     @Override
+    public LocalDateTime getLocalDateTime(JSONObject object, String path, DateTimeFormatter dateTimeFormatter) {
+        return LocalDateTime.parse(getString(object, path), dateTimeFormatter);
+    }
+
+    @Override
+    public OffsetDateTime getOffsetDateTime(JSONObject object, String path, DateTimeFormatter dateTimeFormatter, ZoneOffset zoneOffset) {
+        return OffsetDateTime.of(getLocalDateTime(object, path, dateTimeFormatter), zoneOffset);
+    }
+
+    @Override
     public Timestamp getTimestampOfEpochSecond(JSONObject object, String path) {
         return Timestamp.from(Instant.ofEpochSecond(getLong(object, path)));
     }

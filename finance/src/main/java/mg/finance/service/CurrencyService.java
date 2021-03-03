@@ -70,14 +70,11 @@ public class CurrencyService {
     }
 
     public Currency saveCurrencyDBEntity(JSONObject json) {
-        LocalDateTime exampleLocalDateTime = LocalDateTime.parse(jsonHelper.getString(json, "Date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        OffsetDateTime exampleOffsetDateTime = OffsetDateTime.of(exampleLocalDateTime, ZoneOffset.ofHours(3));
         if (json != null) {
             Currency dbEntity = Currency.builder()
                     .systemId(jsonHelper.getInt(json, "Cur_ID"))
-                    .date(OffsetDateTime.parse(
-                            jsonHelper.getString(json, "Date").replace("T", " "),
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
+                    .date(jsonHelper.getOffsetDateTime(json, "Date",
+                            DateTimeFormatter.ISO_LOCAL_DATE_TIME, ZoneOffset.ofHours(3)))
                     .abbreviation(jsonHelper.getString(json, "Cur_Abbreviation"))
                     .scale(jsonHelper.getDouble(json, "Cur_Scale"))
                     .name(jsonHelper.getString(json, "Cur_Name"))

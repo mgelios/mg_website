@@ -6,7 +6,10 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 public interface JSONHelper {
 
@@ -29,6 +32,10 @@ public interface JSONHelper {
     BigDecimal getBigDecimal(JSONObject object, String path);
 
     Boolean getBoolean(JSONObject object, String path);
+
+    LocalDateTime getLocalDateTime(JSONObject object, String path, DateTimeFormatter dateTimeFormatter);
+
+    OffsetDateTime getOffsetDateTime(JSONObject object, String path, DateTimeFormatter dateTimeFormatter, ZoneOffset zoneOffset);
 
     Timestamp getTimestampOfEpochSecond(JSONObject object, String path);
 

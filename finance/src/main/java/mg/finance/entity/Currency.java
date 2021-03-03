@@ -12,6 +12,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @Table(name="mg_currency")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Currency {
 
     @Id
