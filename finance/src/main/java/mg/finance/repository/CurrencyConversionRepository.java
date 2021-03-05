@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface CurrencyConversionRepository extends CrudRepository<CurrencyConversion, Long> {
+public interface CurrencyConversionRepository extends CrudRepository<CurrencyConversion, UUID> {
 
     void deleteAllByCurrencyFromAndAndCurrencyTo(Currency from, Currency to);
 

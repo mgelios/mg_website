@@ -46,43 +46,30 @@ public class CurrencyService {
     }
 
     public Currency getCurrencyDBEntityByAbbreviation(String abbreviation) {
-        Optional<Currency> optionalCurrency = currencyRepository.findByAbbreviation(abbreviation);
-        Currency result = null;
-        if (optionalCurrency.isPresent()) {
-            result = optionalCurrency.get();
-        }
-        if (result == null || result.getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-            result = updateCurrency(abbreviation);
+        Currency result = currencyRepository.findByAbbreviation(abbreviation)
+                .orElse(updateCurrency(abbreviation, null));
+
+        if (result.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear()) {
+            result = updateCurrency(abbreviation, result);
         }
         return result;
     }
 
-    public void updateDefaultCurrencies() {
-        financeConfiguration.getDefaultCurrencies().forEach(this::updateCurrency);
-    }
-
-    public Currency updateCurrency(String abbreviation) {
+    //TODO: probably json fetching should go to specific service, not one with db interactions
+    public Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
         JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCurrencyRateUrl(abbreviation));
-        if (currencyRepository.findAllByAbbreviation(abbreviation).size() != 0) {
-            currencyRepository.deleteAllByAbbreviation(abbreviation);
-        }
-        return saveCurrencyDBEntity(json);
+        return json != null ? saveCurrencyDBEntity(json, entityToUpdate) : null;
     }
 
-    public Currency saveCurrencyDBEntity(JSONObject json) {
-        if (json != null) {
-            Currency dbEntity = Currency.builder()
-                    .systemId(jsonHelper.getInt(json, "Cur_ID"))
-                    .date(jsonHelper.getOffsetDateTime(json, "Date",
-                            DateTimeFormatter.ISO_LOCAL_DATE_TIME, ZoneOffset.ofHours(3)))
-                    .abbreviation(jsonHelper.getString(json, "Cur_Abbreviation"))
-                    .scale(jsonHelper.getDouble(json, "Cur_Scale"))
-                    .name(jsonHelper.getString(json, "Cur_Name"))
-                    .rate(jsonHelper.getDouble(json, "Cur_OfficialRate"))
-                    .build();
-            return currencyRepository.save(dbEntity);
-        } else {
-            return null;
-        }
+    public Currency saveCurrencyDBEntity(JSONObject json, Currency entityToUpdate) {
+        Currency dbEntity = entityToUpdate == null ? new Currency() : entityToUpdate;
+        dbEntity.setSystemId(jsonHelper.getInt(json, "Cur_ID"));
+        dbEntity.setDate(jsonHelper.getOffsetDateTime(json, "Date",
+                        DateTimeFormatter.ISO_LOCAL_DATE_TIME, ZoneOffset.ofHours(3)));
+        dbEntity.setAbbreviation(jsonHelper.getString(json, "Cur_Abbreviation"));
+        dbEntity.setScale(jsonHelper.getDouble(json, "Cur_Scale"));
+        dbEntity.setName(jsonHelper.getString(json, "Cur_Name"));
+        dbEntity.setRate(jsonHelper.getDouble(json, "Cur_OfficialRate"));
+        return currencyRepository.save(dbEntity);
     }
 }

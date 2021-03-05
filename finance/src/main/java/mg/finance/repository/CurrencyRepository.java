@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface CurrencyRepository extends CrudRepository<Currency, Long> {
+public interface CurrencyRepository extends CrudRepository<Currency, UUID> {
 
     Optional<Currency> findByAbbreviation(String abbreviation);
 

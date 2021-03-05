@@ -26,9 +26,9 @@ public class CurrencyConversionService {
 
     public List<CurrencyConversionDto> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()
-                .map(conversionPair -> {
-                    return getCurrencyConversion(conversionPair.split("[:]")[0], conversionPair.split("[:]")[1]);
-                })
+                .map(conversionPair ->
+                    getCurrencyConversion(conversionPair.split("[:]")[0], conversionPair.split("[:]")[1])
+                )
                 .collect(Collectors.toList());
     }
 

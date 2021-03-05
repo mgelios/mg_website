@@ -45,7 +45,7 @@ public class CurrencyStatisticsService {
     public List<CurrencyStatisticsDto> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
         Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
-        if (result.size() == 0 || result.get(0).getDate().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
+        if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear()) {
             result = updateCurrencyStatistics(abbreviation);
         }
         return result.stream()
