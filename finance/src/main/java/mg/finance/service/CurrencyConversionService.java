@@ -8,23 +8,24 @@ import mg.finance.mapper.CurrencyConversionMapper;
 import mg.finance.dto.CurrencyConversionDto;
 import mg.finance.repository.CurrencyConversionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.SUPPORTS)
 @AllArgsConstructor
 public class CurrencyConversionService {
 
     private final FinanceConfiguration financeConfiguration;
     private final CurrencyService currencyService;
     private final CurrencyConversionRepository currencyConversionRepository;
-    private final CurrencyConversionMapper currencyConversionMapper;
 
-    public List<CurrencyConversionDto> getDefaultCurrencyConversions() {
+    public List<CurrencyConversion> getDefaultCurrencyConversions() {
         return financeConfiguration.getDefaultConversionCombinations().stream()
                 .map(conversionPair ->
                     getCurrencyConversion(conversionPair.split("[:]")[0], conversionPair.split("[:]")[1])
@@ -32,44 +33,33 @@ public class CurrencyConversionService {
                 .collect(Collectors.toList());
     }
 
-    public CurrencyConversionDto getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        Currency from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
-        Currency to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
+    public CurrencyConversion getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
+        Currency from = currencyService.getCurrencyByAbbreviation(abbreviationFrom);
+        Currency to = currencyService.getCurrencyByAbbreviation(abbreviationTo);
         if (from != null && to != null) {
-            Optional<CurrencyConversion> optionalConversion =
-                    currencyConversionRepository.findByCurrencyFromAndCurrencyTo(from, to);
-            if (optionalConversion.isPresent()) {
-                return currencyConversionMapper.mapToDTO(optionalConversion.get());
-            } else {
-                return currencyConversionMapper.mapToDTO(updateCurrencyConversion(abbreviationFrom, abbreviationTo));
+            CurrencyConversion conversion = currencyConversionRepository
+                    .findByCurrencyFromAndCurrencyTo(from, to)
+                    .orElse(updateCurrencyConversion(from, to, null));
+            if (conversion.getUpdatedOn().getDayOfYear() != from.getDate().getDayOfYear()) {
+                conversion = updateCurrencyConversion(from, to, conversion);
             }
+            return conversion;
         } else {
             return null;
         }
     }
 
-    public void updateDefaultCurrencyConversions() {
-        financeConfiguration.getDefaultConversionCombinations().forEach(conversionPair -> {
-            updateCurrencyConversion(conversionPair.split("[:]")[0], conversionPair.split("[:]")[1]);
-        });
+    public CurrencyConversion updateCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToUpdate) {
+        return saveCurrencyConversion(from, to, conversionToUpdate);
     }
 
-    public CurrencyConversion updateCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        Currency from = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationFrom);
-        Currency to = currencyService.getCurrencyDBEntityByAbbreviation(abbreviationTo);
-        if (currencyConversionRepository.findAllByCurrencyFromAndCurrencyTo(from, to).size() != 0) {
-            currencyConversionRepository.deleteAllByCurrencyFromAndAndCurrencyTo(from, to);
-        }
-        return saveCurrencyConversion(from, to);
-    }
-
-    private CurrencyConversion saveCurrencyConversion(Currency from, Currency to) {
-        CurrencyConversion currencyConversionDBEntity = CurrencyConversion.builder()
-                .currencyFrom(from)
-                .currencyTo(to)
-                .value(getConversionValue(from, to))
-                .build();
-        return currencyConversionRepository.save(currencyConversionDBEntity);
+    private CurrencyConversion saveCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToSave) {
+        CurrencyConversion conversion = conversionToSave == null ? null : new CurrencyConversion();
+        conversion.setCurrencyFrom(from);
+        conversion.setCurrencyTo(to);
+        conversion.setValue(getConversionValue(from, to));
+        conversion.setUpdatedOn(OffsetDateTime.now());
+        return currencyConversionRepository.save(conversion);
     }
 
     private double getConversionValue(Currency from, Currency to) {

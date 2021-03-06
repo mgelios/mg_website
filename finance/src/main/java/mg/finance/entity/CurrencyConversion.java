@@ -3,6 +3,7 @@ package mg.finance.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -10,6 +11,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @Table(name="mg_currency_conversion")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CurrencyConversion {
 
     @Id
@@ -26,4 +29,5 @@ public class CurrencyConversion {
     @EqualsAndHashCode.Exclude
     private Currency currencyTo;
     private double value;
+    private OffsetDateTime updatedOn;
 }

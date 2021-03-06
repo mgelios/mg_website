@@ -27,6 +27,7 @@
             <column name="currency_from" type="uuid" />
             <column name="currency_to" type="uuid" />
             <column name="value" type="real" />
+            <column name="updated_on" type="timestamptz" />
         </createTable>
 
         <createTable tableName="mg_currency_statistics">

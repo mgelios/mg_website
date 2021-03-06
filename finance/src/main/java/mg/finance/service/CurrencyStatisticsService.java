@@ -5,7 +5,6 @@ import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.entity.CurrencyStatistics;
 import mg.finance.mapper.CurrencyStatisticsMapper;
-import mg.finance.dto.CurrencyStatisticsDto;
 import mg.finance.repository.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
@@ -13,10 +12,9 @@ import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.SUPPORTS)
 @AllArgsConstructor
 public class CurrencyStatisticsService {
 
@@ -37,37 +35,30 @@ public class CurrencyStatisticsService {
     private final CurrencyStatisticsRepository currencyStatisticsRepository;
     private final CurrencyStatisticsMapper currencyStatisticsMapper;
 
-    public Map<String, List<CurrencyStatisticsDto>> getDefaultCurrencyStatistics() {
+    public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
                 .collect(Collectors.toMap(String::toString, this::getDefaultCurrencyStatisticsByAbbreviation));
     }
 
-    public List<CurrencyStatisticsDto> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+    public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
+        Currency currency = currencyService.getCurrencyByAbbreviation(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
-        if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear()) {
-            result = updateCurrencyStatistics(abbreviation);
+        if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
+            result = updateCurrencyStatistics(currency);
         }
-        return result.stream()
-                .map(currencyStatisticsMapper::mapToDTO)
-                .collect(Collectors.toList());
+        return result;
     }
 
-    public void updateDefaultCurrencyStatistics() {
-        financeConfiguration.getDefaultStatisticsCurrencies().forEach(this::updateCurrencyStatistics);
-    }
-
-    public List<CurrencyStatistics> updateCurrencyStatistics(String abbreviation) {
-        Currency currency = currencyService.getCurrencyDBEntityByAbbreviation(abbreviation);
+    public List<CurrencyStatistics> updateCurrencyStatistics(Currency currency) {
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);
         }
-        return saveCurrencyStatisticsDBEntities(json, currency);
+        return saveCurrencyStatistics(json, currency);
     }
 
-    private List<CurrencyStatistics> saveCurrencyStatisticsDBEntities(JSONArray jsonArray, Currency currency) {
+    private List<CurrencyStatistics> saveCurrencyStatistics(JSONArray jsonArray, Currency currency) {
         if (jsonArray != null) {
             List<CurrencyStatistics> result = new ArrayList<>();
             for (Object item : jsonArray) {
