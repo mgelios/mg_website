@@ -4,20 +4,18 @@ import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
-import mg.finance.mapper.CurrencyConversionMapper;
-import mg.finance.dto.CurrencyConversionDto;
 import mg.finance.repository.CurrencyConversionRepository;
+import org.postgresql.util.PSQLException;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(propagation = Propagation.SUPPORTS)
 @AllArgsConstructor
 public class CurrencyConversionService {
 
@@ -54,7 +52,7 @@ public class CurrencyConversionService {
     }
 
     private CurrencyConversion saveCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToSave) {
-        CurrencyConversion conversion = conversionToSave == null ? null : new CurrencyConversion();
+        CurrencyConversion conversion = conversionToSave == null ? new CurrencyConversion() : conversionToSave;
         conversion.setCurrencyFrom(from);
         conversion.setCurrencyTo(to);
         conversion.setValue(getConversionValue(from, to));

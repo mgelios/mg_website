@@ -1,13 +1,14 @@
 package mg.finance.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyRepository;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
@@ -16,8 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
-@Transactional(propagation = Propagation.SUPPORTS)
 @AllArgsConstructor
 public class CurrencyService {
 
@@ -32,17 +33,25 @@ public class CurrencyService {
                 .collect(Collectors.toList());
     }
 
-
     public Currency getCurrencyByAbbreviation(String abbreviation) {
         Currency result = currencyRepository.findByAbbreviation(abbreviation)
                 .orElse(updateCurrency(abbreviation, null));
 
-        if (result.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear()) {
+        if (isCurrencyDataRelevant(result)) {
             result = updateCurrency(abbreviation, result);
         }
         return result;
     }
 
+    public Currency findCurrencyByAbbreviation(String abbreviation) {
+        return currencyRepository.findByAbbreviation(abbreviation).orElse(null);
+    }
+
+    public boolean isCurrencyDataRelevant(Currency currency) {
+        return currency.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear();
+    }
+
+    @Transactional
     public Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
         return saveCurrencyDBEntity(currencyExternalApiService.fetchCurrencyRate(abbreviation), entityToUpdate);
     }
@@ -57,7 +66,7 @@ public class CurrencyService {
             currency.setScale(jsonHelper.getDouble(json, "Cur_Scale"));
             currency.setName(jsonHelper.getString(json, "Cur_Name"));
             currency.setRate(jsonHelper.getDouble(json, "Cur_OfficialRate"));
-            return currencyRepository.saveAndFlush(currency);
+            return currencyRepository.save(currency);
         } else {
             return null;
         }

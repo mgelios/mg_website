@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.entity.CurrencyStatistics;
-import mg.finance.mapper.CurrencyStatisticsMapper;
 import mg.finance.repository.CurrencyStatisticsRepository;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
@@ -12,8 +11,6 @@ import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +20,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(propagation = Propagation.SUPPORTS)
 @AllArgsConstructor
 public class CurrencyStatisticsService {
 
@@ -33,7 +29,6 @@ public class CurrencyStatisticsService {
     private final JSONHelper jsonHelper;
     private final CurrencyService currencyService;
     private final CurrencyStatisticsRepository currencyStatisticsRepository;
-    private final CurrencyStatisticsMapper currencyStatisticsMapper;
 
     public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
