@@ -7,6 +7,9 @@ import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyRepository;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
+import org.postgresql.util.PSQLException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +23,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
+@Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
 public class CurrencyService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -29,8 +34,12 @@ public class CurrencyService {
 
     public List<Currency> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
-                .map(this::getCurrencyByAbbreviation)
+                .map(this::syncLockWrapper)
                 .collect(Collectors.toList());
+    }
+
+    public synchronized Currency syncLockWrapper(String abbreviation) {
+        return getCurrencyByAbbreviation(abbreviation);
     }
 
     public Currency getCurrencyByAbbreviation(String abbreviation) {
@@ -51,7 +60,6 @@ public class CurrencyService {
         return currency.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear();
     }
 
-    @Transactional
     public Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
         return saveCurrencyDBEntity(currencyExternalApiService.fetchCurrencyRate(abbreviation), entityToUpdate);
     }

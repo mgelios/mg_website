@@ -6,6 +6,7 @@ import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyConversionRepository;
 import org.postgresql.util.PSQLException;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
+@Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
 public class CurrencyConversionService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -32,8 +35,8 @@ public class CurrencyConversionService {
     }
 
     public CurrencyConversion getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        Currency from = currencyService.getCurrencyByAbbreviation(abbreviationFrom);
-        Currency to = currencyService.getCurrencyByAbbreviation(abbreviationTo);
+        Currency from = currencyService.syncLockWrapper(abbreviationFrom);
+        Currency to = currencyService.syncLockWrapper(abbreviationTo);
         if (from != null && to != null) {
             CurrencyConversion conversion = currencyConversionRepository
                     .findByCurrencyFromAndCurrencyTo(from, to)

@@ -10,7 +10,12 @@ import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.postgresql.util.PSQLException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +26,8 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
+@Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -36,7 +43,7 @@ public class CurrencyStatisticsService {
     }
 
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        Currency currency = currencyService.getCurrencyByAbbreviation(abbreviation);
+        Currency currency = currencyService.syncLockWrapper(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
             result = updateCurrencyStatistics(currency);

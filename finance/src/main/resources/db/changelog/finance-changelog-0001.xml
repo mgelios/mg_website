@@ -12,7 +12,9 @@
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="system_id" type="integer" />
+            <column name="system_id" type="integer">
+                <constraints unique="true" nullable="false" />
+            </column>
             <column name="date" type="timestamptz" />
             <column name="abbreviation" type="text" />
             <column name="scale" type="real" />
