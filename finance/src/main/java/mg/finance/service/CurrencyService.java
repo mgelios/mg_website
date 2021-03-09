@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
-@Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
-@Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
 public class CurrencyService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -34,14 +32,12 @@ public class CurrencyService {
 
     public List<Currency> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
-                .map(this::syncLockWrapper)
+                .map(this::getCurrencyByAbbreviation)
                 .collect(Collectors.toList());
     }
 
-    public synchronized Currency syncLockWrapper(String abbreviation) {
-        return getCurrencyByAbbreviation(abbreviation);
-    }
-
+    @Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
+    @Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
     public Currency getCurrencyByAbbreviation(String abbreviation) {
         Currency result = currencyRepository.findByAbbreviation(abbreviation)
                 .orElse(updateCurrency(abbreviation, null));

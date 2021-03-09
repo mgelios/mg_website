@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
-@Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -43,7 +41,7 @@ public class CurrencyStatisticsService {
     }
 
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        Currency currency = currencyService.syncLockWrapper(abbreviation);
+        Currency currency = currencyService.getCurrencyByAbbreviation(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
             result = updateCurrencyStatistics(currency);
