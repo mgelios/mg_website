@@ -5,11 +5,7 @@ import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyConversionRepository;
-import org.postgresql.util.PSQLException;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
@@ -35,6 +31,13 @@ public class CurrencyConversionService {
     public CurrencyConversion getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
         Currency from = currencyService.getCurrencyByAbbreviation(abbreviationFrom);
         Currency to = currencyService.getCurrencyByAbbreviation(abbreviationTo);
+        if (from == null || currencyService.isCurrencyDataRelevant(from)) {
+            from = currencyService.updateCurrency(abbreviationFrom, from);
+        }
+        if (to == null || currencyService.isCurrencyDataRelevant(to)) {
+            to = currencyService.updateCurrency(abbreviationTo, to);
+        }
+
         if (from != null && to != null) {
             CurrencyConversion conversion = currencyConversionRepository
                     .findByCurrencyFromAndCurrencyTo(from, to)
@@ -52,7 +55,8 @@ public class CurrencyConversionService {
         return saveCurrencyConversion(from, to, conversionToUpdate);
     }
 
-    private CurrencyConversion saveCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToSave) {
+    @Transactional
+    public CurrencyConversion saveCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToSave) {
         CurrencyConversion conversion = conversionToSave == null ? new CurrencyConversion() : conversionToSave;
         conversion.setCurrencyFrom(from);
         conversion.setCurrencyTo(to);

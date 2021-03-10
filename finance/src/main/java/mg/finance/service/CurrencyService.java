@@ -36,18 +36,16 @@ public class CurrencyService {
                 .collect(Collectors.toList());
     }
 
-    @Retryable(backoff = @Backoff(delay = 1000), value = PSQLException.class, maxAttempts = 5)
-    @Transactional(transactionManager = "mgTransactionManager", isolation = Isolation.SERIALIZABLE)
     public Currency getCurrencyByAbbreviation(String abbreviation) {
-        Currency result = currencyRepository.findByAbbreviation(abbreviation)
-                .orElse(updateCurrency(abbreviation, null));
+        Currency result = findCurrencyByAbbreviation(abbreviation);
 
-        if (isCurrencyDataRelevant(result)) {
+        if (result == null || isCurrencyDataRelevant(result)) {
             result = updateCurrency(abbreviation, result);
         }
         return result;
     }
 
+    @Transactional(readOnly = true)
     public Currency findCurrencyByAbbreviation(String abbreviation) {
         return currencyRepository.findByAbbreviation(abbreviation).orElse(null);
     }
@@ -60,6 +58,7 @@ public class CurrencyService {
         return saveCurrencyDBEntity(currencyExternalApiService.fetchCurrencyRate(abbreviation), entityToUpdate);
     }
 
+    @Transactional
     public Currency saveCurrencyDBEntity(JSONObject json, Currency entityToSave) {
         if (json != null) {
             Currency currency = entityToSave == null ? new Currency() : entityToSave;

@@ -10,11 +10,7 @@ import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.postgresql.util.PSQLException;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
@@ -42,6 +38,10 @@ public class CurrencyStatisticsService {
 
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
         Currency currency = currencyService.getCurrencyByAbbreviation(abbreviation);
+        if (currency == null || currencyService.isCurrencyDataRelevant(currency)) {
+            currency = currencyService.updateCurrency(abbreviation, currency);
+        }
+
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
             result = updateCurrencyStatistics(currency);
@@ -58,7 +58,8 @@ public class CurrencyStatisticsService {
         return saveCurrencyStatistics(json, currency);
     }
 
-    private List<CurrencyStatistics> saveCurrencyStatistics(JSONArray jsonArray, Currency currency) {
+    @Transactional
+    public List<CurrencyStatistics> saveCurrencyStatistics(JSONArray jsonArray, Currency currency) {
         if (jsonArray != null) {
             List<CurrencyStatistics> result = new ArrayList<>();
             for (Object item : jsonArray) {
