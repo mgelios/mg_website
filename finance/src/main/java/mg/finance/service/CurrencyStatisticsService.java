@@ -11,6 +11,7 @@ import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -58,7 +60,6 @@ public class CurrencyStatisticsService {
         return saveCurrencyStatistics(json, currency);
     }
 
-    @Transactional
     public List<CurrencyStatistics> saveCurrencyStatistics(JSONArray jsonArray, Currency currency) {
         if (jsonArray != null) {
             List<CurrencyStatistics> result = new ArrayList<>();

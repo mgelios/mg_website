@@ -6,6 +6,7 @@ import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyConversionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyConversionService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -55,13 +57,12 @@ public class CurrencyConversionService {
         return saveCurrencyConversion(from, to, conversionToUpdate);
     }
 
-    @Transactional
     public CurrencyConversion saveCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToSave) {
         CurrencyConversion conversion = conversionToSave == null ? new CurrencyConversion() : conversionToSave;
         conversion.setCurrencyFrom(from);
         conversion.setCurrencyTo(to);
         conversion.setValue(getConversionValue(from, to));
-        conversion.setUpdatedOn(OffsetDateTime.now());
+        conversion.setUpdatedOn(from.getDate());
         return currencyConversionRepository.save(conversion);
     }
 

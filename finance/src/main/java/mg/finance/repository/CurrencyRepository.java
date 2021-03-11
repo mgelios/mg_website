@@ -2,18 +2,22 @@ package mg.finance.repository;
 
 import mg.finance.entity.Currency;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import java.util.UUID;
 
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, UUID> {
 
-    Optional<Currency> findByAbbreviation(String abbreviation);
-
-    List<Currency> findAllByAbbreviation(String abbreviation);
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    @Query(value = "select c from Currency c where c.abbreviation=:abbreviation")
+    @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "1000")})
+    Currency findCurrencyByAbbreviation(String abbreviation);
 
     void deleteAllByAbbreviation(String abbreviation);
 }

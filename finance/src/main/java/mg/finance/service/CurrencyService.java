@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -45,20 +46,18 @@ public class CurrencyService {
         return result;
     }
 
-    @Transactional(readOnly = true)
     public Currency findCurrencyByAbbreviation(String abbreviation) {
-        return currencyRepository.findByAbbreviation(abbreviation).orElse(null);
+        return currencyRepository.findCurrencyByAbbreviation(abbreviation);
     }
 
     public boolean isCurrencyDataRelevant(Currency currency) {
         return currency.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear();
     }
 
-    public Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
+    public synchronized Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
         return saveCurrencyDBEntity(currencyExternalApiService.fetchCurrencyRate(abbreviation), entityToUpdate);
     }
 
-    @Transactional
     public Currency saveCurrencyDBEntity(JSONObject json, Currency entityToSave) {
         if (json != null) {
             Currency currency = entityToSave == null ? new Currency() : entityToSave;
