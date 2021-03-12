@@ -1,6 +1,7 @@
 package mg.finance.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.entity.CurrencyStatistics;
@@ -21,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
-@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -39,11 +40,7 @@ public class CurrencyStatisticsService {
     }
 
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
-        Currency currency = currencyService.getCurrencyByAbbreviation(abbreviation);
-        if (currency == null || currencyService.isCurrencyDataRelevant(currency)) {
-            currency = currencyService.updateCurrency(abbreviation, currency);
-        }
-
+        Currency currency = currencyService.findCurrencyByAbbreviation(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
         if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
             result = updateCurrencyStatistics(currency);

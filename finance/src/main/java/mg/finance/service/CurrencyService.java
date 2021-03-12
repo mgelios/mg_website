@@ -12,18 +12,19 @@ import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -33,28 +34,25 @@ public class CurrencyService {
 
     public List<Currency> getDefaultCurrencies() {
         return financeConfiguration.getDefaultCurrencies().stream()
-                .map(this::getCurrencyByAbbreviation)
+                .map(this::findCurrencyByAbbreviation)
                 .collect(Collectors.toList());
     }
 
-    public Currency getCurrencyByAbbreviation(String abbreviation) {
-        Currency result = findCurrencyByAbbreviation(abbreviation);
+    public synchronized Currency findCurrencyByAbbreviation(String abbreviation) {
+        Optional<Currency> currency = currencyRepository.findCurrencyByAbbreviation(abbreviation);
 
-        if (result == null || isCurrencyDataRelevant(result)) {
-            result = updateCurrency(abbreviation, result);
+        if (!currency.isPresent() || !isCurrencyDataRelevant(currency.get())) {
+            return updateCurrency(abbreviation, currency.orElse(null));
         }
-        return result;
-    }
-
-    public Currency findCurrencyByAbbreviation(String abbreviation) {
-        return currencyRepository.findCurrencyByAbbreviation(abbreviation);
+        return currency.get();
     }
 
     public boolean isCurrencyDataRelevant(Currency currency) {
         return currency.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear();
     }
 
-    public synchronized Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
+    @Transactional
+    public Currency updateCurrency(String abbreviation, Currency entityToUpdate) {
         return saveCurrencyDBEntity(currencyExternalApiService.fetchCurrencyRate(abbreviation), entityToUpdate);
     }
 

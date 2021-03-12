@@ -1,6 +1,7 @@
 package mg.finance.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
@@ -13,9 +14,9 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
-@Transactional(isolation = Isolation.SERIALIZABLE)
 public class CurrencyConversionService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -31,15 +32,8 @@ public class CurrencyConversionService {
     }
 
     public CurrencyConversion getCurrencyConversion(String abbreviationFrom, String abbreviationTo) {
-        Currency from = currencyService.getCurrencyByAbbreviation(abbreviationFrom);
-        Currency to = currencyService.getCurrencyByAbbreviation(abbreviationTo);
-        if (from == null || currencyService.isCurrencyDataRelevant(from)) {
-            from = currencyService.updateCurrency(abbreviationFrom, from);
-        }
-        if (to == null || currencyService.isCurrencyDataRelevant(to)) {
-            to = currencyService.updateCurrency(abbreviationTo, to);
-        }
-
+        Currency from = currencyService.findCurrencyByAbbreviation(abbreviationFrom);
+        Currency to = currencyService.findCurrencyByAbbreviation(abbreviationTo);
         if (from != null && to != null) {
             CurrencyConversion conversion = currencyConversionRepository
                     .findByCurrencyFromAndCurrencyTo(from, to)
