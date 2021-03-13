@@ -40,6 +40,7 @@
             <column name="date" type="timestamptz" />
             <column name="currency" type="uuid" />
             <column name="rate" type="real" />
+            <column name="updated_on" type="timestamptz" />
         </createTable>
 
         <rollback>

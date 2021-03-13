@@ -68,7 +68,7 @@ public class CurrencyService {
             currency.setRate(jsonHelper.getDouble(json, "Cur_OfficialRate"));
             return currencyRepository.save(currency);
         } else {
-            return null;
+            return entityToSave;
         }
     }
 }

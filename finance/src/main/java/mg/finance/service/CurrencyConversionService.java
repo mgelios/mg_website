@@ -37,8 +37,8 @@ public class CurrencyConversionService {
         if (from != null && to != null) {
             CurrencyConversion conversion = currencyConversionRepository
                     .findByCurrencyFromAndCurrencyTo(from, to)
-                    .orElse(updateCurrencyConversion(from, to, null));
-            if (conversion.getUpdatedOn().getDayOfYear() != from.getDate().getDayOfYear()) {
+                    .orElse(null);
+            if (conversion == null || conversion.getUpdatedOn().getDayOfYear() != from.getDate().getDayOfYear()) {
                 conversion = updateCurrencyConversion(from, to, conversion);
             }
             return conversion;
@@ -47,6 +47,7 @@ public class CurrencyConversionService {
         }
     }
 
+    @Transactional
     public CurrencyConversion updateCurrencyConversion(Currency from, Currency to, CurrencyConversion conversionToUpdate) {
         return saveCurrencyConversion(from, to, conversionToUpdate);
     }

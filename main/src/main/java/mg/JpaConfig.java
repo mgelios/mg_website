@@ -24,10 +24,7 @@ import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-        entityManagerFactoryRef = "mgEntityManager",
-        transactionManagerRef="mgTransactionManager"
-)
+@EnableJpaRepositories
 @AllArgsConstructor
 public class JpaConfig {
 
@@ -39,8 +36,8 @@ public class JpaConfig {
     }
 
     @Primary
-    @Bean("mgEntityManager")
-    public LocalContainerEntityManagerFactoryBean entityManager(
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
@@ -50,8 +47,8 @@ public class JpaConfig {
     }
 
     @Primary
-    @Bean(name = "mgTransactionManager")
-    public PlatformTransactionManager transactionManager(@Qualifier("mgEntityManager") EntityManagerFactory entityManager) {
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManager) {
         return new JpaTransactionManager(entityManager);
     }
 
@@ -59,7 +56,7 @@ public class JpaConfig {
     @ConditionalOnProperty(prefix = "spring.jpa", name = "open-in-view", havingValue = "true", matchIfMissing = true)
     public OpenEntityManagerInViewFilter openEntityManagerInViewFilter() {
         OpenEntityManagerInViewFilter osivFilter = new OpenEntityManagerInViewFilter();
-        osivFilter.setEntityManagerFactoryBeanName("mgEntityManager");
+        osivFilter.setEntityManagerFactoryBeanName("entityManagerFactory");
         return osivFilter;
     }
 }

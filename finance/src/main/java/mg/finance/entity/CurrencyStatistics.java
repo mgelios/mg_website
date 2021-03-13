@@ -26,4 +26,5 @@ public class CurrencyStatistics {
     @JoinColumn(name = "currency")
     private Currency currency;
     private double rate;
+    private OffsetDateTime updatedOn;
 }

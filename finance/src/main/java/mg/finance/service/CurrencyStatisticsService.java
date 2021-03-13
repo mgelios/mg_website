@@ -42,12 +42,13 @@ public class CurrencyStatisticsService {
     public List<CurrencyStatistics> getDefaultCurrencyStatisticsByAbbreviation(String abbreviation) {
         Currency currency = currencyService.findCurrencyByAbbreviation(abbreviation);
         List<CurrencyStatistics> result = currencyStatisticsRepository.findAllByCurrency(currency);
-        if (result.size() == 0 || result.get(0).getDate().getDayOfYear() != currency.getDate().getDayOfYear()) {
+        if (result.size() == 0 || !result.get(0).getUpdatedOn().isEqual(currency.getDate())) {
             result = updateCurrencyStatistics(currency);
         }
         return result;
     }
 
+    @Transactional
     public List<CurrencyStatistics> updateCurrencyStatistics(Currency currency) {
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
@@ -68,6 +69,7 @@ public class CurrencyStatisticsService {
                         .currency(currency)
                         .rate(jsonHelper.getDouble(jsonItem, "Cur_OfficialRate"))
                         .currencyId(jsonHelper.getLong(jsonItem, "Cur_ID"))
+                        .updatedOn(currency.getDate())
                         .build();
                 result.add(currencyStatisticsRepository.save(statisticsDBEntity));
             }
