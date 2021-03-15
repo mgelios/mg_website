@@ -48,7 +48,7 @@ public class CurrencyService {
     }
 
     public boolean isCurrencyDataRelevant(Currency currency) {
-        return currency.getDate().getDayOfYear() != OffsetDateTime.now().getDayOfYear();
+        return currency.getDate().getDayOfYear() == OffsetDateTime.now().getDayOfYear();
     }
 
     @Transactional

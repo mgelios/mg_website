@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
@@ -48,14 +50,14 @@ public class CurrencyStatisticsService {
         return result;
     }
 
-    @Transactional
     public List<CurrencyStatistics> updateCurrencyStatistics(Currency currency) {
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
-        if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
+        if (json != null && currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);
+            return saveCurrencyStatistics(json, currency);
         }
-        return saveCurrencyStatistics(json, currency);
+        return currencyStatisticsRepository.findAllByCurrency(currency);
     }
 
     public List<CurrencyStatistics> saveCurrencyStatistics(JSONArray jsonArray, Currency currency) {
