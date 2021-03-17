@@ -22,7 +22,7 @@ public class CurrencyStatisticsRestController {
     private final CurrencyStatisticsService currencyStatisticsService;
     private final CurrencyStatisticsMapper currencyStatisticsMapper;
 
-    @GetMapping("/list")
+    @GetMapping("/map")
     public Map<String, List<CurrencyStatisticsDto>> getCurrencyStatistics() {
         return currencyStatisticsService.getDefaultCurrencyStatistics().entrySet().stream()
                 .collect(Collectors.toMap(

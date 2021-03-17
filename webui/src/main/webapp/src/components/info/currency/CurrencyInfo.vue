@@ -2,7 +2,7 @@
     <div>
         {{currencyRates}}
         {{currencyConversions}}
-        {{monthStatisticsEUR}}
+        {{currencyStatistics}}
     </div>
 </template>
 <script>
@@ -18,7 +18,7 @@
             }
         },
         computed: {
-            ...mapState('currency', ['currencyRates', 'currencyConversions', 'monthStatisticsEUR', 'monthStatisticsUSD']),
+            ...mapState('currency', ['currencyRates', 'currencyConversions', 'currencyStatistics']),
         },
         mounted() {
             this.fetchExchangeRates();

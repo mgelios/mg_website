@@ -1,6 +1,5 @@
 export const state = {
     currencyRates: [],
     currencyConversions: [],
-    monthStatisticsEUR: [],
-    monthStatisticsUSD: [],
+    currencyStatistics: new Map(),
 };

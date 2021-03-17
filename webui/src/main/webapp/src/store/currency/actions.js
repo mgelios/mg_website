@@ -17,12 +17,12 @@ async function fetchExchangeRates({ commit }) {
 async function fetchCurrencyConversions({ commit }) {
     const currencyConversionsResponse = await currencyConversion.getList();
     if (currencyConversionsResponse.success) {
-        commit(types.SET_CURRENCY_STATISTICS, currencyConversionsResponse.data);
+        commit(types.SET_CURRENCY_CONVERSIONS, currencyConversionsResponse.data);
     }
 }
 
 async function fetchCurrencyStatistics({ commit }) {
-    const currencyStatisticsResponse = await currencyStatistics.getList();
+    const currencyStatisticsResponse = await currencyStatistics.getMap();
     if (currencyStatisticsResponse.success) {
         commit(types.SET_CURRENCY_STATISTICS, currencyStatisticsResponse.data);
     }

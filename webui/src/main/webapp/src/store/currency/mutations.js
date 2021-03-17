@@ -8,7 +8,6 @@ export const mutations = Object.freeze({
         state.currencyConversions = values;
     },
     [types.SET_CURRENCY_STATISTICS](state, values) {
-        state.monthStatisticsEUR = values;
-        state.monthStatisticsUSD = values;
+        state.currencyStatistics = values;
     }
 });

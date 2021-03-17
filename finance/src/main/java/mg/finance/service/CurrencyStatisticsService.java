@@ -53,8 +53,10 @@ public class CurrencyStatisticsService {
     public List<CurrencyStatistics> updateCurrencyStatistics(Currency currency) {
         JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
                 String.valueOf(currency.getSystemId())));
-        if (json != null && currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
+        if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);
+        }
+        if (json != null) {
             return saveCurrencyStatistics(json, currency);
         }
         return currencyStatisticsRepository.findAllByCurrency(currency);

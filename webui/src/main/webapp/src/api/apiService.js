@@ -35,6 +35,19 @@ export class ApiService {
         );
     }
 
+    async getMap(axiosConfig) {
+        return requestExceptionWrapper(
+            () => axios.get(this.basePath + '/map', this.transformConfig(axiosConfig)),
+            response => {
+                let result = new Map();
+                Object.keys(response).forEach((key) => {
+                    result.set(key, response[key].map(this.responseMapper));
+                });
+                return result;
+            }
+        );
+    }
+
     async post(requestBody, axiosConfig) {
         return requestExceptionWrapper(
             () => axios.post(this.basePath, this.requestMapper(requestBody), this.transformConfig(axiosConfig)),
