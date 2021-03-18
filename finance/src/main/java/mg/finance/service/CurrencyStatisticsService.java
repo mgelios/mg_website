@@ -6,14 +6,10 @@ import mg.finance.FinanceConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.entity.CurrencyStatistics;
 import mg.finance.repository.CurrencyStatisticsRepository;
-import mg.finance.utils.CurrencyUrlBuilder;
-import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneOffset;
@@ -30,11 +26,10 @@ import java.util.stream.Collectors;
 public class CurrencyStatisticsService {
 
     private final FinanceConfiguration financeConfiguration;
-    private final CurrencyUrlBuilder currencyUrlBuilder;
-    private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
     private final CurrencyService currencyService;
     private final CurrencyStatisticsRepository currencyStatisticsRepository;
+    private final CurrencyExternalApiService currencyExternalApiService;
 
     public Map<String, List<CurrencyStatistics>> getDefaultCurrencyStatistics() {
         return financeConfiguration.getDefaultStatisticsCurrencies().stream()
@@ -51,8 +46,8 @@ public class CurrencyStatisticsService {
     }
 
     public List<CurrencyStatistics> updateCurrencyStatistics(Currency currency) {
-        JSONArray json = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(
-                String.valueOf(currency.getSystemId())));
+        JSONArray json = currencyExternalApiService.fetchCurrencyStatistics(
+                String.valueOf(currency.getSystemId()));
         if (currencyStatisticsRepository.findAllByCurrency(currency).size() > 0) {
             currencyStatisticsRepository.deleteAllByCurrency(currency);
         }

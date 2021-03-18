@@ -7,10 +7,8 @@ import mg.finance.entity.CurrencyConversion;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyConversionRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 

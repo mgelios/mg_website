@@ -3,6 +3,7 @@ package mg.finance.service;
 import lombok.AllArgsConstructor;
 import mg.finance.utils.CurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,5 +19,10 @@ public class CurrencyExternalApiService {
     public JSONObject fetchCurrencyRate(String abbreviation) {
         String url = currencyUrlBuilder.buildCurrencyRateUrl(abbreviation);
         return jsonConsumer.getJsonObject(url);
+    }
+
+    public JSONArray fetchCurrencyStatistics(String systemId) {
+        String url = currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(systemId);
+        return jsonConsumer.getJsonArray(url);
     }
 }
