@@ -1,11 +1,13 @@
 package mg.finance.service;
 
+import lombok.AllArgsConstructor;
 import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CryptoMarket;
 import mg.finance.mapper.CryptoMarketMapper;
 import mg.finance.dto.CryptoMarketDto;
 import mg.finance.repository.CryptoMarketRepository;
-import mg.finance.utils.CurrencyUrlBuilder;
+import mg.finance.utils.CoinMarketCapUrlBuilder;
+import mg.finance.utils.NBRBCurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
@@ -18,18 +20,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CryptoMarketService {
 
-    @Autowired
-    private FinanceConfiguration financeConfiguration;
-    @Autowired
-    private CurrencyUrlBuilder currencyUrlBuilder;
-    @Autowired
-    private JSONConsumer jsonConsumer;
-    @Autowired
-    private JSONHelper jsonHelper;
-    @Autowired
-    private CryptoMarketRepository cryptoMarketRepository;
+    private final CoinMarketCapUrlBuilder currencyUrlBuilder;
+    private final JSONConsumer jsonConsumer;
+    private final JSONHelper jsonHelper;
+    private final CryptoMarketRepository cryptoMarketRepository;
 
     public CryptoMarketDto getCryptoMarketInfo() {
         Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();

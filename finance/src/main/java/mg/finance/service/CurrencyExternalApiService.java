@@ -1,7 +1,7 @@
 package mg.finance.service;
 
 import lombok.AllArgsConstructor;
-import mg.finance.utils.CurrencyUrlBuilder;
+import mg.finance.utils.NBRBCurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CurrencyExternalApiService {
 
-    private final CurrencyUrlBuilder currencyUrlBuilder;
+    private final NBRBCurrencyUrlBuilder currencyUrlBuilder;
     private final JSONConsumer jsonConsumer;
 
     public JSONObject fetchCurrencyRate(String abbreviation) {

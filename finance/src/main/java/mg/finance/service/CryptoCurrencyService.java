@@ -6,7 +6,8 @@ import mg.finance.entity.CryptoCurrency;
 import mg.finance.mapper.CryptoCurrencyMapper;
 import mg.finance.dto.CryptoCurrencyDto;
 import mg.finance.repository.CryptoCurrencyRepository;
-import mg.finance.utils.CurrencyUrlBuilder;
+import mg.finance.utils.CoinMarketCapUrlBuilder;
+import mg.finance.utils.NBRBCurrencyUrlBuilder;
 import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
@@ -25,8 +26,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CryptoCurrencyService {
 
-    private final FinanceConfiguration financeConfiguration;
-    private final CurrencyUrlBuilder currencyUrlBuilder;
+    private final CoinMarketCapUrlBuilder currencyUrlBuilder;
     private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
     private final CryptoCurrencyRepository cryptoCurrencyRepository;

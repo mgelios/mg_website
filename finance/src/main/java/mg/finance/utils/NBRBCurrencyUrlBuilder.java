@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 @EnableConfigurationProperties(FinanceConfiguration.class)
 @AllArgsConstructor
-public class CurrencyUrlBuilder{
+public class NBRBCurrencyUrlBuilder {
 
     private static final String CURRENCY_CODE_NBRB_PARAM_MODE = "1";
     private static final String ABBREVIATION_NBRB_PARAM_MODE = "2";
@@ -56,15 +56,4 @@ public class CurrencyUrlBuilder{
         return result;
     }
 
-    public String buildCryptoCurrenciesUrl() {
-        StringBuilder result = new StringBuilder();
-        result.append("https://api.coinmarketcap.com/v1/ticker/?limit=100");
-        return result.toString();
-    }
-
-    public String buildCryptoCurrenciesMarketUrl() {
-        StringBuilder result = new StringBuilder();
-        result.append("https://api.coinmarketcap.com/v1/global/");
-        return result.toString();
-    }
 }
