@@ -13,16 +13,21 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @Component
 public class BasicJSONConsumer implements JSONConsumer {
 
     public JSONObject getJsonObject(String url) {
+        return getJsonObject(url, null);
+    }
+
+    public JSONObject getJsonObject(String url, Map<String, String> headers) {
         try {
-            return new JSONObject(getJsonAsString(url));
+            return new JSONObject(getJsonAsString(url, headers));
         } catch (JSONException e) {
-            log.error(e.getMessage());
+            log.error("JSON Exception occurred");
             return null;
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -31,10 +36,14 @@ public class BasicJSONConsumer implements JSONConsumer {
     }
 
     public JSONArray getJsonArray(String url) {
+        return getJsonArray(url, null);
+    }
+
+    public JSONArray getJsonArray(String url, Map<String, String> headers) {
         try {
-            return new JSONArray(getJsonAsString(url));
+            return new JSONArray(getJsonAsString(url, headers));
         } catch (JSONException e) {
-            log.error(e.getMessage());
+            log.error("JSON Exception occurred");
             return null;
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -42,17 +51,18 @@ public class BasicJSONConsumer implements JSONConsumer {
         }
     }
 
-    private String getJsonAsString(String url) {
+    private String getJsonAsString(String url, Map<String, String> headers) {
         String result = "";
         try {
             HttpClient client = HttpClientBuilder.create().build();
-            HttpGet get = new HttpGet(url);
-            HttpResponse response = client.execute(get);
+            HttpGet getRequest = new HttpGet(url);
+            headers.forEach(getRequest::addHeader);
+            HttpResponse response = client.execute(getRequest);
             result = EntityUtils.toString(response.getEntity());
         } catch (ClientProtocolException e){
-            log.error(e.getMessage());
+            log.error("Client protocol exception");
         } catch (IOException e){
-            log.error(e.getMessage());
+            log.error("IO exception");
         }
         return result;
     }

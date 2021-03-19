@@ -1,4 +1,4 @@
-package mg.finance.service;
+package mg.finance.service.currency;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +7,7 @@ import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyRepository;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
-import org.postgresql.util.PSQLException;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;

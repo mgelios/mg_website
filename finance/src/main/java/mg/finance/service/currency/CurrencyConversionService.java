@@ -1,4 +1,4 @@
-package mg.finance.service;
+package mg.finance.service.currency;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

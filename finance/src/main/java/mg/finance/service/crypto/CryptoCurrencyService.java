@@ -1,14 +1,10 @@
-package mg.finance.service;
+package mg.finance.service.crypto;
 
 import lombok.AllArgsConstructor;
-import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CryptoCurrency;
 import mg.finance.mapper.CryptoCurrencyMapper;
 import mg.finance.dto.CryptoCurrencyDto;
 import mg.finance.repository.CryptoCurrencyRepository;
-import mg.finance.utils.CoinMarketCapUrlBuilder;
-import mg.finance.utils.NBRBCurrencyUrlBuilder;
-import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,10 +22,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CryptoCurrencyService {
 
-    private final CoinMarketCapUrlBuilder currencyUrlBuilder;
-    private final JSONConsumer jsonConsumer;
-    private final JSONHelper jsonHelper;
     private final CryptoCurrencyRepository cryptoCurrencyRepository;
+    private final CryptoExternalApiService cryptoExternalApiService;
+    private final JSONHelper jsonHelper;
 
     public List<CryptoCurrencyDto> getCryptoCurrencies() {
         Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
@@ -46,7 +41,7 @@ public class CryptoCurrencyService {
     }
 
     public List<CryptoCurrency> updateCryptoCurrencies() {
-        JSONArray jsonArray = jsonConsumer.getJsonArray(currencyUrlBuilder.buildCryptoCurrenciesUrl());
+        JSONArray jsonArray = cryptoExternalApiService.fetchCryptoCurrencies();
         if (cryptoCurrencyRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoCurrencyRepository.deleteAll();
         }

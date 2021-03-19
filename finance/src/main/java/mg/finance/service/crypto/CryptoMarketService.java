@@ -1,17 +1,12 @@
-package mg.finance.service;
+package mg.finance.service.crypto;
 
 import lombok.AllArgsConstructor;
-import mg.finance.FinanceConfiguration;
 import mg.finance.entity.CryptoMarket;
 import mg.finance.mapper.CryptoMarketMapper;
 import mg.finance.dto.CryptoMarketDto;
 import mg.finance.repository.CryptoMarketRepository;
-import mg.finance.utils.CoinMarketCapUrlBuilder;
-import mg.finance.utils.NBRBCurrencyUrlBuilder;
-import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +18,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CryptoMarketService {
 
-    private final CoinMarketCapUrlBuilder currencyUrlBuilder;
-    private final JSONConsumer jsonConsumer;
-    private final JSONHelper jsonHelper;
     private final CryptoMarketRepository cryptoMarketRepository;
+    private final CryptoExternalApiService cryptoExternalApiService;
+    private final JSONHelper jsonHelper;
+
 
     public CryptoMarketDto getCryptoMarketInfo() {
         Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
@@ -41,7 +36,7 @@ public class CryptoMarketService {
     }
 
     public CryptoMarket updateCryptoMarket() {
-        JSONObject json = jsonConsumer.getJsonObject(currencyUrlBuilder.buildCryptoCurrenciesMarketUrl());
+        JSONObject json = cryptoExternalApiService.fetchCryptoMarketInfo();
         if (cryptoMarketRepository.findTopByOrderByIdDesc().isPresent()) {
             cryptoMarketRepository.deleteAll();
         }

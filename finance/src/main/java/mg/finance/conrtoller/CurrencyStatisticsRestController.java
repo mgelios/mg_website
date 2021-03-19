@@ -3,7 +3,7 @@ package mg.finance.conrtoller;
 import lombok.AllArgsConstructor;
 import mg.finance.dto.CurrencyStatisticsDto;
 import mg.finance.mapper.CurrencyStatisticsMapper;
-import mg.finance.service.CurrencyStatisticsService;
+import mg.finance.service.currency.CurrencyStatisticsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
