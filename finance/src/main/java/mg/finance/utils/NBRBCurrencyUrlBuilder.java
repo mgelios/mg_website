@@ -1,7 +1,7 @@
 package mg.finance.utils;
 
 import lombok.AllArgsConstructor;
-import mg.finance.FinanceConfiguration;
+import mg.finance.NBRBConfiguration;
 import mg.utils.url.UrlBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@EnableConfigurationProperties(FinanceConfiguration.class)
+@EnableConfigurationProperties(NBRBConfiguration.class)
 @AllArgsConstructor
 public class NBRBCurrencyUrlBuilder {
 
@@ -19,7 +19,7 @@ public class NBRBCurrencyUrlBuilder {
 
     private static final DateTimeFormatter NBRB_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d");
 
-    private final FinanceConfiguration financeConfiguration;
+    private final NBRBConfiguration financeConfiguration;
 
     public String buildCurrencyRateUrl(String currency) {
         String result = (new UrlBuilder.Builder())

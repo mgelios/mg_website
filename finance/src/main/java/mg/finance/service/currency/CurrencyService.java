@@ -2,7 +2,7 @@ package mg.finance.service.currency;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mg.finance.FinanceConfiguration;
+import mg.finance.NBRBConfiguration;
 import mg.finance.entity.Currency;
 import mg.finance.repository.CurrencyRepository;
 import mg.utils.JSONHelper;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CurrencyService {
 
-    private final FinanceConfiguration financeConfiguration;
+    private final NBRBConfiguration financeConfiguration;
     private final CurrencyRepository currencyRepository;
     private final CurrencyExternalApiService currencyExternalApiService;
     private final JSONHelper jsonHelper;

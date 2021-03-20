@@ -1,6 +1,7 @@
 mg:
-  finance:
-    currencyBaseUrl: "www.nbrb.by/API/ExRates/Rates/"
+  nbrb:
+    host: "www.nbrb.by"
+    currencyPathPart: "API/ExRates/Rates"
     currencyStatisticsPathPart: "Dynamics"
     currencyStatisticsStartDateParameter: "startDate"
     currencyStatisticsEndDateParameter: "endDate"
@@ -8,3 +9,10 @@ mg:
     defaultCurrencies: "USD,EUR,RUB,UAH,CNY"
     defaultStatisticsCurrencies: "USD,EUR"
     defaultConversionCombinations: "USD:EUR,EUR:USD,USD:RUB,USD:UAH,USD:CNY"
+  coinmarketcap:
+    host: "pro-api.coinmarketcap.com"
+    apiVersionPathPart: "v1"
+    listingsPathPart: "cryptocurrency/listings/latest"
+    startParameter: "start"
+    limitParameter: "limit"
+    convertToCurrencyParameter: "convert"

@@ -1,12 +1,12 @@
 package mg.finance.utils;
 
 import lombok.AllArgsConstructor;
-import mg.finance.FinanceConfiguration;
+import mg.finance.NBRBConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@EnableConfigurationProperties(FinanceConfiguration.class)
+@EnableConfigurationProperties(NBRBConfiguration.class)
 @AllArgsConstructor
 public class CoinMarketCapUrlBuilder {
 
