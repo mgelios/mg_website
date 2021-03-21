@@ -22,13 +22,13 @@ public class NBRBCurrencyUrlBuilder {
     private final NBRBConfiguration financeConfiguration;
 
     public String buildCurrencyRateUrl(String currency) {
-        String result = (new UrlBuilder.Builder())
+        return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
-                .host(financeConfiguration.getCurrencyBaseUrl())
+                .host(financeConfiguration.getHost())
+                .addPathPart(financeConfiguration.getCurrencyPathPart())
                 .addPathPart(currency)
                 .addQueryParameter(financeConfiguration.getCurrencyUrlParamModeParameter(), ABBREVIATION_NBRB_PARAM_MODE)
                 .build().getUrl();
-        return result;
     }
 
     public String buildCurrency30DaysStatisticsUrl(String currencyId) {
@@ -45,15 +45,15 @@ public class NBRBCurrencyUrlBuilder {
         String startDate = LocalDateTime.now()
                 .minusDays(days)
                 .format(NBRB_DATETIME_FORMATTER);
-        String result = (new UrlBuilder.Builder())
+        return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
-                .host(financeConfiguration.getCurrencyBaseUrl())
+                .host(financeConfiguration.getHost())
+                .addPathPart(financeConfiguration.getCurrencyPathPart())
                 .addPathPart(financeConfiguration.getCurrencyStatisticsPathPart())
                 .addPathPart(currencyId)
                 .addQueryParameter(financeConfiguration.getCurrencyStatisticsStartDateParameter(), startDate)
                 .addQueryParameter(financeConfiguration.getCurrencyStatisticsEndDateParameter(), endDate)
                 .build().getUrl();
-        return result;
     }
 
 }

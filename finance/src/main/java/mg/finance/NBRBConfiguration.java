@@ -16,7 +16,8 @@ import java.util.List;
 @Setter
 public class NBRBConfiguration {
 
-    private String currencyBaseUrl;
+    private String host;
+    private String currencyPathPart;
     private String currencyStatisticsPathPart;
     private String currencyStatisticsStartDateParameter;
     private String currencyStatisticsEndDateParameter;
