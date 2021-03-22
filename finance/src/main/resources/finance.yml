@@ -13,6 +13,7 @@ mg:
     host: "pro-api.coinmarketcap.com"
     apiVersionPathPart: "v1"
     listingsPathPart: "cryptocurrency/listings/latest"
+    quotesGlobalMetricsPathPart: "global-metrics/quotes/latest"
     startParameter: "start"
     limitParameter: "limit"
     convertToCurrencyParameter: "convert"

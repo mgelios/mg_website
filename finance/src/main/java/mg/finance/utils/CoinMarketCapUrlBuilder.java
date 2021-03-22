@@ -14,6 +14,8 @@ public class CoinMarketCapUrlBuilder {
 
     private final CoinMarketCapConfig coinMarketCapConfig;
 
+    private static final String COIN_MARKET_CAP_API_V1 = "v1";
+    private static final String COIN_MARKET_CAP_API_V2 = "v2";
     private static final Integer CRYPTO_CURRENCIES_FETCH_LIMIT = 100;
 
     //TODO: look into coinmarketcap doc to adjust url to real one if needed
@@ -22,7 +24,7 @@ public class CoinMarketCapUrlBuilder {
         return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(coinMarketCapConfig.getHost())
-                .addPathPart(coinMarketCapConfig.getApiVersionPathPart())
+                .addPathPart(COIN_MARKET_CAP_API_V1)
                 .addPathPart(coinMarketCapConfig.getListingsPathPart())
                 .addQueryParameter(coinMarketCapConfig.getLimitParameter(), String.valueOf(CRYPTO_CURRENCIES_FETCH_LIMIT))
                 .build().getUrl();
@@ -34,7 +36,8 @@ public class CoinMarketCapUrlBuilder {
         return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(coinMarketCapConfig.getHost())
-                .addPathPart(coinMarketCapConfig.getListingsPathPart())
+                .addPathPart(COIN_MARKET_CAP_API_V1)
+                .addPathPart(coinMarketCapConfig.getQuotesGlobalMetricsPathPart())
                 .build().getUrl();
     }
 }

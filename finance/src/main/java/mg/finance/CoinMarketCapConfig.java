@@ -17,6 +17,7 @@ public class CoinMarketCapConfig {
     private String host;
     private String apiVersionPathPart;
     private String listingsPathPart;
+    private String quotesGlobalMetricsPathPart;
     private String startParameter;
     private String limitParameter;
     private String convertToCurrencyParameter;
