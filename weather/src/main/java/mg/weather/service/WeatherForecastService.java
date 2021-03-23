@@ -1,24 +1,18 @@
 package mg.weather.service;
 
 import lombok.AllArgsConstructor;
-import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
-import mg.utils.api.consumer.ApiConsumerAuthType;
-import mg.utils.api.consumer.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
 import mg.weather.entity.WeatherForecast;
 import mg.weather.mapper.WeatherForecastMapper;
 import mg.weather.dto.WeatherForecastDto;
 import mg.weather.repository.WeatherForecastRepository;
-import mg.weather.util.OpenWeatherUrlBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -32,12 +26,10 @@ import java.util.stream.Collectors;
 public class WeatherForecastService {
 
     private final JSONHelper jsonHelper;
-    private final JSONConsumer jsonConsumer;
-    private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final WeatherForecastRepository weatherForecastRepository;
     private final WeatherConfiguration weatherConfiguration;
     private final WeatherForecastMapper weatherForecastMapper;
-    private final ApiConsumerService apiConsumerService;
+    private final WeatherExternalApiService weatherExternalApiService;
 
 
     public List<WeatherForecastDto> getDefaultWeatherForecast() {
@@ -59,17 +51,8 @@ public class WeatherForecastService {
                 .collect(Collectors.toList());
     }
 
-    public void updateDefaultWeatherForecast() {
-        updateWeatherForecastByCityName(weatherConfiguration.getDefaultCity());
-    }
-
     public List<WeatherForecast> updateWeatherForecastByCityName(String cityName) {
-        String url = apiConsumerService.fillUrlWithApiConsumerData(
-                weatherUrlBuilder.buildForecastUrl(cityName),
-                weatherConfiguration.getApiClientName(),
-                ApiConsumerAuthType.API_KEY
-        );
-        JSONObject weatherForecastJson = jsonConsumer.getJsonObject(url);
+        JSONObject weatherForecastJson = weatherExternalApiService.fetchWeatherForecast(cityName);
         if (weatherForecastRepository.findAllByCityName(cityName).size() != 0) {
             weatherForecastRepository.deleteAllByCityName(cityName);
         }
