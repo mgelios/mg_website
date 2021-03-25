@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet  id="cryptocurrency-init"  author="mgelios">
+        <createTable tableName="mg_crypto_currency_market">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="text" />
+            <column name="symbol" type="text" />
+            <column name="rank" type="bigint" />
+            <column name="available_supply" type="real" />
+            <column name="total_supply" type="real" />
+            <column name="max_supply" type="real" />
+            <column name="price_usd" type="real" />
+            <column name="volume_last_day_usd" type="real" />
+            <column name="market_cap_usd" type="real" />
+            <column name="percent_change_last_hour" type="real" />
+            <column name="percent_change_last_day" type="real" />
+            <column name="percent_change_last_week" type="real" />
+            <column name="percent_change_last_month" type="real" />
+            <column name="percent_change_last_three_month" type="real" />
+            <column name="last_updated" type="timestampz" />
+        </createTable>
+
+        <createTable tableName="mg_crypto_currency">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="activeCryptoCurrencies" type="bigint" />
+            <column name="totalCryptoCurrencies" type="bigint" />
+            <column name="btcDominance" type="bigint" />
+            <column name="ethDominance" type="bigint" />
+            <column name="totalMarketCapUsd" type="bigint" />
+            <column name="totalDayVolumeUsd" type="bigint" />
+            <column name="altcoinMarketCapUsd" type="bigint" />
+            <column name="altcoinDayVolumeUsd" type="bigint" />
+            <column name="lastUpdated" type="timestampz" />
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="mg_crypto_currency_market" />
+            <dropTable tableName="mg_crypto_currency" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

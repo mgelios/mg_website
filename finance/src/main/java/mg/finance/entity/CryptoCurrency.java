@@ -1,13 +1,17 @@
 package mg.finance.entity;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_crypto_currency")
 public class CryptoCurrency {
 
@@ -17,18 +21,18 @@ public class CryptoCurrency {
     private String name;
     private String symbol;
     private long rank;
-    private double priceUSD;
-    private double priceBTC;
-    private double volumeUSD24h;
-    private double marketCapUSD;
     private double availableSupply;
     private double totalSupply;
     private double maxSupply;
-    private double percentChangeIn1h;
-    private double percentChangeIn24h;
-    private double percentChangeIn7d;
+    private double priceUsd;
+    private double volumeLastDayUsd;
+    private double marketCapUsd;
+    private double percentChangeLastHour;
+    private double percentChangeLastDay;
+    private double percentChangeLastWeek;
+    private double percentChangeLastMonth;
+    private double percentChangeLastThreeMonth;
     private OffsetDateTime lastUpdated;
-
 }
 
 //    "data": [
@@ -38,22 +42,12 @@ public class CryptoCurrency {
 //            "symbol": "BTC",
 //            "slug": "bitcoin",
 //            "num_market_pairs": 9618,
+//            "cmc_rank": 1,
 //            "date_added": "2013-04-28T00:00:00.000Z",
-//            "tags": [
-//                "mineable",
-//                "pow",
-//                "sha-256",
-//                "store-of-value",
-//                "state-channels",
-//                "coinbase-ventures-portfolio",
-//                "three-arrows-capital-portfolio",
-//                "polychain-capital-portfolio"
-//            ],
 //            "max_supply": 21000000,
 //            "circulating_supply": 18662906,
 //            "total_supply": 18662906,
 //            "platform": null,
-//            "cmc_rank": 1,
 //            "last_updated": "2021-03-24T08:17:02.000Z",
 //            "quote": {
 //                "USD": {
@@ -69,6 +63,17 @@ public class CryptoCurrency {
 //                    "last_updated": "2021-03-24T08:17:02.000Z"
 //                }
 //            }
+//            "tags": [
+//                "mineable",
+//                "pow",
+//                "sha-256",
+//                "store-of-value",
+//                "state-channels",
+//                "coinbase-ventures-portfolio",
+//                "three-arrows-capital-portfolio",
+//                "polychain-capital-portfolio"
+//            ],
+
 //        },
 //        {
 //            "id": 1027,

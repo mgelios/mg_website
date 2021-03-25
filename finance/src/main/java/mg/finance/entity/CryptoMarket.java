@@ -1,13 +1,17 @@
 package mg.finance.entity;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @Table(name="mg_crypto_currency_market")
 public class CryptoMarket {
 
