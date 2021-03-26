@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 @Setter
 public class CoinMarketCapConfig {
 
+    private String apiClientName;
     private String host;
     private String apiVersionPathPart;
     private String listingsPathPart;

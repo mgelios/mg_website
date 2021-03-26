@@ -10,6 +10,7 @@ mg:
     defaultStatisticsCurrencies: "USD,EUR"
     defaultConversionCombinations: "USD:EUR,EUR:USD,USD:RUB,USD:UAH,USD:CNY"
   coinmarketcap:
+    apiClientName: "COIN_MARKET_CAP"
     host: "pro-api.coinmarketcap.com"
     apiVersionPathPart: "v1"
     listingsPathPart: "cryptocurrency/listings/latest"

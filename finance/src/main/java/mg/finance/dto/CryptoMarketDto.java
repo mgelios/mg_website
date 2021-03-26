@@ -1,17 +1,25 @@
 package mg.finance.dto;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@Builder
 public class CryptoMarketDto {
 
-    private Long id;
-    private Long totalUsd;
-    private Long totalUsdDayVolume;
-    private Long activeMarkets;
-    private Long activeCurrencies;
-    private double bitcoinPercent;
-    private LocalDateTime lastUpdated;
+    private UUID uuid;
+    private Long activeCryptoCurrencies;
+    private Long totalCryptoCurrencies;
+    private Long btcDominance;
+    private Long ethDominance;
+    private Long totalMarketCapUsd;
+    private Long totalDayVolumeUsd;
+    private Long altcoinMarketCapUsd;
+    private Long altcoinDayVolumeUsd;
+    private OffsetDateTime lastUpdated;
 }
