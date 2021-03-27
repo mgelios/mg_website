@@ -26,10 +26,10 @@ public class CryptoExternalApiService {
     private final ApiConsumerService apiConsumerService;
 
     public JSONArray fetchCryptoCurrencies() {
-        return jsonConsumer.getJsonArray(
+        return jsonConsumer.getJsonObject(
                 coinMarketCapUrlBuilder.buildCryptoCurrenciesUrl(),
                 getCoinMarketCapHeaders()
-        );
+        ).getJSONArray("data");
     }
 
     public JSONObject fetchCryptoMarketInfo() {

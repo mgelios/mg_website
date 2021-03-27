@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,21 +54,23 @@ public class CryptoCurrencyService {
             List<CryptoCurrency> result = new ArrayList<>();
             for (Object item : jsonArray) {
                 JSONObject jsonItem = (JSONObject) item;
-                CryptoCurrency cryptoCurrencyDBEntity = new CryptoCurrency();
-                cryptoCurrencyDBEntity.setName(jsonHelper.getString(jsonItem, "name"));
-                cryptoCurrencyDBEntity.setSymbol(jsonHelper.getString(jsonItem, "symbol"));
-                cryptoCurrencyDBEntity.setRank(jsonHelper.getLong(jsonItem, "rank"));
-                cryptoCurrencyDBEntity.setPriceUSD(jsonHelper.getDouble(jsonItem, "price_usd"));
-                cryptoCurrencyDBEntity.setPriceBTC(jsonHelper.getDouble(jsonItem, "price_btc"));
-                cryptoCurrencyDBEntity.setVolumeUSD24h(jsonHelper.getDouble(jsonItem, "24h_volume_usd"));
-                cryptoCurrencyDBEntity.setMarketCapUSD(jsonHelper.getDouble(jsonItem, "market_cap_usd"));
-                cryptoCurrencyDBEntity.setAvailableSupply(jsonHelper.getDouble(jsonItem, "available_supply"));
-                cryptoCurrencyDBEntity.setTotalSupply(jsonHelper.getDouble(jsonItem, "total_supply"));
-                cryptoCurrencyDBEntity.setMaxSupply(jsonHelper.getDouble(jsonItem, "max_supply"));
-                cryptoCurrencyDBEntity.setPercentChangeIn1h(jsonHelper.getDouble(jsonItem, "percent_change_1h"));
-                cryptoCurrencyDBEntity.setPercentChangeIn24h(jsonHelper.getDouble(jsonItem, "percent_change_24h"));
-                cryptoCurrencyDBEntity.setPercentChangeIn7d(jsonHelper.getDouble(jsonItem, "percent_change_7d"));
-                cryptoCurrencyDBEntity.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(jsonItem, "last_updated"));
+                CryptoCurrency cryptoCurrencyDBEntity = CryptoCurrency.builder()
+                        .name(jsonHelper.getString(jsonItem, "name"))
+                        .symbol(jsonHelper.getString(jsonItem, "symbol"))
+                        .rank(jsonHelper.getLong(jsonItem, "rank"))
+                        .availableSupply(jsonHelper.getDouble(jsonItem, "available_supply"))
+                        .totalSupply(jsonHelper.getDouble(jsonItem, "total_supply"))
+                        .maxSupply(jsonHelper.getDouble(jsonItem, "max_supply"))
+                        .priceUsd(jsonHelper.getDouble(jsonItem, "quote.USD.price"))
+                        .volumeLastDayUsd(jsonHelper.getDouble(jsonItem, ""))
+                        .marketCapUsd(jsonHelper.getDouble(jsonItem, "volume_24h"))
+                        .percentChangeLastHour(jsonHelper.getDouble(jsonItem, "percent_change_1h"))
+                        .percentChangeLastDay(jsonHelper.getDouble(jsonItem, "percent_change_24h"))
+                        .percentChangeLastWeek(jsonHelper.getDouble(jsonItem, "percent_change_7d"))
+                        .percentChangeLastMonth(jsonHelper.getDouble(jsonItem, "percent_change_30d"))
+                        .percentChangeLastThreeMonth(jsonHelper.getDouble(jsonItem, "percent_change_90d"))
+                        .lastUpdated(OffsetDateTime.now())
+                        .build();
                 result.add(cryptoCurrencyRepository.save(cryptoCurrencyDBEntity));
             }
             return result;
