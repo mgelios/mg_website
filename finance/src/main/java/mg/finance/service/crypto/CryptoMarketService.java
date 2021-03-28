@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Service
@@ -45,13 +46,17 @@ public class CryptoMarketService {
 
     private CryptoMarket saveCryptoMarket(JSONObject json) {
         if (json != null) {
-            CryptoMarket cryptoMarket = new CryptoMarket();
-            cryptoMarket.setActiveCurrencies(jsonHelper.getLong(json, "active_currencies"));
-            cryptoMarket.setActiveMarkets(jsonHelper.getLong(json, "active_markets"));
-            cryptoMarket.setBitcoinPercent(jsonHelper.getDouble(json, "bitcoin_percentage_of_market_cap"));
-            cryptoMarket.setLastUpdated(jsonHelper.getTimestampOfEpochSecond(json, "last_updated"));
-            cryptoMarket.setTotalUsd(jsonHelper.getLong(json, "total_market_cap_usd"));
-            cryptoMarket.setTotalUsdDayVolume(jsonHelper.getLong(json, "total_24h_volume_usd"));
+            CryptoMarket cryptoMarket = CryptoMarket.builder()
+                    .activeCryptoCurrencies(jsonHelper.getLong(json, "active_cryptocurrencies"))
+                    .totalCryptoCurrencies(jsonHelper.getLong(json, "total_cryptocurrencies"))
+                    .btcDominance(jsonHelper.getLong(json, "btc_dominance"))
+                    .ethDominance(jsonHelper.getLong(json, "eth_dominance"))
+                    .totalMarketCapUsd(jsonHelper.getLong(json, "quote.USD.total_market_cap"))
+                    .totalDayVolumeUsd(jsonHelper.getLong(json, "quote.USD.total_volume_24h"))
+                    .altcoinMarketCapUsd(jsonHelper.getLong(json, "quote.USD.altcoin_market_cap"))
+                    .altcoinDayVolumeUsd(jsonHelper.getLong(json, "quote.USD.altcoin_volume_24h"))
+                    .lastUpdated(OffsetDateTime.now())
+                    .build();
             return cryptoMarketRepository.save(cryptoMarket);
         } else {
             return null;
