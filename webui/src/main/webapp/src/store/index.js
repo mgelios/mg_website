@@ -8,6 +8,7 @@ import Blog from './modules/Blog'
 
 import { weather } from './weather'
 import { currency } from "./currency";
+import { crypto } from "./crypto";
 import { profile } from './profile';
 import { app } from "./app";
 import { apiConsumer } from "./apiConsumer";
@@ -24,6 +25,7 @@ export default new Vuex.Store({
         app,
         weather,
         currency,
+        crypto,
         profile,
         apiConsumer,
     }
