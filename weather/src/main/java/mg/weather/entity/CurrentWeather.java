@@ -26,6 +26,7 @@ public class CurrentWeather {
     private String description;
     private String icon;
     private double temperature;
+    private double feelsLike;
     private double pressure;
     private double humidity;
     private double minimalTemperature;

@@ -8,6 +8,7 @@ export class WeatherForecastItemModel {
      * @param {String} config.icon
      * @param {String} config.cityName
      * @param {Number} config.temperature
+     * @param {Number} config.feelsLike
      * @param {Number} config.minimalTemperature
      * @param {Number} config.maximumTemperature
      * @param {Number} config.pressure
@@ -28,6 +29,7 @@ export class WeatherForecastItemModel {
         this.icon = config.icon;
         this.cityName = config.cityName;
         this.temperature = config.temperature;
+        this.feelsLike = config.feelsLike;
         this.minimalTemperature = config.minimalTemperature;
         this.maximumTemperature = config.maximumTemperature;
         this.pressure = config.pressure;

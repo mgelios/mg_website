@@ -12,6 +12,7 @@ export class CurrentWeatherModel {
      * @param {Number} config.longitude
      * @param {Number} config.latitude
      * @param {Number} config.temperature
+     * @param {Number} config.feelsLike
      * @param {Number} config.pressure
      * @param {Number} config.humidity
      * @param {Number} config.minimalTemperature
@@ -35,6 +36,7 @@ export class CurrentWeatherModel {
         this.longitude = config.longitude;
         this.latitude = config.latitude;
         this.temperature = config.temperature;
+        this.feelsLike = config.feelsLike;
         this.pressure = config.pressure;
         this.humidity = config.humidity;
         this.minimalTemperature = config.minimalTemperature;

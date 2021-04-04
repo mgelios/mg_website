@@ -21,6 +21,7 @@ public class WeatherForecast {
     private UUID uuid;
     private OffsetDateTime time;
     private double temperature;
+    private double feelsLike;
     private double minimalTemperature;
     private double maximumTemperature;
     private double pressure;

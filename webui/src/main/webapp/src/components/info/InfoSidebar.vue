@@ -23,6 +23,11 @@
                     <v-list-item-content>Currency</v-list-item-content>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item link @click="router.push({ name: pages.Info.Crypto })">
+                <v-list-item-content>
+                    <v-list-item-content>Crypto currency</v-list-item-content>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 
