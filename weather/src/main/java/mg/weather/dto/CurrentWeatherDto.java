@@ -18,6 +18,7 @@ public class CurrentWeatherDto {
     private double longitude;
     private double latitude;
     private double temperature;
+    private double feelsLike;
     private double pressure;
     private double humidity;
     private double minimalTemperature;

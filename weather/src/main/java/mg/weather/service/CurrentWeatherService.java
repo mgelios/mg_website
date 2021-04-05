@@ -58,6 +58,7 @@ public class CurrentWeatherService {
                     .mainInfo(jsonHelper.getString(json, "weather[0].main"))
                     .icon(jsonHelper.getString(json, "weather[0].icon"))
                     .temperature(jsonHelper.getDouble(json, "main.temp"))
+                    .temperature(jsonHelper.getDouble(json, "main.feels_like"))
                     .pressure(jsonHelper.getDouble(json, "main.pressure"))
                     .humidity(jsonHelper.getDouble(json, "main.humidity"))
                     .minimalTemperature(jsonHelper.getDouble(json, "main.temp_min"))

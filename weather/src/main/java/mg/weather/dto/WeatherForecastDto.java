@@ -16,6 +16,7 @@ public class WeatherForecastDto {
     private String icon;
     private String cityName;
     private double temperature;
+    private double feelsLike;
     private double minimalTemperature;
     private double maximumTemperature;
     private double pressure;

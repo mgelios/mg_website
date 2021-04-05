@@ -70,6 +70,7 @@ public class WeatherForecastService {
                 WeatherForecast dbEntity = WeatherForecast.builder()
                         .time(jsonHelper.getOffsetDateTimeOfEpochSecond(forecast, "dt"))
                         .temperature(jsonHelper.getDouble(forecast, "main.temp"))
+                        .feelsLike(jsonHelper.getDouble(forecast, "main.feels_like"))
                         .minimalTemperature(jsonHelper.getDouble(forecast, "main.temp_min"))
                         .maximumTemperature(jsonHelper.getDouble(forecast, "main.temp_max"))
                         .pressure(jsonHelper.getDouble(forecast, "main.pressure"))
