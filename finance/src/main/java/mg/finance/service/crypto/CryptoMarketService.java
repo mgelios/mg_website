@@ -25,7 +25,7 @@ public class CryptoMarketService {
 
 
     public CryptoMarketDto getCryptoMarketInfo() {
-        Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findTopByOrderByIdDesc();
+        Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findFirstByActiveCryptoCurrenciesIsNotNull();
         CryptoMarket cryptoMarket = null;
         if (!optionalCryptoMarket.isPresent() ||
                 optionalCryptoMarket.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
@@ -38,7 +38,7 @@ public class CryptoMarketService {
 
     public CryptoMarket updateCryptoMarket() {
         JSONObject json = cryptoExternalApiService.fetchCryptoMarketInfo();
-        if (cryptoMarketRepository.findTopByOrderByIdDesc().isPresent()) {
+        if (cryptoMarketRepository.findFirstByActiveCryptoCurrenciesIsNotNull().isPresent()) {
             cryptoMarketRepository.deleteAll();
         }
         return saveCryptoMarket(json);

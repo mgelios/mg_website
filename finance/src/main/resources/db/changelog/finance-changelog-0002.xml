@@ -26,7 +26,7 @@
             <column name="percent_change_last_week" type="real" />
             <column name="percent_change_last_month" type="real" />
             <column name="percent_change_last_three_month" type="real" />
-            <column name="last_updated" type="timestampz" />
+            <column name="last_updated" type="timestamptz" />
         </createTable>
 
         <createTable tableName="mg_crypto_currency">
@@ -41,7 +41,7 @@
             <column name="totalDayVolumeUsd" type="bigint" />
             <column name="altcoinMarketCapUsd" type="bigint" />
             <column name="altcoinDayVolumeUsd" type="bigint" />
-            <column name="lastUpdated" type="timestampz" />
+            <column name="lastUpdated" type="timestamptz" />
         </createTable>
 
         <rollback>

@@ -28,7 +28,7 @@ public class CryptoCurrencyService {
     private final JSONHelper jsonHelper;
 
     public List<CryptoCurrencyDto> getCryptoCurrencies() {
-        Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findTopByOrderByIdDesc();
+        Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findFirstByMarketCapUsdNotNull();
         List<CryptoCurrency> cryptoCurrencies = new ArrayList<>();
         if (!optionalCryptoCurrency.isPresent() ||
                 optionalCryptoCurrency.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
@@ -43,7 +43,7 @@ public class CryptoCurrencyService {
 
     public List<CryptoCurrency> updateCryptoCurrencies() {
         JSONArray jsonArray = cryptoExternalApiService.fetchCryptoCurrencies();
-        if (cryptoCurrencyRepository.findTopByOrderByIdDesc().isPresent()) {
+        if (cryptoCurrencyRepository.findFirstByMarketCapUsdNotNull().isPresent()) {
             cryptoCurrencyRepository.deleteAll();
         }
         return saveCryptoCurrency(jsonArray);

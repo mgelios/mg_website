@@ -1,9 +1,6 @@
 package mg.finance.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="mg_crypto_currency")
 public class CryptoCurrency {
 
