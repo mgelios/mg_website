@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@EnableConfigurationProperties(NBRBConfiguration.class)
+//@EnableConfigurationProperties(NBRBConfiguration.class)
 @AllArgsConstructor
 public class NBRBCurrencyUrlBuilder {
 

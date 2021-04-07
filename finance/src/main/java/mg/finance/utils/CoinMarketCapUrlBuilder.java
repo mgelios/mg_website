@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component;
 
 @Component
-@EnableConfigurationProperties(NBRBConfiguration.class)
+@EnableConfigurationProperties(CoinMarketCapConfig.class)
 @AllArgsConstructor
 public class CoinMarketCapUrlBuilder {
 
@@ -18,9 +18,7 @@ public class CoinMarketCapUrlBuilder {
     private static final String COIN_MARKET_CAP_API_V2 = "v2";
     private static final Integer CRYPTO_CURRENCIES_FETCH_LIMIT = 100;
 
-    //TODO: look into coinmarketcap doc to adjust url to real one if needed
     public String buildCryptoCurrenciesUrl() {
-        //result.append("https://api.coinmarketcap.com/v1/ticker/?limit=100");
         return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(coinMarketCapConfig.getHost())
@@ -30,9 +28,7 @@ public class CoinMarketCapUrlBuilder {
                 .build().getUrl();
     }
 
-    //TODO: update to real coinmarketcap url if possible
     public String buildCryptoCurrenciesMarketUrl() {
-        //result.append("https://api.coinmarketcap.com/v1/global/");
         return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(coinMarketCapConfig.getHost())

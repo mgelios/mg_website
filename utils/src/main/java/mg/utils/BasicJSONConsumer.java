@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -20,7 +21,7 @@ import java.util.Map;
 public class BasicJSONConsumer implements JSONConsumer {
 
     public JSONObject getJsonObject(String url) {
-        return getJsonObject(url, null);
+        return getJsonObject(url, new HashMap<>());
     }
 
     public JSONObject getJsonObject(String url, Map<String, String> headers) {
@@ -36,7 +37,7 @@ public class BasicJSONConsumer implements JSONConsumer {
     }
 
     public JSONArray getJsonArray(String url) {
-        return getJsonArray(url, null);
+        return getJsonArray(url, new HashMap<>());
     }
 
     public JSONArray getJsonArray(String url, Map<String, String> headers) {
