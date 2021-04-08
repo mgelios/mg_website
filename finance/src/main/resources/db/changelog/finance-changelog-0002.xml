@@ -8,7 +8,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet  id="cryptocurrency-init"  author="mgelios">
-        <createTable tableName="mg_crypto_currency_market">
+        <createTable tableName="mg_crypto_currency">
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
@@ -29,19 +29,19 @@
             <column name="last_updated" type="timestamptz" />
         </createTable>
 
-        <createTable tableName="mg_crypto_currency">
+        <createTable tableName="mg_crypto_currency_market">
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="activeCryptoCurrencies" type="bigint" />
-            <column name="totalCryptoCurrencies" type="bigint" />
-            <column name="btcDominance" type="bigint" />
-            <column name="ethDominance" type="bigint" />
-            <column name="totalMarketCapUsd" type="bigint" />
-            <column name="totalDayVolumeUsd" type="bigint" />
-            <column name="altcoinMarketCapUsd" type="bigint" />
-            <column name="altcoinDayVolumeUsd" type="bigint" />
-            <column name="lastUpdated" type="timestamptz" />
+            <column name="active_crypto_currencies" type="bigint" />
+            <column name="total_crypto_currencies" type="bigint" />
+            <column name="btc_dominance" type="bigint" />
+            <column name="eth_dominance" type="bigint" />
+            <column name="total_market_cap_usd" type="bigint" />
+            <column name="total_day_volume_usd" type="bigint" />
+            <column name="altcoin_market_cap_usd" type="bigint" />
+            <column name="altcoin_day_volume_usd" type="bigint" />
+            <column name="last_updated" type="timestamptz" />
         </createTable>
 
         <rollback>

@@ -21,7 +21,7 @@ public class OpenWeatherUrlBuilder{
     public static final String OPEN_WEATHER_ENGLISH_LANGUAGE = "en";
 
     public String buildCurrentWeatherUrl(String city) {
-        String result = (new UrlBuilder.Builder())
+        return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(weatherConfiguration.getHost())
                 .addPathPart(weatherConfiguration.getWeatherPathPart())
@@ -30,11 +30,10 @@ public class OpenWeatherUrlBuilder{
                 .addQueryParameter(weatherConfiguration.getUnitsParameter(), OPEN_WEATHER_METRIC_UNITS)
                 .addQueryParameter(weatherConfiguration.getLangParameter(), OPEN_WEATHER_ENGLISH_LANGUAGE)
                 .build().getUrl();
-        return result;
     }
 
     public String buildForecastUrl(String city) {
-        String result = (new UrlBuilder.Builder())
+        return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTPS_PROTOCOL)
                 .host(weatherConfiguration.getHost())
                 .addPathPart(weatherConfiguration.getForecastPathPart())
@@ -43,11 +42,10 @@ public class OpenWeatherUrlBuilder{
                 .addQueryParameter(weatherConfiguration.getUnitsParameter(), OPEN_WEATHER_METRIC_UNITS)
                 .addQueryParameter(weatherConfiguration.getLangParameter(), OPEN_WEATHER_ENGLISH_LANGUAGE)
                 .build().getUrl();
-        return result;
     }
 
     public String buildUviUrl(String lat, String lon) {
-        String result = (new UrlBuilder.Builder())
+        return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
                 .host(weatherConfiguration.getHost())
                 .addPathPart(weatherConfiguration.getUviPathPart())
@@ -55,6 +53,5 @@ public class OpenWeatherUrlBuilder{
                 .addQueryParameter(weatherConfiguration.getCoordLatParameter(), lat)
                 .addQueryParameter(weatherConfiguration.getCoordLonParameter(), lon)
                 .build().getUrl();
-        return result;
     }
 }

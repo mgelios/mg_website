@@ -1,9 +1,9 @@
 import Info from "../../../components/info/Info";
 import WeatherInfo from "../../../components/info/weather/WeatherInfo";
 import CurrencyInfo from "../../../components/info/currency/CurrencyInfo";
-import CryptoCurrencies from "../../../components/crypto/CryptoCurrencies";
 
 import { pages } from "../pages";
+import CryptoInfo from "../../../components/info/crypto/CryptoInfo";
 
 export const infoRoutes = {
     path: '/info',
@@ -23,7 +23,7 @@ export const infoRoutes = {
         {
             path: 'crypto',
             name: pages.Info.Crypto,
-            component: CryptoCurrencies
+            component: CryptoInfo
         }
     ]
 };
