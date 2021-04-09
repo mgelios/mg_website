@@ -47,14 +47,14 @@ public class CryptoMarketService {
     private CryptoMarket saveCryptoMarket(JSONObject json) {
         if (json != null) {
             CryptoMarket cryptoMarket = CryptoMarket.builder()
-                    .activeCryptoCurrencies(jsonHelper.getLong(json, "active_cryptocurrencies"))
-                    .totalCryptoCurrencies(jsonHelper.getLong(json, "total_cryptocurrencies"))
-                    .btcDominance(jsonHelper.getLong(json, "btc_dominance"))
-                    .ethDominance(jsonHelper.getLong(json, "eth_dominance"))
-                    .totalMarketCapUsd(jsonHelper.getLong(json, "quote.USD.total_market_cap"))
-                    .totalDayVolumeUsd(jsonHelper.getLong(json, "quote.USD.total_volume_24h"))
-                    .altcoinMarketCapUsd(jsonHelper.getLong(json, "quote.USD.altcoin_market_cap"))
-                    .altcoinDayVolumeUsd(jsonHelper.getLong(json, "quote.USD.altcoin_volume_24h"))
+                    .activeCryptoCurrencies(jsonHelper.getLong(json, "data.active_cryptocurrencies"))
+                    .totalCryptoCurrencies(jsonHelper.getLong(json, "data.total_cryptocurrencies"))
+                    .btcDominance(jsonHelper.getLong(json, "data.btc_dominance"))
+                    .ethDominance(jsonHelper.getLong(json, "data.eth_dominance"))
+                    .totalMarketCapUsd(jsonHelper.getLong(json, "data.quote.USD.total_market_cap"))
+                    .totalDayVolumeUsd(jsonHelper.getLong(json, "data.quote.USD.total_volume_24h"))
+                    .altcoinMarketCapUsd(jsonHelper.getLong(json, "data.quote.USD.altcoin_market_cap"))
+                    .altcoinDayVolumeUsd(jsonHelper.getLong(json, "data.quote.USD.altcoin_volume_24h"))
                     .lastUpdated(OffsetDateTime.now())
                     .build();
             return cryptoMarketRepository.save(cryptoMarket);

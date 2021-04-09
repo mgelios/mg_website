@@ -33,7 +33,10 @@ public class CryptoExternalApiService {
     }
 
     public JSONObject fetchCryptoMarketInfo() {
-        return jsonConsumer.getJsonObject(coinMarketCapUrlBuilder.buildCryptoCurrenciesMarketUrl());
+        return jsonConsumer.getJsonObject(
+                coinMarketCapUrlBuilder.buildCryptoCurrenciesMarketUrl(),
+                getCoinMarketCapHeaders()
+        );
     }
 
     private Map<String, String> getCoinMarketCapHeaders() {

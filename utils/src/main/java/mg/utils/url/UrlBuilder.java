@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class UrlBuilder {
 
-    private String protocol;
-    private String host;
-    private String path;
-    private String query;
+    private String protocol = "";
+    private String host = "";
+    private String path = "";
+    private String query = "";
 
     public String getUrl() {
         return protocol + host + path + query;
@@ -26,10 +26,10 @@ public class UrlBuilder {
         public static final String HTTP_PROTOCOL = "http://";
         public static final String HTTPS_PROTOCOL = "https://";
 
-        private String protocol;
-        private String host;
-        private String path;
-        private String query;
+        private String protocol = "";
+        private String host = "";
+        private String path = "";
+        private String query = "";
 
         public Builder protocol(String protocol) {
             this.protocol = protocol;
