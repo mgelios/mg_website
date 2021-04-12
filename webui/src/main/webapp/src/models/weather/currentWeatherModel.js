@@ -1,3 +1,5 @@
+import { DateModel } from "../common/dateModel";
+
 export class CurrentWeatherModel {
 
     /**
@@ -46,7 +48,7 @@ export class CurrentWeatherModel {
         this.windDegree = config.windDegree;
         this.uvi = config.uvi;
         this.time = config.time;
-        this.sunrise = config.sunrise;
-        this.sunset = config.sunset;
+        this.sunrise = new DateModel(config.sunrise);
+        this.sunset = new DateModel(config.sunset);
     }
 }

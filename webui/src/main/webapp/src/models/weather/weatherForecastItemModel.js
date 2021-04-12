@@ -1,3 +1,5 @@
+import { DateModel } from "../common/dateModel";
+
 export class WeatherForecastItemModel {
 
     /**
@@ -39,6 +41,6 @@ export class WeatherForecastItemModel {
         this.windSpeed = config.windSpeed;
         this.windDegree = config.windDegree;
         this.time = config.time;
-        this.updateTime = config.updateTime;
+        this.updateTime = new DateModel(config.updateTime);
     }
 }
