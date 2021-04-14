@@ -12,12 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class CryptoMarketService {
+
+    private static final long HOURS_UPDATE_THRESHOLD = 6;
 
     private final CryptoMarketRepository cryptoMarketRepository;
     private final CryptoExternalApiService cryptoExternalApiService;
@@ -27,13 +30,17 @@ public class CryptoMarketService {
     public CryptoMarketDto getCryptoMarketInfo() {
         Optional<CryptoMarket> optionalCryptoMarket = cryptoMarketRepository.findFirstByActiveCryptoCurrenciesIsNotNull();
         CryptoMarket cryptoMarket = null;
-        if (!optionalCryptoMarket.isPresent() ||
-                optionalCryptoMarket.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
+        if (optionalCryptoMarket.isEmpty() || isDateTimeLessThanThreshold(optionalCryptoMarket.get().getLastUpdated())) {
             cryptoMarket = updateCryptoMarket();
         } else {
             cryptoMarket = optionalCryptoMarket.get();
         }
         return CryptoMarketMapper.INSTANCE.mapToDTO(cryptoMarket);
+    }
+
+    private boolean isDateTimeLessThanThreshold(OffsetDateTime dateTime) {
+        long hours = dateTime.until(OffsetDateTime.now(), ChronoUnit.HOURS);
+        return hours > HOURS_UPDATE_THRESHOLD;
     }
 
     public CryptoMarket updateCryptoMarket() {

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CryptoCurrencyService {
 
+    private static final long MINUTES_UPDATE_THRESHOLD = 30;
+
     private final CryptoCurrencyRepository cryptoCurrencyRepository;
     private final CryptoExternalApiService cryptoExternalApiService;
     private final JSONHelper jsonHelper;
@@ -30,8 +33,7 @@ public class CryptoCurrencyService {
     public List<CryptoCurrencyDto> getCryptoCurrencies() {
         Optional<CryptoCurrency> optionalCryptoCurrency = cryptoCurrencyRepository.findFirstByMarketCapUsdNotNull();
         List<CryptoCurrency> cryptoCurrencies = new ArrayList<>();
-        if (!optionalCryptoCurrency.isPresent() ||
-                optionalCryptoCurrency.get().getLastUpdated().toLocalDateTime().getMinute() != LocalDateTime.now().getMinute()) {
+        if (optionalCryptoCurrency.isEmpty() || isDateTimeLessThanThreshold(optionalCryptoCurrency.get().getLastUpdated())) {
             cryptoCurrencies = updateCryptoCurrencies();
         } else {
             cryptoCurrencyRepository.findAll().forEach(cryptoCurrencies::add);
@@ -39,6 +41,11 @@ public class CryptoCurrencyService {
         return cryptoCurrencies.stream()
                 .map(CryptoCurrencyMapper.INSTANCE::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    private boolean isDateTimeLessThanThreshold(OffsetDateTime dateTime) {
+        long minutes = dateTime.until(OffsetDateTime.now(), ChronoUnit.MINUTES);
+        return minutes > MINUTES_UPDATE_THRESHOLD;
     }
 
     public List<CryptoCurrency> updateCryptoCurrencies() {
