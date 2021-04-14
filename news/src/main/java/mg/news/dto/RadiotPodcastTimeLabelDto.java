@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -14,5 +15,5 @@ public class RadiotPodcastTimeLabelDto {
     private RadiotPodcastDto podcast;
     private String topic;
     private Long duration;
-    private LocalDateTime time;
+    private OffsetDateTime time;
 }

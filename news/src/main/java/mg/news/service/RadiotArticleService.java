@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class RadiotArticleService {
+
+    private static final long ARTICLE_EXPIRATION_THRESHOLD_IN_HOURS = 24;
 
     private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
@@ -34,7 +37,7 @@ public class RadiotArticleService {
         Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByOriginalTimeDesc();
         if (dbOptionalSingularArticle.isPresent()) {
             RadiotArticle dbSingularArticle = dbOptionalSingularArticle.get();
-            if (dbSingularArticle.getLastUpdated().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
+            if (isArticleExpired(dbSingularArticle)) {
                 radiotArticleRepository.deleteAll();
                 dbArticles = fillRadiotArticles();
             } else {
@@ -46,6 +49,11 @@ public class RadiotArticleService {
         return dbArticles.stream()
                 .map(radiotArticleMapper::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    private boolean isArticleExpired(RadiotArticle article) {
+        long hours = article.getLastUpdated().until(OffsetDateTime.now(), ChronoUnit.HOURS);
+        return hours > ARTICLE_EXPIRATION_THRESHOLD_IN_HOURS;
     }
 
     private List<RadiotArticle> fillRadiotArticles() {
