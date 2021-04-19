@@ -31,19 +31,11 @@ public class RadiotArticleService {
     private final JSONHelper jsonHelper;
 
     public List<RadiotArticle> getRadiotArticlesList() {
-        List<RadiotArticle> dbArticles = new ArrayList<>();
-        Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByOriginalTimeDesc();
-        if (dbOptionalSingularArticle.isPresent()) {
-            if (isArticleExpired(dbOptionalSingularArticle.get())) {
-                radiotArticleRepository.deleteAll();
-                dbArticles = updateRadiotArticles();
-            } else {
-                radiotArticleRepository.findAll().forEach(dbArticles::add);
-            }
-        } else {
-            dbArticles = updateRadiotArticles();
+        RadiotArticle dbArticle = radiotArticleRepository.findTopByOrderByOriginalTimeDesc().orElse(null);
+        if (dbArticle == null || isArticleExpired(dbArticle)) {
+            return updateRadiotArticles();
         }
-        return dbArticles;
+        return radiotArticleRepository.findAll();
     }
 
     private boolean isArticleExpired(RadiotArticle article) {
@@ -54,9 +46,10 @@ public class RadiotArticleService {
     public List<RadiotArticle> updateRadiotArticles() {
         JSONArray json = radiotExternalApiService.fetchArticles();
         if (json != null) {
+            radiotArticleRepository.deleteAll();
             return fillRadiotArticles(json);
         } else {
-            return new ArrayList<>();
+            return radiotArticleRepository.findAll();
         }
     }
 
