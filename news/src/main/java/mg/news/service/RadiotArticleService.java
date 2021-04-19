@@ -24,31 +24,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RadiotArticleService {
 
-    private static final long ARTICLE_EXPIRATION_THRESHOLD_IN_HOURS = 24;
+    private static final long ARTICLE_EXPIRATION_THRESHOLD_IN_HOURS = 6;
 
-    private final JSONConsumer jsonConsumer;
-    private final JSONHelper jsonHelper;
-    private final RadiotUrlBuilder radiotUrlBuilder;
     private final RadiotArticleRepository radiotArticleRepository;
-    private final RadiotArticleMapper radiotArticleMapper;
+    private final RadiotExternalApiService radiotExternalApiService;
+    private final JSONHelper jsonHelper;
 
-    public List<RadiotArticleDto> getRadiotArticlesList() {
+    public List<RadiotArticle> getRadiotArticlesList() {
         List<RadiotArticle> dbArticles = new ArrayList<>();
         Optional<RadiotArticle> dbOptionalSingularArticle = radiotArticleRepository.findTopByOrderByOriginalTimeDesc();
         if (dbOptionalSingularArticle.isPresent()) {
-            RadiotArticle dbSingularArticle = dbOptionalSingularArticle.get();
-            if (isArticleExpired(dbSingularArticle)) {
+            if (isArticleExpired(dbOptionalSingularArticle.get())) {
                 radiotArticleRepository.deleteAll();
-                dbArticles = fillRadiotArticles();
+                dbArticles = updateRadiotArticles();
             } else {
                 radiotArticleRepository.findAll().forEach(dbArticles::add);
             }
         } else {
-            dbArticles = fillRadiotArticles();
+            dbArticles = updateRadiotArticles();
         }
-        return dbArticles.stream()
-                .map(radiotArticleMapper::mapToDTO)
-                .collect(Collectors.toList());
+        return dbArticles;
     }
 
     private boolean isArticleExpired(RadiotArticle article) {
@@ -56,33 +51,37 @@ public class RadiotArticleService {
         return hours > ARTICLE_EXPIRATION_THRESHOLD_IN_HOURS;
     }
 
-    private List<RadiotArticle> fillRadiotArticles() {
-        List<RadiotArticle> radiotArticleList = new ArrayList<>();
-        JSONArray jsonArticles = jsonConsumer.getJsonArray(radiotUrlBuilder.buildNewsUrl(100));
-        if (jsonArticles != null) {
-            jsonArticles.forEach(article -> {
-                JSONObject jsonArticle = (JSONObject) article;
-                RadiotArticle dbArticle = RadiotArticle.builder()
-                        .author(jsonHelper.getString(jsonArticle, "author"))
-                        .comments(jsonHelper.getLong(jsonArticle, "comments"))
-                        .content(jsonHelper.getString(jsonArticle, "content"))
-                        .feed(jsonHelper.getString(jsonArticle, "feed"))
-                        .likes(jsonHelper.getLong(jsonArticle, "likes"))
-                        .link(jsonHelper.getString(jsonArticle, "link"))
-                        .mainPicture(jsonHelper.getString(jsonArticle, "pic"))
-                        .slug(jsonHelper.getString(jsonArticle, "slug"))
-                        .snippet(jsonHelper.getString(jsonArticle, "snippet"))
-                        .title(jsonHelper.getString(jsonArticle, "title"))
-                        .originalTime(OffsetDateTime.now())
-                        .radiotTime(OffsetDateTime.now())
-                        .lastUpdated(OffsetDateTime.now())
-                        .build();
-                dbArticle = radiotArticleRepository.save(dbArticle);
-                radiotArticleList.add(dbArticle);
-            });
-            return radiotArticleList;
+    public List<RadiotArticle> updateRadiotArticles() {
+        JSONArray json = radiotExternalApiService.fetchArticles();
+        if (json != null) {
+            return fillRadiotArticles(json);
         } else {
-            return null;
+            return new ArrayList<>();
         }
+    }
+
+    private List<RadiotArticle> fillRadiotArticles(JSONArray json) {
+        List<RadiotArticle> radiotArticleList = new ArrayList<>();
+        json.forEach(article -> {
+            JSONObject jsonArticle = (JSONObject) article;
+            RadiotArticle dbArticle = RadiotArticle.builder()
+                    .author(jsonHelper.getString(jsonArticle, "author"))
+                    .comments(jsonHelper.getLong(jsonArticle, "comments"))
+                    .content(jsonHelper.getString(jsonArticle, "content"))
+                    .feed(jsonHelper.getString(jsonArticle, "feed"))
+                    .likes(jsonHelper.getLong(jsonArticle, "likes"))
+                    .link(jsonHelper.getString(jsonArticle, "link"))
+                    .mainPicture(jsonHelper.getString(jsonArticle, "pic"))
+                    .slug(jsonHelper.getString(jsonArticle, "slug"))
+                    .snippet(jsonHelper.getString(jsonArticle, "snippet"))
+                    .title(jsonHelper.getString(jsonArticle, "title"))
+                    .originalTime(OffsetDateTime.now())
+                    .radiotTime(OffsetDateTime.now())
+                    .lastUpdated(OffsetDateTime.now())
+                    .build();
+            dbArticle = radiotArticleRepository.save(dbArticle);
+            radiotArticleList.add(dbArticle);
+        });
+        return radiotArticleList;
     }
 }
