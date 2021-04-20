@@ -16,10 +16,13 @@ public class RadiotExternalApiService {
     private static final int NUMBER_OF_ARTICLES_TO_FETCH = 100;
 
     private final JSONConsumer jsonConsumer;
-    private final JSONHelper jsonHelper;
     private final RadiotUrlBuilder radiotUrlBuilder;
 
     public JSONArray fetchArticles() {
         return jsonConsumer.getJsonArray(radiotUrlBuilder.buildNewsUrl(NUMBER_OF_ARTICLES_TO_FETCH));
+    }
+
+    public JSONArray fetchPodcasts() {
+        return jsonConsumer.getJsonArray(radiotUrlBuilder.buildPodcastUrl());
     }
 }

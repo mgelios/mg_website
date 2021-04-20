@@ -48,9 +48,8 @@ public class RadiotArticleService {
         if (json != null) {
             radiotArticleRepository.deleteAll();
             return fillRadiotArticles(json);
-        } else {
-            return radiotArticleRepository.findAll();
         }
+        return radiotArticleRepository.findAll();
     }
 
     private List<RadiotArticle> fillRadiotArticles(JSONArray json) {
