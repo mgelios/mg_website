@@ -19,11 +19,11 @@ public class RadiotPodcast {
     private UUID uuid;
     private String url;
     private String title;
-    private OffsetDateTime date;
     private String image;
     private String body;
     private String showNotes;
     private String audioUrl;
+    private OffsetDateTime date;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "podcast", orphanRemoval = true, cascade = CascadeType.ALL)

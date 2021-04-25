@@ -24,11 +24,11 @@ public class RadiotArticle {
     private String mainPicture;
     private String link;
     private String author;
-    private OffsetDateTime originalTime;
-    private OffsetDateTime radiotTime;
     private String feed;
     private String slug;
     private Long comments;
     private Long likes;
+    private OffsetDateTime originalTime;
+    private OffsetDateTime radiotTime;
     private OffsetDateTime lastUpdated;
 }

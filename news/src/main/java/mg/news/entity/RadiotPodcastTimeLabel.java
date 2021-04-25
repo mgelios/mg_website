@@ -3,7 +3,7 @@ package mg.news.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +18,7 @@ public class RadiotPodcastTimeLabel {
     private UUID uuid;
     private String topic;
     private Long duration;
-    private Timestamp time;
+    private OffsetDateTime time;
     @ManyToOne
     @JoinColumn(name = "podcast", nullable = false)
     @ToString.Exclude
