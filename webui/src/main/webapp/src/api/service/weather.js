@@ -1,6 +1,6 @@
-import {ApiService} from "../apiService";
-import {CurrentWeatherModel} from "../../models/weather/currentWeatherModel";
-import {WeatherForecastItemModel} from "../../models/weather/weatherForecastItemModel";
+import { ApiService } from "../apiService";
+import { CurrentWeatherModel } from "../../models/weather/currentWeatherModel";
+import { WeatherForecastItemModel } from "../../models/weather/weatherForecastItemModel";
 
 export const currentWeather = new ApiService(
     '/api/v1/weather/current',
