@@ -45,7 +45,7 @@
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="topic" type="text" />
-            <column name="time" type="timestampz" />
+            <column name="time" type="timestamptz" />
             <column name="duration" type="bigint" />
             <column name="podcast" type="integer" />
         </createTable>

@@ -3,27 +3,21 @@ package mg.news.service;
 import lombok.AllArgsConstructor;
 import mg.news.entity.RadiotPodcast;
 import mg.news.entity.RadiotPodcastTimeLabel;
-import mg.news.mapper.RadiotPodcastMapper;
-import mg.news.dto.RadiotPodcastDto;
 import mg.news.repository.RadiotPodcastRepository;
 import mg.news.repository.RadiotPodcastTimeLabelRepository;
-import mg.news.util.RadiotUrlBuilder;
-import mg.utils.JSONConsumer;
 import mg.utils.JSONHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,7 +32,7 @@ public class RadiotPodcastService {
     private final JSONHelper jsonHelper;
 
     public List<RadiotPodcast> getRadiotPodcasts() {
-        RadiotPodcast podcast = radiotPodcastRepository.findFirstByDate().orElse(null);
+        RadiotPodcast podcast = radiotPodcastRepository.findAll().get(0);
         if (podcast == null || isPodcastHasExpired(podcast)) {
             return updateRadiotPodcasts();
         }
@@ -87,7 +81,10 @@ public class RadiotPodcastService {
             RadiotPodcastTimeLabel timeLabel = RadiotPodcastTimeLabel.builder()
                     .duration(jsonHelper.getLong(jsonItem, "duration"))
                     .topic(jsonHelper.getString(jsonItem, "topic"))
-                    .time(Timestamp.from(Instant.now()))
+                    .time(OffsetDateTime.parse(
+                            jsonHelper.getString(jsonItem, "duration"),
+                            DateTimeFormatter.ISO_INSTANT
+                    ))
                     .podcast(podcast)
                     .build();
             result.add(radiotPodcastTimeLabelRepository.save(timeLabel));

@@ -11,7 +11,5 @@ import java.util.UUID;
 @Repository
 public interface RadiotPodcastRepository extends CrudRepository<RadiotPodcast, UUID> {
 
-    Optional<RadiotPodcast> findFirstByDate();
-
     List<RadiotPodcast> findAll();
 }
