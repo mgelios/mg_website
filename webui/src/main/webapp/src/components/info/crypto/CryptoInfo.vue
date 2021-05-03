@@ -1,6 +1,7 @@
 <template>
     <div>
         {{market}}
+        {{currencies}}
     </div>
 </template>
 <script>
