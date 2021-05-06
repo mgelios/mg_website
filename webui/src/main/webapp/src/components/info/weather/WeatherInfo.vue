@@ -1,15 +1,21 @@
 <template>
     <div>
-        {{currentWeather}}
-        {{weatherForecast}}
+        <div>
+            {{currentWeather}}
+        </div>
+        <div>
+            <WeatherInfoChart/>
+        </div>
     </div>
 </template>
 <script>
     import { mapState, mapActions } from 'vuex';
+    import WeatherInfoChart from "./WeatherInfoChart";
 
     export default {
         name: 'WeatherInfo',
         components: {
+            WeatherInfoChart
         },
         data: function(){
             return {
