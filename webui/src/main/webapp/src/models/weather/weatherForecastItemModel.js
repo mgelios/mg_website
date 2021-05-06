@@ -40,7 +40,7 @@ export class WeatherForecastItemModel {
         this.humidity = config.humidity;
         this.windSpeed = config.windSpeed;
         this.windDegree = config.windDegree;
-        this.time = config.time;
+        this.time = new DateModel(config.time);
         this.updateTime = new DateModel(config.updateTime);
     }
 }
