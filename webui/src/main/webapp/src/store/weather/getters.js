@@ -4,6 +4,10 @@ export const getters = Object.freeze({
 
 function weatherForecastDaysEntries(state) {
     if (state.weatherForecast != null) {
-        console.log(state.weatherForecast[0].time.value.getDate());
+        let setOfDates = new Set();
+        state.weatherForecast.forEach(forecastItem => {
+            setOfDates.add(forecastItem.time.value.getDate());
+        });
+        console.log(setOfDates);
     }
 }

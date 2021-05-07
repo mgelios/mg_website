@@ -7,5 +7,8 @@ export const mutations = {
 
     [types.SET_WEATHER_FORECAST](state, value) {
         state.weatherForecast = value;
+        state.weatherForecast.sort((a,b) => {
+            return a.time.value - b.time.value;
+        });
     }
 };
