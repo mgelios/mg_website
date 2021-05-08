@@ -18,6 +18,14 @@ function weatherForecastDaysEntries(state) {
             }
         });
         console.log(groupedWeatherForecastItems);
+        console.log(Array.from(groupedWeatherForecastItems.keys()));
+        console.log(Array.from(groupedWeatherForecastItems.values()).map(item => {
+            return item.maxTemp;
+        }));
+        console.log(Array.from(groupedWeatherForecastItems.values()).map(item => {
+            return item.minTemp;
+        }));
         return groupedWeatherForecastItems;
     }
+    return null;
 }

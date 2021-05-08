@@ -26,7 +26,7 @@
             }
         },
         computed: {
-            ...mapState('weather', ['currentWeather', 'weatherForecast']),
+            ...mapState('weather', ['currentWeather']),
         },
         mounted() {
             this.fetchCurrentWeather();
