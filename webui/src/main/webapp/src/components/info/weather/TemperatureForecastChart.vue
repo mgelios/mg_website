@@ -2,7 +2,7 @@
     import { Line } from 'vue-chartjs';
 
     export default {
-        name: 'WeatherInfoChart',
+        name: 'TemperatureForecastChart',
         extends: Line,
         data() {
             return {
