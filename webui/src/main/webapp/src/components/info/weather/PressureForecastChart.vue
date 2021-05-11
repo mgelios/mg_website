@@ -7,12 +7,12 @@
         data() {
             return {
                 chartData: {
-                    labels: ['some1', 'some2', 'some3'],
+                    labels: this.pressureLabels,
                     datasets: [{
-                        label: 'someLabel',
-                        data: [1,2,3],
-                        backgroundColor: '#7ac0c088',
-                        borderColor: '#7ac0c0',
+                        label: 'pressure',
+                        data: this.pressureData,
+                        backgroundColor: 'rgba(163,163,163,0.53)',
+                        borderColor: '#a7a7a7',
                         fill: 'start'
                     }]
                 },
@@ -34,6 +34,16 @@
             },
             aspectRatio: {
                 default: 4
+            },
+            pressureLabels: {
+                default: function() {
+                    return [];
+                }
+            },
+            pressureData: {
+                default: function() {
+                    return [];
+                }
             }
         },
         mounted() {

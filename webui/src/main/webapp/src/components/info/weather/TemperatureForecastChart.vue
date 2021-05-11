@@ -7,13 +7,20 @@
         data() {
             return {
                 chartData: {
-                    labels: ['some1', 'some2', 'some3'],
+                    labels: this.temperatureLabels,
                     datasets: [{
-                        label: 'someLabel',
-                        data: [1,2,3],
-                        backgroundColor: '#7ac0c088',
-                        borderColor: '#7ac0c0',
+                        label: 'min temp',
+                        data: this.minTempData,
+                        backgroundColor: 'rgba(122,129,192,0.64)',
+                        borderColor: '#7aa2c0',
                         fill: 'start'
+                    },
+                    {
+                        label: 'max temp',
+                        data: this.maxTempData,
+                        backgroundColor: '#e6896688',
+                        borderColor: '#e68966',
+                        fill: '0'
                     }]
                 },
                 options: {
@@ -34,10 +41,25 @@
             },
             aspectRatio: {
                 default: 4
+            },
+            temperatureLabels: {
+                default: function() {
+                    return [];
+                }
+            },
+            maxTempData: {
+                default: function() {
+                    return [];
+                }
+            },
+            minTempData: {
+                default: function() {
+                    return [];
+                }
             }
         },
         mounted() {
             this.renderChart(this.chartData, this.options);
-        }
+        },
     }
 </script>
