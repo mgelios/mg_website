@@ -2,6 +2,8 @@ import {GroupedWeatherForecastByDayModel} from "../../models/weather/groupedWeat
 
 export const getters = Object.freeze({
     weatherForecastDaysEntries,
+    maxTempForecast,
+    minTempForecast
 });
 
 function weatherForecastDaysEntries(state) {
@@ -20,4 +22,14 @@ function weatherForecastDaysEntries(state) {
         return groupedWeatherForecastItems;
     }
     return null;
+}
+
+function maxTempForecast() {
+    let result = new Array();
+    return result;
+}
+
+function minTempForecast() {
+    let result = new Array();
+    return result;
 }
