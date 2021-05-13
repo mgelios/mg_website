@@ -5,21 +5,22 @@
         </div>
         <div>
             <TemperatureForecastChart
-                    v-if="weatherForecastDaysEntries"
-                    :temperatureLabels="dayLabels"
-                    :maxTempData="maxTemperatureData"
-                    :minTempData="minTemperatureData"
+                    v-if="weatherForecastGroupedByDay"
+                    :temperatureLabels="daysCollection"
+                    :maxTempData="maxTempForecast"
+                    :minTempData="minTempForecast"
             />
         </div>
         <div>
             <PressureForecastChart
-                    v-if="weatherForecastDaysEntries"
-                    :pressureLabels="dayLabels"
-                    :pressureData="maxPressureData"
+                    v-if="weatherForecastGroupedByDay"
+                    :pressureLabels="daysCollection"
+                    :pressureData="maxPressureForecast"
             />
         </div>
     </div>
 </template>
+
 <script>
     import { mapState, mapActions, mapGetters } from 'vuex';
     import PressureForecastChart from "./PressureForecastChart";
@@ -38,20 +39,14 @@
         },
         computed: {
             ...mapState('weather', ['currentWeather']),
-            ...mapGetters('weather', ['weatherForecastDaysEntries']),
+            ...mapGetters('weather',[
+                'daysCollection',
+                'weatherForecastGroupedByDay',
+                'maxTempForecast',
+                'minTempForecast',
+                'maxPressureForecast'
+            ]),
 
-            dayLabels: function() {
-                return this.weatherForecastDaysEntries ? Array.from(this.weatherForecastDaysEntries.keys()) : null;
-            },
-            maxTemperatureData: function() {
-                return this.weatherForecastDaysEntries ? Array.from(this.weatherForecastDaysEntries.values()).map(item => item.maxTemp) : null;
-            },
-            minTemperatureData: function() {
-                return this.weatherForecastDaysEntries ? Array.from(this.weatherForecastDaysEntries.values()).map(item => item.minTemp) : null;
-            },
-            maxPressureData: function() {
-                return this.weatherForecastDaysEntries ? Array.from(this.weatherForecastDaysEntries.values()).map(item => item.maxPressure) : null;
-            }
         },
         mounted() {
             this.fetchCurrentWeather();

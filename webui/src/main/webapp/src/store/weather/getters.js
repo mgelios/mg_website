@@ -1,12 +1,14 @@
 import {GroupedWeatherForecastByDayModel} from "../../models/weather/groupedWeatherForecastByDayModel";
 
 export const getters = Object.freeze({
-    weatherForecastDaysEntries,
+    daysCollection,
+    weatherForecastGroupedByDay,
     maxTempForecast,
-    minTempForecast
+    minTempForecast,
+    maxPressureForecast,
 });
 
-function weatherForecastDaysEntries(state) {
+function weatherForecastGroupedByDay(state) {
     if (state.weatherForecast != null) {
         let groupedWeatherForecastItems = new Map();
         state.weatherForecast.forEach(forecastItem => {
@@ -24,12 +26,34 @@ function weatherForecastDaysEntries(state) {
     return null;
 }
 
-function maxTempForecast() {
-    let result = new Array();
-    return result;
+function daysCollection(state) {
+    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    if (forecastGroupedByDay) {
+        return Array.from(forecastGroupedByDay.keys());
+    }
+    return null;
 }
 
-function minTempForecast() {
-    let result = new Array();
-    return result;
+function maxTempForecast(state) {
+    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    if (forecastGroupedByDay) {
+        return Array.from(forecastGroupedByDay.values()).map(item => item.maxTemp);
+    }
+    return null;
+}
+
+function minTempForecast(state) {
+    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    if (forecastGroupedByDay) {
+        return Array.from(forecastGroupedByDay.values()).map(item => item.minTemp);
+    }
+    return null;
+}
+
+function maxPressureForecast(state) {
+    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    if (forecastGroupedByDay) {
+        return Array.from(forecastGroupedByDay.values()).map(item => item.maxPressure);
+    }
+    return null;
 }
