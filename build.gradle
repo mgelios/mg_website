@@ -110,14 +110,4 @@ heroku {
     appName = 'mgwebsite'
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'mg.Application'
-    }
-    from {
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-}
 

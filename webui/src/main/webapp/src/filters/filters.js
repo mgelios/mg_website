@@ -8,13 +8,16 @@ Vue.filter('capitalize', function(string) {
 });
 
 Vue.filter('degreeCelsius', function(value) {
-    var string = "";
+    let resultString = "";
     if (!value) return '';
-    if (value > 0) {
-        string = "+";
+
+    let adjustedValue = value.toFixed(2);
+
+    if (adjustedValue > 0) {
+        resultString = "+";
     }
-    string = string + value.toString() + "°C";
-    return string;
+    resultString = resultString + adjustedValue.toString() + "°C";
+    return resultString;
 });
 
 Vue.filter('byn', function(value) {

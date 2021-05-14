@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div>
-            {{currentWeather}}
-        </div>
+        <CurrentWeather
+                :currentWeatherData="currentWeather"
+        />
         <div>
             <TemperatureForecastChart
                     v-if="weatherForecastGroupedByDay"
@@ -23,6 +23,7 @@
 
 <script>
     import { mapState, mapActions, mapGetters } from 'vuex';
+    import CurrentWeather from "./CurrentWeather";
     import PressureForecastChart from "./PressureForecastChart";
     import TemperatureForecastChart from "./TemperatureForecastChart";
 
@@ -30,7 +31,8 @@
         name: 'WeatherInfo',
         components: {
             TemperatureForecastChart,
-            PressureForecastChart
+            PressureForecastChart,
+            CurrentWeather
         },
         data: function(){
             return {

@@ -23,11 +23,6 @@ import org.springframework.security.web.authentication.www.DigestAuthenticationF
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_ALL = {
-            "/resources/**",
-            "/static/**",
-            "/public/**",
-            "/css/**",
-            "/images/**",
             "/swagger-resources/**",
             "/swagger-ui.html",
             "/api/v1/weather/**",
@@ -38,13 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     private static final String[] AUTH_AUTHENTICATED = {
-            "/user/details",
             "/api/v1/authorized/profile/**"
     };
 
     private static final String[] AUTH_ADMIN = {
-            "/user/list",
-            "/admin/**",
             "/api/v1/admin/api-consumer/**",
             "/api/v1/admin/profile/**"
     };
@@ -78,13 +70,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(AUTH_ADMIN).hasRole("ADMIN")
                 .and()
                 .csrf().disable();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 
     @Bean
