@@ -6,6 +6,7 @@ export const getters = Object.freeze({
     maxTempForecast,
     minTempForecast,
     maxPressureForecast,
+    groupedForecastAsList,
 });
 
 function weatherForecastGroupedByDay(state) {
@@ -21,7 +22,16 @@ function weatherForecastGroupedByDay(state) {
                 groupedWeatherForecastItems.get(forecastItem.time.value.getDate()).rewriteItemsIfNeeded(forecastItem);
             }
         });
+        console.log(groupedWeatherForecastItems);
         return groupedWeatherForecastItems;
+    }
+    return null;
+}
+
+function groupedForecastAsList(state) {
+    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    if (forecastGroupedByDay) {
+        return Array.from(forecastGroupedByDay.values());
     }
     return null;
 }

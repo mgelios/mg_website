@@ -18,6 +18,14 @@
                     :pressureData="maxPressureForecast"
             />
         </div>
+
+        <v-list two-line v-if="weatherForecastGroupedByDay">
+            <WeatherForecastItem
+                    v-for="(item, index) in groupedForecastAsList"
+                    :weatherForecastItemData="item"
+                    v-bind:key="index"
+            />
+        </v-list>
     </div>
 </template>
 
@@ -26,13 +34,15 @@
     import CurrentWeather from "./CurrentWeather";
     import PressureForecastChart from "./PressureForecastChart";
     import TemperatureForecastChart from "./TemperatureForecastChart";
+    import WeatherForecastItem from "./WeatherForecastItem";
 
     export default {
         name: 'WeatherInfo',
         components: {
             TemperatureForecastChart,
             PressureForecastChart,
-            CurrentWeather
+            CurrentWeather,
+            WeatherForecastItem,
         },
         data: function(){
             return {
@@ -46,7 +56,8 @@
                 'weatherForecastGroupedByDay',
                 'maxTempForecast',
                 'minTempForecast',
-                'maxPressureForecast'
+                'maxPressureForecast',
+                'groupedForecastAsList',
             ]),
 
         },
