@@ -19,7 +19,7 @@ function weatherForecastGroupedByDay(state) {
                     new GroupedWeatherForecastByDayModel(forecastItem)
                 );
             } else {
-                groupedWeatherForecastItems.get(forecastItem.time.value.getDate()).rewriteItemsIfNeeded(forecastItem);
+                groupedWeatherForecastItems.get(forecastItem.time.value.getDate()).rewriteFieldsIfNeeded(forecastItem);
             }
         });
         console.log(groupedWeatherForecastItems);
