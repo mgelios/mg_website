@@ -1,35 +1,13 @@
-import {GroupedWeatherForecastByDayModel} from "../../models/weather/groupedWeatherForecastByDayModel";
-
 export const getters = Object.freeze({
     daysCollection,
-    weatherForecastGroupedByDay,
     maxTempForecast,
     minTempForecast,
     maxPressureForecast,
     groupedForecastAsList,
 });
 
-function weatherForecastGroupedByDay(state) {
-    if (state.weatherForecast != null) {
-        let groupedWeatherForecastItems = new Map();
-        state.weatherForecast.forEach(forecastItem => {
-            if (!groupedWeatherForecastItems.get(forecastItem.time.value.getDate())) {
-                groupedWeatherForecastItems.set(
-                    forecastItem.time.value.getDate(),
-                    new GroupedWeatherForecastByDayModel(forecastItem)
-                );
-            } else {
-                groupedWeatherForecastItems.get(forecastItem.time.value.getDate()).rewriteFieldsIfNeeded(forecastItem);
-            }
-        });
-        console.log(groupedWeatherForecastItems);
-        return groupedWeatherForecastItems;
-    }
-    return null;
-}
-
 function groupedForecastAsList(state) {
-    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    let forecastGroupedByDay = state.weatherForecastGroupedByDay;
     if (forecastGroupedByDay) {
         return Array.from(forecastGroupedByDay.values());
     }
@@ -37,7 +15,7 @@ function groupedForecastAsList(state) {
 }
 
 function daysCollection(state) {
-    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    let forecastGroupedByDay = state.weatherForecastGroupedByDay;
     if (forecastGroupedByDay) {
         return Array.from(forecastGroupedByDay.keys());
     }
@@ -45,7 +23,7 @@ function daysCollection(state) {
 }
 
 function maxTempForecast(state) {
-    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    let forecastGroupedByDay = state.weatherForecastGroupedByDay;
     if (forecastGroupedByDay) {
         return Array.from(forecastGroupedByDay.values()).map(item => item.maxTemp);
     }
@@ -53,7 +31,7 @@ function maxTempForecast(state) {
 }
 
 function minTempForecast(state) {
-    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    let forecastGroupedByDay = state.weatherForecastGroupedByDay;
     if (forecastGroupedByDay) {
         return Array.from(forecastGroupedByDay.values()).map(item => item.minTemp);
     }
@@ -61,7 +39,7 @@ function minTempForecast(state) {
 }
 
 function maxPressureForecast(state) {
-    let forecastGroupedByDay = weatherForecastGroupedByDay(state);
+    let forecastGroupedByDay = state.weatherForecastGroupedByDay;
     if (forecastGroupedByDay) {
         return Array.from(forecastGroupedByDay.values()).map(item => item.maxPressure);
     }
