@@ -17,5 +17,6 @@ async function fetchWeatherForecast({ commit }) {
     const weatherForecastResponse = await weatherForecast.getList();
     if (weatherForecastResponse.success) {
         commit(types.SET_WEATHER_FORECAST, weatherForecastResponse.data);
+        commit(types.SET_GROUPED_WEATHER_FORECAST, weatherForecastResponse.data);
     }
 }

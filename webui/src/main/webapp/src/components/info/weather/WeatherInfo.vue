@@ -50,10 +50,9 @@
             }
         },
         computed: {
-            ...mapState('weather', ['currentWeather']),
+            ...mapState('weather', ['currentWeather', 'weatherForecastGroupedByDay']),
             ...mapGetters('weather',[
                 'daysCollection',
-                'weatherForecastGroupedByDay',
                 'maxTempForecast',
                 'minTempForecast',
                 'maxPressureForecast',

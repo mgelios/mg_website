@@ -14,8 +14,13 @@ export const mutations = {
     },
 
     [types.SET_GROUPED_WEATHER_FORECAST](state, value) {
+        let sortedForecastItems = value;
+        sortedForecastItems.sort((a,b) => {
+            return a.time.value - b.time.value;
+        });
+
         let groupedWeatherForecastItems = new Map();
-        value.forEach(forecastItem => {
+        sortedForecastItems.forEach(forecastItem => {
             if (!groupedWeatherForecastItems.get(forecastItem.time.value.getDate())) {
                 groupedWeatherForecastItems.set(
                     forecastItem.time.value.getDate(),
