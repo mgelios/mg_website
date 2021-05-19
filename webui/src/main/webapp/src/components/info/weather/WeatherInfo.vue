@@ -3,6 +3,13 @@
         <CurrentWeather
                 :currentWeatherData="currentWeather"
         />
+        <v-list three-line v-if="weatherForecastGroupedByDay">
+            <WeatherForecastItem
+                    v-for="(item, index) in groupedForecastAsList"
+                    :weatherForecastItemData="item"
+                    v-bind:key="index"
+            />
+        </v-list>
         <div>
             <TemperatureForecastChart
                     v-if="weatherForecastGroupedByDay"
@@ -19,13 +26,6 @@
             />
         </div>
 
-        <v-list two-line v-if="weatherForecastGroupedByDay">
-            <WeatherForecastItem
-                    v-for="(item, index) in groupedForecastAsList"
-                    :weatherForecastItemData="item"
-                    v-bind:key="index"
-            />
-        </v-list>
     </div>
 </template>
 
