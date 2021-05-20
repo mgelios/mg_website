@@ -1,31 +1,36 @@
 <template>
     <div>
-        <CurrentWeather
-                :currentWeatherData="currentWeather"
-        />
-        <v-list three-line v-if="weatherForecastGroupedByDay">
-            <WeatherForecastItem
-                    v-for="(item, index) in groupedForecastAsList"
-                    :weatherForecastItemData="item"
-                    v-bind:key="index"
-            />
-        </v-list>
-        <div>
+    <v-row>
+        <v-col>
+            <CurrentWeather :currentWeatherData="currentWeather"/>
+        </v-col>
+        <v-col>
+            <v-list three-line v-if="weatherForecastGroupedByDay">
+                <WeatherForecastItem
+                        v-for="(item, index) in groupedForecastAsList"
+                        :weatherForecastItemData="item"
+                        v-bind:key="index"
+                />
+            </v-list>
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col col-xs="12" col-sm="6">
             <TemperatureForecastChart
                     v-if="weatherForecastGroupedByDay"
                     :temperatureLabels="daysCollection"
                     :maxTempData="maxTempForecast"
                     :minTempData="minTempForecast"
             />
-        </div>
-        <div>
+        </v-col>
+        <v-col col-xs="12" col-sm="6">
             <PressureForecastChart
                     v-if="weatherForecastGroupedByDay"
                     :pressureLabels="daysCollection"
                     :pressureData="maxPressureForecast"
             />
-        </div>
-
+        </v-col>
+    </v-row>
     </div>
 </template>
 

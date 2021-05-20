@@ -23,3 +23,7 @@ Vue.filter('degreeCelsius', function(value) {
 Vue.filter('byn', function(value) {
     return '' + value.toFixed(2) + ' BYN';
 });
+
+Vue.filter('twoDigitsAfterPoint', function(value) {
+    return '' + value.toFixed(2);
+});
