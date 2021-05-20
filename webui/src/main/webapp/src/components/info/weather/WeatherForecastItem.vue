@@ -11,6 +11,9 @@
                 Pressure: {{weatherForecastItemData.minPressure}} hpa .. {{weatherForecastItemData.maxPressure}} hpa,
             </v-list-item-subtitle>
             <v-list-item-subtitle>
+                Humidity: {{weatherForecastItemData.minHumidity}}% .. {{weatherForecastItemData.maxHumidity}}%,
+            </v-list-item-subtitle>
+            <v-list-item-subtitle>
                 Windspeed: {{weatherForecastItemData.minWindSpeed}} kmh .. {{weatherForecastItemData.maxWindSpeed}} kmh
             </v-list-item-subtitle>
         </v-list-item-content>

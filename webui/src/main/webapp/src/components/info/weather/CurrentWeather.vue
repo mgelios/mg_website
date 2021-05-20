@@ -32,6 +32,28 @@
                     UVI: {{currentWeatherData.uvi}}
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col class="text-sm-h5" cols="4">
+                    Wind speed: {{currentWeatherData.windSpeed}} kmh
+                </v-col>
+                <v-col class="text-sm-h5" cols="4">
+                    Visibility: {{currentWeatherData.visibility}} m
+                </v-col>
+                <v-col class="text-sm-h5" cols="4">
+                    Details: {{currentWeatherData.mainInfo}}
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col class="text-sm-h5" cols="4">
+                    Sunrise: {{currentWeatherData.sunrise.value}}
+                </v-col>
+                <v-col class="text-sm-h5" cols="4">
+                    Sunset: {{currentWeatherData.sunset.value}}
+                </v-col>
+                <v-col class="text-sm-h5" cols="4">
+                    Wind degree: {{currentWeatherData.windDegree}}
+                </v-col>
+            </v-row>
         </v-card-text>
     </v-card>
 </template>
