@@ -22,7 +22,7 @@ public class CurrencyExternalApiService {
     }
 
     public JSONArray fetchCurrencyStatistics(String systemId) {
-        String url = currencyUrlBuilder.buildCurrency30DaysStatisticsUrl(systemId);
+        String url = currencyUrlBuilder.buildCurrency365DaysStatisticsUrl(systemId);
         return jsonConsumer.getJsonArray(url);
     }
 }

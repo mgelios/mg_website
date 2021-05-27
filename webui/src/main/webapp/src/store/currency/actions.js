@@ -24,6 +24,7 @@ async function fetchCurrencyConversions({ commit }) {
 async function fetchCurrencyStatistics({ commit }) {
     const currencyStatisticsResponse = await currencyStatistics.getMap();
     if (currencyStatisticsResponse.success) {
-        commit(types.SET_CURRENCY_STATISTICS, currencyStatisticsResponse.data);
+        commit(types.SET_CURRENCY_STATISTICS_EUR, currencyStatisticsResponse.data.get('EUR'));
+        commit(types.SET_CURRENCY_STATISTICS_USD, currencyStatisticsResponse.data.get('USD'));
     }
 }
