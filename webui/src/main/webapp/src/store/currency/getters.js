@@ -4,9 +4,9 @@ export const getters = Object.freeze({
 });
 
 function statisticsUsd(state) {
-    return state.currencyStatistics.get('USD');
+    return state.currencyStatisticsUsd;
 }
 
 function statisticsEur(state) {
-    return state.currencyStatistics.get('EUR');
+    return state.currencyStatisticsEur;
 }

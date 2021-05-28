@@ -16,7 +16,7 @@
             }
         },
         computed: {
-            ...mapState('currency', ['currencyRates', 'currencyConversions', 'currencyStatistics']),
+            ...mapState('currency', ['currencyRates', 'currencyConversions', 'currencyStatisticsUsd', 'currencyStatisticsEur']),
             ...mapGetters('currency', ['statisticsUsd', 'statisticsEur']),
         },
         mounted() {
