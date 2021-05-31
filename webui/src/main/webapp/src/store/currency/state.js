@@ -1,6 +1,8 @@
 export const state = {
     currencyRates: [],
     currencyConversions: [],
-    currencyStatisticsUsd: null,
-    currencyStatisticsEur: null,
+    annualCurrencyStatisticsUsd: null,
+    annualCurrencyStatisticsEur: null,
+    monthlyCurrencyStatisticsEur: null,
+    monthlyCurrencyStatisticsUsd: null,
 };
