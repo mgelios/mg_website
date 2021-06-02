@@ -1,10 +1,11 @@
 <template>
     <div>
         {{currencyRates}}
+        {{monthlyCurrencyStatisticsUsd}}
     </div>
 </template>
 <script>
-    import { mapState, mapActions, mapGetters } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     export default {
         name: 'CurrencyInfo',
@@ -16,8 +17,14 @@
             }
         },
         computed: {
-            ...mapState('currency', ['currencyRates', 'currencyConversions', 'currencyStatisticsUsd', 'currencyStatisticsEur']),
-            ...mapGetters('currency', ['statisticsUsd', 'statisticsEur']),
+            ...mapState('currency', [
+                'currencyRates',
+                'currencyConversions',
+                'annualCurrencyStatisticsUsd',
+                'annualCurrencyStatisticsEur',
+                'monthlyCurrencyStatisticsEur',
+                'monthlyCurrencyStatisticsUsd',
+            ]),
         },
         mounted() {
             this.fetchExchangeRates();
