@@ -1,19 +1,20 @@
 plugins {
     id 'org.liquibase.gradle'
+    id 'org.springframework.boot'
 }
 
 dependencies {
-    compile project(':utils')
-    compile project(':profile')
-    compile project(':security')
+    implementation project(':utils')
+    implementation project(':profile')
+    implementation project(':security')
 
-    compile project(':weather')
-    compile project(':finance')
-    compile project(':news')
+    implementation project(':weather')
+    implementation project(':finance')
+    implementation project(':news')
 
-    compile project(':bot')
+    implementation project(':bot')
 
-    compile project(':blog')
+    implementation project(':blog')
 }
 
 

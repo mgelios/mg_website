@@ -1,15 +1,15 @@
-bootJar {
-    enabled = false
-}
-
-bootRun {
-    enabled = false
-}
+//bootJar {
+//    enabled = false
+//}
+//
+//bootRun {
+//    enabled = false
+//}
 
 jar {
     enabled = true
 }
 
 dependencies {
-    compile project(':profile')
+    implementation project(':profile')
 }

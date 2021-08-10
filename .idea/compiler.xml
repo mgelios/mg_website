@@ -21,6 +21,6 @@
         <module name="app.profile.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="15" />
+    <bytecodeTargetLevel target="16" />
   </component>
 </project>
