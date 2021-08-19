@@ -1,8 +1,10 @@
 plugins {
     id "com.heroku.sdk.heroku-gradle" version "2.0.0"
     id 'org.liquibase.gradle' version '2.0.4'
-    id 'io.spring.dependency-management'
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "org.springframework.boot" version "2.5.4"
 }
+
 
 group = 'app'
 version = '1.0-SNAPSHOT'
@@ -13,9 +15,12 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
+    apply plugin: 'org.liquibase.gradle'
 
     repositories {
         mavenCentral()
+        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+        maven { url 'https://repo.spring.io/release' }
     }
 
     sourceCompatibility = 16
