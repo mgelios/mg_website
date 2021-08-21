@@ -1,4 +1,9 @@
 plugins {
+    id 'io.spring.dependency-management'
+    id 'eclipse'
+    id 'idea'
+    id 'java'
+    id 'java-library'
     id 'org.liquibase.gradle'
     id 'org.springframework.boot'
 }

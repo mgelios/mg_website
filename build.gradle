@@ -26,14 +26,7 @@ subprojects {
     sourceCompatibility = 16
 
     dependencies {
-        implementation('org.springframework.boot:spring-boot-starter')
-        implementation('org.springframework.boot:spring-boot-starter-cache')
-        implementation('org.springframework.boot:spring-boot-starter-security')
-        implementation('org.springframework.boot:spring-boot-starter-validation')
-        implementation('org.springframework.boot:spring-boot-starter-web')
-        implementation('org.springframework.session:spring-session-core')
-        implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-        implementation('org.springframework.retry:spring-retry:1.3.1')
+
 
         implementation('org.postgresql:postgresql:42.2.5')
 
@@ -59,7 +52,6 @@ subprojects {
         implementation('org.yaml:snakeyaml:1.26')
         implementation('org.liquibase:liquibase-core:4.0.0')
 
-        runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
 //---------------------------------------------------------------------------
 //  !!! IMPORTANT NOTE: jsonwebtoken impl is new version of io.jsonwebtoken
@@ -72,9 +64,7 @@ subprojects {
         annotationProcessor('org.projectlombok:lombok:1.18.12')
 
 
-        testImplementation('org.springframework.boot:spring-boot-starter-test')
         testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
-        testImplementation('org.springframework.security:spring-security-test')
     }
 }
 
