@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+dependencies {
+//---------------------------------------------------------------------------
+//  !!! IMPORTANT NOTE: mapstruct shoud be added as mapstruct itself through
+//  'compile section', and annotation processor through 'annotationProcessor'
+//  section
+//---------------------------------------------------------------------------
+    implementation('org.mapstruct:mapstruct')
+    annotationProcessor('org.mapstruct:mapstruct-processor')
+//---------------------------------------------------------------------------
+
+    implementation('org.yaml:snakeyaml:1.26')
+    implementation('org.projectlombok:lombok:1.18.12')
+    annotationProcessor('org.projectlombok:lombok:1.18.12')
+
+    implementation('com.vladsch.flexmark:flexmark-all:0.50.4')
+}

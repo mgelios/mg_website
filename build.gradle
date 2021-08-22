@@ -1,82 +1,23 @@
 plugins {
-    id "com.heroku.sdk.heroku-gradle" version "2.0.0"
+    id 'java-library'
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.5.4'
     id 'org.liquibase.gradle' version '2.0.4'
-    id "io.spring.dependency-management" version "1.0.11.RELEASE"
-    id "org.springframework.boot" version "2.5.4"
+    id 'com.heroku.sdk.heroku-gradle' version '2.0.0'
 }
 
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://repo.spring.io/release' }
+}
 
 group = 'app'
 version = '1.0-SNAPSHOT'
 
-subprojects {
-
-    apply plugin: 'java-library'
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
-    apply plugin: 'org.liquibase.gradle'
-
-    repositories {
-        mavenCentral()
-        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
-        maven { url 'https://repo.spring.io/release' }
-    }
-
-    sourceCompatibility = 16
-
-    dependencies {
-
-
-        implementation('org.postgresql:postgresql:42.2.5')
-
-        implementation('org.apache.httpcomponents:httpclient:4.5.13')
-
-        implementation('org.json:json:20201115')
-
-        implementation('org.hibernate:hibernate-search-orm:5.11.1.Final')
-
-        implementation('io.springfox:springfox-swagger2:3.0.0')
-        implementation('io.springfox:springfox-swagger-ui:3.0.0')
-
-//---------------------------------------------------------------------------
-//  !!! IMPORTANT NOTE: mapstruct shoud be added as mapstruct itself through
-//  'compile section', and annotation processor through 'annotationProcessor'
-//  section
-//---------------------------------------------------------------------------
-        implementation('org.mapstruct:mapstruct:1.4.1.Final')
-        annotationProcessor('org.mapstruct:mapstruct-processor:1.4.1.Final')
-//---------------------------------------------------------------------------
-        implementation('com.vladsch.flexmark:flexmark-all:0.50.4')
-
-        implementation('org.yaml:snakeyaml:1.26')
-        implementation('org.liquibase:liquibase-core:4.0.0')
-
-
-//---------------------------------------------------------------------------
-//  !!! IMPORTANT NOTE: jsonwebtoken impl is new version of io.jsonwebtoken
-//  library, usage at the moment just to test token auth
-//---------------------------------------------------------------------------
-        runtimeOnly('io.jsonwebtoken:jjwt-impl:0.11.2')
-        runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.11.2')
-
-        implementation('org.projectlombok:lombok:1.18.12')
-        annotationProcessor('org.projectlombok:lombok:1.18.12')
-
-
-        testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
-    }
-}
-
-task stageClean {dependsOn(':main:clean')}
-task stage (type:Copy, dependsOn: [stageClean, ':main:build']){
-    from 'main/build/libs'
-    into 'build/libs'
-}
-stage.mustRunAfter(stageClean)
-
-heroku {
-    appName = 'mgwebsite'
-}
+sourceCompatibility = 16
 
 
