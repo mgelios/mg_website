@@ -1,12 +1,7 @@
-plugins {
-//    id 'io.spring.dependency-management'
-//    id 'eclipse'
-//    id 'idea'
-//    id 'java'
-//    id 'java-library'
-//    id 'org.liquibase.gradle'
-//    id 'org.springframework.boot'
-}
+apply from: 'dependencies-spring.gradle'
+apply from: 'dependencies-datasource.gralde'
+apply from: 'dependencies-web.gradle'
+apply from: 'dependencies-utils.gradle'
 
 dependencies {
     implementation project(':utils')
