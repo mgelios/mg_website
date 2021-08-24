@@ -1,4 +1,4 @@
-apply from: 'dependencies-spring.gradle'
-apply from: 'dependencies-datasource.gralde'
-apply from: 'dependencies-web.gradle'
-apply from: 'dependencies-utils.gradle'
+apply from: '../dependencies-spring.gradle'
+apply from: '../dependencies-datasource.gradle'
+apply from: '../dependencies-web.gradle'
+apply from: '../dependencies-utils.gradle'
