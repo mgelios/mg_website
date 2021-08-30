@@ -18,7 +18,6 @@ public class MGErrorRestController implements ErrorController {
         return new MGErrorResponse("error, alarm, алярм");
     }
 
-    @Override
     public String getErrorPath() {
         return ERROR_PATH;
     }

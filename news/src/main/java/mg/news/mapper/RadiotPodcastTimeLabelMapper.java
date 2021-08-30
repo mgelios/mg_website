@@ -5,7 +5,6 @@ import mg.news.dto.RadiotPodcastTimeLabelDto;
 import mg.utils.mapper.DateMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = DateMapper.class, componentModel = "spring")
 public abstract class RadiotPodcastTimeLabelMapper {

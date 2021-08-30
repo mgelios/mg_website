@@ -6,6 +6,12 @@ apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://repo.spring.io/release' }
+}
+
 dependencies {
     implementation('org.postgresql:postgresql')
     implementation('org.liquibase:liquibase-core:4.0.0')

@@ -3,9 +3,15 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://repo.spring.io/release' }
+}
+
 dependencies {
     implementation('org.apache.httpcomponents:httpclient:4.5.13')
-    implementation('org.json:json:20201115')
+    implementation('org.json:json:20210307')
     implementation('io.springfox:springfox-swagger2:3.0.0')
     implementation('io.springfox:springfox-swagger-ui:3.0.0')
 
@@ -13,6 +19,7 @@ dependencies {
 //  !!! IMPORTANT NOTE: jsonwebtoken impl is new version of io.jsonwebtoken
 //  library, usage at the moment just to test token auth
 //---------------------------------------------------------------------------
+    implementation('io.jsonwebtoken:jjwt-impl:0.11.2')
     runtimeOnly('io.jsonwebtoken:jjwt-impl:0.11.2')
     runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.11.2')
     testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')

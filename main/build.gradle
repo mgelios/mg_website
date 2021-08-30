@@ -12,7 +12,7 @@ dependencies {
     implementation project(':finance')
     implementation project(':news')
 
-    implementation project(':bot')
+//    implementation project(':bot')
 
     implementation project(':blog')
 }

@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 @Mapper(uses = DateMapper.class, componentModel = "spring")
 public interface CurrencyMapper {
 
-    @Mapping(target = "statistics", ignore = true)
     Currency mapToEntity(CurrencyDto dto);
 
     CurrencyDto mapToDTO(Currency entity);
