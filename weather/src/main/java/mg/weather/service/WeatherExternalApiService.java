@@ -6,9 +6,11 @@ import mg.utils.JSONHelper;
 import mg.utils.api.consumer.ApiConsumerAuthType;
 import mg.utils.api.consumer.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
+import mg.weather.dto.OneCallDto;
 import mg.weather.util.OpenWeatherUrlBuilder;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
@@ -20,13 +22,23 @@ public class WeatherExternalApiService {
     private final JSONConsumer jsonConsumer;
     private final JSONHelper jsonHelper;
 
-    public JSONObject fetchCurrenctWeather(String cityName) {
+    public JSONObject fetchCurrentWeather(String cityName) {
         String url = apiConsumerService.fillUrlWithApiConsumerData(
                 weatherUrlBuilder.buildCurrentWeatherUrl(cityName),
                 weatherConfiguration.getApiClientName(),
                 ApiConsumerAuthType.API_KEY
         );
         return jsonConsumer.getJsonObject(url);
+    }
+
+    public OneCallDto fetchCurrentWeather(String cityName, String someParam) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiConsumerService.fillUrlWithApiConsumerData(
+                weatherUrlBuilder.buildCurrentWeatherUrl(cityName),
+                weatherConfiguration.getApiClientName(),
+                ApiConsumerAuthType.API_KEY
+        );
+        return restTemplate.getForObject(url, OneCallDto.class);
     }
 
     public double fetchUvi(double lat, double lon) {

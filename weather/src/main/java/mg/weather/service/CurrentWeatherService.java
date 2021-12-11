@@ -42,7 +42,7 @@ public class CurrentWeatherService {
     }
 
     public CurrentWeather updateCurrentWeatherByCityName(String cityName) {
-        JSONObject currentWeatherJson = weatherExternalApiService.fetchCurrenctWeather(cityName);
+        JSONObject currentWeatherJson = weatherExternalApiService.fetchCurrentWeather(cityName);
         if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
             currentWeatherRepository.deleteAllByCityName(cityName);
         }

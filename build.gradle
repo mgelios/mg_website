@@ -18,6 +18,6 @@ repositories {
 group = 'app'
 version = '1.0-SNAPSHOT'
 
-sourceCompatibility = 16
+sourceCompatibility = 17
 
 
