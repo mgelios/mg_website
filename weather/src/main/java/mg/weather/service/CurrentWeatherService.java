@@ -26,6 +26,7 @@ public class CurrentWeatherService {
     private final WeatherExternalApiService weatherExternalApiService;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
+        weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity(), "");
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
