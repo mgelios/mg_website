@@ -10,3 +10,6 @@ services:
             POSTGRES_PASSWORD: "dev_postgres"
         ports:
             - "15432:5432"
+        volumes:
+            - ../.infrastructure/mg_website_postgres:/var/lib/postgres/data
+

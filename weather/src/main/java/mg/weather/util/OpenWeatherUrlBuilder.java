@@ -54,4 +54,16 @@ public class OpenWeatherUrlBuilder{
                 .addQueryParameter(weatherConfiguration.getCoordLonParameter(), lon)
                 .build().getUrl();
     }
+
+    public String buildOneCallUrl(String lat, String lon) {
+        return (new UrlBuilder.Builder())
+                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
+                .host(weatherConfiguration.getHost())
+                .addPathPart(weatherConfiguration.getOneCallPathPart())
+                .addQueryParameter(weatherConfiguration.getApiKeyParameter(), weatherConfiguration.getApiKey())
+                .addQueryParameter(weatherConfiguration.getCoordLatParameter(), lat)
+                .addQueryParameter(weatherConfiguration.getCoordLonParameter(), lon)
+                .addQueryParameter(weatherConfiguration.getUnitsParameter(), OPEN_WEATHER_METRIC_UNITS)
+                .build().getUrl();
+    }
 }

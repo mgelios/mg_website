@@ -34,7 +34,7 @@ public class WeatherExternalApiService {
     public OneCallDto fetchCurrentWeather(String cityName, String someParam) {
         RestTemplate restTemplate = new RestTemplate();
         String url = apiConsumerService.fillUrlWithApiConsumerData(
-                weatherUrlBuilder.buildCurrentWeatherUrl(cityName),
+                weatherUrlBuilder.buildOneCallUrl("53.54", "27.34"),
                 weatherConfiguration.getApiClientName(),
                 ApiConsumerAuthType.API_KEY
         );

@@ -3,6 +3,7 @@ mg:
     host: "api.openweathermap.org/data/2.5"
     weatherPathPart: "weather"
     forecastPathPart: "forecast"
+    oneCallPathPart: "onecall"
     uviPathPart: "uvi"
     placeParameter: "q"
     apiKeyParameter: "appid"

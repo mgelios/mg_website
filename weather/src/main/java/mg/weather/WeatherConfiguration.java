@@ -18,6 +18,7 @@ public class WeatherConfiguration{
     private String weatherPathPart;
     private String forecastPathPart;
     private String uviPathPart;
+    private String oneCallPathPart;
 
     private String placeParameter;
     private String apiKeyParameter;
