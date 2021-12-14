@@ -3,6 +3,8 @@ package mg.weather.service;
 import lombok.AllArgsConstructor;
 import mg.utils.JSONHelper;
 import mg.weather.WeatherConfiguration;
+import mg.weather.dto.openweather.GeocodingInfoDto;
+import mg.weather.dto.openweather.OneCallDto;
 import mg.weather.entity.CurrentWeather;
 import mg.weather.mapper.CurrentWeatherMapper;
 import mg.weather.dto.CurrentWeatherDto;
@@ -26,7 +28,9 @@ public class CurrentWeatherService {
     private final WeatherExternalApiService weatherExternalApiService;
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
-        weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity(), "");
+        weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity());
+        GeocodingInfoDto geocodingInfo = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
+        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(String.valueOf(geocodingInfo.getLat()), String.valueOf(geocodingInfo.getLon()));
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
