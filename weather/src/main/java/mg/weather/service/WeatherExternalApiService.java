@@ -36,10 +36,10 @@ public class WeatherExternalApiService {
         return jsonConsumer.getJsonObject(url);
     }
 
-    public OneCallDto fetchOneCallWeather(String lat, String lon) {
+    public OneCallDto fetchOneCallWeather(double lat, double lon) {
         RestTemplate restTemplate = new RestTemplate();
         String url = apiConsumerService.fillUrlWithApiConsumerData(
-                weatherUrlBuilder.buildOneCallUrl("53.54", "27.34"),
+                weatherUrlBuilder.buildOneCallUrl(String.valueOf(lat), String.valueOf(lon)),
                 weatherConfiguration.getApiClientName(),
                 ApiConsumerAuthType.API_KEY
         );

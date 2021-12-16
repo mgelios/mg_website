@@ -12,8 +12,8 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OneCallDto {
 
-    private long lat;
-    private long lon;
+    private double lat;
+    private double lon;
     private String timezone;
     private String timezoneOffset;
     private CurrentWeatherInfoDto current;

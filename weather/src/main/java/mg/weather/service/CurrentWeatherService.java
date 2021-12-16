@@ -27,10 +27,11 @@ public class CurrentWeatherService {
     private final CurrentWeatherMapper currentWeatherMapper;
     private final WeatherExternalApiService weatherExternalApiService;
 
+
     public CurrentWeatherDto getDefaultCurrentWeather() {
         weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity());
         GeocodingInfoDto geocodingInfo = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
-        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(String.valueOf(geocodingInfo.getLat()), String.valueOf(geocodingInfo.getLon()));
+        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfo.getLat(), geocodingInfo.getLon());
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 

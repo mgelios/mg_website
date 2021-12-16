@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -12,9 +13,9 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CurrentWeatherInfoDto {
 
-    private long dt;
-    private long sunrise;
-    private long sunset;
+    private Timestamp dt;
+    private Timestamp sunrise;
+    private Timestamp sunset;
     private double temp;
     private double feelsLike;
     private double pressure;
