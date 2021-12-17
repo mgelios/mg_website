@@ -6,8 +6,10 @@ import mg.weather.WeatherConfiguration;
 import mg.weather.dto.openweather.GeocodingInfoDto;
 import mg.weather.dto.openweather.OneCallDto;
 import mg.weather.entity.CurrentWeather;
+import mg.weather.entity.OneCall;
 import mg.weather.mapper.CurrentWeatherMapper;
 import mg.weather.dto.CurrentWeatherDto;
+import mg.weather.mapper.OneCallMapper;
 import mg.weather.repository.CurrentWeatherRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class CurrentWeatherService {
     private final JSONHelper jsonHelper;
     private final CurrentWeatherRepository currentWeatherRepository;
     private final CurrentWeatherMapper currentWeatherMapper;
+    private final OneCallMapper oneCallMapper;
     private final WeatherExternalApiService weatherExternalApiService;
 
 
@@ -32,6 +35,7 @@ public class CurrentWeatherService {
         weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity());
         GeocodingInfoDto geocodingInfo = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
         OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfo.getLat(), geocodingInfo.getLon());
+        OneCall oneCall = oneCallMapper.mapToEntity(oneCallDto);
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 

@@ -7,13 +7,13 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="mg_current_weather_info")
+//@Table(name="mg_current_weather_info")
 public class CurrentWeatherInfo {
 
     @Id
@@ -34,6 +34,6 @@ public class CurrentWeatherInfo {
     private double windDeg;
     private double windGust;
 
-    @OneToMany(mappedBy = "currentWeatherInfo", orphanRemoval = true, cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "currentWeatherInfo", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Weather> weather;
 }

@@ -5,13 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="mg_weather")
+//@Table(name="mg_weather")
 public class Weather {
 
     @Id
@@ -20,9 +20,14 @@ public class Weather {
     private String main;
     private String description;
     private String icon;
-    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "currentWeatherInfo")
+//    @ManyToOne
+//    @JoinColumn(name = "current_weather_info")
     private CurrentWeatherInfo currentWeatherInfo;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+//    @ManyToOne
+//    @JoinColumn(name = "daily_weather_forecast_info")
+    private DailyWeatherForecastInfo dailyWeatherForecastInfo;
 }

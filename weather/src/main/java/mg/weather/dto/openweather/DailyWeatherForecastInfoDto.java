@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -13,11 +13,11 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DailyWeatherForecastInfoDto {
 
-    private Timestamp dt;
-    private Timestamp sunrise;
-    private Timestamp sunset;
-    private Timestamp moonrise;
-    private Timestamp moonset;
+    private Instant dt;
+    private Instant sunrise;
+    private Instant sunset;
+    private Instant moonrise;
+    private Instant moonset;
     private double moonPhase;
     private TemperatureInfoDto temp;
     private TemperatureFeelsLikeInfoDto feelsLike;

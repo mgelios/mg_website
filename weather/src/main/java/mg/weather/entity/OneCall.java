@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="mg_one_call")
+//@Table(name="mg_one_call")
 public class OneCall {
 
     @Id
@@ -23,10 +23,10 @@ public class OneCall {
     private String timezone;
     private String timezoneOffset;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "current")
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "current")
     private CurrentWeatherInfo current;
 
-    @OneToMany(mappedBy = "oneCall", orphanRemoval = true, cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "oneCall", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DailyWeatherForecastInfo> daily;
 }
