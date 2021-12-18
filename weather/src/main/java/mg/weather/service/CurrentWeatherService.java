@@ -9,6 +9,7 @@ import mg.weather.entity.CurrentWeather;
 import mg.weather.entity.OneCall;
 import mg.weather.mapper.CurrentWeatherMapper;
 import mg.weather.dto.CurrentWeatherDto;
+import mg.weather.mapper.GeocodingInfoMapper;
 import mg.weather.mapper.OneCallMapper;
 import mg.weather.repository.CurrentWeatherRepository;
 import org.json.JSONObject;
@@ -28,14 +29,16 @@ public class CurrentWeatherService {
     private final CurrentWeatherRepository currentWeatherRepository;
     private final CurrentWeatherMapper currentWeatherMapper;
     private final OneCallMapper oneCallMapper;
+    private final GeocodingInfoMapper geocodingInfoMapper;
     private final WeatherExternalApiService weatherExternalApiService;
 
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
         weatherExternalApiService.fetchCurrentWeather(weatherConfiguration.getDefaultCity());
-        GeocodingInfoDto geocodingInfo = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
-        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfo.getLat(), geocodingInfo.getLon());
+        GeocodingInfoDto geocodingInfoDto = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
+        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfoDto.getLat(), geocodingInfoDto.getLon());
         OneCall oneCall = oneCallMapper.mapToEntity(oneCallDto);
+        oneCall.setGeocodingInfo(geocodingInfoMapper.mapToEntity(geocodingInfoDto));
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 

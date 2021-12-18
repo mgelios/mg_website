@@ -29,4 +29,8 @@ public class OneCall {
 
 //    @OneToMany(mappedBy = "oneCall", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DailyWeatherForecastInfo> daily;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "geocoding_info")
+    private GeocodingInfo geocodingInfo;
 }
