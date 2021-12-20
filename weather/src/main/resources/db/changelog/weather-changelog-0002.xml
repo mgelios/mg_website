@@ -7,7 +7,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet  id="weather-init"  author="mgelios">
+    <changeSet  id="weather-one-call-init"  author="mgelios">
         <createTable tableName="mg_one_call">
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
@@ -16,10 +16,66 @@
             <column name="lon" type="real" />
             <column name="timezone" type="text" />
             <column name="timezone_offset" type="bigint" />
+            <column name="current" type="uuid" />
+            <column name="geocoding_info" type="uuid" />
+        </createTable>
+
+        <createTable tableName="mg_one_call">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="dt" type="timestamptz" />
+            <column name="sunrise" type="timestamptz" />
+            <column name="sunset" type="timestamptz" />
+            <column name="temp" type="real" />
+            <column name="feels_like" type="real" />
+            <column name="pressure" type="real" />
+            <column name="humidity" type="real" />
+            <column name="dew_point" type="real" />
+            <column name="uvi" type="real" />
+            <column name="clouds" type="real" />
+            <column name="visibility" type="real" />
+            <column name="wind_speed" type="real" />
+            <column name="wind_deg" type="real" />
+            <column name="wind_gust" type="real" />
+        </createTable>
+
+        <createTable tableName="mg_weather">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="main" type="text" />
+            <column name="description" type="text" />
+            <column name="icon" type="text" />
+            <column name="current_weather_info" type="uuid" />
+            <column name="daily_weather_forecast_info" type="uuid" />
+        </createTable>
+
+        <createTable tableName="mg_geocoding_info">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="text" />
+            <column name="lat" type="real" />
+            <column name="lon" type="real" />
+            <column name="country" type="text" />
+        </createTable>
+
+        <createTable tableName="mg_city_local_names">
+            <column name="uuid" type="uuid">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="geocoding_uuid" type="uuid" />
+            <column name="location_code" type="text" />
+            <column name="name" type="text" />
         </createTable>
 
         <rollback>
             <dropTable tableName="mg_one_call" />
+            <dropTable tableName="mg_current_weather_info" />
+            <dropTable tableName="mg_weather" />
+            <dropTable tableName="mg_geocoding_info" />
+            <dropTable tableName="mg_city_local_names" />
         </rollback>
     </changeSet>
 </databaseChangeLog>
