@@ -21,7 +21,7 @@ public class OneCall {
     private double lat;
     private double lon;
     private String timezone;
-    private String timezoneOffset;
+    private long timezoneOffset;
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "current")
