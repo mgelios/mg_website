@@ -6,3 +6,7 @@ apply from: '../dependencies-utils.gradle'
 dependencies {
     implementation project(":utils")
 }
+
+test {
+    useJUnitPlatform()
+}
