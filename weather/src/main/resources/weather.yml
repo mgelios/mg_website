@@ -1,8 +1,8 @@
 mg:
   weather:
     host: "api.openweathermap.org"
-    weatherDataPathPart: "/data/2.5"
-    geoDataPathPart: "/geo/1.0/direct"
+    weatherDataPathPart: "data/3.0"
+    geoDataPathPart: "geo/1.0/direct"
     weatherPathPart: "weather"
     forecastPathPart: "forecast"
     oneCallPathPart: "onecall"

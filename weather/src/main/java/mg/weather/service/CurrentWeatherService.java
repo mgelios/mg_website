@@ -55,39 +55,11 @@ public class CurrentWeatherService {
     }
 
     public CurrentWeather updateCurrentWeatherByCityName(String cityName) {
-        JSONObject currentWeatherJson = weatherExternalApiService.fetchCurrentWeather(cityName);
+        //JSONObject currentWeatherJson = weatherExternalApiService.fetchCurrentWeather(cityName);
         if (currentWeatherRepository.findAllByCityName(cityName).size() != 0) {
             currentWeatherRepository.deleteAllByCityName(cityName);
         }
-        return saveCurrentWeather(currentWeatherJson);
+        return null;
     }
 
-    private CurrentWeather saveCurrentWeather(JSONObject json) {
-        if (json != null) {
-            CurrentWeather dbEntity = CurrentWeather.builder()
-                    .latitude(jsonHelper.getDouble(json, "coord.lat"))
-                    .longitude(jsonHelper.getDouble(json, "coord.lon"))
-                    .description(jsonHelper.getString(json, "weather[0].description"))
-                    .mainInfo(jsonHelper.getString(json, "weather[0].main"))
-                    .icon(jsonHelper.getString(json, "weather[0].icon"))
-                    .temperature(jsonHelper.getDouble(json, "main.temp"))
-                    .temperature(jsonHelper.getDouble(json, "main.feels_like"))
-                    .pressure(jsonHelper.getDouble(json, "main.pressure"))
-                    .humidity(jsonHelper.getDouble(json, "main.humidity"))
-                    .minimalTemperature(jsonHelper.getDouble(json, "main.temp_min"))
-                    .maximumTemperature(jsonHelper.getDouble(json, "main.temp_max"))
-                    .visibility(jsonHelper.getDouble(json, "visibility"))
-                    .windSpeed(jsonHelper.getDouble(json, "wind.speed"))
-                    .windDegree(jsonHelper.getDouble(json, "wind.deg"))
-                    .time(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "dt"))
-                    .sunrise(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "sys.sunrise"))
-                    .sunset(jsonHelper.getOffsetDateTimeOfEpochSecond(json, "sys.sunset"))
-                    .cityName(jsonHelper.getString(json, "name").toLowerCase())
-                    .build();
-            dbEntity.setUvi(weatherExternalApiService.fetchUvi(dbEntity.getLatitude(), dbEntity.getLongitude()));
-            return currentWeatherRepository.save(dbEntity);
-        } else {
-            return null;
-        }
-    }
 }
