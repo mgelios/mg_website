@@ -46,18 +46,6 @@ public class OpenWeatherUrlBuilder{
                 .build().getUrl();
     }
 
-    public String buildUviUrl(String lat, String lon) {
-        return (new UrlBuilder.Builder())
-                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
-                .host(weatherConfiguration.getHost())
-                .addPathPart(weatherConfiguration.getWeatherDataPathPart())
-                .addPathPart(weatherConfiguration.getUviPathPart())
-                .addQueryParameter(weatherConfiguration.getApiKeyParameter(), weatherConfiguration.getApiKey())
-                .addQueryParameter(weatherConfiguration.getCoordLatParameter(), lat)
-                .addQueryParameter(weatherConfiguration.getCoordLonParameter(), lon)
-                .build().getUrl();
-    }
-
     public String buildOneCallUrl(String lat, String lon) {
         return (new UrlBuilder.Builder())
                 .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)

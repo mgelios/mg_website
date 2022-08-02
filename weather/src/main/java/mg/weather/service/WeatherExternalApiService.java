@@ -25,7 +25,6 @@ public class WeatherExternalApiService {
     private final OpenWeatherUrlBuilder weatherUrlBuilder;
     private final ApiConsumerService apiConsumerService;
     private final JSONConsumer jsonConsumer;
-    private final JSONHelper jsonHelper;
 
     public JSONObject fetchCurrentWeather(String cityName) {
         String url = apiConsumerService.fillUrlWithApiConsumerData(
@@ -53,19 +52,9 @@ public class WeatherExternalApiService {
                 weatherConfiguration.getApiClientName(),
                 ApiConsumerAuthType.API_KEY
         );
-        return restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<GeocodingInfoDto>>(){}).getBody();
-    }
-
-    public double fetchUvi(double lat, double lon) {
-        double uvi;
-        String url = apiConsumerService.fillUrlWithApiConsumerData(
-                weatherUrlBuilder.buildUviUrl(String.valueOf(lat), String.valueOf(lon)),
-                weatherConfiguration.getApiClientName(),
-                ApiConsumerAuthType.API_KEY
-        );
-        JSONObject currentUviJson = jsonConsumer.getJsonObject(url);
-        uvi = currentUviJson != null ? jsonHelper.getDouble(currentUviJson, "value") : 0.0;
-        return uvi;
+        return restTemplate
+                .exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<GeocodingInfoDto>>(){})
+                .getBody();
     }
 
     public JSONObject fetchWeatherForecast(String cityName) {
