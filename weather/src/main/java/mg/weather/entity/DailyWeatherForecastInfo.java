@@ -7,13 +7,13 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name="mg_daily_weather_forecast_info")
+@Table(name="mg_daily_weather_forecast_info")
 public class DailyWeatherForecastInfo {
 
     @Id
@@ -26,11 +26,11 @@ public class DailyWeatherForecastInfo {
     private OffsetDateTime moonset;
     private double moonPhase;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "temp")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "temp")
     private TemperatureInfo temp;
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "feels_like")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "feels_like")
     private TemperatureFeelsLikeInfo feelsLike;
     private double pressure;
     private double humidity;
@@ -39,7 +39,7 @@ public class DailyWeatherForecastInfo {
     private double windDeg;
     private double windGust;
 
-//    @OneToMany(mappedBy = "dailyWeatherForecastInfo", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dailyWeatherForecastInfo", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Weather> weather;
     private double clouds;
     private double pop;

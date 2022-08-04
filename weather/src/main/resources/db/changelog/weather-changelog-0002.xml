@@ -20,7 +20,7 @@
             <column name="geocoding_info" type="uuid" />
         </createTable>
 
-        <createTable tableName="mg_one_call">
+        <createTable tableName="mg_current_weather_info">
             <column name="uuid" type="uuid">
                 <constraints nullable="false" primaryKey="true" />
             </column>

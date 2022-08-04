@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name="mg_temperature_feels_like_info")
+@Table(name="mg_temperature_feels_like_info")
 public class TemperatureFeelsLikeInfo {
 
     @Id

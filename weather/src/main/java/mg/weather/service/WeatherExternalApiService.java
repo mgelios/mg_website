@@ -2,7 +2,6 @@ package mg.weather.service;
 
 import lombok.AllArgsConstructor;
 import mg.utils.JSONConsumer;
-import mg.utils.JSONHelper;
 import mg.utils.api.consumer.ApiConsumerAuthType;
 import mg.utils.api.consumer.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
