@@ -36,4 +36,7 @@ public class WeatherConfiguration{
 
     private String defaultCoordLat;
     private String defaultCoordLon;
+
+    private String oneCallUrl;
+    private String geocodingUrl;
 }

@@ -47,26 +47,10 @@ public class OpenWeatherUrlBuilder{
     }
 
     public String buildOneCallUrl(String lat, String lon) {
-        return (new UrlBuilder.Builder())
-                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
-                .host(weatherConfiguration.getHost())
-                .addPathPart(weatherConfiguration.getWeatherDataPathPart())
-                .addPathPart(weatherConfiguration.getOneCallPathPart())
-                .addQueryParameter(weatherConfiguration.getApiKeyParameter(), weatherConfiguration.getApiKey())
-                .addQueryParameter(weatherConfiguration.getCoordLatParameter(), lat)
-                .addQueryParameter(weatherConfiguration.getCoordLonParameter(), lon)
-                .addQueryParameter(weatherConfiguration.getUnitsParameter(), OPEN_WEATHER_METRIC_UNITS)
-                .build().getUrl();
+        return String.format(weatherConfiguration.getOneCallUrl(), lat, lon, "%s", OPEN_WEATHER_METRIC_UNITS);
     }
 
     public String buildGeocodingUrl(String cityName, long limit) {
-        return (new UrlBuilder.Builder())
-                .protocol(UrlBuilder.Builder.HTTP_PROTOCOL)
-                .host(weatherConfiguration.getHost())
-                .addPathPart(weatherConfiguration.getGeoDataPathPart())
-                .addQueryParameter(weatherConfiguration.getPlaceParameter(), cityName)
-                .addQueryParameter(weatherConfiguration.getApiKeyParameter(), weatherConfiguration.getApiKey())
-                .addQueryParameter(weatherConfiguration.getLimitParameter(), String.valueOf(limit))
-                .build().getUrl();
+        return String.format(weatherConfiguration.getGeocodingUrl(), cityName, limit, "%s");
     }
 }
