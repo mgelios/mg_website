@@ -14,23 +14,6 @@ import org.springframework.context.annotation.PropertySource;
 @Setter
 public class WeatherConfiguration{
 
-    private String host;
-    private String weatherDataPathPart;
-    private String geoDataPathPart;
-    private String weatherPathPart;
-    private String forecastPathPart;
-    private String uviPathPart;
-    private String oneCallPathPart;
-
-    private String placeParameter;
-    private String apiKeyParameter;
-    private String unitsParameter;
-    private String langParameter;
-    private String coordLatParameter;
-    private String coordLonParameter;
-    private String limitParameter;
-
-    private String apiKey;
     private String apiClientName;
     private String defaultCity;
 

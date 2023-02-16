@@ -2,7 +2,6 @@ package mg.weather.controller;
 
 import lombok.AllArgsConstructor;
 import mg.weather.dto.WeatherForecastDto;
-import mg.weather.service.WeatherForecastService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
