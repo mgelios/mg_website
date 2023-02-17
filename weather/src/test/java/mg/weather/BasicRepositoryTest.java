@@ -3,7 +3,6 @@ package mg.weather;
 import static org.junit.jupiter.api.Assertions.*;
 
 import mg.weather.mock.RepositoryMock;
-import mg.weather.repository.CurrentWeatherRepository;
 import org.junit.jupiter.api.Test;
 
 public class BasicRepositoryTest {

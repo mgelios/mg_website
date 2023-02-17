@@ -3,7 +3,6 @@ package mg.weather;
 import static org.junit.jupiter.api.Assertions.*;
 
 import mg.weather.config.WeatherTestConfig;
-import mg.weather.repository.CurrentWeatherRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
