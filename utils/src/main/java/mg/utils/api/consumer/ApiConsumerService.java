@@ -6,7 +6,6 @@ import mg.utils.api.consumer.dto.ApiConsumerCreationRequestDto;
 import mg.utils.api.consumer.dto.ApiConsumerUpdateRequestDto;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,17 +24,17 @@ public class ApiConsumerService {
 
     public ApiConsumer findByUuid(UUID uuid) {
         return apiConsumerRepository.findById(uuid)
-                .orElseThrow(() -> new ValidationException("Requested api consumer is absent"));
+                .orElseThrow(() -> new RuntimeException("Requested api consumer is absent"));
     }
 
     public ApiConsumer findByName(String apiConsumerName) {
         return apiConsumerRepository.findByName(apiConsumerName)
-                .orElseThrow(() -> new ValidationException("Requested api consumer is absent"));
+                .orElseThrow(() -> new RuntimeException("Requested api consumer is absent"));
     }
 
     public ApiConsumer createApiConsumer(ApiConsumerCreationRequestDto apiConsumerDto) {
         apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(o -> {
-            throw new ValidationException("Api consumer's name you've sent is already present");
+            throw new RuntimeException("Api consumer's name you've sent is already present");
         });
         ApiConsumer apiConsumerToCreate = apiConsumerMapper.mapToEntity(apiConsumerDto);
         return apiConsumerRepository.save(apiConsumerToCreate);
@@ -43,10 +42,10 @@ public class ApiConsumerService {
 
     public ApiConsumer updateApiConsumer(ApiConsumerUpdateRequestDto apiConsumerDto) {
         ApiConsumer apiConsumerToUpdate = apiConsumerRepository.findById(apiConsumerDto.getUuid())
-                .orElseThrow(() -> new ValidationException("Api consumer you're trying to update not exists"));
+                .orElseThrow(() -> new RuntimeException("Api consumer you're trying to update not exists"));
         apiConsumerRepository.findByName(apiConsumerDto.getName()).ifPresent(apiConsumerToCheck -> {
             if (!apiConsumerToCheck.getUuid().equals(apiConsumerDto.getUuid())) {
-                throw new ValidationException("Another api consumer with name you've provided already exists");
+                throw new RuntimeException("Another api consumer with name you've provided already exists");
             }
         });
         apiConsumerToUpdate.setApiKey(apiConsumerDto.getApiKey());
@@ -60,7 +59,7 @@ public class ApiConsumerService {
     public void deleteApiConsumer(UUID uuid) {
         apiConsumerRepository.delete(
                 apiConsumerRepository.findById(uuid)
-                        .orElseThrow(() -> new ValidationException("Api consumer you're trying to delete is not exists"))
+                        .orElseThrow(() -> new RuntimeException("Api consumer you're trying to delete is not exists"))
         );
     }
 

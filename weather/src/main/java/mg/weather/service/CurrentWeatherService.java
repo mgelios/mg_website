@@ -23,23 +23,14 @@ public class CurrentWeatherService {
 
 
     public CurrentWeatherDto getDefaultCurrentWeather() {
-        GeocodingInfoDto geocodingInfoDto = weatherExternalApiService.fetchGeocodingInfo(weatherConfiguration.getDefaultCity()).get(0);
-        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfoDto.getLat(), geocodingInfoDto.getLon());
-        OneCall oneCall = oneCallMapper.mapToEntity(oneCallDto);
-        oneCall.setGeocodingInfo(geocodingInfoMapper.mapToEntity(geocodingInfoDto));
         return getCurrentWeatherByCityName(weatherConfiguration.getDefaultCity());
     }
 
     public CurrentWeatherDto getCurrentWeatherByCityName(String cityName) {
-//        Optional<CurrentWeather> optionalCurrentWeather = currentWeatherRepository.findByCityName(cityName);
-//        CurrentWeather result = null;
-//        if (optionalCurrentWeather.isPresent()) {
-//            result = optionalCurrentWeather.get();
-//        }
-//        if (result == null || result.getTime().toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear()) {
-//            result = updateCurrentWeatherByCityName(cityName);
-//        }
-//        return currentWeatherMapper.mapToDTO(result);
+        GeocodingInfoDto geocodingInfoDto = weatherExternalApiService.fetchGeocodingInfo(cityName).get(0);
+        OneCallDto oneCallDto = weatherExternalApiService.fetchOneCallWeather(geocodingInfoDto.getLat(), geocodingInfoDto.getLon());
+        OneCall oneCall = oneCallMapper.mapToEntity(oneCallDto);
+        oneCall.setGeocodingInfo(geocodingInfoMapper.mapToEntity(geocodingInfoDto));
         return null;
     }
 
