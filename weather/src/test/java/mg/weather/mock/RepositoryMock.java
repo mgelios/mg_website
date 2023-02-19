@@ -1,7 +1,6 @@
 package mg.weather.mock;
 
 import mg.utils.api.consumer.ApiConsumerRepository;
-import mg.weather.entity.CurrentWeather;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import mg.weather.WeatherConfiguration;
 import mg.weather.dto.openweather.GeocodingInfoDto;
 import mg.weather.dto.openweather.OneCallDto;
 import mg.weather.entity.OneCall;
-import mg.weather.dto.CurrentWeatherDto;
 import mg.weather.mapper.GeocodingInfoMapper;
 import mg.weather.mapper.OneCallMapper;
 import org.springframework.stereotype.Service;

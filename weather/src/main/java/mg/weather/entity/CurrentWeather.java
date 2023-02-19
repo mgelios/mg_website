@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,29 +13,27 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="mg_current_weather")
+@Table(name="mg_current_weather_info")
 public class CurrentWeather {
 
     @Id
     @GeneratedValue
     private UUID uuid;
-    private OffsetDateTime time;
-    private String cityName;
-    private double longitude;
-    private double latitude;
-    private String mainInfo;
-    private String description;
-    private String icon;
-    private double temperature;
+    private OffsetDateTime dt;
+    private OffsetDateTime sunrise;
+    private OffsetDateTime sunset;
+    private double temp;
     private double feelsLike;
     private double pressure;
     private double humidity;
-    private double minimalTemperature;
-    private double maximumTemperature;
+    private double dewPoint;
+    private double uvi;
+    private double clouds;
     private double visibility;
     private double windSpeed;
-    private double windDegree;
-    private OffsetDateTime sunrise;
-    private OffsetDateTime sunset;
-    private double uvi;
+    private double windDeg;
+    private double windGust;
+
+    @OneToMany(mappedBy = "currentWeatherInfo", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Weather> weather;
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CurrentWeatherInfoDto {
+public class CurrentWeatherDto {
 
     private Instant dt;
     private Instant sunrise;

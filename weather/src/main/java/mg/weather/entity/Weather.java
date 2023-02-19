@@ -24,7 +24,7 @@ public class Weather {
     @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "current_weather_info")
-    private CurrentWeatherInfo currentWeatherInfo;
+    private CurrentWeather currentWeatherInfo;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne

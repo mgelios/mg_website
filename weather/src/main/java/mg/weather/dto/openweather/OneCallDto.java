@@ -16,6 +16,6 @@ public class OneCallDto {
     private double lon;
     private String timezone;
     private String timezoneOffset;
-    private CurrentWeatherInfoDto current;
+    private CurrentWeatherDto current;
     private List<DailyWeatherForecastInfoDto> daily;
 }
