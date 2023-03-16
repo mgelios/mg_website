@@ -69,14 +69,14 @@
                 :inset="true"
                 :fixed="false"
                 class="justify-center">
-            &copy;MGeliOS 2019
+            &copy;MGeliOS 2023
         </v-footer>
     </v-app>
 </template>
 
 <script>
-    import { router } from "../../utils/router/router";
-    import { pages } from "../../router/pages";
+    import router from "@/router";
+    import { pages } from "@/router/pages";
 
     export default {
         name: 'Dashboard',

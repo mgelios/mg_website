@@ -7,8 +7,8 @@
                         <v-flex xs12 lg6>
                             <p class="text-xs-center headline">Conversions</p>
                             <v-list>
-                                <template v-for="(item, index) in conversions">
-                                    <v-list-item :key="index">
+                                <template v-for="(item, index) in conversions" :key="index">
+                                    <v-list-item>
                                         <v-list-item-content>
                                             {{item.currencyFrom.abbreviation}}/{{item.currencyTo.abbreviation}}
                                         </v-list-item-content>
@@ -23,8 +23,8 @@
                         <v-flex xs12 lg6>
                             <p class="text-xs-center headline">Exhange Rates</p>
                             <v-list>
-                                <template v-for="(item, index) in exchangeRates">
-                                    <v-list-item :key="index">
+                                <template v-for="(item, index) in exchangeRates" :key="index">
+                                    <v-list-item>
                                         <v-list-item-content>
                                             {{item.scale}} {{item.abbreviation}}
                                         </v-list-item-content>

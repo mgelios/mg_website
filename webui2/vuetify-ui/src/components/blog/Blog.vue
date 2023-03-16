@@ -56,8 +56,8 @@
 </template>
 
 <script>
-    import { router } from "../../utils/router/router";
-    import { pages } from "../../router/pages";
+    import router from "@/router";
+    import { pages } from "@/router/pages";
 
     export default {
         name: 'Blog',

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import marked from 'marked'
+    import { marked } from 'marked'
 
     export default {
         name: 'Test',

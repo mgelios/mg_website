@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
 import CryptoCurrency from './modules/CryptoCurrency'
 import Weather from './modules/Weather'
@@ -12,8 +11,6 @@ import { crypto } from "./crypto";
 import { profile } from './profile';
 import { app } from "./app";
 import { apiConsumer } from "./apiConsumer";
-
-Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
