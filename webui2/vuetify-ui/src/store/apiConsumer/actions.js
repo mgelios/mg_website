@@ -1,9 +1,9 @@
-import { apiConsumer } from "../../api/service/apiConsumer";
+import { apiConsumer } from "@/api/service/apiConsumer";
 import { types } from "./types";
-import { ApiConsumerModel } from "../../models/apiConsumer/apiConsumerModel";
+import { ApiConsumerModel } from "@/models/apiConsumer/apiConsumerModel";
 
-import { router } from "../../utils/router/router";
-import { pages } from "../../router/pages";
+import router from "@/router";
+import { pages } from "@/router/pages";
 
 export const actions = Object.freeze({
     fetchApiConsumers,

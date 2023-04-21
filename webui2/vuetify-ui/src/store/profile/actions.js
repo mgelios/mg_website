@@ -1,7 +1,7 @@
 import { types } from './types';
-import { login, profile } from '../../api/service/profile';
-import { router } from '../../utils/router/router';
-import { pages } from "../../router/pages";
+import { login, profile } from '@/api/service/profile';
+import router from '@/router';
+import { pages } from "@/router/pages";
 
 export const actions = Object.freeze({
     performLogin,

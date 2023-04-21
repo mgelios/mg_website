@@ -1,6 +1,6 @@
-import { ApiService } from "../apiService";
-import { CryptoCurrencyModel } from "../../models/crypto/cryptoCurrencyModel";
-import { CryptoMarket } from "../../models/crypto/cryptoMarket";
+import { ApiService } from "@/api/apiService";
+import { CryptoCurrencyModel } from "@/models/crypto/cryptoCurrencyModel";
+import { CryptoMarket } from "@/models/crypto/cryptoMarket";
 
 export const cryptoCurrency = new ApiService(
     '/api/v1/finance/crypto/currencies',
