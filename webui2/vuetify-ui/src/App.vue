@@ -16,12 +16,12 @@ export default {
         //...mapState('app', ['appData']),
         ...mapState({appData: state => state})
     },
-    created() {
+    created(key, value) {
         console.log(this.appData)
         if (localStorage.getItem('appData') && !this.appData) {
             this.restoreDataFromLocalStorage(JSON.parse(localStorage.getItem('appData')));
         } else if (!localStorage.getItem('appData') && this.appData) {
-            localStorage.setItem(JSON.stringify(this.appData));
+            localStorage.setItem(JSON.stringify(this.appData), this.appData);
         }
     },
     methods: {

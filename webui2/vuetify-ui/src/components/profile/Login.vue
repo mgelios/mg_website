@@ -1,40 +1,40 @@
 <template>
     <v-app>
-        <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-                <v-flex xs12 sm8 md4>
-                    <v-card>
-                        <v-card-title>
-                            <v-layout display-1>Login</v-layout>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-form>
-                                <v-text-field
-                                        v-model="username"
-                                        prepend-icon="person"
-                                        label="Username"
-                                        required
-                                        :counter="50">
-                                </v-text-field>
-                                <v-text-field
-                                        v-model="password"
-                                        prepend-icon="lock"
-                                        label="Password"
-                                        required
-                                        :counter="50"
-                                        :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-                                        :type="showPassword ? 'text' : 'password'"
-                                        @click:append="showPassword = !showPassword">
-                                </v-text-field>
-                            </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-btn v-on:click="doLogin">Login</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
+        <div class="d-flex align-center flex-column">
+            <v-card width="600">
+                <v-card-title>
+                    <v-layout display-1>Login</v-layout>
+                </v-card-title>
+                <v-card-text>
+                    <v-form>
+                        <v-text-field
+                                v-model="username"
+                                prepend-icon="mdi-account"
+                                label="Username"
+                                required
+                                :counter="50">
+                        </v-text-field>
+                        <v-text-field
+                                v-model="password"
+                                prepend-icon="mdi-key"
+                                label="Password"
+                                required
+                                :counter="50"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPassword ? 'text' : 'password'"
+                                @click:append="showPassword = !showPassword">
+                        </v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn
+                        v-on:click="doLogin"
+                        block
+                        variant="flat"
+                        color="amber-lighten-1">Login</v-btn>
+                </v-card-actions>
+            </v-card>
+        </div>
     </v-app>
 </template>
 
