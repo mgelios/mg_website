@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
 //---------------------------------------------------------------------------
-//  !!! IMPORTANT NOTE: mapstruct shoud be added as mapstruct itself through
+//  !!! IMPORTANT NOTE: mapstruct should be added as mapstruct itself through
 //  'compile section', and annotation processor through 'annotationProcessor'
 //  section
 //---------------------------------------------------------------------------

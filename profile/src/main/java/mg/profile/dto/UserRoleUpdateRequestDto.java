@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import mg.profile.common.Role;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Getter

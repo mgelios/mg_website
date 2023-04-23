@@ -1,5 +1,6 @@
 package mg.profile.conrtoller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mg.profile.dto.UserPasswordUpdateRequestDto;
 import mg.profile.dto.UserResponseDto;
@@ -8,9 +9,6 @@ import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import javax.validation.ValidationException;
 
 @RestController
 @AllArgsConstructor
@@ -49,7 +47,7 @@ public class AuthorizedUserRestController {
     private void checkIfUserAllowedToPerformAction(String usernameToCheck) {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         if (!usernameToCheck.equals(username)) {
-            throw new ValidationException("request is not valid");
+            throw new RuntimeException("request is not valid");
         }
     }
 }

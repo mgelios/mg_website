@@ -6,19 +6,18 @@ import mg.profile.dto.*;
 import mg.profile.entity.User;
 import mg.profile.mapper.UserMapper;
 import mg.profile.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ValidationException;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 @Transactional
+//TODO: find appropriate exception to throw instead of RuntimeException
 public class UserService {
 
     private final UserRepository userRepository;
@@ -27,14 +26,13 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByUuid(UUID uuid) {
-        User user = userRepository.findById(uuid)
-                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
-        return user;
+        return userRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException("uuid you provided is not valid"));
     }
 
     public User findUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
         return user.get();
@@ -47,10 +45,10 @@ public class UserService {
 
     public User createUser(UserCreationRequestDto dto) {
         userRepository.findByEmail(dto.getEmail()).ifPresent(o -> {
-            throw new ValidationException("user with this email already exists");
+            throw new RuntimeException("user with this email already exists");
         });
         userRepository.findByUsername(dto.getUsername()).ifPresent(o -> {
-            throw new ValidationException("user with this username already exists");
+            throw new RuntimeException("user with this username already exists");
         });
         User userToCreate = userMapper.mapToEntity(dto);
         userToCreate.setPassword(bCryptPasswordEncoder.encode(userToCreate.getPassword()));
@@ -65,10 +63,10 @@ public class UserService {
 
     public User updateUser(UserUpdateRequestDto dto) {
         User userToUpdate = userRepository.findById(dto.getUuid())
-                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
+                .orElseThrow(() -> new RuntimeException("uuid you provided is not valid"));
         userRepository.findByEmail(dto.getEmail()).ifPresent(o -> {
             if (!o.getUuid().equals(dto.getUuid()))
-                throw new ValidationException("user with this email already exists");
+                throw new RuntimeException("user with this email already exists");
         });
         userToUpdate.setFirstName(dto.getFirstName());
         userToUpdate.setLastName(dto.getLastName());
@@ -78,14 +76,14 @@ public class UserService {
 
     public User updatePassword(UserPasswordUpdateRequestDto dto) {
         User userToUpdate = userRepository.findById(dto.getUuid())
-                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
+                .orElseThrow(() -> new RuntimeException("uuid you provided is not valid"));
         userToUpdate.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         return userRepository.save(userToUpdate);
     }
 
     public User updateRole(UserRoleUpdateRequestDto dto) {
         User userToUpdate = userRepository.findById(dto.getUuid())
-                .orElseThrow(() -> new ValidationException("uuid you provided is not valid"));
+                .orElseThrow(() -> new RuntimeException("uuid you provided is not valid"));
         userToUpdate.setRole(dto.getRole());
         return userRepository.save(userToUpdate);
     }

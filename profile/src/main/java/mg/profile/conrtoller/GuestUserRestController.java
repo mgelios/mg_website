@@ -1,5 +1,6 @@
 package mg.profile.conrtoller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mg.profile.dto.UserCreationRequestDto;
 import mg.profile.dto.UserResponseDto;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
