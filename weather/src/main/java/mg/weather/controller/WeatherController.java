@@ -1,6 +1,7 @@
 package mg.weather.controller;
 
 import lombok.AllArgsConstructor;
+import mg.weather.dto.openweather.CurrentWeatherDto;
 import mg.weather.dto.openweather.OneCallDto;
 import mg.weather.service.CurrentWeatherService;
 import org.springframework.web.bind.annotation.CrossOrigin;

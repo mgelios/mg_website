@@ -5,7 +5,7 @@ import mg.security.token.dto.JWTLoginRequest;
 import mg.security.token.dto.JWTLoginResponse;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/token")

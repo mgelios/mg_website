@@ -6,7 +6,7 @@ import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController

@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.ValidationException;
+import jakarta.validation.ValidationException;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class CustomExceptionHandlersContainer extends ResponseEntityExceptionHandler {
 
-    @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,

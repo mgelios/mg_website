@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
         uses = {
                 DateMapper.class,
                 DailyWeatherForecastMapper.class,
-                CurrentWeatherInfoMapper.class,
+                CurrentWeatherMapper.class,
                 GeocodingInfoMapper.class
         },
         componentModel = "spring"

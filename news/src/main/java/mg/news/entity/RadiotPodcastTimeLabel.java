@@ -2,8 +2,7 @@ package mg.news.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 

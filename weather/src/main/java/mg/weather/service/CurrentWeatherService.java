@@ -2,6 +2,7 @@ package mg.weather.service;
 
 import lombok.AllArgsConstructor;
 import mg.weather.WeatherConfiguration;
+import mg.weather.dto.openweather.CurrentWeatherDto;
 import mg.weather.dto.openweather.GeocodingInfoDto;
 import mg.weather.dto.openweather.OneCallDto;
 import mg.weather.entity.OneCall;
