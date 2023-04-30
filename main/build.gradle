@@ -14,7 +14,7 @@ dependencies {
 
 //    implementation project(':bot')
 
-    implementation project(':blog')
+//    implementation project(':blog')
 }
 
 

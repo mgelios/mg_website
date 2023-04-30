@@ -9,5 +9,5 @@ include ':weather'
 include ':finance'
 include ':news'
 include ':webui'
-include ':blog'
+//include ':blog'
 
