@@ -1,22 +1,25 @@
 package mg.finance.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Entity
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name="mg_crypto_currency")
+//@Entity
+//@Getter
+//@Setter
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Table(name="mg_crypto_currency")
 public class CryptoCurrency {
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private UUID uuid;
     private String name;
     private String symbol;

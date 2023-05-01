@@ -2,21 +2,21 @@ package mg.finance.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Entity
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name="mg_crypto_currency_market")
+//@Entity
+//@Getter
+//@Setter
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Table(name="mg_crypto_currency_market")
 public class CryptoMarket {
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private UUID uuid;
     private Long activeCryptoCurrencies;
     private Long totalCryptoCurrencies;
