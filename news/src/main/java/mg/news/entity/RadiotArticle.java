@@ -1,10 +1,8 @@
 package mg.news.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -13,6 +11,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @Table(name="mg_radiot_article")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RadiotArticle {
 
     @Id

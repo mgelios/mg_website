@@ -7,9 +7,9 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 //@Entity
-//@Getter
-//@Setter
-//@Builder
+@Getter
+@Setter
+@Builder
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Table(name="mg_crypto_currency_market")

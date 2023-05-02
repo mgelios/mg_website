@@ -2,7 +2,7 @@ package mg.weather.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Map;
 import java.util.UUID;
 

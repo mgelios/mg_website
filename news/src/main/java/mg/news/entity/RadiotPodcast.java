@@ -2,7 +2,7 @@ package mg.news.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -12,6 +12,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @Table(name="mg_radiot_podcast")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RadiotPodcast {
 
     @Id

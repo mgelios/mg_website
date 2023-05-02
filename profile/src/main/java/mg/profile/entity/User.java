@@ -1,16 +1,20 @@
 package mg.profile.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mg.profile.common.Role;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @Table(name="mg_user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id

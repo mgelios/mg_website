@@ -18,8 +18,8 @@ public class CryptoCurrencyRestController {
 
     private final CryptoCurrencyService cryptoCurrencyService;
 
-    @GetMapping("/list")
-    public List<CryptoCurrencyDto> getCryptoCurrencies() {
-        return cryptoCurrencyService.getCryptoCurrencies();
-    }
+//    @GetMapping("/list")
+//    public List<CryptoCurrencyDto> getCryptoCurrencies() {
+//        return cryptoCurrencyService.getCryptoCurrencies();
+//    }
 }
