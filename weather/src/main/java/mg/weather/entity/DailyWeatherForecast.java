@@ -13,8 +13,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="mg_daily_weather_forecast_info")
-public class DailyWeatherForecastInfo {
+@Table(name="mg_daily_weather_forecast")
+public class DailyWeatherForecast {
 
     @Id
     @GeneratedValue
@@ -44,4 +44,8 @@ public class DailyWeatherForecastInfo {
     private double clouds;
     private double pop;
     private double uvi;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "one_call")
+    private OneCall oneCall;
 }
