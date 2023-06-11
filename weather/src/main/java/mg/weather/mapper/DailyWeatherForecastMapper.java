@@ -2,7 +2,7 @@ package mg.weather.mapper;
 
 import mg.utils.mapper.DateMapper;
 import mg.weather.dto.openweather.DailyWeatherForecastInfoDto;
-import mg.weather.entity.DailyWeatherForecastInfo;
+import mg.weather.entity.DailyWeatherForecast;
 import org.mapstruct.Mapper;
 
 @Mapper(
@@ -16,7 +16,7 @@ import org.mapstruct.Mapper;
 )
 public interface DailyWeatherForecastMapper {
 
-    DailyWeatherForecastInfoDto mapToDTO(DailyWeatherForecastInfo entity);
+    DailyWeatherForecastInfoDto mapToDTO(DailyWeatherForecast entity);
 
-    DailyWeatherForecastInfo mapToEntity(DailyWeatherForecastInfoDto dto);
+    DailyWeatherForecast mapToEntity(DailyWeatherForecastInfoDto dto);
 }

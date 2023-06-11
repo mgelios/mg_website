@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CryptoMarketRepository extends CrudRepository<CryptoMarket, UUID> {
+public interface CryptoMarketRepository {// extends CrudRepository<CryptoMarket, UUID> {
 
-    Optional<CryptoMarket> findFirstByActiveCryptoCurrenciesIsNotNull();
+    //Optional<CryptoMarket> findFirstByActiveCryptoCurrenciesIsNotNull();
 }

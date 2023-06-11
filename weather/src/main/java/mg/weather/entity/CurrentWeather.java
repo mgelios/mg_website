@@ -34,6 +34,6 @@ public class CurrentWeather {
     private double windDeg;
     private double windGust;
 
-    @OneToMany(mappedBy = "currentWeatherInfo", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "currentWeather", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Weather> weather;
 }

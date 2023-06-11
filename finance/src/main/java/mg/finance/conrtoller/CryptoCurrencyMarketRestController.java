@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CryptoCurrencyMarketRestController {
 
-    private final CryptoMarketService cryptoMarketService;
-
-    @GetMapping
-    public CryptoMarketDto getCryptoMarketInfo() {
-        return cryptoMarketService.getCryptoMarketInfo();
-    }
+//    private final CryptoMarketService cryptoMarketService;
+//
+//    @GetMapping
+//    public CryptoMarketDto getCryptoMarketInfo() {
+//        return cryptoMarketService.getCryptoMarketInfo();
+//    }
 }

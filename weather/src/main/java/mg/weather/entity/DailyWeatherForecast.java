@@ -39,7 +39,7 @@ public class DailyWeatherForecast {
     private double windDeg;
     private double windGust;
 
-    @OneToMany(mappedBy = "dailyWeatherForecastInfo", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dailyWeatherForecast", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Weather> weather;
     private double clouds;
     private double pop;

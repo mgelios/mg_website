@@ -24,10 +24,10 @@ public class Weather {
     @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "current_weather_info")
-    private CurrentWeather currentWeatherInfo;
+    private CurrentWeather currentWeather;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "daily_weather_forecast_info")
-    private DailyWeatherForecastInfo dailyWeatherForecastInfo;
+    private DailyWeatherForecast dailyWeatherForecast;
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CryptoCurrencyRestController {
 
-    private final CryptoCurrencyService cryptoCurrencyService;
+//    private final CryptoCurrencyService cryptoCurrencyService;
 
 //    @GetMapping("/list")
 //    public List<CryptoCurrencyDto> getCryptoCurrencies() {

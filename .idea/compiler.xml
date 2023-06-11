@@ -14,7 +14,6 @@
         <module name="app.security.main" />
         <module name="app.main.main" />
         <module name="app.utils.main" />
-        <module name="app.blog.main" />
         <module name="app.finance.main" />
         <module name="app.news.main" />
         <module name="app.weather.main" />

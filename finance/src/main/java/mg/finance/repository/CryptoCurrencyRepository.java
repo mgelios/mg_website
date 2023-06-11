@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
-public interface CryptoCurrencyRepository extends CrudRepository<CryptoCurrency, UUID> {
+//@Repository
+public interface CryptoCurrencyRepository {//} extends CrudRepository<CryptoCurrency, UUID> {
 
-    Optional<CryptoCurrency> findFirstByMarketCapUsdNotNull();
+    //Optional<CryptoCurrency> findFirstByMarketCapUsdNotNull();
 }
