@@ -14,6 +14,8 @@ public class JWTLoginController {
 
     private final JWTService jwtService;
 
+    //test comment for commit
+
     @PostMapping("/login")
     public JWTLoginResponse login(@Valid @RequestBody JWTLoginRequest loginRequest) {
         return jwtService.generateLoginResponse(loginRequest);
