@@ -76,11 +76,12 @@
         },
         methods: {
             getImage: function(name) {
-                var images = require.context('../../../assets/img/weather/', false, /\.svg$/);
+                const weather_images_path = "/assets/img/weather/";
+                //var images = require.context('../../../assets/img/weather/', false, /\.svg$/);
                 if (name) {
-                    return images('./' + name + '.svg');
+                    return weather_images_path + name + ".svg";
                 } else {
-                    return images('./01d.svg');
+                    return weather_images_path + "./01d.svg";
                 }
             }
         }
