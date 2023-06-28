@@ -64,4 +64,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         String authenticationHeader = request.getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME);
         return authenticationHeader != null && authenticationHeader.startsWith(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX);
     }
+
+    @Override
+    protected boolean shouldNotFilterAsyncDispatch() {
+        return false;
+    }
+
+    @Override
+    protected  boolean shouldNotFilterErrorDispatch() {
+        return false;
+    }
 }
