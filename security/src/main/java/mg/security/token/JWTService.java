@@ -3,7 +3,6 @@ package mg.security.token;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
-import mg.profile.dto.UserDto;
 import mg.profile.entity.User;
 import mg.profile.mapper.UserMapper;
 import mg.profile.service.UserService;
