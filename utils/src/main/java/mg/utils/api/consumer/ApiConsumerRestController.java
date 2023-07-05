@@ -1,6 +1,7 @@
 package mg.utils.api.consumer;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mg.utils.api.consumer.dto.ApiConsumerCreationRequestDto;
 import mg.utils.api.consumer.dto.ApiConsumerResponseDto;
 import mg.utils.api.consumer.dto.ApiConsumerUpdateRequestDto;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/admin/api-consumer")
+@Slf4j
 public class ApiConsumerRestController {
 
     private final ApiConsumerService apiConsumerService;
@@ -21,6 +23,7 @@ public class ApiConsumerRestController {
 
     @GetMapping("/list")
     public List<ApiConsumerResponseDto> getListOfApiConsumers() {
+        log.info("Starting retrieving list of api consumers");
         return apiConsumerService.getListOfApiConsumers().stream()
                 .map(apiConsumerMapper::mapToResponseDto)
                 .collect(Collectors.toList());
@@ -28,21 +31,25 @@ public class ApiConsumerRestController {
 
     @GetMapping("/{uuid}")
     public ApiConsumerResponseDto getApiConsumerByUuid(@PathVariable String uuid) {
+        log.info("Starting retrieving api consumer by UUID");
         return apiConsumerMapper.mapToResponseDto(apiConsumerService.findByUuid(UUID.fromString(uuid)));
     }
 
     @PostMapping
     public ApiConsumerResponseDto createApiConsumer(@Valid @RequestBody ApiConsumerCreationRequestDto apiConsumerDto) {
+        log.info("Starting creating api consumer");
         return apiConsumerMapper.mapToResponseDto(apiConsumerService.createApiConsumer(apiConsumerDto));
     }
 
     @PutMapping
     public ApiConsumerResponseDto updateApiConsumer(@Valid @RequestBody ApiConsumerUpdateRequestDto apiConsumerDto) {
+        log.info("Starting updating api consumer");
         return apiConsumerMapper.mapToResponseDto(apiConsumerService.updateApiConsumer(apiConsumerDto));
     }
 
     @DeleteMapping("/{uuid}")
     public void deleteApiConsumer(@PathVariable String uuid) {
+        log.info("Starting deleting api consumer");
         apiConsumerService.deleteApiConsumer(UUID.fromString(uuid));
     }
 }
