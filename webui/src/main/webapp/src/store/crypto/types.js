@@ -1,4 +1,0 @@
-export const types = Object.freeze({
-    SET_CRYPTO_CURRENCIES: 'SET_CRYPTO_CURRENCIES',
-    SET_CRYPTO_MARKET: 'SET_CRYPTO_MARKET',
-});
