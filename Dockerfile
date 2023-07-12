@@ -5,5 +5,5 @@ FROM jre-prepare-stage as build-stage
 COPY ./main/build/libs/main.jar app.jar
 
 FROM build-stage as production-stage
-CMD ["java", "-jar", "/app.jar"]
+CMD ["java", "-jar", "-Dspring.profiles.active=prod", "/app.jar"]
 EXPOSE 8080
