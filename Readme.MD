@@ -17,15 +17,20 @@ This is test version of readme
 - org.json
 - Swagger
 - Mapstruct
-- Flexmark
+- Docker
+- Gradle
+- Java 17
 
 #### Front-end:
-- Vue JS
+- Vue JS (3.x)
 - Vue Router
-- Vuetify
+- Vuetify (3.x)
 - Vue ChartJS
 - Vuex
 - Axios
+- Yarn
+- Docker
+- NGINX
 
 ## Powered by Intellij IDEA
 <p align="center">

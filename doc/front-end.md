@@ -1,4 +1,10 @@
-Cheatsheet to run webui on local env:
+# Cheatsheet to work with webui:
 
-1. Navigate to ``` /webui/src/main/webapp ```
-2. Run ``` npm run serve ```
+## Run dev server
+
+1. Navigate to ``` webui2/vuetify-ui ```
+2. Run ``` yarn dev ```
+
+## Build docker image
+
+## Push docker image
