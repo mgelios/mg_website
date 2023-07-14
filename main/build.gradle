@@ -16,6 +16,9 @@ dependencies {
 
 
 graalvmNative {
+    metadataRepository {
+        enabled = true
+    }
     binaries {
         main {
             javaLauncher = javaToolchains.launcherFor {
@@ -23,6 +26,10 @@ graalvmNative {
 //                vendor = JvmVendorSpec.matching("GraalVM Community")
             }
             mainClass = 'mg.Application'
+            debug = false // Determines if debug info should be generated, defaults to false
+            verbose = false // Add verbose output, defaults to false
+            fallback = false // Sets the fallback mode of native-image, defaults to false
+            sharedLibrary = false
         }
     }
 }
