@@ -11,12 +11,18 @@ dependencies {
     implementation project(':weather')
     implementation project(':finance')
     implementation project(':news')
-
-//    implementation project(':bot')
-
-//    implementation project(':blog')
 }
 
 
 
-
+graalvmNative {
+    binaries {
+        main {
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(17)
+//                vendor = JvmVendorSpec.matching("GraalVM Community")
+            }
+            mainClass = 'mg.Application'
+        }
+    }
+}

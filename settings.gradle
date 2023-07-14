@@ -1,13 +1,20 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.6.0"
+}
+
 rootProject.name="app"
 
 include ':main'
 include ':utils'
 include ':profile'
 include ':security'
-//include ':bot'
 include ':weather'
 include ':finance'
 include ':news'
-//include ':webui'
-//include ':blog'
-
