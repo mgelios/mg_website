@@ -37,7 +37,7 @@ services:
     restart: always
     container_name: "mg_prod_main_frontend"
     ports:
-      - "3000:3000"
+      - "80:80"
     networks:
       - mg_net
 networks:
