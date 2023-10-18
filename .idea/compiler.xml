@@ -6,9 +6,9 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.1.1/aa13cb8ae0314bb67f9c75e66042a7001b5e406c/spring-boot-configuration-processor-3.1.1.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.1.4/7113c079f7f9fedad3fbac9997340c57a865cf73/spring-boot-configuration-processor-3.1.4.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.5.5.Final/897f6f115930b936287bef552bf5fe28cc64717d/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok-mapstruct-binding/0.2.0/2f1cf9ced7b720ba4996c942b816669e63f0fa4f/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
         <module name="app.security.main" />
@@ -20,6 +20,47 @@
         <module name="app.profile.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="app" target="21" />
+      <module name="app.aot" target="21" />
+      <module name="app.aotTest" target="21" />
+      <module name="app.finance" target="21" />
+      <module name="app.finance.aot" target="21" />
+      <module name="app.finance.aotTest" target="21" />
+      <module name="app.finance.main" target="21" />
+      <module name="app.finance.test" target="21" />
+      <module name="app.main" target="21" />
+      <module name="app.main.aot" target="21" />
+      <module name="app.main.aotTest" target="21" />
+      <module name="app.main.main" target="21" />
+      <module name="app.main.test" target="21" />
+      <module name="app.news" target="21" />
+      <module name="app.news.aot" target="21" />
+      <module name="app.news.aotTest" target="21" />
+      <module name="app.news.main" target="21" />
+      <module name="app.news.test" target="21" />
+      <module name="app.profile" target="21" />
+      <module name="app.profile.aot" target="21" />
+      <module name="app.profile.aotTest" target="21" />
+      <module name="app.profile.main" target="21" />
+      <module name="app.profile.test" target="21" />
+      <module name="app.security" target="21" />
+      <module name="app.security.aot" target="21" />
+      <module name="app.security.aotTest" target="21" />
+      <module name="app.security.main" target="21" />
+      <module name="app.security.test" target="21" />
+      <module name="app.test" target="21" />
+      <module name="app.utils" target="21" />
+      <module name="app.utils.aot" target="21" />
+      <module name="app.utils.aotTest" target="21" />
+      <module name="app.utils.main" target="21" />
+      <module name="app.utils.test" target="21" />
+      <module name="app.weather" target="21" />
+      <module name="app.weather.aot" target="21" />
+      <module name="app.weather.aotTest" target="21" />
+      <module name="app.weather.main" target="21" />
+      <module name="app.weather.test" target="21" />
+      <module name="mg_website.app.main" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,5 +1,5 @@
 FROM alpine:latest as jre-prepare-stage
-RUN apk add --update openjdk17-jre
+RUN apk add --update openjdk21-jre
 
 FROM jre-prepare-stage as build-stage
 COPY ./main/build/libs/main.jar app.jar
