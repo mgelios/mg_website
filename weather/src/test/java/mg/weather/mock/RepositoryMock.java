@@ -1,6 +1,7 @@
 package mg.weather.mock;
 
-import mg.utils.api.consumer.ApiConsumerRepository;
+import mg.weather.entity.OneCall;
+import mg.weather.repository.OneCallRepository;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -8,24 +9,10 @@ import java.util.List;
 
 public class RepositoryMock {
 
-    public static CurrentWeatherRepository getCurrentWeatherRepository() {
-        CurrentWeatherRepository repository = Mockito.spy(CurrentWeatherRepository.class);
-        List<CurrentWeather> repositoryData = new ArrayList<>();
-        CurrentWeather data = CurrentWeather.builder()
-                .cityName("defaultCity")
-                .build();
-        repositoryData.add(data);
+    public static OneCallRepository getOneCallRepository() {
+        OneCallRepository repository = Mockito.spy(OneCallRepository.class);
+        List<OneCall> repositoryData = new ArrayList<>();
         Mockito.when(repository.findAll()).thenReturn(repositoryData);
-        return repository;
-    }
-
-    public static ApiConsumerRepository getApiConsumerRepository() {
-        ApiConsumerRepository repository = Mockito.spy(ApiConsumerRepository.class);
-        return repository;
-    }
-
-    public static WeatherForecastRepository getWeatherForecastRepository() {
-        WeatherForecastRepository repository = Mockito.spy(WeatherForecastRepository.class);
         return repository;
     }
 }

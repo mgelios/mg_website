@@ -1,6 +1,7 @@
 package mg.weather.config;
 
 import mg.weather.mock.RepositoryMock;
+import mg.weather.repository.OneCallRepository;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -8,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 public class WeatherTestConfig {
 
     @Bean
-    public CurrentWeatherRepository currentWeatherRepository() {
-        return RepositoryMock.getCurrentWeatherRepository();
+    public OneCallRepository currentWeatherRepository() {
+        return RepositoryMock.getOneCallRepository();
     }
 
 }
