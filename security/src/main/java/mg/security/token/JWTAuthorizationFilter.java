@@ -41,8 +41,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         String jwtToken = request
                 .getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME)
                 .replace(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX, "");
-        return Jwts.parserBuilder()
-                .setSigningKey(JWTCommon.SIGNING_KEY.getBytes())
+        return Jwts.builder()
+                .signWith(JWTCommon.SIGNING_KEY.getBytes())
                 .build()
                 .parseClaimsJws(jwtToken).getBody();
     }
