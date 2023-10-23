@@ -44,7 +44,6 @@ public class JWTService {
     public String generateJWTToken(JWTLoginRequest loginRequest) {
         List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(loginRequest);
         if (grantedAuthorities != null) {
-            SecretKey secretKey = Keys.hmacShaKeyFor(JWTCommon.SIGNING_KEY.getBytes());
             String token = Jwts.builder()
                     .setId(JWT_ID)
                     .setSubject(loginRequest.getUsername())
@@ -53,7 +52,7 @@ public class JWTService {
                             .collect(Collectors.toList()))
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME_MILLIS))
-                    .signWith(secretKey)
+                    .signWith(JWTCommon.SIGNING_KEY)
                     .compact();
             return JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX + token;
         } else {

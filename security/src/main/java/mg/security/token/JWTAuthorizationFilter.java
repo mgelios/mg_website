@@ -41,10 +41,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         String jwtToken = request
                 .getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME)
                 .replace(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX, "");
-        return Jwts.builder()
-                .signWith(JWTCommon.SIGNING_KEY.getBytes())
+        return Jwts.parser()
+                .verifyWith(JWTCommon.SIGNING_KEY)
                 .build()
-                .parseClaimsJws(jwtToken).getBody();
+                .parseSignedClaims(jwtToken)
+                .getPayload();
     }
 
     private void setUpSpringAuthentication(Claims claims) {
