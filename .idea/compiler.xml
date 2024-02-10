@@ -13,6 +13,7 @@
         </processorPath>
         <module name="app.security.main" />
         <module name="app.main.main" />
+        <module name="app.external-api-cache.main" />
         <module name="app.utils.main" />
         <module name="app.finance.main" />
         <module name="app.news.main" />
@@ -20,47 +21,6 @@
         <module name="app.profile.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17">
-      <module name="app" target="21" />
-      <module name="app.aot" target="21" />
-      <module name="app.aotTest" target="21" />
-      <module name="app.finance" target="21" />
-      <module name="app.finance.aot" target="21" />
-      <module name="app.finance.aotTest" target="21" />
-      <module name="app.finance.main" target="21" />
-      <module name="app.finance.test" target="21" />
-      <module name="app.main" target="21" />
-      <module name="app.main.aot" target="21" />
-      <module name="app.main.aotTest" target="21" />
-      <module name="app.main.main" target="21" />
-      <module name="app.main.test" target="21" />
-      <module name="app.news" target="21" />
-      <module name="app.news.aot" target="21" />
-      <module name="app.news.aotTest" target="21" />
-      <module name="app.news.main" target="21" />
-      <module name="app.news.test" target="21" />
-      <module name="app.profile" target="21" />
-      <module name="app.profile.aot" target="21" />
-      <module name="app.profile.aotTest" target="21" />
-      <module name="app.profile.main" target="21" />
-      <module name="app.profile.test" target="21" />
-      <module name="app.security" target="21" />
-      <module name="app.security.aot" target="21" />
-      <module name="app.security.aotTest" target="21" />
-      <module name="app.security.main" target="21" />
-      <module name="app.security.test" target="21" />
-      <module name="app.test" target="21" />
-      <module name="app.utils" target="21" />
-      <module name="app.utils.aot" target="21" />
-      <module name="app.utils.aotTest" target="21" />
-      <module name="app.utils.main" target="21" />
-      <module name="app.utils.test" target="21" />
-      <module name="app.weather" target="21" />
-      <module name="app.weather.aot" target="21" />
-      <module name="app.weather.aotTest" target="21" />
-      <module name="app.weather.main" target="21" />
-      <module name="app.weather.test" target="21" />
-      <module name="mg_website.app.main" target="21" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="21" />
   </component>
 </project>

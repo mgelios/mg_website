@@ -1,0 +1,12 @@
+apply from: '../dependencies-spring.gradle'
+apply from: '../dependencies-datasource.gradle'
+apply from: '../dependencies-web.gradle'
+apply from: '../dependencies-utils.gradle'
+
+dependencies {
+    implementation project(":utils")
+}
+
+test {
+    useJUnitPlatform()
+}
