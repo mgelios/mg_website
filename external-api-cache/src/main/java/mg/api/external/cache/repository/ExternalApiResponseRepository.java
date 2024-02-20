@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface ExternalApiCacheRepository extends CrudRepository<ExternalApiResponse, UUID> {
+public interface ExternalApiResponseRepository extends CrudRepository<ExternalApiResponse, UUID> {
 }
