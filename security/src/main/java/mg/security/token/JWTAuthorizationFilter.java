@@ -20,13 +20,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            if (isJWTTokenPresent(request, response)) {
-                Claims claims = validateToken(request);
-                if (claims.get(JWTCommon.AUTHORITIES_CLAIM_NAME) != null) {
-                    setUpSpringAuthentication(claims);
-                } else {
-                    SecurityContextHolder.clearContext();
-                }
+            Claims claims = validateTokenAndProduceClaims(request);
+            if (claims != null && claims.get(JWTCommon.AUTHORITIES_CLAIM_NAME) != null) {
+                setUpSpringAuthentication(claims);
             } else {
                 SecurityContextHolder.clearContext();
             }
@@ -37,15 +33,18 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
     }
 
-    private Claims validateToken(HttpServletRequest request) {
-        String jwtToken = request
-                .getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME)
-                .replace(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX, "");
-        return Jwts.parser()
-                .verifyWith(JWTCommon.SIGNING_KEY)
-                .build()
-                .parseSignedClaims(jwtToken)
-                .getPayload();
+    private Claims validateTokenAndProduceClaims(HttpServletRequest request) {
+        if (isJWTTokenPresent(request)) {
+            String jwtToken = request
+                    .getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME)
+                    .replace(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX, "");
+            return Jwts.parser()
+                    .verifyWith(JWTCommon.SIGNING_KEY)
+                    .build()
+                    .parseSignedClaims(jwtToken)
+                    .getPayload();
+        }
+        return null;
     }
 
     private void setUpSpringAuthentication(Claims claims) {
@@ -61,7 +60,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
-    private boolean isJWTTokenPresent(HttpServletRequest request, HttpServletResponse response) {
+    private boolean isJWTTokenPresent(HttpServletRequest request) {
         String authenticationHeader = request.getHeader(JWTCommon.AUTH_HTTP_HEADER_NAME);
         return authenticationHeader != null && authenticationHeader.startsWith(JWTCommon.AUTH_HTTP_HEADER_CONTENT_PREFIX);
     }
