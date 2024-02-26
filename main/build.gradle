@@ -11,7 +11,7 @@ dependencies {
     implementation project(':weather')
     implementation project(':finance')
     implementation project(':news')
-    implementation project(':external-api-cache')
+    implementation project(':external-api')
 }
 
 

@@ -8,7 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/external-api-cache" />
+            <option value="$PROJECT_DIR$/external-api" />
             <option value="$PROJECT_DIR$/finance" />
             <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/news" />
