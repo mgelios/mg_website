@@ -1,4 +1,4 @@
-package mg.api.external.consumer;
+package mg.api.external.entity;
 
 public enum ApiConsumerAuthType {
 

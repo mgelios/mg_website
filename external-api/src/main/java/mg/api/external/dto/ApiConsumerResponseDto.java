@@ -1,4 +1,4 @@
-package mg.api.external.consumer.dto;
+package mg.api.external.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package mg.api.external.consumer;
+package mg.api.external.entity;
 
 import lombok.Getter;
 import lombok.Setter;

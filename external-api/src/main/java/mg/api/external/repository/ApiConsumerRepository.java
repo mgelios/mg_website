@@ -1,5 +1,6 @@
-package mg.api.external.consumer;
+package mg.api.external.repository;
 
+import mg.api.external.entity.ApiConsumer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

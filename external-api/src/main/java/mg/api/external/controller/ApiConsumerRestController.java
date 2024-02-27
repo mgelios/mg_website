@@ -1,10 +1,12 @@
-package mg.api.external.consumer;
+package mg.api.external.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mg.api.external.consumer.dto.ApiConsumerCreationRequestDto;
-import mg.api.external.consumer.dto.ApiConsumerResponseDto;
-import mg.api.external.consumer.dto.ApiConsumerUpdateRequestDto;
+import mg.api.external.dto.ApiConsumerCreationRequestDto;
+import mg.api.external.dto.ApiConsumerResponseDto;
+import mg.api.external.dto.ApiConsumerUpdateRequestDto;
+import mg.api.external.mapper.ApiConsumerMapper;
+import mg.api.external.service.ApiConsumerService;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;

@@ -1,9 +1,13 @@
-package mg.api.external.consumer;
+package mg.api.external.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mg.api.external.consumer.dto.ApiConsumerCreationRequestDto;
-import mg.api.external.consumer.dto.ApiConsumerUpdateRequestDto;
+import mg.api.external.entity.ApiConsumer;
+import mg.api.external.entity.ApiConsumerAuthType;
+import mg.api.external.repository.ApiConsumerRepository;
+import mg.api.external.dto.ApiConsumerCreationRequestDto;
+import mg.api.external.dto.ApiConsumerUpdateRequestDto;
+import mg.api.external.mapper.ApiConsumerMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
