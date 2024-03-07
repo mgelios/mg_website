@@ -25,3 +25,6 @@ services:
         ports:
             - "13000:3000"
 
+#TODO
+# redis
+# kafka
