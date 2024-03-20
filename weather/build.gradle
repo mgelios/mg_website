@@ -5,8 +5,10 @@ apply from: '../dependencies-utils.gradle'
 
 dependencies {
     implementation project(":utils")
+    implementation project(":external-api")
 }
 
 test {
     useJUnitPlatform()
+    include '**/*Pdf'
 }

@@ -1,8 +1,8 @@
 package mg.weather.service;
 
 import lombok.AllArgsConstructor;
-import mg.utils.api.consumer.ApiConsumerAuthType;
-import mg.utils.api.consumer.ApiConsumerService;
+import mg.api.external.entity.ApiConsumerAuthType;
+import mg.api.external.service.ApiConsumerService;
 import mg.weather.WeatherConfiguration;
 import mg.weather.dto.openweather.GeocodingInfoDto;
 import mg.weather.dto.openweather.OneCallDto;

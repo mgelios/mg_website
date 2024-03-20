@@ -1,0 +1,3 @@
+mg:
+  weather:
+    apiClientName: "OPEN_WEATHER_MAP"

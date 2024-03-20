@@ -2,7 +2,7 @@ apply plugin: 'java-library'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'org.graalvm.buildtools.native'
+//apply plugin: 'org.graalvm.buildtools.native'
 
 
 repositories {
@@ -27,8 +27,9 @@ dependencies {
     implementation('org.yaml:snakeyaml:2.2')
     implementation('com.vladsch.flexmark:flexmark-all:0.64.8')
 
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.10.0')
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.10.0')
+//    testImplementation('org.junit.jupiter:junit-jupiter:5.10.2')
+//    testImplementation('org.junit.jupiter:junit-jupiter-api:5.10.2')
+//    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.10.2')
     testImplementation('org.mockito:mockito-core:5.6.0')
     testImplementation('com.github.tomakehurst:wiremock:3.0.1')
 }

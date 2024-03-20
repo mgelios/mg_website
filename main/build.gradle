@@ -5,32 +5,31 @@ apply from: '../dependencies-utils.gradle'
 
 dependencies {
     implementation project(':utils')
+    implementation project(':external-api')
     implementation project(':profile')
     implementation project(':security')
 
     implementation project(':weather')
-    implementation project(':finance')
     implementation project(':news')
-    implementation project(':external-api')
 }
 
 
 
-graalvmNative {
-    metadataRepository {
-        enabled = true
-    }
-    binaries {
-        main {
-            javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(21)
-//                vendor = JvmVendorSpec.matching("GraalVM Community")
-            }
-            mainClass = 'mg.Application'
-            debug = false // Determines if debug info should be generated, defaults to false
-            verbose = false // Add verbose output, defaults to false
-            fallback = false // Sets the fallback mode of native-image, defaults to false
-            sharedLibrary = false
-        }
-    }
-}
+//graalvmNative {
+//    metadataRepository {
+//        enabled = true
+//    }
+//    binaries {
+//        main {
+//            javaLauncher = javaToolchains.launcherFor {
+//                languageVersion = JavaLanguageVersion.of(21)
+////                vendor = JvmVendorSpec.matching("GraalVM Community")
+//            }
+//            mainClass = 'mg.Application'
+//            debug = false // Determines if debug info should be generated, defaults to false
+//            verbose = false // Add verbose output, defaults to false
+//            fallback = false // Sets the fallback mode of native-image, defaults to false
+//            sharedLibrary = false
+//        }
+//    }
+//}
