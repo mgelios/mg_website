@@ -2638,9 +2638,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.1.9":
-  version: 3.2.7
-  resolution: "vite@npm:3.2.7"
+"vite@npm:^3.2.11":
+  version: 3.2.11
+  resolution: "vite@npm:3.2.11"
   dependencies:
     esbuild: ^0.15.9
     fsevents: ~2.3.2
@@ -2672,7 +2672,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 4c5883b721b6ec406419e61d0b3fae8528e80f8c2eb20c087c7b1b76daec3665a0a49c83cd8ac7fdda6089625094b70c6a132daa5edc650c515ddc9f5eed44f0
+  checksum: ed548985faef2dfd3c2fa9cf9c70c5369a4f68aa054605a9d2c1783780df7a7e63adcb96af86e14c6c83c66d2db0f64ec05d5ea1d6b9aebce66a479d050bb7d5
   languageName: node
   linkType: hard
 
@@ -2742,7 +2742,7 @@ __metadata:
     marked: ^4.2.12
     roboto-fontface: "*"
     sass: ^1.55.0
-    vite: ^3.1.9
+    vite: ^3.2.11
     vite-plugin-vuetify: ^1.0.0-alpha.12
     vue: ^3.2.13
     vue-chartjs: ^5.2.0
