@@ -1,9 +1,10 @@
-FROM alpine:latest as yarn-prepare-stage
-RUN apk add --update nodejs npm yarn
+FROM jitesoft/node-yarn AS yarn-prepare-stage
+RUN corepack enable
 
 FROM yarn-prepare-stage as build-stage
 WORKDIR /app
 COPY package*.json ./
+RUN corepack enable
 RUN yarn install
 COPY . .
 RUN yarn build

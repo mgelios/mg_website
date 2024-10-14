@@ -40,6 +40,9 @@ services:
       - "80:80"
     networks:
       - mg_net
+    volumes:
+      - /etc/letsencrypt/live/mgelios.com/fullchain.pem:/etc/letsencrypt/live/mgelios.com/fullchain.pem
+      - /etc/letsencrypt/live/mgelios.com/privkey.pem:/etc/letsencrypt/live/mgelios.com/privkey.pem
 networks:
   mg_net:
     driver: bridge
